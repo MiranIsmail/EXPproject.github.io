@@ -13,6 +13,7 @@ QA: Tobias
 Lead developer: Omar
 System Architect: Nicholas
 /////////////////////////////////////////
+(Krävs BTH mail för access)
 
 Figma board (WBS, SWOT, Mål)
 https://www.figma.com/team_invite/redeem/ZtATZa4RdtzoA3kks0D6qI
