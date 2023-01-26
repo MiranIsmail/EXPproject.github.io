@@ -13,3 +13,12 @@ QA: Tobias
 Lead developer: Omar
 System Architect: Nicholas
 /////////////////////////////////////////
+
+Figma board (WBS, SWOT, Mål)
+https://www.figma.com/team_invite/redeem/ZtATZa4RdtzoA3kks0D6qI
+
+Tids-schema:
+https://studentbth-my.sharepoint.com/:x:/g/personal/tomt21_student_bth_se/ESPOVr_89jFPv6OK0FmCw4IBF8qdS4kMyIyUzwtURFOLjg?e=1w52nW
+
+Mini Risk Analys:
+https://studentbth-my.sharepoint.com/:x:/g/personal/tomt21_student_bth_se/EQayjbdRn6RMpdGJ1gWwo10BU_gXpgaJCrD3AFAbXMGgmw?e=wCvesG
