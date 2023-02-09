@@ -28,6 +28,22 @@ begin
 		eventId int not null auto_increment,
         chipId int not null,
         primary key (eventId,chipId));
+        
+	Create table Track(
+		trackId int primary key not null auto_increment,
+        trackName varchar(255) not null,
+        startStation int not null,
+        endStation int not null
+    );
+    
+    Create table Checkpoint(
+		stationId int primary key not null,
+        previousId int not null,
+        previousDistance int not null,
+        section varchar(255) not null,
+        trackId int not null,
+        foreign key (trackId) references Track(trackId)
+    );
     
 	Create table Competition(
 		eventId int primary key not null auto_increment,
@@ -57,6 +73,7 @@ begin
         foreign key (eventId) References Competition(eventId)
     );
 	
+    
         
 
 end; // DELIMITER ;
