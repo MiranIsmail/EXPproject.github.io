@@ -13,35 +13,34 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-30">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Logo</a>
+            <a class="navbar-brand" href="#"><img class="w-50" src="images/logoboll.svg"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link" href="#" id="navtext">EVENT</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link" href="#" id="navtext">PROFIL</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link" href="#" id="navtext">LOG IN</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-
-    <!--Write code here-->
-    <center><img class="w-25 mx-auto d-block op" src="images/logo_black.svg" id="logo"></center>
-        <img class="w-100 op" src="images/indeximage_short.png" id="image_run">
-
-    <div class="events_atm w-100">
-        <div class="wrapper">
+     <!--run bar-->
+    <center><img class="w-25 mx-auto d-block op30 drop_shadow" src="images/rast_black.svg" id="logo"></center>
+    <div>
+        <img class="w-100 op30" src="images/indeximage_thinner.png" id="image_run">
+        <div class="bg-30" style="padding-bottom: 4rem;">
+        <div class="wrapper drop_shadow">
             <div class="searchBar">
               <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="Search" value="" />
               <button id="searchQuerySubmit" type="submit" name="searchQuerySubmit">
@@ -49,13 +48,58 @@
                 </svg>
               </button>
             </div>
-          </div>
+        </div>
+        </div>
     </div>
 
+     <!--Temporary events-->
+    <div class="events w-100" >
 
+            <div class="card mb-3 mx-auto" id="eventCards">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img src="images/eventimg/otillo.jpg" class="img-fluid rounded-start" alt="...">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h3 class="card-title">ÖTILLÖ SWIMRUN UTÖ</h3>
+                      <h5 class="card-text">17 JUNI 2023</h5>
+                      <p class="card-text">New race courses since 2022. Utö is where the whole swimrun movement started and where the late night bet which became ÖTILLÖ was made. It is an island in the southern part of the Stockholm archipelago almost 90 minutes from Stockholm. This is Swimrun heaven!</p>
+                    </div>
+                  </div>
+                </div>
+            </div>
 
+            <div class="card mb-3 mx-auto" id="eventCards">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img src="images/eventimg/kalmar.jpg" class="img-fluid rounded-start" alt="...">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h3 class="card-title">KALMAR SWIMRUN SLOTTSRACET</h3>
+                      <h5 class="card-text">11 JULI 2023</h5>
+                      <p class="card-text">New race courses since 2022. Utö is where the whole swimrun movement started and where the late night bet which became ÖTILLÖ was made. It is an island in the southern part of the Stockholm archipelago almost 90 minutes from Stockholm. This is Swimrun heaven!</p>
+                    </div>
+                  </div>
+                </div>
+            </div>
 
-
+            <div class="card mb-3 mx-auto" id="eventCards">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img src="images/eventimg/borg.jpg" class="img-fluid rounded-start" alt="...">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h3 class="card-title">KARLSKRONA RUNT</h3>
+                      <h5 class="card-text">23 AUGUSTI 2023</h5>
+                      <p class="card-text">New race courses since 2022. Utö is where the whole swimrun movement started and where the late night bet which became ÖTILLÖ was made. It is an island in the southern part of the Stockholm archipelago almost 90 minutes from Stockholm. This is Swimrun heaven!</p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+    </div>
 </body>
 
 </html>

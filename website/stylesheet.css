@@ -2,19 +2,35 @@ body {
     background-color: #B7E3FF;
 }
 
-.op {
+.op30 {
     opacity: 30%;
+}
+
+.bg-30 {
+    background-color: #0000004D;
+}
+
+.drop_shadow{
+    filter: drop-shadow(10px 10px 4px rgba(0, 0, 0, 0.25));
 }
 
 #image_run{
     display: block;
 }
 
+#search{
+    margin-bottom: 2rem;
+}
+
+#navtext{
+    font-size: 1.3rem;
+    font-weight: bold;
+}
 /*searchbar*/
 .wrapper {
     width: 90%;
     max-width: 31.25rem;
-    margin: 1rem auto;
+    margin: 0rem auto;
   }
 
   .searchBar {
@@ -26,7 +42,7 @@ body {
 
   #searchQueryInput {
     width: 100%;
-    height: 2.8rem;
+    height: 3rem;
     background: #f5f5f5;
     outline: none;
     border: none;
@@ -37,7 +53,7 @@ body {
 
   #searchQuerySubmit {
     width: 3.5rem;
-    height: 2.8rem;
+    height: 3rem;
     margin-left: -3.5rem;
     background: none;
     border: none;
@@ -49,7 +65,13 @@ body {
   }
 
 /*Events_atm*/
-.events_atm {
-    margin: 0;
-    background-color: #00000030;
+.events{
+    background-color: #0000004D;
+    width: 100%;
+
+}
+
+#eventCards{
+    width: 80%;
+
 }

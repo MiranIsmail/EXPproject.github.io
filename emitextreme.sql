@@ -13,9 +13,9 @@ begin
 		height int,
 		weight int,
 		age int,
-		equipment varchar(255)
-		);
-	
+		equipment varchar(255),
+        password varchar(255) not null);
+
     Create table Chip(
 		chipId int Primary key not null,
         teamName varchar(255) not null,
@@ -23,14 +23,14 @@ begin
         mail2 varchar(255),
         foreign key (mail1) References Users(mail),
         foreign key (mail2) References Users(mail));
-        
+
 	Create table Track(
 		trackId int primary key not null auto_increment,
         trackName varchar(255) not null,
         startStation int not null,
         endStation int not null
     );
-    
+
     Create table Checkpoint(
 		stationId int primary key not null,
         previousId int not null,
@@ -39,11 +39,11 @@ begin
         trackId int not null,
         foreign key (trackId) references Track(trackId)
     );
-    
+
 	Create table Competition(
 		eventId int primary key not null auto_increment,
         eventName varchar(255) not null,
-		trackId int not null, 
+		trackId int not null,
 		hostMail varchar(255) not null,
         hostOrganization varchar(255) not null,
 		sport varchar(255) not null,
@@ -55,7 +55,7 @@ begin
         foreign key (trackId) References Track(trackId),
         foreign key (hostMail) References Users(mail)
     );
-    
+
     Create table Registration(
 		eventId int not null auto_increment,
         chipId int not null,
@@ -63,7 +63,7 @@ begin
         foreign key (eventId) references Competition(eventId),
         foreign key (chipId) references Chip(chipId)
         );
-    
+
     Create table Result(
 		trackTime varchar(255) not null,
         participant1 varchar(255) not null,
@@ -75,7 +75,7 @@ begin
         foreign key (participant1) References Users(mail),
         foreign key (participant2) References Users(mail)
     );
-	
+
 end; // DELIMITER ;
 
 DELIMITER //
@@ -117,5 +117,4 @@ select * from Checkpoint;
 select * from Result;
 
 show tables;
-    
-    
+
