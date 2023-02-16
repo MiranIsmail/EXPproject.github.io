@@ -10,6 +10,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="stylesheet.css">
     <script type="text/javascript" src="javascripts.js"></script>
+    <script src="assets/navbar.js" type="text/javascript" defer></script>
+    <script src="assets/footer.js" type="text/javascript" defer></script>
 </head>
 
 <style>
@@ -25,37 +27,16 @@
     }
 </style>
 
+<exp-navbar></exp-navbar>
 <body>
-
-
-  <!--Navbar-->
-<nav class="navbar navbar-expand-sm navbar-dark bg-30">
-  <div class="container-fluid">
-      <a class="navbar-brand" href="index.html"><img class="w-50" src="images/logoboll.svg"></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
-          <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="collapsibleNavbar">
-          <ul class="navbar-nav ms-auto">
-              <li class="nav-item">
-                  <a class="nav-link" href="event.html" id="navtext">EVENT</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="profile.html" id="navtext">PROFIL</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="#" id="navtext">LOG IN</a>
-              </li>
-          </ul>
-      </div>
+  <div id="container-img">
+    <img src="images\noprofilepic.png" class="img-fluid mx-auto d-block op30" alt="Profile Picture">
+    <h1 class="text-center" style="padding: 1rem; text-decoration: underline;">ProfileName</h1>
   </div>
-</nav>
-<!--Navbar-->
+    <hr id="devider" class="mx-auto"/>
+    <h2 class="text-center">Previous Events</h2>
 
 
-    <h1 style="margin-left: 10px; margin-top: 10px;">ProfileName</h1>
-    <img src="images\noprofilepic.png" class="img-fluid" alt="Profile Picture">
-    <h2 style="margin-left: 10px; margin-top: 10px;">Events</h2>
     <div class="sort_by" style="margin-left: 10px;">
         <select class="form-select" aria-label="Default select example" style="width: 150px;">
             <option selected>Sort by</option>
@@ -64,7 +45,8 @@
             <option value="3">Location</option>
         </select>
     </div>
-    <table class="table table-striped" style="background-color: white;">
+
+    <table class="table table-striped table-dark mx-auto" id="profile-table">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -105,26 +87,10 @@
           </tr>
         </tbody>
       </table>
-      <img class="w-100 op" src="images/indeximage_short.png" id="image_run">
 
+      <img class="w-100 op30" style="padding-top:2rem;" src="images/indeximage_short.png" id="image_run">
+      <div id="fade-to-footer"></div>
 
-      <!--Footer-->
-    <footer class="container-fluid w-100" id="footer-container">
-      <div class="container">
-        <div class="row">
-          <div class="col" id="footer-items">
-            Event
-          </div>
-          <div class="col" id="footer-items">
-            Log In
-          </div>
-          <div class="col" id="footer-items">
-            Profil
-          </div>
-        </div>
-      </div>
-    </footer>
-    <!--Footer-->
 </body>
-
+<exp-footer></exp-footer>
 </html>
