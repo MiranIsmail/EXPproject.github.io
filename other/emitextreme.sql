@@ -7,8 +7,8 @@ begin
 	Create table Users(
 		mail varchar(255) Primary Key not null,
 		token varchar(255),
-		firstName varchar(255) not null,
-		lastName varchar(255) not null,
+		first_name varchar(255) not null,
+		last_name varchar(255) not null,
 		organization varchar(255),
 		height int,
 		weight int,
@@ -17,62 +17,61 @@ begin
         password varchar(255) not null);
 
     Create table Chip(
-		chipId int Primary key not null,
-        teamName varchar(255) not null,
+		chip_id int Primary key not null,
+        team_name varchar(255) not null,
         mail1 varchar(255) not null,
         mail2 varchar(255),
         foreign key (mail1) References Users(mail),
         foreign key (mail2) References Users(mail));
 
 	Create table Track(
-		trackId int primary key not null auto_increment,
-        track_name varchar(255),
-        place varchar(255) not null, 
-        startStation int not null,
-        endStation int not null
+		track_id int primary key not null auto_increment,
+        track_name varchar(255) not null,
+        start_station int not null,
+        end_station int not null
     );
 
     Create table Checkpoint(
-		stationId int primary key not null,
-        previousId int not null,
-        previousDistance int not null,
+		station_id int primary key not null,
+        previouse_id int not null,
+        previouse_distance int not null,
         section varchar(255) not null,
-        trackId int not null,
-        foreign key (trackId) references Track(trackId)
+        track_id int not null,
+        foreign key (track_id) references Track(track_id)
     );
 
 	Create table Competition(
-		eventId int primary key not null auto_increment,
-        eventName varchar(255) not null,
-		trackId int not null,
-		hostMail varchar(255) not null,
-        hostOrganization varchar(255) not null,
+		event_id int primary key not null auto_increment,
+        event_name varchar(255) not null,
+		track_id int not null,
+		host_mail varchar(255) not null,
+        host_organization varchar(255) not null,
 		sport varchar(255) not null,
-        startDate date not null,
-        endDate date not null,
-        moduleId int not null,
-        openForEntry bool not null default 0,
-        publicView bool not null default 0,
-        foreign key (trackId) References Track(trackId),
-        foreign key (hostMail) References Users(mail)
+        start_date date not null,
+        end_date date not null,
+        module_id int not null,
+        open_for_entry bool not null default 0,
+        public_view bool not null default 0,
+        foreign key (track_id) References Track(track_id),
+        foreign key (host_mail) References Users(mail)
     );
 
     Create table Registration(
-		eventId int not null auto_increment,
-        chipId int not null,
-        primary key (eventId,chipId),
-        foreign key (eventId) references Competition(eventId),
-        foreign key (chipId) references Chip(chipId)
+		event_id int not null auto_increment,
+        chip_id int not null,
+        primary key (event_id,chip_id),
+        foreign key (event_id) references Competition(event_id),
+        foreign key (chip_id) references Chip(chip_id)
         );
 
     Create table Result(
-		trackTime varchar(255) not null,
+		track_time varchar(255) not null,
         participant1 varchar(255) not null,
         participant2 varchar(255),
-        eventId int not null,
-        currentTime DATETIME,
-        primary key (participant1,currentTime),
-        foreign key (eventId) references Competition(eventId),
+        event_id int not null,
+        current_time DATETIME,
+        primary key (participant1,current_time),
+        foreign key (event_id) references Competition(event_id),
         foreign key (participant1) References Users(mail),
         foreign key (participant2) References Users(mail)
     );
@@ -116,6 +115,7 @@ select * from Registration;
 select * from Track;
 select * from Checkpoint;
 select * from Result;
-
+insert into Users  values ("Amin@afzali.com","dsfsagsrg","Amin","Afzali",null,172,45,10,"d","password");
+insert into Users (`first_name`,`last_name`,`mail`,`password`) values ("f","l","m","p");
 show tables;
 
