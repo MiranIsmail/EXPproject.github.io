@@ -22,10 +22,6 @@ body {
   background: linear-gradient(#0000004d 0%, #00000080 80%);
 }
 
-#navtext{
-    font-size: 1.3rem;
-    font-weight: bold;
-}
 /*searchbar*/
 .wrapper {
     width: 90%;
@@ -67,12 +63,35 @@ body {
 /*Events_atm*/
 .events{
     /*background-color: #0000004D;*/
-    background: linear-gradient(#00000080 0%, #00000099 90%);
+    background: linear-gradient(#00000080 0%, #00000099 97%, #000000cc 100%);
     width: 100%;
+    padding-bottom: 4rem;
 
 }
 
 #eventCards{
     width: 80%;
 
+}
+
+
+
+/*EVENT WEBSITE*/
+
+#container-img{
+  padding-top:4rem;
+  padding-bottom: 2rem;
+}
+
+#devider{
+  width: 85%;
+}
+
+#profile-table{
+  width: 85%;
+}
+
+#fade-to-footer{
+  background: linear-gradient(#0000004d 0%,#0000004d 10%, #000000cc 100%);
+  height: 2rem;
 }

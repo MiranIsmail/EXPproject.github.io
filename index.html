@@ -10,39 +10,18 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="stylesheet.css">
     <script type="text/javascript" src="javascripts.js"></script>
+    <script src="assets/navbar.js" type="text/javascript" defer></script>
+    <script src="assets/footer.js" type="text/javascript" defer></script>
 </head>
 
+<exp-navbar></exp-navbar>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-dark bg-30">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#"><img class="w-50" src="images/logoboll.svg"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" id="navtext">EVENT</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" id="navtext">PROFIL</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" id="navtext">LOG IN</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#" id="navtext">SKAPA KONTO</a>
-                  </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 
      <!--run bar-->
-    <center><img class="w-25 mx-auto d-block op30 drop_shadow" src="images/rast_black.svg" id="logo"></center>
+    <center><img class="w-25 mx-auto d-block drop_shadow" src="images/rast_black.svg" id="logo"></center>
     <div>
         <img class="w-100 op30" src="images/indeximage_thinner.png" id="image_run">
-        <div class="bg-30" style="padding-bottom: 4rem;">
+        <div style="padding-bottom: 4rem;" id="searchFade">
         <div class="wrapper drop_shadow">
             <div class="searchBar">
               <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="Search" value="" />
@@ -56,7 +35,7 @@
     </div>
 
      <!--Temporary events-->
-    <div class="events w-100" >
+    <div class="events section w-100" >
 
             <div class="card mb-3 mx-auto drop_shadow" id="eventCards">
                 <div class="row g-0">
@@ -103,4 +82,10 @@
                 </div>
             </div>
     </div>
+
+    <!--Footer-->
+
 </body>
+<exp-footer></exp-footer>
+
+</html>

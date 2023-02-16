@@ -1,0 +1,128 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.container1{
+    height: 100vh;
+    width: 100%;
+    background: url(images/indeximage_short.png), #B7E3FF;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-blend-mode: luminosity;
+}
+
+.form-box{
+    width: 90%;
+    max-width: 450px;
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(#0000004d 0%, #00000080 80%);
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.form-box h1{
+    font-style: bold;
+    font-size: 60px;
+    margin-bottom: 60px;
+    color: #B7E3FF;
+    position: relative;
+}
+
+.input-group{
+   justify-content: center;
+   
+}
+
+.input-field_name{
+    background-color: #eaeaea;
+    margin: 3% 0;
+    display: flex;
+    align-items: center;
+}
+
+.input-field_email{
+    background-color: #eaeaea;
+    margin: 3% 0;
+    display: flex;
+    align-items: center;
+}
+
+.input-field_pass{
+    background-color: #eaeaea;
+    margin: 3% 0;
+    display: flex;
+    align-items: center;
+}
+
+.input-field_ConPass{
+    background-color: #eaeaea;
+    margin: 3% 0;
+    display: flex;
+    align-items: center;
+}
+
+input {
+    background: transparent;
+    border: 0;
+    outline: 0;
+    padding: 15px 10px;
+}
+
+i{
+    color: black;
+    align-items: flex-start;
+    margin-left: 2%;
+}
+
+.btn-field{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 25%;
+}
+
+.btn-field button{
+    flex-basis: 48%;
+    background: #B7E3FF;
+    color: #fff;
+    height: 40px;
+    border-radius: 20px;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    transition: background 1s;
+}
+
+.btn-field button:hover{
+    background: black;
+}
+
+    /*Navbar*/
+#navtext{
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+#navtext:hover{
+    color: #fff;
+}
+/*Navbar*/
+
+/*Footer*/
+#footer-container{
+     background:#000000cc;;
+}
+
+#footer-items{
+    padding: 1rem;
+    text-decoration: none;
+     color: white;
+     font-size: 20px;
+    display: flex;
+    justify-content: center;
+}
+/*Footer*/
