@@ -26,6 +26,7 @@ begin
 
 	Create table Track(
 		trackId int primary key not null auto_increment,
+        place varchar(255) not null, 
         trackName varchar(255) not null,
         startStation int not null,
         endStation int not null
