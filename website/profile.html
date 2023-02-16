@@ -12,4 +12,75 @@
     <script type="text/javascript" src="javascripts.js"></script>
 </head>
 
+<style>
+    .profilepic {
+        opacity: 100%;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+    }
+
+    .profilepic:hover {
+        opacity: 50%;
+    }
+
+
+</style>
+
 <body>
+    <h1 style="margin-left: 10px; margin-top: 10px;">ProfileName</h1>
+    <img class="profilepic" src="images/noprofilepic.png" style="width: 250px; height: 250px; border-radius: 50%; margin-left: 10px; margin-top: 10px;">
+    <h2 style="margin-left: 10px; margin-top: 10px;">Events</h2>
+    <div class="sort_by" style="margin-left: 10px;">
+        <select class="form-select" aria-label="Default select example" style="width: 150px;">
+            <option selected>Sort by</option>
+            <option value="1">Date</option>
+            <option value="2">Name</option>
+            <option value="3">Location</option>
+        </select>
+    </div>
+    <table class="table table-striped" style="background-color: white;">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th score="col">name</th>
+            <th scope="col">time</th>
+            <th scope="col">date</th>
+            <th scope="col">location</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+            <td>@mdo</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+            <td>@mdo</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Larry</td>
+            <td>the Bird</td>
+            <td>@twitter</td>
+            <td>@mdo</td>
+          </tr>
+          <tr>
+            <th scope="row">4</th>
+            <td>Larry</td>
+            <td>the Bird</td>
+            <td>@twitter</td>
+            <td>@mdo</td>
+          </tr>
+        </tbody>
+      </table>
+      <img class="w-100 op" src="images/indeximage_short.png" id="image_run">
+</body>
+
+</html>
