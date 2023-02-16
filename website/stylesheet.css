@@ -26,10 +26,10 @@ body {
     font-size: 1.3rem;
     font-weight: bold;
 }
+
 #navtext:hover{
   color: #fff;
 }
-
 /*searchbar*/
 .wrapper {
     width: 90%;
@@ -79,13 +79,4 @@ body {
 #eventCards{
     width: 80%;
 
-}
-
-.container-footer{
-  background: linear-gradient(#00000099 0%, #000000b3 90%);
-}
-
-#footer_css{
-  margin-top: 0px;
-  padding: 0px;
 }
