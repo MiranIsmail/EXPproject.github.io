@@ -24,7 +24,7 @@
         <div style="padding-bottom: 4rem;" id="searchFade">
         <div class="wrapper drop_shadow">
             <div class="searchBar">
-              <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="Search" value="" />
+              <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="Search" value="" onkeyup="search_event()"/>
               <button id="searchQuerySubmit" type="submit" name="searchQuerySubmit">
                 <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#666666" d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
                 </svg>
@@ -37,7 +37,7 @@
      <!--Temporary events-->
     <div class="events section w-100" >
 
-            <div class="card mb-3 mx-auto drop_shadow" id="eventCards">
+            <div class="card mb-3 mx-auto drop_shadow eventCards" style="list-style: none;">
                 <div class="row g-0">
                   <div class="col-md-4">
                     <img src="images/eventimg/otillo.jpg" class="img-fluid rounded-start" alt="...">
@@ -52,7 +52,7 @@
                 </div>
             </div>
 
-            <div class="card mb-3 mx-auto drop_shadow" id="eventCards">
+            <div class="card mb-3 mx-auto drop_shadow eventCards" style="list-style: none;">
                 <div class="row g-0">
                   <div class="col-md-4">
                     <img src="images/eventimg/kalmar.jpg" class="img-fluid rounded-start" alt="...">
@@ -67,7 +67,7 @@
                 </div>
             </div>
 
-            <div class="card mb-3 mx-auto drop_shadow" id="eventCards">
+            <div class="card mb-3 mx-auto drop_shadow eventCards" style="list-style: none;">
                 <div class="row g-0">
                   <div class="col-md-4">
                     <img src="images/eventimg/borg.jpg" class="img-fluid rounded-start" alt="...">
@@ -81,6 +81,36 @@
                   </div>
                 </div>
             </div>
+
+            <div class="card mb-3 mx-auto drop_shadow eventCards" style="list-style: none;">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <img src="images/eventimg/oresund.jpg" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h3 class="card-title">ÖVER BRON MALMÖ</h3>
+                    <h5 class="card-text">23 AUGUSTI 2023</h5>
+                    <p class="card-text">New race courses since 2022. Utö is where the whole swimrun movement started and where the late night bet which became ÖTILLÖ was made. It is an island in the southern part of the Stockholm archipelago almost 90 minutes from Stockholm. This is Swimrun heaven!</p>
+                  </div>
+                </div>
+              </div>
+          </div>
+
+          <div class="card mb-3 mx-auto drop_shadow eventCards" style="list-style: none;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="images/eventimg/ronneby.jpg" class="img-fluid rounded-start" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h3 class="card-title">KARLSKRONA TILL RONNEBY</h3>
+                  <h5 class="card-text">23 AUGUSTI 2023</h5>
+                  <p class="card-text">New race courses since 2022. Utö is where the whole swimrun movement started and where the late night bet which became ÖTILLÖ was made. It is an island in the southern part of the Stockholm archipelago almost 90 minutes from Stockholm. This is Swimrun heaven!</p>
+                </div>
+              </div>
+            </div>
+        </div>
     </div>
 
     <!--Footer-->

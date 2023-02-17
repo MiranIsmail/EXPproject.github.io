@@ -25,13 +25,13 @@ class Header extends HTMLElement {
       <div class="container">
         <div class="row">
           <div class="col" id="footer-items">
-            Event
+          <a style="text-decoration: none; color:white;" href="event.html">Event</a>
           </div>
           <div class="col" id="footer-items">
-            Log In
+          <a style="text-decoration: none; color:white;" href="login.html">Log In</a>
           </div>
           <div class="col" id="footer-items">
-            Profil
+            <a style="text-decoration: none; color:white;" href="profile.html">Profil</a>
           </div>
         </div>
       </div>
