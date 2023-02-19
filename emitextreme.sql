@@ -5,7 +5,7 @@ DELIMITER //
 create procedure create_all()
 begin
 	Create table Users(
-		mail varchar(255) Primary Key not null,
+		email varchar(255) Primary Key not null,
 		token varchar(255) unique,
 		first_name varchar(255) not null,
 		last_name varchar(255) not null,
@@ -19,10 +19,10 @@ begin
     Create table Chip(
 		chip_id int Primary key not null,
         team_name varchar(255) not null,
-        mail1 varchar(255) not null,
-        mail2 varchar(255),
-        foreign key (mail1) References Users(mail),
-        foreign key (mail2) References Users(mail));
+        email1 varchar(255) not null,
+        email2 varchar(255),
+        foreign key (email1) References Users(email),
+        foreign key (email2) References Users(email));
 
 	Create table Track(
 		track_id int primary key not null auto_increment,
@@ -44,7 +44,7 @@ begin
 		event_id int primary key not null auto_increment,
         event_name varchar(255) not null,
 		track_id int not null,
-		host_mail varchar(255) not null,
+		host_email varchar(255) not null,
         host_organization varchar(255) not null,
 		sport varchar(255) not null,
         start_date date not null,
@@ -53,7 +53,7 @@ begin
         open_for_entry bool not null default 0,
         public_view bool not null default 0,
         foreign key (track_id) References Track(track_id),
-        foreign key (host_mail) References Users(mail)
+        foreign key (host_email) References Users(email)
     );
 
     Create table Registration(
@@ -69,11 +69,11 @@ begin
         participant1 varchar(255) not null,
         participant2 varchar(255),
         event_id int not null,
-        current_time DATETIME,
-        primary key (participant1,current_time),
+        `current_time` DATETIME,
+        primary key (participant1,`current_time`),
         foreign key (event_id) references Competition(event_id),
-        foreign key (participant1) References Users(mail),
-        foreign key (participant2) References Users(mail)
+        foreign key (participant1) References Users(email),
+        foreign key (participant2) References Users(email)
     );
 
 end; // DELIMITER ;
@@ -102,6 +102,8 @@ drop table Registration;
 drop table Chip;
 drop table Users;
 
+delete from competition where event_id= 4;
+
 call create_all();
 call drop_all();
 
@@ -115,10 +117,17 @@ select * from Registration;
 select * from Track;
 select * from Checkpoint;
 select * from Result;
-insert into Users  values ("Amin@afzali.com","dsfsagsrg","Amin","Afzali",null,172,45,10,"d","password");
-insert into Users (`first_name`,`last_name`,`mail`,`password`) values ("f","l","m","p");
-insert into Users (`first_name`,`last_name`,`password`,`mail`,`token`) values ('amin','dsf','40bd001563085fc35165329ea1ff5c5ecbdbbeef','amin@afzali','7e9749e6827d03753bd38f932d4c1d43a9c3b2a6');
-update Users set token = 'd6152c47fc6908a118d9fafbc5a6a5c546eeacff' where token = '8d57022280d5df7ba5e565107514487732b7696e' ;
 
+insert into Track (`track_name`,`start_station`,`end_station`) Values('track',1,2);
+insert into Users  values ("Amin@afzali.com","dsfsagsrg","Amin","Afzali",null,172,45,10,"d","password");
+insert into Users (`first_name`,`last_name`,`email`,`password`) values ("f","l","m","p");
+insert into Users (`first_name`,`last_name`,`password`,`email`,`token`) values ('amin','dsf','40bd001563085fc35165329ea1ff5c5ecbdbbeef','amin@afzali','7e9749e6827d03753bd38f932d4c1d43a9c3b2a6');
+update Users set token = 'd6152c47fc6908a118d9fafbc5a6a5c546eeacff' where token = '8d57022280d5df7ba5e565107514487732b7696e' ;
+delete from users where mail LIKE 'Amin@afzali.com';
+select * from users where mail LIKE 'a@a2';
+select email from users where token like 'eb18fb7faa62b1d7f24c82b283056356ccfc847b';
+insert into competition (`event_name`,`track_id`,`host_email`,`host_organization`,`sport`,`start_date`,`end_date`,`module_id`) values ('test','1','a@a2','gangsterAB','Runing','2023-01-15','2024-06-15','1');
+select * from competition where `host_email` like '%a%';
+insert into result (`track_time`,`event_id`,`participant1`,`current_time`) values('12s','6','a@a2','2023-02-19 15:09:56');
 show tables;
 
