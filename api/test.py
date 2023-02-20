@@ -2,8 +2,8 @@ import requests
 
 
 def main() -> None:
-    BASE = "http://127.0.0.1:5000/"
-    # response = requests.put(BASE + "account",{"email": "a@a2", "first_name": "amin", "last_name": "afzali", "password": "dsf"})
+    BASE = "http://193.11.187.227:5000/"
+    response = requests.put(BASE + "account",{"email": "a@a24", "first_name": "amin", "last_name": "afzali", "password": "dsf"})
 
     # response = requests.post(BASE + "account",data={'token':"3a9b2e43cb02c3a70347a83caced98618f93cd5d"})
 
@@ -35,7 +35,7 @@ def main() -> None:
 
     # response = requests.get(BASE + "result", {"event_id": 6})
 
-    response = requests.delete(BASE + 'result', data={'token':'eb18fb7faa62b1d7f24c82b283056356ccfc847b','event_id':6})
+    #response = requests.delete(BASE + 'result', data={'token':'eb18fb7faa62b1d7f24c82b283056356ccfc847b','event_id':6})
     print(response.json())
 
 

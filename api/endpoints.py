@@ -205,4 +205,4 @@ api.add_resource(Account, "/account")
 api.add_resource(Event, "/event")
 api.add_resource(Result, "/result")
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='193.11.187.227',debug=True)
