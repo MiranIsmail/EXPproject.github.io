@@ -3,7 +3,7 @@ import requests
 
 def main() -> None:
     BASE = "http://193.11.187.227:5000/"
-    response = requests.put(BASE + "account",{"email": "a@a24", "first_name": "amin", "last_name": "afzali", "password": "dsf"})
+    response = requests.put(BASE + "account",{"email": "a@ar24", "first_name": "amin", "last_name": "afzali", "password": "dsf"})
 
     # response = requests.post(BASE + "account",data={'token':"3a9b2e43cb02c3a70347a83caced98618f93cd5d"})
 
