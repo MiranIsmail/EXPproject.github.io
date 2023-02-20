@@ -1,5 +1,5 @@
 from flask import Flask, request
-from flask_restful import Api, Resource, reqparse
+from flask_restful import Api, Resource
 from flask_mysqldb import MySQL
 from hashlib import sha1
 import random as rand
@@ -10,11 +10,16 @@ from datetime import datetime
 app = Flask(__name__)
 api = Api(app)
 
-# Configure MySQL connection
+# app.config["MYSQL_HOST"] = "exsportserver.mysql.database.azure.com"
+# app.config["MYSQL_USER"] = "notadmin"
+# app.config["MYSQL_PASSWORD"] = "Grupp5exsport!"
+# app.config["MYSQL_DB"] = "systemteknik"
+# app.config["ssl"] = {"fake_flag_to_enable_tls": True} Configure MySQL connection
 app.config["MYSQL_HOST"] = "localhost"
 app.config["MYSQL_USER"] = "root"
 app.config["MYSQL_PASSWORD"] = "Faiz1234"
 app.config["MYSQL_DB"] = "systemteknik"
+
 
 # Initialize MySQL extension
 mysql = MySQL(app)
@@ -32,6 +37,7 @@ def authorize(auth_token: str, cur):
 
 class Account(Resource):
     def put(self) -> tuple[str, int]:
+        
         conn = mysql.connect
         cur = conn.cursor()
         data = request.form.to_dict()
@@ -39,7 +45,8 @@ class Account(Resource):
             [key in data.keys() for key in ["first_name", "last_name", "password", "email"]]
         ):
             request.abort(404, "missing, data")
-
+        print(data)
+        print(request.args)
         data["password"] = str(sha1(str(data["password"]).encode()).hexdigest())
         columns = "`" + "`,`".join(data.keys()) + "`"
         values = "'" + "','".join(data.values()) + "'"
@@ -197,7 +204,7 @@ class Result(Resource):
         cur.execute(sql, (event_id,))
         conn.commit()
         conn.close()
-        
+
         return "Success", 200
 
 
@@ -205,4 +212,4 @@ api.add_resource(Account, "/account")
 api.add_resource(Event, "/event")
 api.add_resource(Result, "/result")
 if __name__ == "__main__":
-    app.run(host='193.11.187.227',debug=True)
+    app.run(host="193.11.187.227", debug=True)
