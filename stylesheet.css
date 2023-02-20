@@ -99,7 +99,7 @@ body {
   height: 3rem;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 574px) {
   /* CSS that should be displayed if width is equal to or less than 800px goes here */
   .text-shift {
     text-align: center;
@@ -111,7 +111,7 @@ body {
   }
 }
 
-@media (min-width: 401px) {
+@media (min-width: 575px) {
   #profileImage{
     float:right;
   }
