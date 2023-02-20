@@ -31,7 +31,11 @@ def main() -> None:
     #     BASE + "event", data={"token": "eb18fb7faa62b1d7f24c82b283056356ccfc847b", "event_id": 5}
     # )
 
-    response = requests.put(BASE+"result",{'track_time':'12s','event_id':6,'participant1':'a@a2'})
+    #response = requests.put(BASE+"result",{'track_time':'12s','event_id':6,'participant1':'a@a2'})
+
+    # response = requests.get(BASE + "result", {"event_id": 6})
+
+    response = requests.delete(BASE + 'result', data={'token':'eb18fb7faa62b1d7f24c82b283056356ccfc847b','event_id':6})
     print(response.json())
 
 

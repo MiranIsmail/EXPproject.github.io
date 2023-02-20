@@ -171,6 +171,35 @@ class Result(Resource):
         conn.close()
         return "Success", 201
 
+    def get(self) -> tuple[tuple[str, str], int]:
+        conn = mysql.connect
+        cur = conn.cursor()
+        event_id = request.args.get("event_id")
+
+        sql = "select * from result where `event_id` like %s"
+        cur.execute(sql, (event_id,))
+        result = cur.fetchall()
+        conn.close()
+
+        return ("success", str(result)), 200
+
+    def delete(self) -> tuple[str, int]:
+        conn = mysql.connect
+        cur = conn.cursor()
+        data = request.form
+
+        token = data.get("token")
+        event_id = data.get("event_id")
+
+        authorize(token, cur)
+
+        sql = "delete from result where `event_id` = %s"
+        cur.execute(sql, (event_id,))
+        conn.commit()
+        conn.close()
+        
+        return "Success", 200
+
 
 api.add_resource(Account, "/account")
 api.add_resource(Event, "/event")
