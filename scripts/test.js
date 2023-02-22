@@ -23,5 +23,7 @@ function logIn() {
 
     fetch('http://193.11.187.227:5000/account?email=' + femail + "&password=" + fpword)
         .then((response) => response.json())
-        .then((data) => { alert(data) });
+        .then((data) => { sessionStorage.setItem("token", data) });
+
+    open("profile.html")
 }
