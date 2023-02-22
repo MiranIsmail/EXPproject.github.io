@@ -13,9 +13,15 @@ function createAccount() {
         method: 'PUT',
         body: JSON.stringify({ 'first_name': xfirst_name, 'last_name': xlast_name, 'password': xpassword, 'email': xemail })
     }).then(response => response.json())
-
+    open("LogIn.html")
 }
 
 
+function logIn() {
+    let femail = document.getElementById('fetchEmail').value;
+    let fpword = document.getElementById('fetchPword').value;
 
-
+    fetch('http://193.11.187.227:5000/account?email=' + femail + "&password=" + fpword)
+        .then((response) => response.json())
+        .then((data) => { alert(data) });
+}
