@@ -16,8 +16,8 @@
 
 <exp-navbar></exp-navbar>
 <body>
+  <h1> Create your track here</h1>
     <div class="mb-3 mx-auto w-50">
-      <h1> Create your track here</h1>
       <label for="InputTrackName" class="form-label">Track name</label>
       <input type="text" class="form-control" id="InputTrackName">
     </div>
@@ -121,11 +121,6 @@
           console.log(data);
           //create a txt file with the data
           var file = new Blob([JSON.stringify(track)], {type: 'text/plain'});
-
-          var downloadlink = document.createElement("a");
-          downloadlink.download = "data.txt";
-          downloadlink.href = URL.createObjectURL(file);
-          downloadlink.click();
         }
       </script>
         
