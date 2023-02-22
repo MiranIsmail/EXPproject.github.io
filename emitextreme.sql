@@ -33,9 +33,9 @@ begin
 
     Create table Checkpoint(
 		station_id int primary key not null,
-        previouse_id int not null,
-        previouse_distance int not null,
-        section varchar(255) not null,
+        next_id int,
+        next_distance int,
+        terrain varchar(255) not null,
         track_id int not null,
         foreign key (track_id) references Track(track_id)
     );
