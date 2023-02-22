@@ -17,35 +17,30 @@
 <exp-navbar></exp-navbar>
 <body>
     <div class="mb-3 mx-auto w-50">
-      <label for="InputTrackName" class="form-label">Namn på bana</label>
+      <h1> Create your track here</h1>
+      <label for="InputTrackName" class="form-label">Track name</label>
       <input type="text" class="form-control" id="InputTrackName">
     </div>
-    <div class="mb-3 mx-auto w-50">
-      <label for="exampleInputPlace" class="form-label">Plats</label>
-      <input type="text" class="form-control" id="exampleInputPlace">
-    </div>
-    <div class="mb-3 mx-auto w-50">
-        <label for="exampleInputStart" class="form-label">Start</label>
-        <input type="text" class="form-control" id="exampleInputStart" aria-describedby="start_help">
-        <div id="start_help" class="form-text">Skriv in ID:t på stationen</div>
       <!-- Include the Bootstrap 5 CSS file -->
-      <label for="InputTrackName" class="table">Mittenstationer</label>
-      <td><button class="btn btn-primary mt-3" onclick="addRow(this.parentNode.parentNode)">Add</button></td>
+      <label for="InputTrackName" class="table mx-auto"></label>
       <!-- Create a table with Bootstrap 5 classes -->
       <div class="">
     
-        <table class="table table-striped" id="MittenstationerTable">
+        <table class="table table-striped w-50 mx-auto" id="sections_table">
           <thead>
             <tr>
               <th>ID</th>
-              <th>Distans till nästa</th>
+              <th>Distance to next checkpoint</th>
+              <th>Terrain to next check</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><input type="text" class="form-control" name="ID"></td>
-              <td><input type="text" class="form-control" name="Distans till nästa"></td>
+              <td><input type="text" class="form-control" name="id"></td>
+              <td><input type="text" class="form-control" name="distance"></td>
+              <td><input type="text" class="form-control" name="terrain"></td>
+              <td><button class="btn btn-outline-primary" onclick="save(this.parentNode.parentNode)">Save</button></td>
               <td><button class="btn btn-danger" onclick="deleteRow(this.parentNode.parentNode)">Delete</button></td>
             </tr>
           </tbody>
@@ -55,52 +50,88 @@
     
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
       <script>
+        var data = [];
+        class Section {
+          constructor(id, distance, terrain) {
+            this.id = id;
+            this.distance = distance;
+            this.terrain = terrain;
+            this.next = null;
+          }
+        }
+        
+        function save(row) {
+          var id_start = row.querySelector("[name='id']").value;
+          var distance = row.querySelector("[name='distance']").value;
+          var terrain = row.querySelector("[name='terrain']").value;
+          
+          if (id_start == "" || distance == "" || terrain == "") {
+            return;
+          }
+          var section = new Section(id_start, distance, terrain);
+
+          if (data.length > 0) {
+            data[data.length - 1].next = id_start;
+          }
+          data.push(section);
+          addRow();
+        }
         function addRow() {
-          var table = document.getElementById("MittenstationerTable");
+          var table = document.getElementById("sections_table");
           var row = table.insertRow();
+
           var cell1 = row.insertCell(0);
           var cell2 = row.insertCell(1);
           var cell3 = row.insertCell(2);
-          cell1.innerHTML = "<input type='text' class='form-control' name='ID'>";
-          cell2.innerHTML = "<input type='text' class='form-control' name='Distans till nästa'>";
-          cell3.innerHTML = "<button class='btn btn-danger' onclick='deleteRow(this.parentNode.parentNode)'>Delete</button>";
-
-          // Collect the data from the new row input fields
-          var id = row.querySelector("[name='ID]").value;
-          var distance = row.querySelector("[name='Distans till nästa']").value;
-
-          // Send the data to the API endpoint
-          var data = {
-            "name": id,
-            "age": distance
-          };
-          fetch("https://example.com/api/endpoint", {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {
-              "Content-Type": "application/json"
-            }
-          })
-          .then(response => response.json())
-          .then(data => console.log(data))
-          .catch(error => console.error(error));
+          var cell4 = row.insertCell(3);
+          var cell5 = row.insertCell(4);
+          cell1.innerHTML = "<input type='text' class='form-control' name='id'>";
+          cell2.innerHTML = "<input type='text' class='form-control' name='distance'>";
+          cell3.innerHTML = "<input type='text' class='form-control' name='terrain'>";
+          cell4.innerHTML = "<button class='btn btn-outline-primary' onclick='save(this.parentNode.parentNode)'>Save</button>";
+          cell5.innerHTML = "<button class='btn btn-danger' onclick='deleteRow(this.parentNode.parentNode)'>Delete</button>";
         }
 
-    
         function deleteRow(row) {
+          var table = document.getElementById("sections_table");
+          var rows = table.rows;
+          var index = row.rowIndex - 1;
+
+          if (index == 0) {
+            return;
+          }
+          data[index-1].next = data[index].next;
+          data.splice(index, 1);
           row.parentNode.removeChild(row);
+          console.log(data);
+        }
+        
+
+        function submit() {
+          var table = document.getElementById("sections_table");
+          var rows = table.rows;
+          var name = document.getElementById("InputTrackName").value;
+          var start = data[0].id
+          var end = data[data.length - 1].id
+          var track = {
+            name: name,
+            start: start,
+            end: end
+          }
+          console.log(data);
+          //create a txt file with the data
+          var file = new Blob([JSON.stringify(track)], {type: 'text/plain'});
+
+          var downloadlink = document.createElement("a");
+          downloadlink.download = "data.txt";
+          downloadlink.href = URL.createObjectURL(file);
+          downloadlink.click();
         }
       </script>
         
     </div>
-      </div>
-      <div class="mb-3 mx-auto w-50">
-        <label for="example_input_end" class="form-label">Slut</label> 
-        <input type="text" class="form-control" id="example_input_end" aria-describedby="end_help">
-        <div id="end_help" class="form-text">Skriv in ID:t på stationen</div>
-      </div>
     <div class="mb-3 mx-auto w-50">
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary" href="eventcreate.html" onclick=submit()>Submit</button>
     </div>
 </body>
 <exp-footer></exp-footer>
