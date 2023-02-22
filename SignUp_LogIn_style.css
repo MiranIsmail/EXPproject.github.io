@@ -122,6 +122,33 @@ a:hover{
         border-radius: 10px;
     }
   }
+@media (max-height: 775px) {
+    .form-box{
+        width: 90%;
+        max-width: 450px;
+        position: absolute;
+        top: 98%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        text-align: center;
+        border-radius: 10px;
+    }
+  }
+
+  @media (max-height: 575px) {
+    .form-box{
+        width: 90%;
+        max-width: 450px;
+        position: absolute;
+        top: 110%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        text-align: center;
+        border-radius: 10px;
+    }
+  }
 
     /*Navbar*/
 #navtext{
