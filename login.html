@@ -10,11 +10,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="stylesheet.css">
     <script type="text/javascript" src="javascripts.js"></script>
-    <link rel="stylesheet" href="login_style.css">
+    <link rel="stylesheet" href="SignUp_LogIn_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="assets/navbar.js" type="text/javascript" defer></script>
     <script src="assets/footer.js" type="text/javascript" defer></script>
-    <script src="scripts/test.js" type="text/javascript" defer></script>
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
 </head>
@@ -22,40 +21,27 @@
 <exp-navbar></exp-navbar>
 
 <body>
+    <div class="image_div">
+        <img class="w-100 op30" src="images/indeximage_thinner.png" id="image_run">
+    </div>
     <div class="container1">
         <div class="form-box">
-            <h1> Det börjar här</h1>
+            <h1> Välkommen tillbaka!</h1>
             <form>
                 <div class="input-group">
-                    <div class="input-field_name" style="border-radius: 20px;">
-                        <i class="fa fa-user-circle"></i>
-                        <input type="text" placeholder="Name" id="fname">
+                    <div class="input-field" style="border-radius: 10px;">
+                        <input type="email" placeholder="Email">
                     </div>
 
-                    <div class="input-field_name" style="border-radius: 20px;">
-                        <i class="fa fa-user-circle"></i>
-                        <input type="text" placeholder="Efternamn" id="lname">
-                    </div>
-
-                    <div class="input-field_email" style="border-radius: 20px;">
-                        <i class="fa fa-envelope"></i>
-                        <input type="email" placeholder="Email" id="email">
-                    </div>
-
-                    <div class="input-field_pass" style="border-radius: 20px;">
-                        <i class="fa fa-lock"></i>
-                        <input type="password" placeholder="Password" id="pword">
-                    </div>
-
-                    <div class="input-field_ConPass" style="border-radius: 20px;">
-                        <i class="fa fa-lock"></i>
-                        <input type="password" placeholder="Confirm Password">
+                    <div class="input-field" style="border-radius: 10px;">
+                        <input type="password" placeholder="Password">
                     </div>
                 </div>
                 <div class="btn-field">
-                    <button type="button" onclick="sendFunction()">Sign up</button>
+                    <button type="button">Sign in</button>
                 </div>
-                <p>Already Signed Up? <a href="#">Sign In Here!</a></p>
+                <p>Forgot password? <a href="#">Click Here!</a></p>
+                <p>Don't have an account? <a href="SignUp.html">Sign up here!</a></p>
             </form>
         </div>
     </div>
