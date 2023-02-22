@@ -46,7 +46,7 @@ begin
 		track_id int not null,
 		host_email varchar(255) not null,
         host_organization varchar(255) not null,
-		sport varchar(255) not null,
+		sport varchar(255),
         start_date date not null,
         end_date date not null,
         module_id int not null,
