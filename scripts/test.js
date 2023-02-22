@@ -1,3 +1,5 @@
+var BASE = "http://192.168.31.82:5000/"
+
 function createAccount() {
     let xemail = document.getElementById('email').value;
     let xfirst_name = document.getElementById('fname').value;
@@ -5,7 +7,7 @@ function createAccount() {
     let xpassword = document.getElementById('pword').value;
 
 
-    fetch('http://193.11.187.227:5000/account', {
+    fetch(BASE + 'account', {
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",
             // "Content-Type": "multipart/form-data",
@@ -20,10 +22,17 @@ function createAccount() {
 function logIn() {
     let femail = document.getElementById('fetchEmail').value;
     let fpword = document.getElementById('fetchPword').value;
-
-    fetch('http://193.11.187.227:5000/account?email=' + femail + "&password=" + fpword)
-        .then((response) => response.json())
-        .then((data) => { sessionStorage.setItem("token", data) });
-
+    
+    fetch(BASE + 'account?email=' + femail + "&password=" + fpword)
+    .then((response) => response.json())
+    .then((data) => {
+        document.cookie = "token=" + data[1]
+    });
+    
     open("profile.html")
+}
+
+function add_track(){
+
+    
 }
