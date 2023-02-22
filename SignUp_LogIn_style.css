@@ -12,7 +12,7 @@ body {
 }
 
 .container1{
-    height: 100vh;
+    height: 50rem;
     width: 100%;
     background: linear-gradient(#0000004d 0%, #00000080 80%);
     background-size: 100%;
@@ -21,10 +21,10 @@ body {
 }
 
 .form-box{
-    width: 90%;
-    max-width: 450px;
+    width: 100%;
+    max-width: 30rem;
     position: absolute;
-    top: 75%;
+    margin-top: 20rem;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 20px;
@@ -109,7 +109,7 @@ a:hover{
     color: #B7E3FF
 }
 
-@media (min-width: 1000px) {
+/* @media (min-width: 1000px) {
     .form-box{
         width: 90%;
         max-width: 450px;
@@ -122,7 +122,8 @@ a:hover{
         border-radius: 10px;
     }
   }
-@media (max-height: 850px) {
+
+  @media (max-height: 850px) {
     .form-box{
         width: 90%;
         max-width: 450px;
@@ -148,7 +149,7 @@ a:hover{
         text-align: center;
         border-radius: 10px;
     }
-  }
+  } */
 
     /*Navbar*/
 #navtext{
