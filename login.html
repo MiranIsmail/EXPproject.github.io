@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>EXP Initiative</title>
     <meta charset="utf-8">
@@ -12,7 +13,8 @@
     <link rel="stylesheet" href="login_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="assets/navbar.js" type="text/javascript" defer></script>
-  <script src="assets/footer.js" type="text/javascript" defer></script>
+    <script src="assets/footer.js" type="text/javascript" defer></script>
+    <script src="scripts/test.js" type="text/javascript" defer></script>
 </head>
 
 <exp-navbar></exp-navbar>
@@ -21,21 +23,26 @@
     <div class="container1">
         <div class="form-box">
             <h1> Det börjar här</h1>
-            <form >
+            <form>
                 <div class="input-group">
                     <div class="input-field_name" style="border-radius: 20px;">
                         <i class="fa fa-user-circle"></i>
-                        <input type="text" placeholder="Name">
+                        <input type="text" placeholder="Name" id="fname">
+                    </div>
+
+                    <div class="input-field_name" style="border-radius: 20px;">
+                        <i class="fa fa-user-circle"></i>
+                        <input type="text" placeholder="Efternamn" id="lname">
                     </div>
 
                     <div class="input-field_email" style="border-radius: 20px;">
                         <i class="fa fa-envelope"></i>
-                        <input type="email" placeholder="Email">
+                        <input type="email" placeholder="Email" id="email">
                     </div>
 
                     <div class="input-field_pass" style="border-radius: 20px;">
                         <i class="fa fa-lock"></i>
-                        <input type="password" placeholder="Password">
+                        <input type="password" placeholder="Password" id="pword">
                     </div>
 
                     <div class="input-field_ConPass" style="border-radius: 20px;">
@@ -44,7 +51,7 @@
                     </div>
                 </div>
                 <div class="btn-field">
-                    <button type="button">Sign up</button>
+                    <button type="button" onclick="sendFunction()">Sign up</button>
                 </div>
                 <p>Already Signed Up? <a href="#">Sign In Here!</a></p>
             </form>
@@ -58,4 +65,5 @@
 <script>
 
 </script>
+
 </html>
