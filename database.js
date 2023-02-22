@@ -1,14 +1,14 @@
 var mysql = require('mysql');
+const fs = require('fs');
 
 
-
-var con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "Faiz1234",
-  database:"demo"
-});
-
+var con=mysql.createConnection({
+    host:"exsportserver.mysql.database.azure.com", 
+    user:"notadmin", 
+    password:"Grupp5exsport!", 
+    database:"systemteknik", 
+    port:3306, 
+    ssl:{ca:fs.readFileSync("DigiCertGlobalRootCA.crt.pem")}});
 
 
 con.connect(function(err) {
