@@ -34,7 +34,7 @@
       <!-- Create a table with Bootstrap 5 classes -->
       <div class="">
     
-        <table class="table table-striped" id="myTable">
+        <table class="table table-striped" id="MittenstationerTable">
           <thead>
             <tr>
               <th>ID</th>
@@ -56,7 +56,7 @@
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
       <script>
         function addRow() {
-          var table = document.getElementById("myTable");
+          var table = document.getElementById("MittenstationerTable");
           var row = table.insertRow();
           var cell1 = row.insertCell(0);
           var cell2 = row.insertCell(1);
@@ -64,7 +64,28 @@
           cell1.innerHTML = "<input type='text' class='form-control' name='ID'>";
           cell2.innerHTML = "<input type='text' class='form-control' name='Distans till nästa'>";
           cell3.innerHTML = "<button class='btn btn-danger' onclick='deleteRow(this.parentNode.parentNode)'>Delete</button>";
+
+          // Collect the data from the new row input fields
+          var id = row.querySelector("[name='ID]").value;
+          var distance = row.querySelector("[name='Distans till nästa']").value;
+
+          // Send the data to the API endpoint
+          var data = {
+            "name": id,
+            "age": distance
+          };
+          fetch("https://example.com/api/endpoint", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+              "Content-Type": "application/json"
+            }
+          })
+          .then(response => response.json())
+          .then(data => console.log(data))
+          .catch(error => console.error(error));
         }
+
     
         function deleteRow(row) {
           row.parentNode.removeChild(row);
