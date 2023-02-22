@@ -17,37 +17,48 @@
 <exp-navbar></exp-navbar>
 
 <body>
-    <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon1">@</span>
-        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-      </div>
-      
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
-        <span class="input-group-text" id="basic-addon2">@example.com</span>
-      </div>
-      
-      <label for="basic-url" class="form-label">Your vanity URL</label>
-      <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon3">https://example.com/users/</span>
-        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
-      </div>
-      
-      <div class="input-group mb-3">
-        <span class="input-group-text">$</span>
-        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-        <span class="input-group-text">.00</span>
-      </div>
-      
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Username" aria-label="Username">
-        <span class="input-group-text">@</span>
-        <input type="text" class="form-control" placeholder="Server" aria-label="Server">
-      </div>
-      
-      <div class="input-group">
-        <span class="input-group-text">With textarea</span>
-        <textarea class="form-control" aria-label="With textarea"></textarea>
-      </div>
+  <h1> Create your Event here</h1>
+  <div class="mb-3 mx-auto w-50">
+    <label for="InputEventName" class="form-label">Event Name</label>
+    <input type="text" class="form-control" id="InputEventName">
+  </div>
+  <div class="mb-3 mx-auto w-50">
+    <label for="InputTrackName" class="form-label">Track Name</label>
+    <input type="text" class="form-control" id="InputTrackName">
+  </div>
+  <div class="mb-3 mx-auto w-50">
+    <label for="InputHostOrganisation" class="form-label">Organisation</label>
+    <input type="text" class="form-control" id="InputHostOrganisation">
+  </div>
+  <div class="mb-3 mx-auto w-50">
+    <label for="InputStartDate" class="form-label">Start Date</label>
+    <input type="text" class="form-control" id="InputStartDate">
+  </div>
+  <div class="mb-3 mx-auto w-50">
+    <label for="InputEndDate" class="form-label">End Date</label>
+    <input type="text" class="form-control" id="InputEndDate">
+  </div>
+  <div class="mb-3 mx-auto w-50">
+    <label for="InputModule" class="form-label">Modul ID</label>
+    <input type="text" class="form-control" id="InputModule">
+  </div>
+  <div class="form-check form-switch mb-3 mx-auto w-50">
+    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" aria-describedby="publicHelpBlock">
+    <label class="form-check-label" for="flexSwitchCheckDefault">Open for Entry</label>
+    <div id="publicHelpBlock" class="form-text">
+      Check this box if you want all users to be able to participate to your event
+    </div>
+  </div>
+  <div class="form-check form-switch mb-3 mx-auto w-50">
+    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" aria-describedby="openHelpBlock">
+    <label class="form-check-label" for="flexSwitchCheckDefault">Public View</label>
+    <div id="openHelpBlock" class="form-text">
+      Check this box if you want the event to be visable and searchable for all users.
+    </div>
+  </div>
+    <!-- Include the Bootstrap 5 CSS file -->
+  <div class="mb-3 mx-auto w-50">
+    <button type="submit" class="btn btn-primary" href="eventcreate.html" onclick=submit()>Submit</button>
+  </div>
 </body>
 <exp-footer></exp-footer>
