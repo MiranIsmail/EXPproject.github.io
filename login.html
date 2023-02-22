@@ -12,8 +12,9 @@
     <link rel="stylesheet" href="SignUp_LogIn_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="assets/navbar.js" type="text/javascript" defer></script>
-  <script src="assets/footer.js" type="text/javascript" defer></script>
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <script src="assets/footer.js" type="text/javascript" defer></script>
+    <script src="scripts/test.js" type="text/javascript" defer></script>
+
 </head>
 
 <exp-navbar></exp-navbar>
@@ -28,15 +29,15 @@
             <form >
                 <div class="input-group">
                     <div class="input-field" style="border-radius: 10px;">
-                        <input type="email" placeholder="Email">
+                        <input type="email" placeholder="Email" id="fetchEmail">
                     </div>
 
                     <div class="input-field" style="border-radius: 10px;">
-                        <input type="password" placeholder="Password">
+                        <input type="password" placeholder="Password" id="fetchPword">
                     </div>
                 </div>
                 <div class="btn-field">
-                    <button type="button">Sign in</button>
+                    <button type="button" onclick="logIn()">Sign in</button>
                 </div>
                 <p>Forgot password? <a href="#">Click Here!</a></p>
                 <p>Don't have an account? <a href="SignUp.html">Sign up here!</a></p>
