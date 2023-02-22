@@ -1,0 +1,149 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #B7E3FF;
+}
+
+.image_div{
+    margin-top: 10rem;
+}
+
+.container1{
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(#0000004d 0%, #00000080 80%);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-blend-mode: luminosity;
+}
+
+.form-box{
+    width: 90%;
+    max-width: 450px;
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.form-box h1{
+    font-style: bold;
+    font-size: 60px;
+    margin-bottom: 60px;
+    color: #B7E3FF;
+    position: relative;
+}
+
+.input-group{
+    width: 100%;
+    display: flex;
+    margin-top: 5%;
+}
+
+.input-field{
+    flex-basis: 100%;
+    background-color: #eaeaea;
+    margin: 3% 0;
+    align-items: center;
+    filter: drop-shadow(10px 10px 4px rgba(0, 0, 0, 0.25));
+}
+
+input {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    padding: 12px 10px;
+}
+
+i{
+    color: black;
+    align-items: flex-start;
+    margin-left: 2%;
+}
+
+.btn-field{
+    width: 100%;
+    display: flex;
+    margin-top: 3%;
+    filter: drop-shadow(10px 10px 4px rgba(0, 0, 0, 0.25));
+}
+
+.btn-field button{
+    flex-basis: 100%;
+    background: black;
+    color: white;
+    padding: 15px 10px;
+    border-radius: 10px;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-field button:hover{
+    
+    background-color: rgb(52, 51, 51);
+  
+
+}
+
+p{
+    color: #B7E3FF;
+    font-style: bold;
+    margin-top: 5%;
+}
+
+a{
+    color: #B7E3FF;
+    font-style: bold;
+}
+
+a:hover{
+    color: #B7E3FF
+}
+
+@media (min-width: 1000px) {
+    .form-box{
+        width: 90%;
+        max-width: 450px;
+        position: absolute;
+        top: 95%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        text-align: center;
+        border-radius: 10px;
+    }
+  }
+
+    /*Navbar*/
+#navtext{
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+#navtext:hover{
+    color: #fff;
+}
+/*Navbar*/
+
+/*Footer*/
+#footer-container{
+     background:#000000cc;;
+}
+
+#footer-items{
+    padding: 1rem;
+    text-decoration: none;
+     color: white;
+     font-size: 20px;
+    display: flex;
+    justify-content: center;
+}
+/*Footer*/
