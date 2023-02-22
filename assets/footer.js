@@ -28,7 +28,7 @@ class Header extends HTMLElement {
           <a style="text-decoration: none; color:white;" href="event.html">Event</a>
           </div>
           <div class="col" id="footer-items">
-          <a style="text-decoration: none; color:white;" href="login.html">Log In</a>
+          <a style="text-decoration: none; color:white;" href="Login.html">Log In</a>
           </div>
           <div class="col" id="footer-items">
             <a style="text-decoration: none; color:white;" href="profile.html">Profil</a>
