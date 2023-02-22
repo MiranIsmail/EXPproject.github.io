@@ -1,5 +1,5 @@
-create database systemteknik;
-use systemteknik;
+create database demo;
+use demo;
 
 DELIMITER //
 create procedure create_all()

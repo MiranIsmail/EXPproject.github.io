@@ -5,11 +5,14 @@ from hashlib import sha1
 import random as rand
 import time
 from datetime import datetime
+from flask_cors import CORS, cross_origin
+import json
 
 
 app = Flask(__name__)
 api = Api(app)
-
+cors = CORS(app)
+app.config["CORS_HEADERS"] = "Content-Type"
 # app.config["MYSQL_HOST"] = "exsportserver.mysql.database.azure.com"
 # app.config["MYSQL_USER"] = "notadmin"
 # app.config["MYSQL_PASSWORD"] = "Grupp5exsport!"
@@ -37,20 +40,21 @@ def authorize(auth_token: str, cur):
 
 class Account(Resource):
     def put(self) -> tuple[str, int]:
-        
+
         conn = mysql.connect
         cur = conn.cursor()
-        data = request.form.to_dict()
+        data = json.loads(request.get_data())
+        print(data)
+
         if not any(
             [key in data.keys() for key in ["first_name", "last_name", "password", "email"]]
         ):
             request.abort(404, "missing, data")
-        print(data)
-        print(request.args)
         data["password"] = str(sha1(str(data["password"]).encode()).hexdigest())
         columns = "`" + "`,`".join(data.keys()) + "`"
         values = "'" + "','".join(data.values()) + "'"
         sql = f"insert into Users ({columns},`token`) values ({values},'{sha1(str(str(data['email']) + 'SALT' + str(time.monotonic()) + str(data['password'])).encode()).hexdigest()}')"
+        print(sql)
         cur.execute(sql)
         conn.commit()
         conn.close()
@@ -59,7 +63,9 @@ class Account(Resource):
     def post(self) -> tuple[str, int]:
         conn = mysql.connect
         cur = conn.cursor()
-        token = request.form.to_dict().get("token")
+
+        data = json.loads(request.get_data())
+        token = data.get("token")
         sql = "update Users set token = %s where token = %s"
         random_token = sha1(str(rand.random() + time.monotonic()).encode()).hexdigest()
         cur.execute(sql, (random_token, token))
@@ -75,14 +81,15 @@ class Account(Resource):
         password = request.args.get("password")
         print(email, password)
         cur.execute(sql, (email, sha1(password.encode()).hexdigest()))
-        token = cur.fetchall()[0][0]
+        # token = cur.fetchall()[0][0]
         conn.close()
-        return ("success", token), 200
+        return ("success", "df"), 200
 
     def delete(self) -> tuple[str, int]:
         conn = mysql.connect
         cur = conn.cursor()
-        token = request.form.get("token")
+        data = json.loads(request.get_data())
+        token = data.get("token")
         sql = "delete from Users where token LIKE %s"
         cur.execute(sql, (token,))
         conn.commit()
@@ -94,7 +101,8 @@ class Event(Resource):
     def put(self) -> tuple[tuple[str, list], int]:
         conn = mysql.connect
         cur = conn.cursor()
-        data = request.form.to_dict()
+
+        data = json.loads(request.get_data())
 
         required_parameter = [
             "auth_token",
@@ -140,7 +148,7 @@ class Event(Resource):
     def delete(self) -> tuple[str, int]:
         conn = mysql.connect
         cur = conn.cursor()
-        data = request.form
+        data = json.loads(request.get_data())
         authorize(data.get("token"), cur)
         sql = "DELETE from competition where `event_id` LIKE %s"
 
@@ -157,7 +165,7 @@ class Result(Resource):
     def put(self) -> tuple[str, int]:
         conn = mysql.connect
         cur = conn.cursor()
-        data = request.form.to_dict()
+        data = json.loads(request.get_data())
 
         if (
             "track_time" not in data.keys()
@@ -184,6 +192,7 @@ class Result(Resource):
         event_id = request.args.get("event_id")
 
         sql = "select * from result where `event_id` like %s"
+
         cur.execute(sql, (event_id,))
         result = cur.fetchall()
         conn.close()
@@ -193,7 +202,7 @@ class Result(Resource):
     def delete(self) -> tuple[str, int]:
         conn = mysql.connect
         cur = conn.cursor()
-        data = request.form
+        data = json.loads(request.get_data())
 
         token = data.get("token")
         event_id = data.get("event_id")
