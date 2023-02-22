@@ -26,22 +26,33 @@
     </div>
     <div class="container1">
         <div class="form-box">
-            <h1> Välkommen tillbaka!</h1>
+            <h1> Det börjar här</h1>
             <form>
                 <div class="input-group">
                     <div class="input-field" style="border-radius: 10px;">
-                        <input type="email" placeholder="Email">
+                        <input type="text" placeholder="Name" id="fname">
                     </div>
 
                     <div class="input-field" style="border-radius: 10px;">
-                        <input type="password" placeholder="Password">
+                        <input type="text" placeholder="Efternamn" id="lname">
+                    </div>
+
+                    <div class="input-field" style="border-radius: 10px;">
+                        <input type="email" placeholder="Email" id="email">
+                    </div>
+
+                    <div class="input-field" style="border-radius: 10px;">
+                        <input type="password" placeholder="Password" id="pword">
+                    </div>
+
+                    <div class="input-field" style="border-radius: 10px;">
+                        <input type="password" placeholder="Confirm Password">
                     </div>
                 </div>
                 <div class="btn-field">
-                    <button type="button">Sign in</button>
+                    <button type="button" onclick="sendFunction()">Sign up</button>
                 </div>
-                <p>Forgot password? <a href="#">Click Here!</a></p>
-                <p>Don't have an account? <a href="SignUp.html">Sign up here!</a></p>
+                <p>Already Signed Up? <a href="LogIn.html">Sign In Here!</a></p>
             </form>
         </div>
     </div>
