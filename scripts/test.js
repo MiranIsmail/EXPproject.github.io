@@ -14,7 +14,6 @@ function createAccount() {
         body: JSON.stringify({ 'first_name': xfirst_name, 'last_name': xlast_name, 'password': xpassword, 'email': xemail })
     }).then(response => response.json())
 
-    LogIn.html
 }
 
 
