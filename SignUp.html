@@ -32,17 +32,21 @@
                 <div class="input-group">
                     <!--Input field for Name-->
                     <div class="input-field" style="border-radius: 10px;">
-                        <input type="text" placeholder="Name">
+                        <input type="text" placeholder="Name" id="fname">
+                    </div>
+
+                    <div class="input-field" style="border-radius: 10px;">
+                        <input type="text" placeholder="Efternamn" id="lname">
                     </div>
 
                     <!--Input field for email-->
                     <div class="input-field" style="border-radius: 10px;">
-                        <input type="email" placeholder="Email">
+                        <input type="email" placeholder="Email" id="email">
                     </div>
 
                     <!--Input field for password-->
                     <div class="input-field" style="border-radius: 10px;">
-                        <input type="password" placeholder="Password">
+                        <input type="password" placeholder="Password" id="pword">
                     </div>
 
                     <!--Input field to confirm password-->
@@ -52,7 +56,7 @@
                 </div>
                 <!--The sign in button-->
                 <div class="btn-field">
-                    <button type="button">Sign up</button>
+                    <button type="button" onclick="createAccount()">Sign up</button>
                 </div>
                 <!--Link to sign in page-->
                 <p>Already Signed Up? <a href="LogIn.html">SIGN IN HERE!</a></p>

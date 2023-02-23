@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>EXP Initiative</title>
     <meta charset="utf-8">
@@ -15,6 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="assets/navbar.js" type="text/javascript" defer></script>
     <script src="assets/footer.js" type="text/javascript" defer></script>
+    <script src="scripts/test.js" type="text/javascript" defer></script>
 </head>
 <!--header-->
 <exp-navbar></exp-navbar>
@@ -28,21 +30,21 @@
     <div class="container1">
         <div class="form-box">
             <h1> Welcome back!</h1>
-            <form >
+            <form>
                 <!--Input field for email-->
                 <div class="input-group">
                     <div class="input-field" style="border-radius: 10px;">
-                        <input type="email" placeholder="Email">
+                        <input type="email" placeholder="Email" id="fetchEmail">
                     </div>
 
                     <!--Input field for password-->
                     <div class="input-field" style="border-radius: 10px;">
-                        <input type="password" placeholder="Password">
+                        <input type="password" placeholder="Password" id="fetchPword">
                     </div>
                 </div>
                 <!--The sign in button-->
                 <div class="btn-field">
-                    <button type="button">Sign in</button>
+                    <button type="button" onclick="logIn()">Sign in</button>
                 </div>
                 <!--Links to sign up page and forgot pass page-->
                 <p>Forgot password? <a href="#">CLICK HERE!</a></p>
@@ -58,4 +60,5 @@
 <script>
 
 </script>
+
 </html>

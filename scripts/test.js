@@ -40,17 +40,16 @@ function get_user_info() {
     fetch(BASE + 'get_info?token=' + token[1])
         .then((response) => response.json())
         .then((data) => {
-
             var dataString = String(data).split(',')
-            document.getElementById("profileName").innerHTML = dataString[1]
+            document.getElementById("profileName").innerHTML = dataString[3]
+            document.getElementById("age").innerHTML = dataString[8]
+            document.getElementById("length").innerHTML = dataString[6]
+            document.getElementById("weight").innerHTML = dataString[7]
         });
 }
 
 
 
-function add_track(data) {
-
-}
 
 
 async function generate_table() {

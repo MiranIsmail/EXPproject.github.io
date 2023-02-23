@@ -1,4 +1,4 @@
-class Footer extends HTMLElement {
+class Navbar extends HTMLElement {
     constructor() {
       super();
     }
@@ -41,4 +41,4 @@ class Footer extends HTMLElement {
   }
 }
 
-customElements.define('exp-navbar', Footer);
+customElements.define('exp-navbar', Navbar);
