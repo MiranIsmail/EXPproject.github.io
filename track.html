@@ -72,6 +72,11 @@
           if (id_start == "" || distance == "" || terrain == "") {
             return;
           }
+
+          row.querySelector("[name='id']").readOnly = true;
+          row.querySelector("[name='distance']").readOnly = true;
+          row.querySelector("[name='terrain']").readOnly = true;
+
           var saveBtn = row.querySelector("button");
           saveBtn.disabled = true;
           // Change the button label and functionality
@@ -87,7 +92,6 @@
             data[data.length - 1].next = id_start;
           }
           data.push(section);
-          addRow();
         }
 
         function addRow() {
