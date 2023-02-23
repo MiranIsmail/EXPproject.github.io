@@ -111,10 +111,12 @@
           var rows = table.rows;
           var index = row.rowIndex - 1;
 
-          if (index == 0) {
+          if (data.length == 0 || typeof data[index] == "undefined") {
             return;
           }
+          if (index > 0) {
           data[index-1].next = data[index].next;
+          }
           data.splice(index, 1);
           row.parentNode.removeChild(row);
           console.log(data);
