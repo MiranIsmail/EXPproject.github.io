@@ -16,17 +16,22 @@
 
 <exp-navbar></exp-navbar>
 <body>
-  <h1> Create your track here</h1>
+    <div class="mb-3 mx-auto w-50">
+      <h1>Create your track here. Start with adding the Track Name</h1>
+    </div>
     <div class="mb-3 mx-auto w-50">
       <label for="InputTrackName" class="form-label">Track name</label>
       <input type="text" class="form-control" id="InputTrackName">
+    </div>
+    <div class="mb-3 mx-auto w-50">
+      <button id="add_button" onclick="addRow()" disabled>Add new row</button>
     </div>
       <!-- Include the Bootstrap 5 CSS file -->
       <label for="InputTrackName" class="table mx-auto"></label>
       <!-- Create a table with Bootstrap 5 classes -->
       <div class="">
     
-        <table class="table table-striped w-50 mx-auto" id="sections_table">
+        <table class="table table-striped w-100 mx-auto" id="sections_table">
           <thead>
             <tr>
               <th>ID</th>
@@ -37,20 +42,32 @@
           </thead>
           <tbody>
             <tr>
-              <td><input type="text" class="form-control" name="id"></td>
-              <td><input type="text" class="form-control" name="distance"></td>
-              <td><input type="text" class="form-control" name="terrain"></td>
-              <td><button class="btn btn-outline-primary" onclick="save(this.parentNode.parentNode)">Save</button></td>
-              <td><button class="btn btn-danger" onclick="deleteRow(this.parentNode.parentNode)">Delete</button></td>
+              <div class="row">
+                <div class="col-sm-6">
+                <td><input type="text" class="form-control" name="id"></td>
+                <td><input type="text" class="form-control" name="distance"></td>
+                <td><input type="text" class="form-control" name="terrain"></td>
+                <td><button class="btn btn-outline-primary" onclick="save(this.parentNode.parentNode)">Save</button></td>
+                <td><button class="btn btn-danger" onclick="deleteRow(this.parentNode.parentNode)">Delete</button></td>
+                </div>
+              </div>
             </tr>
           </tbody>
         </table>
     
       </div>
-    
+      
+    </div>
+    <div class="mb-3 mx-auto w-50">
+      <button type="submit"  button id="submit_button" class="btn btn-primary" role="button" disabled onclick=submit()>Submit</button>
+    </div>
+
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
       <script>
+        const add_button = document.getElementById('add_button');
+        const submit_button = document.getElementById('submit_button')
         var data = [];
+
         class Section {
           constructor(id, distance, terrain) {
             this.id = id;
@@ -59,22 +76,73 @@
             this.next = null;
           }
         }
+
+        document.addEventListener('click', function() {
+          var saved_count = data.length
+          var table = document.getElementById("sections_table");
+          var row_count = table.rows.length;
+          if (saved_count == row_count-1) {
+            add_button.removeAttribute('disabled');
+            submit_button.removeAttribute('disabled');
+          } else {
+            add_button.setAttribute('disabled', '');
+            submit_button.setAttribute('disabled', '');
+          }
+        });
         
         function save(row) {
+          
           var id_start = row.querySelector("[name='id']").value;
           var distance = row.querySelector("[name='distance']").value;
           var terrain = row.querySelector("[name='terrain']").value;
-          
+          var index = row.rowIndex - 1;
+
           if (id_start == "" || distance == "" || terrain == "") {
             return;
           }
+
+          row.querySelector("[name='id']").readOnly = true;
+          row.querySelector("[name='distance']").readOnly = true;
+          row.querySelector("[name='terrain']").readOnly = true;
+
+          var saveBtn = row.querySelector("button");
+          // Change the button label and functionality
+          saveBtn.innerHTML = "Edit";
+          saveBtn.onclick = function () {
+            edit(row);
+          }
+          row.style.backgroundColor = "#ccc";
+          
+          if (data.length && typeof data[index] != "undefined") {
+            data[index].id = id_start;
+            data[index].distance = distance;
+            data[index].terrain = terrain;
+            if (index > 0) {
+              data[index - 1].next = id_start;
+            }
+          }
+          else {
           var section = new Section(id_start, distance, terrain);
 
           if (data.length > 0) {
             data[data.length - 1].next = id_start;
           }
           data.push(section);
-          addRow();
+        }
+        }
+
+        function edit(row) {
+          row.querySelector("[name='id']").readOnly = false;
+          row.querySelector("[name='distance']").readOnly = false;
+          row.querySelector("[name='terrain']").readOnly = false;
+          
+          var saveBtn = row.querySelector("button");
+          // Change the button label and functionality
+          saveBtn.innerHTML = "Save";
+          saveBtn.onclick = function () {
+            save(row);
+          }
+          row.style.backgroundColor = "#fff";
         }
         function addRow() {
           var table = document.getElementById("sections_table");
@@ -94,13 +162,14 @@
 
         function deleteRow(row) {
           var table = document.getElementById("sections_table");
-          var rows = table.rows;
           var index = row.rowIndex - 1;
 
-          if (index == 0) {
+          if (data.length == 0 || typeof data[index] == "undefined") {
             return;
           }
+          if (index > 0) {
           data[index-1].next = data[index].next;
+          }
           data.splice(index, 1);
           row.parentNode.removeChild(row);
           console.log(data);
@@ -109,24 +178,19 @@
 
         function submit() {
           var table = document.getElementById("sections_table");
-          var rows = table.rows;
           var name = document.getElementById("InputTrackName").value;
           var start = data[0].id
           var end = data[data.length - 1].id
+          var checkpoints = data.slice(1, data.length - 1)
           var track = {
             name: name,
             start: start,
             end: end
           }
-          console.log(data);
-          //create a txt file with the data
-          var file = new Blob([JSON.stringify(track)], {type: 'text/plain'});
+          //download a txt file with the checkpoints
+          var checkpoint_file = new File([JSON.stringify(checkpoints)], "checkpoints.txt", {type: "text/plain;charset=utf-8"});
+          var track_file = new File([JSON.stringify(track)], "track.txt", {type: "text/plain;charset=utf-8"});
         }
       </script>
-        
-    </div>
-    <div class="mb-3 mx-auto w-50">
-      <button type="submit" class="btn btn-primary" href="eventcreate.html" onclick=submit()>Submit</button>
-    </div>
 </body>
 <exp-footer></exp-footer>
