@@ -35,7 +35,7 @@
           <thead>
             <tr>
               <th>ID</th>
-              <th>Distance to next checkpoint</th>
+              <th>Distance to next checkpoint(m)</th>
               <th>Terrain to next check</th>
               <th></th>
             </tr>
@@ -190,6 +190,8 @@
           //download a txt file with the checkpoints
           var checkpoint_file = new File([JSON.stringify(checkpoints)], "checkpoints.txt", {type: "text/plain;charset=utf-8"});
           var track_file = new File([JSON.stringify(track)], "track.txt", {type: "text/plain;charset=utf-8"});
+
+          window.location.href = 'eventcreate.html';
         }
       </script>
 </body>
