@@ -11,15 +11,17 @@ body {
     margin-top: 10rem;
 }
 
+/*Main page*/
 .container1{
     height: 50rem;
     width: 100%;
-    background: linear-gradient(#0000004d 0%, #00000080 80%);
+    background: linear-gradient(#0000004d 0%,#0000004d 10%, #000000cc 100%);
     background-size: 100%;
     background-repeat: no-repeat;
     background-blend-mode: luminosity;
 }
 
+/*Login prompts and components*/
 .form-box{
     width: 100%;
     max-width: 30rem;
@@ -33,8 +35,8 @@ body {
 }
 
 .form-box h1{
-    font-style: bold;
-    font-size: 60px;
+    font-weight: 600;
+    font-size: 3.5rem;
     margin-bottom: 60px;
     color: #B7E3FF;
     position: relative;
@@ -60,14 +62,11 @@ input {
     border: 0;
     outline: 0;
     padding: 12px 10px;
+    font-weight: 500;
+    font-size: 1.2rem;
 }
 
-i{
-    color: black;
-    align-items: flex-start;
-    margin-left: 2%;
-}
-
+/*Button*/
 .btn-field{
     width: 100%;
     display: flex;
@@ -85,18 +84,22 @@ i{
     outline: 0;
     cursor: pointer;
     transition: background 0.2s;
+    font-weight: 500;
+    font-size: 1.2rem;
 }
 
 .btn-field button:hover{
     
-    background-color: rgb(52, 51, 51);
+    background-color: rgb(30, 30, 30);
   
 
 }
 
+/*paragrafs and links*/
 p{
     color: #B7E3FF;
-    font-style: bold;
+    font-weight: 500;
+    font-size: 1.2rem;
     margin-top: 5%;
 }
 
@@ -151,7 +154,8 @@ a:hover{
     }
   } */
 
-    /*Navbar*/
+
+/*Navbar*/
 #navtext{
     font-size: 1.3rem;
     font-weight: bold;

@@ -70,10 +70,10 @@
 
         class Section {
           constructor(id, distance, terrain) {
-            this.id = id;
-            this.distance = distance;
+            this.station_id = id;
+            this.next_distance = distance;
             this.terrain = terrain;
-            this.next = null;
+            this.next_id = null;
           }
         }
 
@@ -97,6 +97,7 @@
           var terrain = row.querySelector("[name='terrain']").value;
           var index = row.rowIndex - 1;
 
+          //If the input is empty, do nothing
           if (id_start == "" || distance == "" || terrain == "") {
             return;
           }
@@ -106,26 +107,27 @@
           row.querySelector("[name='terrain']").readOnly = true;
 
           var saveBtn = row.querySelector("button");
-          // Change the button label and functionality
+          // Change the save button to an edit button
           saveBtn.innerHTML = "Edit";
           saveBtn.onclick = function () {
             edit(row);
           }
           row.style.backgroundColor = "#ccc";
-          
+          //If the data already exists, update it
           if (data.length && typeof data[index] != "undefined") {
-            data[index].id = id_start;
-            data[index].distance = distance;
+            data[index].station_id = id_start;
+            data[index].next_distance = distance;
             data[index].terrain = terrain;
+            //If the row is not the first row, update the previous row's next_id
             if (index > 0) {
-              data[index - 1].next = id_start;
+              data[index - 1].next_id = id_start;
             }
           }
           else {
           var section = new Section(id_start, distance, terrain);
-
+          
           if (data.length > 0) {
-            data[data.length - 1].next = id_start;
+            data[data.length - 1].next_id = id_start;
           }
           data.push(section);
         }
@@ -136,8 +138,9 @@
           row.querySelector("[name='distance']").readOnly = false;
           row.querySelector("[name='terrain']").readOnly = false;
           
+
           var saveBtn = row.querySelector("button");
-          // Change the button label and functionality
+          // Change the button to a save button
           saveBtn.innerHTML = "Save";
           saveBtn.onclick = function () {
             save(row);
@@ -163,13 +166,15 @@
         function deleteRow(row) {
           var table = document.getElementById("sections_table");
           var index = row.rowIndex - 1;
-
+          //if there is no present data, dont do anything
           if (data.length == 0 || typeof data[index] == "undefined") {
             return;
           }
-          if (index > 0) {
-          data[index-1].next = data[index].next;
+          //if the deleted row is not the last one, update the next_id of the previous row
+          if (index != 0) {
+          data[index-1].next_id = data[index].next_id;
           }
+          //delete the data from the array and the row from the table
           data.splice(index, 1);
           row.parentNode.removeChild(row);
           console.log(data);
@@ -179,13 +184,13 @@
         function submit() {
           var table = document.getElementById("sections_table");
           var name = document.getElementById("InputTrackName").value;
-          var start = data[0].id
-          var end = data[data.length - 1].id
+          var start = data[0].station_id
+          var end = data[data.length - 1].station_id
           var checkpoints = data.slice(1, data.length - 1)
           var track = {
-            name: name,
-            start: start,
-            end: end
+            track_name: name,
+            start_station: start,
+            end_station: end
           }
           //download a txt file with the checkpoints
           var checkpoint_file = new File([JSON.stringify(checkpoints)], "checkpoints.txt", {type: "text/plain;charset=utf-8"});
