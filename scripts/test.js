@@ -56,24 +56,23 @@ function add_track(data) {
 async function generate_table() {
     /**/
     var data_string = "test"
-    res = await fetch(BASE + 'result')
+    res = await fetch(BASE + "event?key=host_email&search_text=")
 
     text = await res.json()
+    var dataString = String(text[1].replace(/[(')]/g, '').replace(/datetime.date/g, '')).split(',')
+    console.log(dataString)
+    let amount_event = dataString.length / 9
 
-    var dataString = String(text[1]).split(',')
-    let amount_event = dataString.length / 10
 
-
-
-    // creates a <table> element and a <tbody> element
     const tbl = document.createElement("table");
     tbl.setAttribute("id", "profile_table")
     const tbl_head = document.createElement("thead");
     const row = document.createElement("tr");
-    const cellText1 = document.createTextNode(`Time`);
-    const cellText2 = document.createTextNode(`Participant1`);
-    const cellText3 = document.createTextNode(`Participant2`);
-    const cellText4 = document.createTextNode(`Date`);
+    const cellText1 = document.createTextNode(`Tävling`);
+    const cellText2 = document.createTextNode(`Organisatör`);
+    const cellText3 = document.createTextNode(`Sport`);
+    const cellText4 = document.createTextNode(`StartDatum`);
+    const cellText5 = document.createTextNode(`SlutDatum`);
 
 
 
@@ -81,6 +80,9 @@ async function generate_table() {
 
     // creating all cells
     for (let i = 0; i < amount_event; i++) {
+        var startdate = dataString[i*9+3].trim()+"-"+dataString[i*9+4].trim()+"-"+dataString[i*9+5].trim()
+        var enddate = dataString[i*9+6].trim()+"-"+dataString[i*9+7].trim()+"-"+dataString[i*9+8].trim()
+        
         // creates a table row
         const row = document.createElement("tr");
 
@@ -89,7 +91,18 @@ async function generate_table() {
             // node the contents of the <td>, and put the <td> at
             // the end of the table row
             const cell = document.createElement("td");
-            const cellText = document.createTextNode(dataString[j]);
+            let cellText =''
+            if (j < 3) {
+                cellText = document.createTextNode(dataString[i * 9 + j]);
+            }
+            else if (j==3) {
+                cellText = document.createTextNode(startdate);
+            }
+            else {
+                cellText = document.createTextNode(enddate);
+
+            }
+            
             cell.appendChild(cellText);
             row.appendChild(cell);
         }
