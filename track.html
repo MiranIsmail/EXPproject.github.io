@@ -37,11 +37,15 @@
           </thead>
           <tbody>
             <tr>
-              <td><input type="text" class="form-control" name="id"></td>
-              <td><input type="text" class="form-control" name="distance"></td>
-              <td><input type="text" class="form-control" name="terrain"></td>
-              <td><button class="btn btn-outline-primary" onclick="save(this.parentNode.parentNode)">Save</button></td>
-              <td><button class="btn btn-danger" onclick="deleteRow(this.parentNode.parentNode)">Delete</button></td>
+              <div class="row">
+                <div class="col-sm-6">
+                <td><input type="text" class="form-control" name="id"></td>
+                <td><input type="text" class="form-control" name="distance"></td>
+                <td><input type="text" class="form-control" name="terrain"></td>
+                <td><button class="btn btn-outline-primary" onclick="save(this.parentNode.parentNode)">Save</button></td>
+                <td><button class="btn btn-danger" onclick="deleteRow(this.parentNode.parentNode)">Delete</button></td>
+                </div>
+              </div>
             </tr>
           </tbody>
         </table>
@@ -68,6 +72,15 @@
           if (id_start == "" || distance == "" || terrain == "") {
             return;
           }
+          var saveBtn = row.querySelector("button");
+          saveBtn.disabled = true;
+          // Change the button label and functionality
+          saveBtn.innerHTML = "Edit";
+          saveBtn.onclick = function() {
+            // Do something else when the Edit button is clicked
+            alert("Edit button clicked!");
+          }
+          row.style.backgroundColor = "#ccc";
           var section = new Section(id_start, distance, terrain);
 
           if (data.length > 0) {
@@ -76,6 +89,7 @@
           data.push(section);
           addRow();
         }
+
         function addRow() {
           var table = document.getElementById("sections_table");
           var row = table.insertRow();
