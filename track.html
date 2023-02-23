@@ -59,6 +59,16 @@
       <script>
         const checkbox = document.getElementById('my-checkbox');
         const button = document.getElementById('my-button');
+        var data = [];
+
+        class Section {
+          constructor(id, distance, terrain) {
+            this.id = id;
+            this.distance = distance;
+            this.terrain = terrain;
+            this.next = null;
+          }
+        }
 
         checkbox.addEventListener('change', function(sections_table) {
           var saved_count = data.length
@@ -69,16 +79,6 @@
             button.setAttribute('disabled', '');
           }
         });
-        
-        var data = [];
-        class Section {
-          constructor(id, distance, terrain) {
-            this.id = id;
-            this.distance = distance;
-            this.terrain = terrain;
-            this.next = null;
-          }
-        }
         
         function save(row) {
           var id_start = row.querySelector("[name='id']").value;
@@ -102,7 +102,7 @@
           }
           row.style.backgroundColor = "#ccc";
           
-          if (data.length > 0 && typeof data[index] != "undefined") {
+          if (data.length && typeof data[index] != "undefined") {
             data[index].id = id_start;
             data[index].distance = distance;
             data[index].terrain = terrain;
