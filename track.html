@@ -85,13 +85,18 @@
           var saveBtn = row.querySelector("button");
           // Change the button label and functionality
           saveBtn.innerHTML = "Edit";
-          saveBtn.onclick = edit(row);
+          saveBtn.onclick = function () {
+            edit(row);
+          }
           row.style.backgroundColor = "#ccc";
-
+          
           if (data.length > 0 && typeof data[index] != "undefined") {
             data[index].id = id_start;
             data[index].distance = distance;
             data[index].terrain = terrain;
+            if (index > 0) {
+              data[index - 1].next = id_start;
+            }
           }
           else {
           var section = new Section(id_start, distance, terrain);
@@ -107,13 +112,14 @@
           row.querySelector("[name='id']").readOnly = false;
           row.querySelector("[name='distance']").readOnly = false;
           row.querySelector("[name='terrain']").readOnly = false;
-
           
           var saveBtn = row.querySelector("button");
           // Change the button label and functionality
           saveBtn.innerHTML = "Save";
-          saveBtn.onclick = save(row);
-
+          saveBtn.onclick = function () {
+            save(row);
+          }
+          row.style.backgroundColor = "#fff";
         }
         function addRow() {
           var table = document.getElementById("sections_table");
