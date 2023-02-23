@@ -26,7 +26,7 @@
       <!-- Create a table with Bootstrap 5 classes -->
       <div class="">
     
-        <table class="table table-striped w-50 mx-auto" id="sections_table">
+        <table class="table table-striped w-100 mx-auto" id="sections_table">
           <thead>
             <tr>
               <th>ID</th>
@@ -128,6 +128,7 @@
         
 
         function submit() {
+          console.log(data)
           var table = document.getElementById("sections_table");
           var rows = table.rows;
           var name = document.getElementById("InputTrackName").value;
@@ -141,12 +142,14 @@
           console.log(data);
           //create a txt file with the data
           var file = new Blob([JSON.stringify(track)], {type: 'text/plain'});
+
+          window.location.href = 'eventcreate.html';
         }
       </script>
         
     </div>
     <div class="mb-3 mx-auto w-50">
-      <button type="submit" class="btn btn-primary" href="eventcreate.html" onclick=submit()>Submit</button>
+      <button type="submit" class="btn btn-primary" role="button" onclick=submit()>Submit</button>
     </div>
 </body>
 <exp-footer></exp-footer>
