@@ -118,8 +118,6 @@
             data[data.length - 1].next = id_start;
           }
           data.push(section);
-          console.log(data.length)
-          console.log(document.getElementById("sections_table").rows.length)
         }
         }
 
@@ -173,15 +171,15 @@
           var name = document.getElementById("InputTrackName").value;
           var start = data[0].id
           var end = data[data.length - 1].id
+          var checkpoints = data.slice(1, data.length - 1)
           var track = {
             name: name,
             start: start,
             end: end
           }
-          console.log(track);
-          //create a txt file with the data
-          var file = new Blob([JSON.stringify(track)], {type: 'text/plain'});
-          window.location.href = 'eventcreate.html';
+          //download a txt file with the checkpoints
+          var checkpoint_file = new File([JSON.stringify(checkpoints)], "checkpoints.txt", {type: "text/plain;charset=utf-8"});
+          var track_file = new File([JSON.stringify(track)], "track.txt", {type: "text/plain;charset=utf-8"});
         }
       </script>
         
