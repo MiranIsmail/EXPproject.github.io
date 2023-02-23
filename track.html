@@ -58,7 +58,6 @@
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
       <script>
         const button = document.getElementById('add_button');
-        var table = document.getElementById("sections_table");
         var data = [];
 
         class Section {
@@ -70,9 +69,10 @@
           }
         }
 
-        table.addEventListener('change', function() {
+        document.addEventListener('click', function() {
           var saved_count = data.length
-          var row_count = table.tBodies[0].rows.length;;
+          var table = document.getElementById("sections_table");
+          var row_count = table.rows.length;
           if (saved_count == row_count-1) {
             button.removeAttribute('disabled');
           } else {
@@ -81,6 +81,7 @@
         });
         
         function save(row) {
+          
           var id_start = row.querySelector("[name='id']").value;
           var distance = row.querySelector("[name='distance']").value;
           var terrain = row.querySelector("[name='terrain']").value;
@@ -117,6 +118,8 @@
             data[data.length - 1].next = id_start;
           }
           data.push(section);
+          console.log(data.length)
+          console.log(document.getElementById("sections_table").rows.length)
         }
         }
 
