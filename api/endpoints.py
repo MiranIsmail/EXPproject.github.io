@@ -81,9 +81,10 @@ class Account(Resource):
         password = request.args.get("password")
         print(email, password)
         cur.execute(sql, (email, sha1(password.encode()).hexdigest()))
-        # token = cur.fetchall()[0][0]
+        token = cur.fetchall()
+        print(token)
         conn.close()
-        return ("success", "df"), 200
+        return ("success", token), 200
 
     def delete(self) -> tuple[str, int]:
         conn = mysql.connect
@@ -217,8 +218,23 @@ class Result(Resource):
         return "Success", 200
 
 
+class Info(Resource):
+    def get(self) -> tuple[tuple[str, str], int]:
+        conn = mysql.connect
+        cur = conn.cursor()
+        sql = "select first_name from Users where token like %s "
+        token = request.args.get("token")
+
+        cur.execute(sql, (token,))
+        token = cur.fetchall()
+        print(token)
+        conn.close()
+        return ("success", token), 200
+
+
 api.add_resource(Account, "/account")
 api.add_resource(Event, "/event")
 api.add_resource(Result, "/result")
+api.add_resource(Info, "/get_info")
 if __name__ == "__main__":
     app.run(host="193.11.187.227", debug=True)
