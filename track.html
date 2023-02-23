@@ -21,6 +21,10 @@
       <label for="InputTrackName" class="form-label">Track name</label>
       <input type="text" class="form-control" id="InputTrackName">
     </div>
+    <div class="mb-3 mx-auto w-50">
+      <label for="AddRowButton" class="form-label" id="add"></label>
+      <button onclick="addRow()">Add Row</button>
+    </div>
       <!-- Include the Bootstrap 5 CSS file -->
       <label for="InputTrackName" class="table mx-auto"></label>
       <!-- Create a table with Bootstrap 5 classes -->
@@ -68,7 +72,8 @@
           var id_start = row.querySelector("[name='id']").value;
           var distance = row.querySelector("[name='distance']").value;
           var terrain = row.querySelector("[name='terrain']").value;
-          
+          var index = row.rowIndex - 1;
+
           if (id_start == "" || distance == "" || terrain == "") {
             return;
           }
@@ -78,14 +83,17 @@
           row.querySelector("[name='terrain']").readOnly = true;
 
           var saveBtn = row.querySelector("button");
-          saveBtn.disabled = true;
           // Change the button label and functionality
           saveBtn.innerHTML = "Edit";
-          saveBtn.onclick = function() {
-            // Do something else when the Edit button is clicked
-            alert("Edit button clicked!");
-          }
+          saveBtn.onclick = edit(row);
           row.style.backgroundColor = "#ccc";
+
+          if (data.length > 0 && typeof data[index] != "undefined") {
+            data[index].id = id_start;
+            data[index].distance = distance;
+            data[index].terrain = terrain;
+          }
+          else {
           var section = new Section(id_start, distance, terrain);
 
           if (data.length > 0) {
@@ -93,7 +101,20 @@
           }
           data.push(section);
         }
+        }
 
+        function edit(row) {
+          row.querySelector("[name='id']").readOnly = false;
+          row.querySelector("[name='distance']").readOnly = false;
+          row.querySelector("[name='terrain']").readOnly = false;
+
+          
+          var saveBtn = row.querySelector("button");
+          // Change the button label and functionality
+          saveBtn.innerHTML = "Save";
+          saveBtn.onclick = save(row);
+
+        }
         function addRow() {
           var table = document.getElementById("sections_table");
           var row = table.insertRow();
@@ -128,7 +149,6 @@
         
 
         function submit() {
-          console.log(data)
           var table = document.getElementById("sections_table");
           var rows = table.rows;
           var name = document.getElementById("InputTrackName").value;
