@@ -72,7 +72,7 @@
 
         table.addEventListener('change', function() {
           var saved_count = data.length
-          var row_count = table.tBodies[0].rows.length;;
+          var row_count = table.tBodies[0].rows.length;
           if (saved_count == row_count-1) {
             button.removeAttribute('disabled');
           } else {
@@ -151,7 +151,6 @@
 
         function deleteRow(row) {
           var table = document.getElementById("sections_table");
-          var rows = table.rows;
           var index = row.rowIndex - 1;
 
           if (data.length == 0 || typeof data[index] == "undefined") {
@@ -168,7 +167,6 @@
 
         function submit() {
           var table = document.getElementById("sections_table");
-          var rows = table.rows;
           var name = document.getElementById("InputTrackName").value;
           var start = data[0].id
           var end = data[data.length - 1].id
@@ -177,10 +175,9 @@
             start: start,
             end: end
           }
-          console.log(data);
+          console.log(track);
           //create a txt file with the data
           var file = new Blob([JSON.stringify(track)], {type: 'text/plain'});
-
           window.location.href = 'eventcreate.html';
         }
       </script>
