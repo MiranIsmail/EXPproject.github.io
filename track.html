@@ -70,10 +70,10 @@
           }
         }
 
-        checkbox.addEventListener('change', function(sections_table) {
+        table.addEventListener('change', function() {
           var saved_count = data.length
-          var row_count = document.getElementById("sections_table").rows.length;
-          if (data.length == row_count) {
+          var row_count = table.tBodies[0].rows.length;;
+          if (saved_count == row_count-1) {
             button.removeAttribute('disabled');
           } else {
             button.setAttribute('disabled', '');
