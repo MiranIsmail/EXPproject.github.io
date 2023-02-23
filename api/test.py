@@ -3,7 +3,10 @@ import requests
 
 def main() -> None:
     BASE = "http://193.11.187.227:5000/"
-    response = requests.put(BASE + "account",{"email": "a@ar24", "first_name": "amin", "last_name": "afzali", "password": "dsf"})
+    response = requests.put(
+        BASE + "account",
+        {"email": "a@ar24", "first_name": "amin", "last_name": "afzali", "password": "dsf"},
+    )
 
     # response = requests.post(BASE + "account",data={'token':"3a9b2e43cb02c3a70347a83caced98618f93cd5d"})
 
@@ -31,11 +34,11 @@ def main() -> None:
     #     BASE + "event", data={"token": "eb18fb7faa62b1d7f24c82b283056356ccfc847b", "event_id": 5}
     # )
 
-    #response = requests.put(BASE+"result",{'track_time':'12s','event_id':6,'participant1':'a@a2'})
+    # response = requests.put(BASE+"result",{'track_time':'12s','event_id':6,'participant1':'a@a2'})
 
-    # response = requests.get(BASE + "result", {"event_id": 6})
+    response = requests.get(BASE + "result")
 
-    #response = requests.delete(BASE + 'result', data={'token':'eb18fb7faa62b1d7f24c82b283056356ccfc847b','event_id':6})
+    # response = requests.delete(BASE + 'result', data={'token':'eb18fb7faa62b1d7f24c82b283056356ccfc847b','event_id':6})
     print(response.json())
 
 

@@ -190,11 +190,11 @@ class Result(Resource):
     def get(self) -> tuple[tuple[str, str], int]:
         conn = mysql.connect
         cur = conn.cursor()
-        event_id = request.args.get("event_id")
 
-        sql = "select * from result where `event_id` like %s"
 
-        cur.execute(sql, (event_id,))
+        sql = "select * from result"
+
+        cur.execute(sql)
         result = cur.fetchall()
         conn.close()
 
@@ -222,7 +222,7 @@ class Info(Resource):
     def get(self) -> tuple[tuple[str, str], int]:
         conn = mysql.connect
         cur = conn.cursor()
-        sql = "select first_name from Users where token like %s "
+        sql = "select * from Users where token like %s "
         token = request.args.get("token")
 
         cur.execute(sql, (token,))
