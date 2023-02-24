@@ -15,7 +15,7 @@ function createAccount() {
         method: 'PUT',
         body: JSON.stringify({ 'first_name': xfirst_name, 'last_name': xlast_name, 'password': xpassword, 'email': xemail })
     }).then(response => response.json())
-    open("LogIn.html")
+    open("Login.html")
 }
 
 
@@ -79,9 +79,9 @@ async function generate_table() {
 
     // creating all cells
     for (let i = 0; i < amount_event; i++) {
-        var startdate = dataString[i*9+3].trim()+"-"+dataString[i*9+4].trim()+"-"+dataString[i*9+5].trim()
-        var enddate = dataString[i*9+6].trim()+"-"+dataString[i*9+7].trim()+"-"+dataString[i*9+8].trim()
-        
+        var startdate = dataString[i * 9 + 3].trim() + "-" + dataString[i * 9 + 4].trim() + "-" + dataString[i * 9 + 5].trim()
+        var enddate = dataString[i * 9 + 6].trim() + "-" + dataString[i * 9 + 7].trim() + "-" + dataString[i * 9 + 8].trim()
+
         // creates a table row
         const row = document.createElement("tr");
 
@@ -90,18 +90,18 @@ async function generate_table() {
             // node the contents of the <td>, and put the <td> at
             // the end of the table row
             const cell = document.createElement("td");
-            let cellText =''
+            let cellText = ''
             if (j < 3) {
                 cellText = document.createTextNode(dataString[i * 9 + j]);
             }
-            else if (j==3) {
+            else if (j == 3) {
                 cellText = document.createTextNode(startdate);
             }
             else {
                 cellText = document.createTextNode(enddate);
 
             }
-            
+
             cell.appendChild(cellText);
             row.appendChild(cell);
         }
