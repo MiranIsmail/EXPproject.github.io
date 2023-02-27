@@ -30,7 +30,7 @@
       <label for="InputTrackName" class="table mx-auto"></label>
       <!-- Create a table with Bootstrap 5 classes -->
       <div class="">
-    
+
         <table class="table table-striped w-100 mx-auto" id="sections_table">
           <thead>
             <tr>
@@ -54,9 +54,9 @@
             </tr>
           </tbody>
         </table>
-    
+
       </div>
-      
+
     </div>
     <div class="mb-3 mx-auto w-50">
       <button type="submit"  button id="submit_button" class="btn btn-primary" role="button" disabled onclick=submit()>Submit</button>
@@ -89,9 +89,9 @@
             submit_button.setAttribute('disabled', '');
           }
         });
-        
+
         function save(row) {
-          
+
           var id_start = row.querySelector("[name='id']").value;
           var distance = row.querySelector("[name='distance']").value;
           var terrain = row.querySelector("[name='terrain']").value;
@@ -125,7 +125,7 @@
           }
           else {
           var section = new Section(id_start, distance, terrain);
-          
+
           if (data.length > 0) {
             data[data.length - 1].next_id = id_start;
           }
@@ -137,7 +137,7 @@
           row.querySelector("[name='id']").readOnly = false;
           row.querySelector("[name='distance']").readOnly = false;
           row.querySelector("[name='terrain']").readOnly = false;
-          
+
 
           var saveBtn = row.querySelector("button");
           // Change the button to a save button
@@ -179,7 +179,7 @@
           row.parentNode.removeChild(row);
           console.log(data);
         }
-        
+
 
         function submit() {
           var table = document.getElementById("sections_table");
