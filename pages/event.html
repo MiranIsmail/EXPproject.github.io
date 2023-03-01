@@ -28,10 +28,13 @@
       <div class="container w-100">
         <div class="row align-items-start">
           <div class="col-md-6">
-            <h1 class="current_events">Current Events</h1>
+            <h1 class="current_events">
+              <div class="nice_text">
+                <h1>Current Event</h1>
+              </div>
+            </h1>
              <!--Left-->
-             <a href="">
-              <div class="wrapper drop_shadow">
+              <div class="drop_shadow">
                 <div class="searchBar event_left_box">
                   <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="Search" value="" onkeyup="search_event()"/>
                   <button id="searchQuerySubmit" type="submit" name="searchQuerySubmit">
@@ -39,8 +42,9 @@
                     </svg>
                   </button>
                 </div>
+              <a href="">
             </div>
-              <div class="card event_left_box mb-3 drop_shadow h-1" style="list-style: none">
+              <div class="card event_left_box mb-3 drop_shadow" style="list-style: none">
                 <div class="row g-1">
                   <div class="col-md-12">
                     <img
@@ -50,16 +54,10 @@
                     />
                   </div>
                   <div class="col-md-12">
-                    <div class="card-body">
+                    <div class="card-body card_link">
                       <h3 class="card-title">ÖTILLÖ SWIMRUN UTÖ</h3>
                       <h5 class="card-text">17 JUNE 2023</h5>
-                      <p class="card-text">
-                        New race courses since 2022. Utö is where the whole
-                        swimrun movement started and where the late night bet
-                        which became ÖTILLÖ was made. It is an island in the
-                        southern part of the Stockholm archipelago almost 90
-                        minutes from Stockholm. This is Swimrun heaven!
-                      </p>
+          
                     </div>
                   </div>
                 </div>
@@ -67,24 +65,15 @@
             </div>
           </div>
           <div class="col-md-6">
-            <h1>Create Event</h1>
+            <div class="nice_text">
+              <h1>Create Event</h1>
+            </div>
             <button type="button" onclick="location.href='eventcreate.html'" class="create_event">Create Event</button>
           </div>
         </div>
       </table>
     </a>
   </div>
-  <!--<div class="event_right_box">
-    Right-->
-    <table>
-      <button class="create_event">Create Event</button>
-      <!--     <a class="btn btn-outline-primary" href="track.html" role="button"
-        >Create Event from new track</a
-      >
-      <a class="btn btn-outline-primary" href="eventcreate.html" role="button"
-        >Create Event from existing track</a
-      >-->
-    </table>
   </div>
 </body>
 <div include-html='../assets/footer.html'></div>
