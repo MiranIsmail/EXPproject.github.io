@@ -169,10 +169,7 @@ function include_HTML() {
       return;
     }
   }
-<<<<<<< HEAD
 }
-=======
-
   
 function includeHTML2() {
     var z, i, elmnt, file, xhr;
@@ -201,6 +198,7 @@ function includeHTML2() {
   }
 
   /*CREATE EVENT */
+function date_event() {
 let startDate = document.getElementById('startDate')
 let endDate = document.getElementById('endDate')
 
@@ -212,5 +210,6 @@ startDate.addEventListener('change',(e)=>{
 endDate.addEventListener('change',(e)=>{
   let endDateVal = e.target.value
   document.getElementById('endDateSelected').innerText = endDateVal
-}) 
->>>>>>> 772e989eee4a667737163d71dc88e30c6e61878d
+})
+
+}
