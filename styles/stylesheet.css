@@ -1,15 +1,13 @@
 /*Footer*/
-#footer-container h5{
+#footer-container h5 {
   text-decoration: underline;
   color: white;
 }
 
-#footer-container a{
+#footer-container a {
   text-decoration: none;
   color: white;
 }
-
-
 
 body {
   background-color: #b7e3ff;
@@ -24,7 +22,7 @@ body {
 }
 
 .drop_shadow {
-  filter: drop-shadow(10px 10px 4px rgba(0, 0, 0, 0.25));
+  filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.25));
 }
 
 #image_run {
@@ -195,8 +193,7 @@ body {
   width: 50%;
   /*padding-left: 5%;
   padding-top: 5%;*/
-  float: left;
-  padding-left: 5%;
+  padding-top: 0%;
   display: flex;
 }
 

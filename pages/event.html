@@ -1,65 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>EXP Initiative</title>
+    <meta charset="utf-8" />
+    <!--Tre librarys dont remove, Bootstrap 5-->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="../styles/stylesheet.css" />
+    <link rel="stylesheet" href="../styles/login_style.css" />
+    <link rel="stylesheet" href="../styles/SignUp_LogIn_style.css" />
+    <script type="text/javascript" src="../scripts/js_scripts.js"></script>
+  </head>
 
-<head>
-  <title>EXP Initiative</title>
-  <meta charset="utf-8">
-  <!--Tre librarys dont remove, Bootstrap 5-->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-  <link rel="stylesheet" href="../styles/stylesheet.css">
-  <link rel="stylesheet" href="../styles/login_style.css">
-  <link rel="stylesheet" href="../styles/SignUp_LogIn_style.css">
-  <script type="text/javascript" src="../scripts/js_scripts.js"></script>
-</head>
+  <div include-html="../assets/navbar.html"></div>
+  <body onload="includeHTML(), includeHTML2()">
+    <div>
+      <img class="w-100 op30" src="../images/indeximage_thinner.png" id="image_run">
+      <div style="padding-bottom: 4rem;" id="searchFade">
+      </div>
 
-<div include-html='../assets/navbar.html'></div>
-<body onload="includeHTML(), includeHTML2()">
-  <!--Left-->
-  <div class="event_left_box" id="event_left_box">
-    <h1>Current Events</h1>
-    <a href="" class="card_link">
-      <!-- Made it clickable-->
-      <table>
-        <div class="card mb-3 drop_shadow" style="list-style: none">
-          <div class="row g-1">
-            <div class="col-md-12">
-              <img
-                src="../images/eventimg/otillo.jpg"
-                class="img-fluid rounded-start"
-                alt="..."
-              />
+    <div class="w-100">
+      <div class="container w-100">
+        <div class="row align-items-start">
+          <div class="col-md-6">
+            <h1 class="current_events">Current Events</h1>
+             <!--Left-->
+             <a href="">
+              <div class="wrapper drop_shadow">
+                <div class="searchBar event_left_box">
+                  <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="Search" value="" onkeyup="search_event()"/>
+                  <button id="searchQuerySubmit" type="submit" name="searchQuerySubmit">
+                    <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#666666" d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
+                    </svg>
+                  </button>
+                </div>
             </div>
-            <div class="col-md-12">
-              <div class="card-body">
-                <h3 class="card-title">ÖTILLÖ SWIMRUN UTÖ</h3>
-                <h5 class="card-text">17 JUNE 2023</h5>
-                <p class="card-text">
-                  New race courses since 2022. Utö is where the whole swimrun
-                  movement started and where the late night bet which became
-                  ÖTILLÖ was made. It is an island in the southern part of the
-                  Stockholm archipelago almost 90 minutes from Stockholm. This
-                  is Swimrun heaven!
-                </p>
-              </div>
+              <div class="card event_left_box mb-3 drop_shadow h-1" style="list-style: none">
+                <div class="row g-1">
+                  <div class="col-md-12">
+                    <img
+                      src="../images/eventimg/otillo.jpg"
+                      class="img-fluid rounded-start"
+                      alt="..."
+                    />
+                  </div>
+                  <div class="col-md-12">
+                    <div class="card-body">
+                      <h3 class="card-title">ÖTILLÖ SWIMRUN UTÖ</h3>
+                      <h5 class="card-text">17 JUNE 2023</h5>
+                      <p class="card-text">
+                        New race courses since 2022. Utö is where the whole
+                        swimrun movement started and where the late night bet
+                        which became ÖTILLÖ was made. It is an island in the
+                        southern part of the Stockholm archipelago almost 90
+                        minutes from Stockholm. This is Swimrun heaven!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </a>
             </div>
           </div>
+          <div class="col-md-6">
+            <h1>Create Event</h1>
+            <button type="button" onclick="location.href='eventcreate.html'" class="create_event">Create Event</button>
+          </div>
         </div>
-      </table>
-    </a>
-  </div>
-  <!--<div class="event_right_box">
-    Right-->
-    <table>
-      <button class="create_event">Create Event</button>
-      <!--     <a class="btn btn-outline-primary" href="track.html" role="button"
-        >Create Event from new track</a
-      >
-      <a class="btn btn-outline-primary" href="eventcreate.html" role="button"
-        >Create Event from existing track</a
-      >-->
-    </table>
-  </div>
-  <div include-html2='../assets/footer.html'></div>
-</body>
+      </div>
+  </body>
+  <div include-html2="../assets/footer.html"></div>
+</html>
