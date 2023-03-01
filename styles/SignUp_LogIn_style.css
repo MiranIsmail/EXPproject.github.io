@@ -96,14 +96,14 @@ input {
 }
 
 /*paragrafs and links*/
-p{
+#ptext{
     color: #B7E3FF;
     font-weight: 500;
     font-size: 1.2rem;
     margin-top: 5%;
 }
 
-a{
+#atext{
     color: #B7E3FF;
     font-style: bold;
 }
