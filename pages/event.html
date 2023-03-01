@@ -17,22 +17,21 @@
 <div include-html='../assets/navbar.html'></div>
 <body onload="includeHTML(), includeHTML2()">
   <!--Left-->
-  <div class="event_left_box">
+  <div class="event_left_box" id="event_left_box">
     <h1>Current Events</h1>
-
     <a href="" class="card_link">
       <!-- Made it clickable-->
       <table>
         <div class="card mb-3 drop_shadow" style="list-style: none">
-          <div class="row g-0">
-            <div class="col-md-4">
+          <div class="row g-1">
+            <div class="col-md-12">
               <img
                 src="../images/eventimg/otillo.jpg"
                 class="img-fluid rounded-start"
                 alt="..."
               />
             </div>
-            <div class="col-md-8">
+            <div class="col-md-12">
               <div class="card-body">
                 <h3 class="card-title">ÖTILLÖ SWIMRUN UTÖ</h3>
                 <h5 class="card-text">17 JUNE 2023</h5>
@@ -50,8 +49,8 @@
       </table>
     </a>
   </div>
-  <div class="event_right_box">
-    <!--Right-->
+  <!--<div class="event_right_box">
+    Right-->
     <table>
       <button class="create_event">Create Event</button>
       <!--     <a class="btn btn-outline-primary" href="track.html" role="button"
@@ -62,5 +61,5 @@
       >-->
     </table>
   </div>
+  <div include-html2='../assets/footer.html'></div>
 </body>
-<div include-html2='../assets/footer.html'></div>
