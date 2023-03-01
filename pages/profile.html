@@ -28,14 +28,57 @@
                 <h1 class="text-shift">
                     <span id="profileName">profile name</span>
                 </h1>
-                <h3 class="text-shift">Ålder: <span id="age"></span> år</h2>
-                <h3 class="text-shift">Längd: <span id="length"></span> cm</h2>
-                <h3 class="text-shift">Vikt: <span id="weight"></span> kg</h2>
+                <h3 class="text-shift">Ålder: <span id="age"></span> år</h3>
+                <h3 class="text-shift">Längd: <span id="length"></span> cm</h3>
+                <h3 class="text-shift">Vikt: <span id="weight"></span> kg</h3>
+                <h3 class="text-shift"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit_profile">Edit</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <!--Popup-->
+      
+      <!-- Modal -->
+      <div class="modal fade" id="edit_profile" tabindex="-1" aria-labelledby="edit_profile_name" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            <div class="modal-body">
+                <h5 class="modal-title text-center" id="edit_profile_name">Edit profile</h5>
+                <div class="mb-3 mx-auto w-75">
+                    <label for="InputTrackName" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="InputTrackName" placeholder="Input Your Name">
+                </div>
+
+                <div class="mb-3 mx-auto w-75">
+                    <label for="InputTrackName" class="form-label">Birth day</label>
+                    <input id="b_day" class="form-control" type="date" />
+                    <span id="b_day_selected"></span>
+                  </div>
+
+                <div class="mb-3 mx-auto w-75">
+                    <label for="InputTrackName" class="form-label">Height</label>
+                    <input type="number" class="form-control" id="InputTrackName" placeholder="Input Your Height">
+                </div>
+
+                <div class="mb-3 mx-auto w-75">
+                    <label for="InputTrackName" class="form-label">Weight</label>
+                    <input type="number" class="form-control" id="InputTrackName" placeholder="Input Your Weight">
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!--Popup-->
 
     <img class="w-100 op30" style="padding-top:2rem;" src="../images/indeximage_thinner.png" id="image_run">
 

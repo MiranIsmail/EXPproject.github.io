@@ -198,9 +198,10 @@ function includeHTML2() {
   }
 
   /*CREATE EVENT */
-function date_event() {
+
 let startDate = document.getElementById('startDate')
 let endDate = document.getElementById('endDate')
+let b_day = document.getElementById('b_day')
 
 startDate.addEventListener('change',(e)=>{
   let startDateVal = e.target.value
@@ -212,4 +213,8 @@ endDate.addEventListener('change',(e)=>{
   document.getElementById('endDateSelected').innerText = endDateVal
 })
 
-}
+b_day.addEventListener('change',(e)=>{
+  let b_day_val = e.target.value
+  document.getElementById('b_day_selected').innerText = b_day_val
+})
+
