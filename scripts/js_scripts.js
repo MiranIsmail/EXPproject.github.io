@@ -169,4 +169,48 @@ function include_HTML() {
       return;
     }
   }
+<<<<<<< HEAD
 }
+=======
+
+  
+function includeHTML2() {
+    var z, i, elmnt, file, xhr;
+    /* Loop through a collection of all HTML elements with the include-html attribute */
+    z = document.querySelectorAll("[include-html2]");
+    for (i = 0; i < z.length; i++) {
+      elmnt = z[i];
+      /* Get the file specified in the include-html attribute */
+      file = elmnt.getAttribute("include-html2");
+      if (file) {
+        /* Create an XMLHttpRequest object */
+        xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            /* Replace the content of the element with the imported HTML */
+            elmnt.innerHTML = this.responseText;
+          }
+        } 
+        /* Send a request to the server to get the specified file */
+        xhr.open("GET", file, true);
+        xhr.send();
+        /* Exit the function */
+        return;
+      }
+    }
+  }
+
+  /*CREATE EVENT */
+let startDate = document.getElementById('startDate')
+let endDate = document.getElementById('endDate')
+
+startDate.addEventListener('change',(e)=>{
+  let startDateVal = e.target.value
+  document.getElementById('startDateSelected').innerText = startDateVal
+})
+
+endDate.addEventListener('change',(e)=>{
+  let endDateVal = e.target.value
+  document.getElementById('endDateSelected').innerText = endDateVal
+}) 
+>>>>>>> 772e989eee4a667737163d71dc88e30c6e61878d
