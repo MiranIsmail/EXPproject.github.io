@@ -21,7 +21,21 @@
                 zoom: 15,
                 center: {lat:56.1831973,lng:15.5878249}
             }
-            var map = new google.maps.Map(document.getElementById('map'),options) 
+            var map = new google.maps.Map(document.getElementById('map'),options);
+            var marker = new google.maps.Marker({
+                position:{lat:56.183608,lng:15.592718},
+                map:map
+            });
+            var marker2 = new google.maps.Marker({
+                position:{lat:56.18058058717547,lng:15.595282189578382},
+                map:map
+            });
+            var infoWindow = new google.maps.InfoWindow({
+                content:'<h1>Vitlöksbröd</h1>'
+            });
+            marker.addListener('click',function(){
+                infoWindow.open(map,marker)
+            });
         }
     </script>
 <script async
