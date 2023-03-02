@@ -22,7 +22,7 @@
                 center: {lat:56.1831973,lng:15.5878249}
             }
             var map = new google.maps.Map(document.getElementById('map'),options);
-            var marker = new google.maps.Marker({
+            /*var marker = new google.maps.Marker({
                 position:{lat:56.183608,lng:15.592718},
                 map:map
             });
@@ -35,7 +35,30 @@
             });
             marker.addListener('click',function(){
                 infoWindow.open(map,marker)
+            });*/    
+            function add_marker(props) {
+                var marker = new google.maps.Marker({
+                position:props.coords,
+                map:map
             });
+
+            if (props.content) {
+                var infoWindow = new google.maps.InfoWindow({
+                content: props.content
+            });
+            marker.addListener('click',function(){
+                infoWindow.open(map,marker)
+            });
+            }
+            }
+            add_marker({coords:{lat:56.18058058717547,lng:15.595282189578382},content:'<h1>hello</h1>'})
+            add_marker({coords:{lat:56.183608,lng:15.592718},content:'<h1>hello2</h1>'});
+
+            map.addListener('click', (e)=>{
+                add_marker({coords:e.latLng});
+            })
+            
+
         }
     </script>
 <script async
