@@ -2,21 +2,22 @@
 <html lang="en">
 
 <head>
-  <title>Profile - Rasts</title>
-  <meta charset="utf-8">
-  <link rel="icon" type="image/x-icon" href="../images/logoboll.svg">
-  <!--Tre librarys dont remove, Bootstrap 5-->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-  <link rel="stylesheet" href="../styles/stylesheet.css">
-  <link rel="stylesheet" href="../styles/login_style.css">
-  <link rel="stylesheet" href="../styles/SignUp_LogIn_style.css">
-  <script type="text/javascript" src="../scripts/js_scripts.js"></script>
+    <title>Profile - Rasts</title>
+    <meta charset="utf-8">
+    <link rel="icon" type="image/x-icon" href="../images/logoboll.svg">
+    <!--Tre librarys dont remove, Bootstrap 5-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="../styles/stylesheet.css">
+    <link rel="stylesheet" href="../styles/login_style.css">
+    <link rel="stylesheet" href="../styles/SignUp_LogIn_style.css">
+    <script type="text/javascript" src="../scripts/js_scripts.js"></script>
 </head>
 
 <div include-html='../assets/navbar.html'></div>
-<body onload="get_user_info(), generate_table()">
+
+<body>
     <div id="container-img">
         <div class="row">
             <div class="col-sm-6">
@@ -25,58 +26,60 @@
             </div>
             <div class="col-sm-6" style="vertical-align: middle;">
                 <div>
-                <h1 class="text-shift">
-                    <span id="profileName">profile name</span>
-                </h1>
-                <h3 class="text-shift">Ålder: <span id="age"></span> år</h3>
-                <h3 class="text-shift">Längd: <span id="length"></span> cm</h3>
-                <h3 class="text-shift">Vikt: <span id="weight"></span> kg</h3>
-                <h3 class="text-shift"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit_profile">Edit</button>
+                    <h1 class="text-shift">
+                        <span id="profileName">profile name</span>
+                    </h1>
+                    <h3 class="text-shift">Ålder: <span id="age"></span> år</h3>
+                    <h3 class="text-shift">Längd: <span id="length"></span> cm</h3>
+                    <h3 class="text-shift">Vikt: <span id="weight"></span> kg</h3>
+                    <h3 class="text-shift"><button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#edit_profile">Edit</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!--Popup-->
-      
-      <!-- Modal -->
-      <div class="modal fade" id="edit_profile" tabindex="-1" aria-labelledby="edit_profile_name" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+
+    <!-- Modal -->
+    <div class="modal fade" id="edit_profile" tabindex="-1" aria-labelledby="edit_profile_name" aria-hidden="true"
+        data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            
-            <div class="modal-body">
-                <h5 class="modal-title text-center" id="edit_profile_name">Edit profile</h5>
-                <div class="mb-3 mx-auto w-75">
-                    <label for="InputTrackName" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="InputTrackName" placeholder="Input Your Name">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
-                <div class="mb-3 mx-auto w-75">
-                    <label for="InputTrackName" class="form-label">Birth day</label>
-                    <input id="b_day" class="form-control" type="date" />
-                    <span id="b_day_selected"></span>
-                  </div>
+                <div class="modal-body">
+                    <h5 class="modal-title text-center" id="edit_profile_name">Edit profile</h5>
+                    <div class="mb-3 mx-auto w-75">
+                        <label for="InputTrackName" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="InputTrackName" placeholder="Input Your Name">
+                    </div>
 
-                <div class="mb-3 mx-auto w-75">
-                    <label for="InputTrackName" class="form-label">Height</label>
-                    <input type="number" class="form-control" id="InputTrackName" placeholder="Input Your Height">
+                    <div class="mb-3 mx-auto w-75">
+                        <label for="InputTrackName" class="form-label">Birth day</label>
+                        <input id="b_day" class="form-control" type="date" />
+                        <span id="b_day_selected"></span>
+                    </div>
+
+                    <div class="mb-3 mx-auto w-75">
+                        <label for="InputTrackName" class="form-label">Height</label>
+                        <input type="number" class="form-control" id="InputTrackName" placeholder="Input Your Height">
+                    </div>
+
+                    <div class="mb-3 mx-auto w-75">
+                        <label for="InputTrackName" class="form-label">Weight</label>
+                        <input type="number" class="form-control" id="InputTrackName" placeholder="Input Your Weight">
+                    </div>
                 </div>
-
-                <div class="mb-3 mx-auto w-75">
-                    <label for="InputTrackName" class="form-label">Weight</label>
-                    <input type="number" class="form-control" id="InputTrackName" placeholder="Input Your Weight">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-          </div>
         </div>
-      </div>
+    </div>
 
     <!--Popup-->
 
@@ -90,5 +93,8 @@
     </div>
 </body>
 <div include-html='../assets/footer.html'></div>
+<script>
+    get_user_info();
+    generate_table()</script>
 
 </html>
