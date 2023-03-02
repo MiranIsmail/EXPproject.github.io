@@ -217,10 +217,9 @@ body {
 }
 
 .nice_text {
-  
-  background-color: #0000004d;
-  color: white;
-  border: 2px solid black;
+  font-family: 'Lato ';
+  color: ;
+  border:  black;
   margin-top: 10%;
   margin-left: 10%;
   margin-right: 10%;
