@@ -89,6 +89,16 @@ body {
   padding-top: 4rem;
 }
 
+
+@media (max-width: 574px) {
+
+}
+@media (min-width: 575px) {
+  #col_devider{
+    border-right: 1px dashed #333;
+  }
+}
+
 /*Profile page*/
 #devider {
   width: 85%;
@@ -109,27 +119,6 @@ body {
   height: 3rem;
 }
 
-@media (max-width: 574px) {
-  /* CSS that should be displayed if width is equal to or less than 800px goes here */
-  .text-shift {
-    text-align: center;
-  }
-
-  .button-shift {
-    justify-content: center;
-  }
-
-  #profileImage {
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-@media (min-width: 575px) {
-  #profileImage {
-    float: right;
-  }
-}
 
 .events {
   /*background-color: #0000004D;*/
@@ -182,29 +171,6 @@ body {
   }
 }
 
-.events {
-  /*background-color: #0000004D;*/
-  background: linear-gradient(#00000080 0%, #00000099 97%, #000000cc 100%);
-  width: 100%;
-  padding-bottom: 4rem;
-}
-
-.event_left_box {
-  /*margin: 1rem;
-  margin-right: 2rem;
-  padding: 2rem 2rem;
-  width: 40%;*/
-  width: 50%;
-  /*padding-left: 5%;
-  padding-top: 5%;*/
-  padding-top: 0%;
-  display: flex;
-}
-
-/*.event_right_box {
-  width: 50%;
-  float: left;
-}*/
 .create_event {
   float: right;
   margin-right: 10%;
@@ -218,7 +184,6 @@ body {
 
 .nice_text {
   font-family: 'Lato ';
-  color: ;
   border:  black;
   margin-top: 10%;
   margin-left: 10%;
