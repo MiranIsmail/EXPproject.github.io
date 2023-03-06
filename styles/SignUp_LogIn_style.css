@@ -26,7 +26,6 @@ body {
     width: 100%;
     max-width: 30rem;
     position: absolute;
-    margin-top: 20rem;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 20px;
@@ -112,47 +111,38 @@ a:hover{
     color: #B7E3FF
 }
 
-/* @media (min-width: 1000px) {
+/* For devices with a maximum width of 600px */
+@media only screen and (max-width: 600px) {
     .form-box{
-        width: 90%;
-        max-width: 450px;
-        position: absolute;
-        top: 95%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        padding: 20px;
-        text-align: center;
-        border-radius: 10px;
+        margin-top: 8rem;
     }
-  }
 
-  @media (max-height: 850px) {
-    .form-box{
-        width: 90%;
-        max-width: 450px;
-        position: absolute;
-        top: 98%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        padding: 20px;
-        text-align: center;
-        border-radius: 10px;
-    }
-  }
+}
 
-  @media (max-height: 575px) {
+/* For devices with a minimum width of 601px and a maximum width of 900px */
+@media only screen and (min-width: 601px) and (max-width: 900px) {
     .form-box{
-        width: 90%;
-        max-width: 450px;
-        position: absolute;
-        top: 110%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        padding: 20px;
-        text-align: center;
-        border-radius: 10px;
+        margin-top: 10rem;
     }
-  } */
+    
+}
+
+/* For devices with a minimum width of 901px and a maximum width of 1500px */
+@media only screen and (min-width: 901px) and (max-width: 1500px) {
+    .form-box{
+        margin-top: 14rem;
+    }
+    
+}
+
+/* For devices with minimum width of 1501px */
+@media only screen and (min-width: 1501px) {
+    .form-box{
+        margin-top: 17rem;
+    }
+    
+}
+
 
 
 /*Navbar*/
