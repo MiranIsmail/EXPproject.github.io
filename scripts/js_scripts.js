@@ -209,7 +209,7 @@ b_day.addEventListener('change',(e)=>{
 
 /*Event card */
 // Create a div element for the card
-function generate_card(input_text,input_name,input_date,input_image){
+function generate_card_high(input_text,input_name,input_date,input_image){
 
   // var event_text = input_text
   // var event_name = input_name
@@ -328,3 +328,6 @@ document.getElementById("event_cards_dynamic").appendChild(cardDiv);
 document.getElementById("long_text").innerHTML = event_text
 document.getElementById("short_text").innerHTML = event_text.slice(0,60)+"..."
 }
+
+
+/*---------------------------------------------------------------------------------------------------------------------------------------------------------------------- */

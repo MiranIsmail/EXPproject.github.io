@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="../styles/login_style.css">
   <link rel="stylesheet" href="../styles/SignUp_LogIn_style.css">
   <script type="text/javascript" src="../scripts/js_scripts.js"></script>
+  <script type="text/javascript" src="../scripts/index_load.js"></script>
 </head>
 
 <div include-html='../assets/navbar.html'></div>
@@ -41,95 +42,13 @@
 
   <!--Temporary events-->
   <div class="events section w-100" style="padding-bottom: 4rem;">
-
-    <div class="card mb-3 mx-auto drop_shadow eventCards" style="list-style: none;">
-      <div class="row g-0">
-        <div class="col-md-4">
-          <img src="../images/eventimg/otillo.jpg" class="img-fluid rounded-start" alt="...">
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h3 class="card-title">ÖTILLÖ SWIMRUN UTÖ</h3>
-            <h5 class="card-text">17 JUNE 2023</h5>
-            <p class="card-text">New race courses since 2022. Utö is where the whole swimrun movement started and where
-              the late night bet which became ÖTILLÖ was made. It is an island in the southern part of the Stockholm
-              archipelago almost 90 minutes from Stockholm. This is Swimrun heaven!</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="card mb-3 mx-auto drop_shadow eventCards" style="list-style: none;">
-      <div class="row g-0">
-        <div class="col-md-4">
-          <img src="../images/eventimg/kalmar.jpg" class="img-fluid rounded-start" alt="...">
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h3 class="card-title">KALMAR SWIMRUN SLOTTSRACET</h3>
-            <h5 class="card-text">11 JULY 2023</h5>
-            <p class="card-text">New race courses since 2022. Utö is where the whole swimrun movement started and where
-              the late night bet which became ÖTILLÖ was made. It is an island in the southern part of the Stockholm
-              archipelago almost 90 minutes from Stockholm. This is Swimrun heaven!</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="card mb-3 mx-auto drop_shadow eventCards" style="list-style: none;">
-      <div class="row g-0">
-        <div class="col-md-4">
-          <img src="../images/eventimg/borg.jpg" class="img-fluid rounded-start" alt="...">
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h3 class="card-title">KARLSKRONA RUNT</h3>
-            <h5 class="card-text">23 AUGUST 2023</h5>
-            <p class="card-text">New race courses since 2022. Utö is where the whole swimrun movement started and where
-              the late night bet which became ÖTILLÖ was made. It is an island in the southern part of the Stockholm
-              archipelago almost 90 minutes from Stockholm. This is Swimrun heaven!</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="card mb-3 mx-auto drop_shadow eventCards" style="list-style: none;">
-      <div class="row g-0">
-        <div class="col-md-4">
-          <img src="../images/eventimg/oresund.jpg" class="img-fluid rounded-start" alt="...">
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h3 class="card-title">ÖVER BRON MALMÖ</h3>
-            <h5 class="card-text">23 AUGUST 2023</h5>
-            <p class="card-text">New race courses since 2022. Utö is where the whole swimrun movement started and where
-              the late night bet which became ÖTILLÖ was made. It is an island in the southern part of the Stockholm
-              archipelago almost 90 minutes from Stockholm. This is Swimrun heaven!</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="card mb-3 mx-auto drop_shadow eventCards" style="list-style: none;">
-      <div class="row g-0">
-        <div class="col-md-4">
-          <img src="../images/eventimg/ronneby.jpg" class="img-fluid rounded-start" alt="...">
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h3 class="card-title">KARLSKRONA TILL RONNEBY</h3>
-            <h5 class="card-text">5 SEPTEMBER 2023</h5>
-            <p class="card-text">New race courses since 2022. Utö is where the whole swimrun movement started and where
-              the late night bet which became ÖTILLÖ was made. It is an island in the southern part of the Stockholm
-              archipelago almost 90 minutes from Stockholm. This is Swimrun heaven!</p>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div id="event_cards_dynamic"></div>
   </div>
 
   <!--Footer-->
   <div include-html='../assets/footer.html'></div>
 </body>
-
+<script>
+  data_load_index()
+</script>
 </html>
