@@ -32,6 +32,14 @@
     position: relative;
 }
 
+.form-box-col h1{
+    background-color:rgb(84, 84, 117);
+    font-style: bold;
+    font-size: 20px;
+    margin-bottom: 60px;
+    color: #B7E3FF;
+}
+
 .input-group{
    justify-content: center;
    
