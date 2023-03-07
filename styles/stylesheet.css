@@ -11,6 +11,7 @@
 
 body {
   background-color: #b7e3ff;
+
 }
 
 .op30 {
@@ -131,6 +132,12 @@ body {
 
 #container-img {
   padding-top: 4rem;
+}
+
+.show-more-btn{
+  border: none;
+  background-color: white;
+  text-decoration: underline;
 }
 
 /*Profile page*/
