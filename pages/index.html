@@ -12,22 +12,21 @@
   <link rel="stylesheet" href="../styles/stylesheet.css">
   <link rel="stylesheet" href="../styles/login_style.css">
   <link rel="stylesheet" href="../styles/SignUp_LogIn_style.css">
-  <script type="text/javascript" src="../scripts/js_scripts.js"></script>
-  <script type="text/javascript" src="../scripts/index_load.js"></script>
+  <script src="../scripts/js_scripts.js"></script>
+  <script src="../scripts/index_load.js"></script>
 </head>
 
-<div include-html='../assets/navbar.html'></div>
-
 <body>
+  <div include-html='../assets/navbar.html'></div>
   <!--run bar-->
-  <center><img class="mx-auto d-block bg-logo" src="../images/RASTS.svg" id="logo"></center>
+  <img class="mx-auto d-block bg-logo" alt="Logo" src="../images/RASTS.svg" id="logo">
   <div>
-    <img class="w-100 op30" src="../images/indeximage_thinner.png" id="image_run">
+    <img class="w-100 op30" src="../images/indeximage_thinner.png" alt="running figures" id="image_run">
     <div style="padding-bottom: 4rem;" id="searchFade">
       <div class="wrapper drop_shadow">
         <div class="searchBar">
           <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="Search" value=""
-            onkeyup="search_event()" />
+            onkeyup="search_event()">
           <button id="searchQuerySubmit" type="submit" name="searchQuerySubmit">
             <svg style="width:24px;height:24px" viewBox="0 0 24 24">
               <path fill="#666666"
@@ -46,8 +45,8 @@
   </div>
 
   <!--Footer-->
+  <div include-html='../assets/footer.html'></div>
 </body>
-<div include-html='../assets/footer.html'></div>
 <script>
   data_load_index()
 </script>
