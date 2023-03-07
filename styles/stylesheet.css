@@ -191,3 +191,15 @@ body {
   margin-bottom: 10%;
   padding: 1%;
 }
+
+/*----------------------------------------------------LOGO*/
+@media (max-width: 574px) {
+  #logo{
+    width: 50%;
+  }
+}
+@media (min-width: 575px) {
+  #logo{
+    width: 25%;
+  }
+}
