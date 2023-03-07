@@ -16,8 +16,6 @@
     width: 90%;
     max-width: 450px;
     position: absolute;
-    top: 65%;
-    left: 50%;
     transform: translate(-50%, -50%);
     padding: 20px;
     text-align: center;
@@ -27,7 +25,6 @@
 .form-box h1{
     font-style: bold;
     font-size: 60px;
-    margin-bottom: 60px;
     color: #B7E3FF;
     position: relative;
 }
@@ -36,13 +33,12 @@
     background-color:rgb(84, 84, 117);
     font-style: bold;
     font-size: 20px;
-    margin-bottom: 60px;
     color: #B7E3FF;
 }
 
 .input-group{
    justify-content: center;
-   
+
 }
 
 .input-field_name{
@@ -114,11 +110,6 @@ i{
 }
 
 #ptext{
-    color: white;
-    margin-top: 5%;
-}
-
-a{
     color: white;
 }
 

@@ -5,11 +5,6 @@ function generate_card_wide(input_name,input_date,input_text,input_image){
     let event_date = input_date
     let event_image = input_image
 
-  // var event_text = "New race courses since 2022. Utö is where the whole swimrun movement started and where the late night bet which became ÖTILLÖ was made. It is an island in the southern part of the Stockholm archipelago almost 90 minutes from Stockholm. This is Swimrun heaven!"
-  // var event_name = "ÖTILLÖ SWIMRUN UTÖ"
-  // var event_date = "17 JUNE 2023"
-  // var event_image = "../images/eventimg/otillo.jpg"
-
    // Create a div element for the card
   var cardDiv = document.createElement('div');
   cardDiv.classList.add('card', 'mb-3', 'drop_shadow', "w-75", "mx-auto");
@@ -56,9 +51,6 @@ function generate_card_wide(input_name,input_date,input_text,input_image){
   // Create a p element for the short text
   var shortText = document.createElement('p');
   shortText.textContent = event_text.slice(0,60)+"..."
-  // var shortTextSpan = document.createElement('span');
-  // shortTextSpan.id = 'short_text';
-  // shortText.appendChild(shortTextSpan);
 
   // Create a div element for the longer text section
   var moreTextDiv = document.createElement('div');
@@ -69,9 +61,6 @@ function generate_card_wide(input_name,input_date,input_text,input_image){
   // Create a p element for the long text
   var longText = document.createElement('p');
   longText.textContent = event_text
-  // var longTextSpan = document.createElement('span');
-  // longTextSpan.id = 'long_text';
-  // longText.appendChild(longTextSpan);
 
   // Append the short and long text elements to their respective containers
   textDiv.appendChild(shortText);
@@ -117,8 +106,7 @@ function generate_card_wide(input_name,input_date,input_text,input_image){
 
   // Append the card to the document body
   document.getElementById("event_cards_dynamic").appendChild(cardDiv);
-  // document.getElementById("long_text").innerHTML = event_text
-  // document.getElementById("short_text").innerHTML = event_text.slice(0,60)+"..."
+
   }
 
 /*---------------------------------------------------------------------------------------------------------------LOADING SEQUENCE */
