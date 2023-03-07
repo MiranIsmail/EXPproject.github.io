@@ -1,19 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        #map{
-            height: 400px;
-            width: 50%;
-        }
-    </style>
-</head>
-<body>
 
+<head>
+  <title>Homepage - Rasts</title>
+  <meta charset="utf-8">
+  <link rel="icon" type="image/x-icon" href="../images/logoboll.svg">
+  <!--Tre librarys dont remove, Bootstrap 5-->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="../styles/stylesheet.css">
+  <link rel="stylesheet" href="../styles/login_style.css">
+  <link rel="stylesheet" href="../styles/SignUp_LogIn_style.css">
+  <script type="text/javascript" src="../scripts/js_scripts.js"></script>
+  <link rel="stylesheet" href="../styles/google_maps_api.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+
+<div include-html='../assets/navbar.html'></div>
+
+<body>
     <div id="map"></div>
     <script>
         function initMap() {
@@ -22,20 +28,7 @@
                 center: {lat:56.1831973,lng:15.5878249}
             }
             var map = new google.maps.Map(document.getElementById('map'),options);
-            /*var marker = new google.maps.Marker({
-                position:{lat:56.183608,lng:15.592718},
-                map:map
-            });
-            var marker2 = new google.maps.Marker({
-                position:{lat:56.18058058717547,lng:15.595282189578382},
-                map:map
-            });
-            var infoWindow = new google.maps.InfoWindow({
-                content:'<h1>Vitlöksbröd</h1>'
-            });
-            marker.addListener('click',function(){
-                infoWindow.open(map,marker)
-            });*/    
+
             function add_marker(props) {
                 var marker = new google.maps.Marker({
                 position:props.coords,
@@ -57,13 +50,19 @@
             map.addListener('click', (e)=>{
                 add_marker({coords:e.latLng});
             })
-            
-
         }
     </script>
-<script async
+    <div class="container-fluid pt-2">
+        <button class="btn btn-primary btn-lg m-10" type="submit">Submit</button>
+    </div>
+
+
+  <!--Footer-->
+  <div include-html='../assets/footer.html'></div>
+  <!--apis-->
+  <script async
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkY5KKVjLNfTPCAX17XbClpOpfTQd0cFM&callback=initMap">
 </script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </body>
 </html>

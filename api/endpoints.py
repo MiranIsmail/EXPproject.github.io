@@ -237,4 +237,5 @@ api.add_resource(Event, "/event")
 api.add_resource(Result, "/result")
 api.add_resource(Info, "/get_info")
 if __name__ == "__main__":
-    app.run(host="193.11.187.227", debug=True)
+    app.run(host="0.0.0.0",port=80, debug=True)
+    
