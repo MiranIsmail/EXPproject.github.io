@@ -209,17 +209,12 @@ b_day.addEventListener('change',(e)=>{
 
 /*Event card */
 // Create a div element for the card
-function generate_card_high(input_text,input_name,input_date,input_image){
+function generate_card_high(input_name,input_date,input_text,input_image){
 
-  // var event_text = input_text
-  // var event_name = input_name
-  // var event_date = input_date
-  // var event_image = input_image
-
-var event_text = "New race courses since 2022. Utö is where the whole swimrun movement started and where the late night bet which became ÖTILLÖ was made. It is an island in the southern part of the Stockholm archipelago almost 90 minutes from Stockholm. This is Swimrun heaven!"
-var event_name = "ÖTILLÖ SWIMRUN UTÖ"
-var event_date = "17 JUNE 2023"
-var event_image = "../images/eventimg/otillo.jpg"
+  let event_text = input_text
+  let event_name = input_name
+  let event_date = input_date
+  let event_image = input_image
 
  // Create a div element for the card
 var cardDiv = document.createElement('div');
@@ -266,30 +261,27 @@ var textDiv = document.createElement('div');
 
 // Create a p element for the short text
 var shortText = document.createElement('p');
-var shortTextSpan = document.createElement('span');
-shortTextSpan.id = 'short_text';
-shortText.appendChild(shortTextSpan);
+shortText.textContent = event_text.slice(0,60)+"..."
 
 // Create a div element for the longer text section
 var moreTextDiv = document.createElement('div');
 moreTextDiv.classList.add('more-text');
 moreTextDiv.style.display = 'none';
 
+
 // Create a p element for the long text
 var longText = document.createElement('p');
-var longTextSpan = document.createElement('span');
-longTextSpan.id = 'long_text';
-longText.appendChild(longTextSpan);
+longText.textContent = event_text
 
 // Append the short and long text elements to their respective containers
 textDiv.appendChild(shortText);
 moreTextDiv.appendChild(longText);
 
 // Append the text and button elements to the card body
-cardBodyDiv.appendChild(cardTitle);
-cardBodyDiv.appendChild(cardText);
-cardBodyDiv.appendChild(textDiv);
-cardBodyDiv.appendChild(moreTextDiv);
+cardBodyColDiv.appendChild(cardTitle);
+cardBodyColDiv.appendChild(cardText);
+cardBodyColDiv.appendChild(textDiv);
+cardBodyColDiv.appendChild(moreTextDiv);
 
 // Create a button element for the "Show More" button
 var showMoreBtn = document.createElement('button');
@@ -310,7 +302,7 @@ showMoreBtn.addEventListener('click', function() {
 });
 
 // Append the button element to the card body
-cardBodyDiv.appendChild(showMoreBtn);
+cardBodyColDiv.appendChild(showMoreBtn);
 
 // Append the image
 // Append the image column to the row
@@ -318,16 +310,12 @@ rowDiv.appendChild(imgColDiv);
 
 // Append the card body column to the row
 
-rowDiv.appendChild(cardBodyDiv);
+rowDiv.appendChild(cardBodyColDiv);
 
 // Append the row to the card
 cardDiv.appendChild(rowDiv);
 
 // Append the card to the document body
 document.getElementById("event_cards_dynamic").appendChild(cardDiv);
-document.getElementById("long_text").innerHTML = event_text
-document.getElementById("short_text").innerHTML = event_text.slice(0,60)+"..."
+
 }
-
-
-/*---------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
