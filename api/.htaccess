@@ -1,8 +1,2 @@
-<IfModule mod_rewrite.c>
-  RewriteEngine on
-
-  RewriteRule ^(db|endpoints|public_endpoints|include) - [F]
-
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteRule   ^(.*)$ ?$1
-</IfModule>
+RewriteEngine On
+RewriteRule . index.php
