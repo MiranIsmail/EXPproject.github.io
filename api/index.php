@@ -1,39 +1,33 @@
 <?php
 
+declare(strict_types=1);
+
+spl_autoload_register(function ($class) {
+    require __DIR__ . "/scr/$class.php";
+});
+
+set_error_handler("ErrorHandler::handle_error");
+set_exception_handler("ErrorHandler::handle_exception");
+
+header("Content-type: application/json; charset:UTF-8");
 
 
-include 'include/setup.php';
+$parts = explode("/", $_SERVER['REDIRECT_URL']);
+$endpoints = glob(__DIR__ . '/scr/*');
 
-if (isset($_SERVER['REDIRECT_QUERY_STRING'])) {
-  $request_array = explode('/', $_SERVER['REDIRECT_QUERY_STRING']);
-  if (is_array($request_array)) {
-    $request_array = array_map('my_filter', $request_array, array_pad([], count($request_array), 'endpoint'));
-  }
-}
+#var_dump(in_array(__DIR__."/scr/$parts[1]"."Controller.php",$endpoints));
+
+$database = new Database("localhost", "systemteknik", "root", "Faiz1234");
+
+$ClassController = "$parts[1]"."Controller";
+$ClassGateway= "$parts[1]"."Gateway";
 
 
-if (empty($request_array[0])) {
+$gateway = new $ClassGateway($database);
+$controller = new $ClassController($gateway);
 
-  api_response();
-}
-$endpoint_name = $request_array[0];
 
-if (is_array($_POST)) {
-  $_POST = array_map('my_filter', $_POST);
-}
 
-$endpoint = __DIR__ . '/endpoints/' . $endpoint_name . '.php';
-$endpoints = glob(__DIR__ . '/endpoints/*.php');
-$_user_id = FALSE;
-if (in_array($endpoint, $endpoints)) {
-  $_user_id = authorize();
-}
-else {
-  $endpoint = __DIR__ . '/public_endpoints/' . $endpoint_name . '.php';
-  $endpoints = glob(__DIR__ . '/public_endpoints/*.php');
-}
 
-if (file_exists($endpoint) && in_array($endpoint, $endpoints)) {
-  include $endpoint;
-}
-api_response();
+$controller->process_request($_SERVER['REQUEST_METHOD']);
+
