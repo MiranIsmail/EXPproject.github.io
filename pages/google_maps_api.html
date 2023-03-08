@@ -64,7 +64,6 @@ let markers_list = [];
 const btn= document.getElementById('save_btn')
 function init_map() {
   const bth_coords = { lat: 56.179475 ,lng:15.595062 };
-
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 14,
     center: bth_coords,
@@ -72,15 +71,17 @@ function init_map() {
   });
   // This event listener will call add_marker() when the map is clicked.
   map.addListener("click", (event) => {
-    add_marker(event.latLng);
+    const check_point_id= document.getElementById('usr').value
+    add_marker(event.latLng,check_point_id);
   });
 }
 
 // Adds a marker to the map and push to the array.
-function add_marker(position) {
+function add_marker(position,check_point_id) {
   const marker = new google.maps.Marker({
     position,
     map,
+    label: check_point_id
   });
 
   markers_list.push(marker);
@@ -102,7 +103,7 @@ function deleteMarkers() {
   btn.disabled = true;
 }
 //figure out how to confirm 
-function send_coords() {
+function send_coords() {//needs fixing
  
     for (let index = 0; index < markers_list.length; index++) {
       let object_string = JSON.stringify(markers_list[index])
