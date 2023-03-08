@@ -20,7 +20,7 @@ function createAccount() {
     method: 'PUT',
     body: JSON.stringify({ 'first_name': xfirst_name, 'last_name': xlast_name, 'password': xpassword, 'email': xemail })
   }).then(response => response.json())
-  open("Login.html")
+  location.href = "../pages/signin_first_time.html"
 }
 
 
@@ -34,7 +34,7 @@ function logIn() {
       document.cookie = "token=" + data[1]
     });
 
-  open("profile.html")
+    location.href = "../pages/profile.html"
 }
 
 
@@ -66,7 +66,6 @@ function calculate_age(date) {
 
 async function generate_table() {
   /**/
-  var data_string = "test"
   res = await fetch(BASE + "event?key=host_email&search_text=")
 
   text = await res.json()
