@@ -42,6 +42,7 @@
     font-weight: 500;
     margin-bottom: 2px;
     margin-left: 0.5rem;
+    min-height: 40rem;
 }
 
 .content_container a{
