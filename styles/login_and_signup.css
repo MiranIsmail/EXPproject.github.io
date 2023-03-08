@@ -3,7 +3,7 @@
     background: linear-gradient(#0000004D 0%, #00000099 97%, #000000cc 100%);
     width: 100%;
     padding-bottom: 4rem;
-    min-height: 60vh;
+    min-height: 65vh;
 }
 
 .content_container h1{
@@ -42,7 +42,6 @@
     font-weight: 500;
     margin-bottom: 2px;
     margin-left: 0.5rem;
-    min-height: 40rem;
 }
 
 .content_container a{
