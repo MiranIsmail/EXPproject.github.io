@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Login - Rasts</title>
+    <title>Login First Values - Rasts</title>
     <meta charset="utf-8">
     <link rel="icon" type="image/x-icon" href="../images/s_logo.svg">
     <!--Tre librarys dont remove, Bootstrap 5-->
@@ -24,22 +24,31 @@
     </div>
 
     <div class="section w-100 content_container">
-        <h1> Welcome back!</h1>
-        <p class="center_item">Are you an organisation? <a href="register_org.html">CLICK HERE!</a></p>
+        <h1 id="special_h1">Please enter your values!</h1>
+        <p class="center_item">I dont want to? <a href="register_org.html">Skip</a></p>
         <form>
             <div class="form-group form_group_style mx-auto">
-              <p>Email address</p>
-              <input type="email" class="form-control input_field_style" aria-describedby="emailHelp" placeholder="Enter email" id="fetchEmail">
+              <p>Birth date</p>
+              <input type="date" class="form-control input_field_style" placeholder="Enter email" id="fetchEmail">
             </div>
             <div class="form-group form_group_style mx-auto">
-              <p>Password</p>
-              <input type="password" class="form-control input_field_style"  placeholder="Password" id="fetchPword">
+              <p>Height</p>
+              <input type="value" class="form-control input_field_style"  placeholder="Height in cm" id="fetchPword">
             </div>
             <div class="form-group form_group_style mx-auto">
-                <button type="button" id="button_style" onclick="logIn()">Sign in</button>
+                <p>Weight</p>
+                <input type="value" class="form-control input_field_style"  placeholder="Weight in kg" id="fetchPword">
+              </div>
+            <div class="form-group form_group_style mx-auto">
+                <div class="row">
+                    <div class="col-sm">
+                        <a href="Login.html"><button type="button" class="button" id="button_style">Skip</button></a>
+                    </div>
+                    <div class="col-sm">
+                        <button type="button" id="button_style" onclick="">Save</button>
+                    </div>
+                </div>
             </div>
-            <p class="center_item">Forgot password? <a href="#">CLICK HERE!</a></p>
-            <p class="center_item">Don't have an account? <a href="../pages/SignUp.html">SIGN UP HERE!</a></p>
         </form>
     </div>
 </body>

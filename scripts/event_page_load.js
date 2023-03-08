@@ -1,4 +1,4 @@
-function generate_card_wide(input_name,input_date,input_text,input_image){
+function generate_card_high(input_name,input_date,input_text,input_image){
 
     let event_text = input_text
     let event_name = input_name
@@ -7,7 +7,7 @@ function generate_card_wide(input_name,input_date,input_text,input_image){
 
    // Create a div element for the card
   var cardDiv = document.createElement('div');
-  cardDiv.classList.add('card', 'mb-3', 'drop_shadow', "w-75", "mx-auto","border-0");
+  cardDiv.classList.add('card', 'mb-3', 'drop_shadow', "w-75", "mx-auto");
   cardDiv.style.listStyle = 'none';
 
   // Create a div element for the row
@@ -16,12 +16,12 @@ function generate_card_wide(input_name,input_date,input_text,input_image){
 
   // Create a div element for the image column
   var imgColDiv = document.createElement('div');
-  imgColDiv.classList.add('col-lg-4');
+  imgColDiv.classList.add('col-md-12');
 
   // Create an img element for the image
   var img = document.createElement('img');
   img.src = event_image;
-  img.classList.add('img-fluid', 'rounded_style');
+  img.classList.add('img-fluid', 'rounded-start');
   img.alt = '...';
 
   // Append the image element to the image column
@@ -29,7 +29,7 @@ function generate_card_wide(input_name,input_date,input_text,input_image){
 
   // Create a div element for the card body column
   var cardBodyColDiv = document.createElement('div');
-  cardBodyColDiv.classList.add('col-lg-8');
+  cardBodyColDiv.classList.add('col-md-12');
 
   // Create a div element for the card body
   var cardBodyDiv = document.createElement('div');
@@ -37,17 +37,16 @@ function generate_card_wide(input_name,input_date,input_text,input_image){
 
   // Create a h3 element for the card title
   var cardTitle = document.createElement('h3');
-  cardTitle.classList.add('card-title', 'title-text');
+  cardTitle.classList.add('card-title');
   cardTitle.textContent = event_name;
 
   // Create a h5 element for the card text
   var cardText = document.createElement('h5');
-  cardText.classList.add('card-text',"card-text-content");
+  cardText.classList.add('card-text');
   cardText.textContent = event_date;
 
   // Create a div element for the text section
   var textDiv = document.createElement('div');
-  textDiv.classList.add("card-text-content")
 
   // Create a p element for the short text
   var shortText = document.createElement('p');
@@ -55,7 +54,7 @@ function generate_card_wide(input_name,input_date,input_text,input_image){
 
   // Create a div element for the longer text section
   var moreTextDiv = document.createElement('div');
-  moreTextDiv.classList.add('more-text',"card-text-content");
+  moreTextDiv.classList.add('more-text');
   moreTextDiv.style.display = 'none';
 
 
@@ -110,8 +109,8 @@ function generate_card_wide(input_name,input_date,input_text,input_image){
 
   }
 
-/*---------------------------------------------------------------------------------------------------------------LOADING SEQUENCE */
 
+  /*--------------------------------------------------------------------------------Read CSV */
 async function readCSVAndSplitData(filename) {
   const response = await fetch(filename);
   const text = await response.text();
@@ -138,7 +137,7 @@ function data_load_index(){
   readCSVAndSplitData('../data_csv/events.csv')
   .then(data => {
     data.forEach((i) => {
-      generate_card_wide(i["name"],i["date"],i["description"],i["image_url"])
+      generate_card_high(i["name"],i["date"],i["description"],i["image_url"])
       console.log(i["name"],i["date"],i["description"],i["image_url"])
   });
   })

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Signup - Rasts</title>
+  <meta charset="utf-8">
+  <link rel="icon" type="image/x-icon" href="../images/s_black.svg">
+  <!--Tre librarys dont remove, Bootstrap 5-->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="../styles/stylesheet.css">
+  <link rel="stylesheet" href="../styles/login_and_signup.css">
+  <script type="text/javascript" src="../scripts/js_scripts.js"></script>
+</head>
+<!--header-->
+<div include-html='../assets/navbar.html'></div>
+<body >
+    <!--The swimrun image-->
+    <div class="image_div">
+        <img class="w-100 op30" src="../images/indeximage_thinner.png" id="image_run">
+    </div>
+
+
+    <div class="section w-100 content_container">
+        <h1> Welcome!</h1>
+        <form>
+            <div class="form-group form_group_style mx-auto">
+              <p>First Name</p>
+              <input type="text" class="form-control input_field_style" placeholder="Anders" id="fname">
+            </div>
+
+            <div class="form-group form_group_style mx-auto">
+              <p>Surname</p>
+              <input type="text" class="form-control input_field_style"  placeholder="Andersson" id="lname">
+            </div>
+
+            <div class="form-group form_group_style mx-auto">
+                <p>Email</p>
+                <input type="email" class="form-control input_field_style" placeholder="expproject@gmail.com" aria-describedby="emailHelp" id="email">
+            </div>
+
+            <div class="form-group form_group_style mx-auto">
+                <p>Password</p>
+                <input type="password" class="form-control input_field_style"  placeholder="Password" id="pword">
+            </div>
+
+            <div class="form-group form_group_style mx-auto">
+                <p>Confirm password</p>
+                <input type="password" class="form-control input_field_style"  placeholder="Password">
+            </div>
+
+            <div class="form-group form_group_style mx-auto">
+                <button type="button" id="button_style" onclick="createAccount()">Sign up</button>
+            </div>
+            <p id="ptext">Already Signed Up? <a id="atext" href="../Login.html">SIGN IN HERE!</a></p>
+        </form>
+    </div>
+
+
+</body>
+
+<!--footer-->
+<div include-html='../assets/footer.html'></div>
+
+</html>
+
+<!---------------------------------------------------------Log In------------------------------------------------------------->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Login - Rasts</title>
+    <meta charset="utf-8">
+    <link rel="icon" type="image/x-icon" href="../images/s_black.svg">
+    <!--Tre librarys dont remove, Bootstrap 5-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="../styles/stylesheet.css">
+    <link rel="stylesheet" href="../styles/login_and_signup.css">
+    <script type="text/javascript" src="../scripts/js_scripts.js"></script>
+</head>
+<!--header-->
+
+<div include-html='../assets/navbar.html'></div>
+
+<body>
+    <!--The swimrun image-->
+    <div class="image_div">
+        <img class="w-100 op30" src="../images/indeximage_thinner.png" id="image_run">
+    </div>
+
+    <div class="section w-100 content_container">
+        <h1> Welcome back!</h1>
+        <p>Are you an organisation? <a href="register_org.html">CLICK HERE!</a></p>
+        <form>
+            <div class="form-group form_group_style mx-auto">
+              <p>Email address</p>
+              <input type="email" class="form-control input_field_style" aria-describedby="emailHelp" placeholder="Enter email" id="fetchEmail">
+            </div>
+            <div class="form-group form_group_style mx-auto">
+              <p>Password</p>
+              <input type="password" class="form-control input_field_style"  placeholder="Password" id="fetchPword">
+            </div>
+            <div class="form-group form_group_style mx-auto">
+                <button type="button" id="button_style" onclick="logIn()">Sign in</button>
+            </div>
+            <p>Forgot password? <a href="#">CLICK HERE!</a></p>
+            <p>Don't have an account? <a href="../pages/SignUp.html">SIGN UP HERE!</a></p>
+        </form>
+    </div>
+</body>
+
+<!--footer-->
+<div include-html='../assets/footer.html'></div>
+
+</html>

@@ -11,6 +11,7 @@
 
 body {
   background-color: #b7e3ff;
+
 }
 
 .op30 {
@@ -33,10 +34,41 @@ body {
   background: linear-gradient(#0000004d 0%, #00000080 80%);
 }
 
+
+/*AUTO GENERADEDD EVENT CARDS*/
+.title-text{
+  padding-top:1rem;
+  padding-left: 1rem;
+}
+
+.card-text-content{
+  padding-left: 1rem;
+}
+
+@media (max-width: 992px) {
+  .rounded_style{
+    border-top-left-radius: 0.3rem;
+    border-top-right-radius: 0.3rem;
+  }
+  .wrapper {
+    max-width: 75%;
+  }
+}
+@media (min-width: 993px) {
+  .rounded_style{
+    border-top-left-radius: 0.3rem;
+    border-bottom-left-radius: 0.3rem;
+  }
+  .wrapper {
+    max-width: 50%;
+  }
+}
+
+/*AUTO GENERADEDD EVENT CARDS*/
+
 /*searchbar*/
 .wrapper {
-  width: 90%;
-  max-width: 31.25rem;
+  width: 100%;
   margin: 0rem auto;
 }
 
@@ -127,15 +159,30 @@ body {
   padding-bottom: 4rem;
 }
 
+#event{
+  min-height: 30vh;
+}
 /*EVENT WEBSITE*/
 
-#container-img {
-  padding-top: 4rem;
+
+.show-more-btn{
+  border: none;
+  background-color: white;
+  text-decoration: underline;
+  padding-bottom: 1rem;
+  padding-left: 1rem;
 }
 
 /*Profile page*/
 #devider {
   width: 85%;
+}
+
+#button_black{
+  border-radius: 10px;
+  background-color: rgb(30, 30, 30);
+  color: white;
+  border: none;
 }
 
 #previousEventes {
@@ -190,4 +237,16 @@ body {
   margin-right: 10%;
   margin-bottom: 10%;
   padding: 1%;
+}
+
+/*----------------------------------------------------LOGO*/
+@media (max-width: 574px) {
+  #logo{
+    width: 50%;
+  }
+}
+@media (min-width: 575px) {
+  #logo{
+    width: 25%;
+  }
 }
