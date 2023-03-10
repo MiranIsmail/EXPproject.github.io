@@ -29,7 +29,26 @@
             <li class="nav-item">
                 <a class="nav-link" href="../pages/Login.html" id="navtext">LOG IN</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../pages/track.html" id="navtext">TRACK</a>
+            </li>
         </ul>
     </div>
 </div>
+
+<script>// OBS DOESN'T WORK
+    let criteriaMet = false; // replace with your actual check
+    if (criteriaMet) {
+      // Enable the link
+      document.querySelector('#navtext').removeAttribute('disabled');
+    }
+    else {
+      // Disable the link and hide it
+      let link = document.querySelector('#navtext');
+      link.setAttribute('disabled', 'disabled');
+      link.style.display = 'none';
+    }
+</script>
+
+
 </nav>
