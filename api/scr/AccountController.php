@@ -29,7 +29,11 @@ class AccountController
             case "PATCH":
                 $data = (array) json_decode(file_get_contents("php://input"), true);
                 $errors = $this->get_validation_errors($method, $data);
-                
+                $this->gateway->edit_account($data);
+
+                http_response_code(201);
+                echo json_encode(["New Password" => $data["password"]]);
+                break;
             default:
                 http_response_code(405);
                 header("Allow: POST, DELETE, PATCH, GET");

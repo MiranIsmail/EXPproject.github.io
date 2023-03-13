@@ -50,7 +50,7 @@ begin
         event_name varchar(255) not null,
 		track_id int not null,
 		host_email varchar(255) not null,
-        host_organization varchar(255) not null,
+        host_organisation varchar(255) not null,
 		sport varchar(255),
         start_date date not null,
         end_date date not null,

@@ -14,10 +14,9 @@ class AccountGateway
     }
     public function edit_account(array $data) 
     {
-        $sql = "UPDATE Users 
-                SET password = $data[1] 
-                WHERE mail = $data[0]";
+        $sql = "UPDATE Users SET password = '$data[password]' WHERE email = '$data[email]'";
 
         $stmt = $this->conn->query($sql)
+
     }
 }
