@@ -16,6 +16,8 @@ $parts = explode("/", $_SERVER['REDIRECT_URL']);
 $endpoints = glob(__DIR__ . '/scr/*');
 $check_file_exists = in_array(__DIR__ . "/scr/$parts[2]" . "Controller.php", $endpoints);
 
+var_dump($parts);
+
 if (!$check_file_exists) {
     http_response_code(404);
     exit;

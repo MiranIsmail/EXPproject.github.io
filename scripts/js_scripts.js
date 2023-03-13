@@ -1,6 +1,6 @@
-var BASE = "http://193.11.187.227:5000/"
+var BASE = "rasts.se/api/"
 
-window.onload = function() {
+window.onload = function () {
   include_HTML()
 };
 
@@ -29,14 +29,14 @@ function fill_org_form() {
 
   // Check if all required fields are filled in and valid
   const allFieldsValid = Array.from(requiredFields).every(field => field.checkValidity());
-  
+
   if (allFieldsValid) {
     // get references to form elements
     const orgNameInput = document.getElementById('org_name');
     const orgCountryInput = document.getElementById('org_country');
     const orgEmailInput = document.getElementById('org_email');
     const userEmailInput = document.getElementById('user_email');
-    
+
     // extract values from form elements
     const orgName = orgNameInput.value;
     const orgCountry = orgCountryInput.value;
@@ -53,17 +53,25 @@ function fill_org_form() {
 
 
 
+
+
 function logIn() {
   let femail = document.getElementById('fetchEmail').value;
   let fpword = document.getElementById('fetchPword').value;
 
-  fetch(BASE + 'account?email=' + femail + "&password=" + fpword)
-    .then((response) => response.json())
-    .then((data) => {
-      document.cookie = "token=" + data[1]
-    });
+  fetch("https://rasts.se/api/Login", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ "email": femail, "password": fpword })
+  })
 
-    location.href = "../pages/profile.html"
+    .then(response => {
+      var test = response.json()
+      console.log(test)
+    })
+    .then((data) => { console.log(data) })
+    .catch(error => console.error(error))
+  //location.href = "../pages/profile.html"
 }
 
 
@@ -181,7 +189,7 @@ function include_HTML() {
   var z, i, element, file, xhttp;
   /* Loop through a collection of all HTML elements: */
   z = document.getElementsByTagName("div");
-  console.log(z.length)
+
 
   for (i = 0; i < z.length; i++) {
     element = z[i];
@@ -210,24 +218,24 @@ function include_HTML() {
 }
 
 
-  /*CREATE EVENT */
+/*CREATE EVENT */
 
 function create_event() {
   let startDate = document.getElementById('startDate')
   let endDate = document.getElementById('endDate')
   let b_day = document.getElementById('b_day')
-  
-  startDate.addEventListener('change',(e)=>{
+
+  startDate.addEventListener('change', (e) => {
     let startDateVal = e.target.value
     document.getElementById('startDateSelected').innerText = startDateVal
   })
-  
-  endDate.addEventListener('change',(e)=>{
+
+  endDate.addEventListener('change', (e) => {
     let endDateVal = e.target.value
     document.getElementById('endDateSelected').innerText = endDateVal
   })
-  
-  b_day.addEventListener('change',(e)=>{
+
+  b_day.addEventListener('change', (e) => {
     let b_day_val = e.target.value
     document.getElementById('b_day_selected').innerText = b_day_val
   })
