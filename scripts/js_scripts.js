@@ -23,6 +23,35 @@ function createAccount() {
   location.href = "../pages/signin_first_time.html"
 }
 
+function fill_org_form() {
+  // Get all required input fields
+  const requiredFields = document.querySelectorAll('input[required]')
+
+  // Check if all required fields are filled in and valid
+  const allFieldsValid = Array.from(requiredFields).every(field => field.checkValidity());
+  
+  if (allFieldsValid) {
+    // get references to form elements
+    const orgNameInput = document.getElementById('org_name');
+    const orgCountryInput = document.getElementById('org_country');
+    const orgEmailInput = document.getElementById('org_email');
+    const userEmailInput = document.getElementById('user_email');
+    
+    // extract values from form elements
+    const orgName = orgNameInput.value;
+    const orgCountry = orgCountryInput.value;
+    const orgEmail = orgEmailInput.value;
+    const userEmail = userEmailInput.value;
+
+    console.log(`Organisation name: ${orgName}`);
+    console.log(`Country: ${orgCountry}`);
+    console.log(`Email Address for organisation: ${orgEmail}`);
+    console.log(`Private Email Address: ${userEmail}`);
+  }
+}
+
+
+
 
 function logIn() {
   let femail = document.getElementById('fetchEmail').value;
@@ -183,24 +212,27 @@ function include_HTML() {
 
   /*CREATE EVENT */
 
-let startDate = document.getElementById('startDate')
-let endDate = document.getElementById('endDate')
-let b_day = document.getElementById('b_day')
+function create_event() {
+  let startDate = document.getElementById('startDate')
+  let endDate = document.getElementById('endDate')
+  let b_day = document.getElementById('b_day')
+  
+  startDate.addEventListener('change',(e)=>{
+    let startDateVal = e.target.value
+    document.getElementById('startDateSelected').innerText = startDateVal
+  })
+  
+  endDate.addEventListener('change',(e)=>{
+    let endDateVal = e.target.value
+    document.getElementById('endDateSelected').innerText = endDateVal
+  })
+  
+  b_day.addEventListener('change',(e)=>{
+    let b_day_val = e.target.value
+    document.getElementById('b_day_selected').innerText = b_day_val
+  })
+}
 
-startDate.addEventListener('change',(e)=>{
-  let startDateVal = e.target.value
-  document.getElementById('startDateSelected').innerText = startDateVal
-})
-
-endDate.addEventListener('change',(e)=>{
-  let endDateVal = e.target.value
-  document.getElementById('endDateSelected').innerText = endDateVal
-})
-
-b_day.addEventListener('change',(e)=>{
-  let b_day_val = e.target.value
-  document.getElementById('b_day_selected').innerText = b_day_val
-})
 
 /* EVENT PAGE*/
 

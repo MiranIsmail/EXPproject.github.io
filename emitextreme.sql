@@ -16,6 +16,11 @@ begin
 		equipment varchar(255),
         password varchar(255) not null);
 
+    Create table Organization(
+        email varchar(255) Primary Key not null,
+        token varchar(255) unique,
+        org_name varchar(255) not null,
+    )
     Create table Chip(
 		chip_id int Primary key not null,
         team_name varchar(255) not null,

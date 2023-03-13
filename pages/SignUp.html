@@ -20,19 +20,64 @@
     <div class="image_div">
         <img class="w-100 op30" src="../images/indeximage_thinner.png" id="image_run">
     </div>
-
-
-    <div class="section w-100 content_container">
+    <div class="section content_container order-1">
         <h1> Welcome!</h1>
-        <form>
+    
+        <form id="orgform">
+            <div class="form-group form_group_style mx-auto"> 
+            <button class="button-modular" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Want to register your organisation?</button>
+
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                <div class="offcanvas-header">
+                    <h5 id="offcanvasRightLabel">Register your organisation</h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body canvas_container">
+                    To make sure you are an organisation, we would like you till fill this form:
+                    <div class="form-group form_group_style mx-auto needs-validation" novalidate>
+                        <div class="form-group form_group_style mx-auto"></div>
+                            <p>Organisation name</p>
+                            
+                            <input type="text" class="form-control input_field_style" placeholder="Name" id="org_name" required>
+            
+                        </div>
+                        <div class="form-group form_group_style mx-auto">
+                        <p>Country</p>
+                        <input type="text" class="form-control input_field_style"  placeholder="Region of domain" id="org_country" required>
+
+                        </div>
+                        <div class="form-group form_group_style mx-auto">
+                            <p>Email Address for organisation </p>
+                            <input type="text" class="form-control input_field_style"  placeholder="expproject@gmail.com" id="org_email" required>
+                        </div>
+                        <h2>Contact information</h2>
+                        <div class="form-group form_group_style mx-auto">
+                            <p>Private Email Address </p>
+                            <input type="text" class="form-control input_field_style"  placeholder="expproject@gmail.com" id="user_email" required>
+                        </div>
+                        <div class="form-group form_group_style mx-auto">
+                            <p>Phone Number </p>
+                            <input type="text" class="form-control input_field_style"  placeholder="+46" id="user_email" required>
+                        </div>
+                        <div id="success-alert" class="alert alert-success alert-dismissible fade show d-none" role="alert">
+                            Form submitted successfully!
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        <div class="form-group form_group_style mx-auto">
+                            <button class="btn btn-primary" button id="submit_org_form" type="submit" onclick="fill_org_form()">Submit form</button>
+                        </div>
+                        After submission we will as soon as possible get back to you to give you more information on how to set up your organisational account. We will be in touch!
+                </div>
+            </div>
+            </div>
             <div class="form-group form_group_style mx-auto">
-              <p>First Name</p>
-              <input type="text" class="form-control input_field_style" placeholder="Name" id="fname">
+            <p>First Name</p>
+            <input type="text" class="form-control input_field_style" placeholder="Name" id="fname">
             </div>
 
             <div class="form-group form_group_style mx-auto">
-              <p>Surname</p>
-              <input type="text" class="form-control input_field_style"  placeholder="Surname" id="lname">
+            <p>Surname</p>
+            <input type="text" class="form-control input_field_style"  placeholder="Surname" id="lname">
             </div>
 
             <div class="form-group form_group_style mx-auto">
@@ -60,6 +105,18 @@
 
 </body>
 
+<script>
+    // Add event listener for form submission
+    document.getElementById("orgform").addEventListener("submit", function(event) {
+        // Prevent default form submission behavior
+        event.preventDefault();
+        // Show success alert
+        document.getElementById("success-alert").classList.remove("d-none");
+
+        submit_button = document.getElementById("submit_org_form");
+        submit_button.setAttribute('disabled', '')
+    });
+</script>
 <!--footer-->
 <div include-html='../assets/footer.html'></div>
 
