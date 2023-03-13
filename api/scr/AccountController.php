@@ -27,6 +27,9 @@ class AccountController
 
             case "DELETE":
             case "PATCH":
+                $data = (array) json_decode(file_get_contents("php://input"), true);
+                $errors = $this->get_validation_errors($method, $data);
+                
             default:
                 http_response_code(405);
                 header("Allow: POST, DELETE, PATCH, GET");
