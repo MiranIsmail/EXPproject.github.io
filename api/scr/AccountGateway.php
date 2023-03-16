@@ -1,22 +1,15 @@
 <?php
-#this gets data and returns data
-class AccountGateway
+#this gets data and retursn data
+class AccountGateway extends Gateway
 {
-    private PDO $conn;
 
-    public function __construct(Database $database)
-    {
-        $this->conn = $database->get_connection();
-    }
     public function create_account(array $data)
     {
         # code...
     }
-    public function edit_account(array $data) 
+    public function edit_account(array $data)
     {
         $sql = "UPDATE Users SET password = '$data[password]' WHERE email = '$data[email]'";
-
-        $stmt = $this->conn->query($sql)
-
+        $stmt = $this->conn->query($sql);
     }
 }

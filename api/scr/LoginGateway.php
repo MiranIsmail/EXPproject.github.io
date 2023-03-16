@@ -1,13 +1,8 @@
 <?php
 #this gets data and retursn data
-class LoginGateway
+class LoginGateway extends Gateway
 {
-    private PDO $conn;
 
-    public function __construct(Database $database)
-    {
-        $this->conn = $database->get_connection();
-    }
     public function get_auth_token($email, $password): string | false
     {
         $sql = "SELECT token FROM  Users WHERE email LIKE :email AND `password` LIKE  :password";
