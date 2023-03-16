@@ -4,13 +4,15 @@
     width: 100%;
     padding-bottom: 4rem;
     min-height: 65vh;
+    z-index: 5;
 }
 
 .content_container h1{
     text-align: center;
     padding-top:1rem;
     font-weight: 600;
-    color: #B7E3FF;
+    /*color: #B7E3FF;*/
+    color: #d2eeff;
 }
 
 @media (max-width: 574px) {
@@ -54,8 +56,12 @@
     max-width: 40rem;
     /* filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.25));*/
     padding-bottom: 1rem;
+    z-index: 3;
 }
 
+.table_group_style{
+    z-index: 3;
+}
 .input_field_style{
     height: 50px;
     border-radius: 10px;
