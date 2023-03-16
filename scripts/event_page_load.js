@@ -133,7 +133,19 @@ async function readCSVAndSplitData(filename) {
 }
 
 /*----------------------------------------------------------------------------------------------------------------LOADING FUNCTION*/
-function data_load_index(){
+async function data_load_index(){
+  
+  const response = await fetch("https://rasts.se/api/Event")
+  const data = await response.json()
+  
+
+  data.forEach((i) => {
+    //console.log(i["Name"], i["Date"], i["Description"])
+    generate_card_high(i["Name"],i["Date"],i["Description"],"../images/eventimg/ronneby.jpg")
+  })
+}
+/*
+function data_load_index() {
   readCSVAndSplitData('../data_csv/events.csv')
   .then(data => {
     data.forEach((i) => {
@@ -147,4 +159,4 @@ function data_load_index(){
     console.error(error);
   });
 
-}
+}*/
