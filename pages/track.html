@@ -11,63 +11,92 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="../styles/stylesheet.css">
-  <link rel="stylesheet" href="../styles/login_style.css">
-  <link rel="stylesheet" href="../styles/SignUp_LogIn_style.css">
+  <link rel="stylesheet" href="../styles/login_and_signup.css">
   <script type="text/javascript" src="../scripts/js_scripts.js"></script>
 </head>
 
 <div include-html='../assets/navbar.html'></div>
 <body >
-    <div class="mb-3 mx-auto w-50">
-      <h1>Create your track here. Start with adding the Track Name</h1>
-    </div>
-    <div class="mb-3 mx-auto w-50">
-      <label for="InputTrackName" class="form-label">Track name</label>
-      <input type="text" class="form-control" id="InputTrackName">
-    </div>
-    <div class="mb-3 mx-auto w-50">
-      <button id="add_button" onclick="addRow()" disabled>Add new row</button>
-    </div>
-      <!-- Include the Bootstrap 5 CSS file -->
-      <label for="InputTrackName" class="table mx-auto"></label>
-      <!-- Create a table with Bootstrap 5 classes -->
-      <div class="">
-
-        <table class="table table-striped w-100 mx-auto" id="sections_table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Distance to next checkpoint(m)</th>
-              <th>Terrain to next check</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <div class="row">
-                <div class="col-sm-6">
-                <td><input type="text" class="form-control" name="id"></td>
-                <td><input type="text" class="form-control" name="distance"></td>
-                <td><input type="text" class="form-control" name="terrain"></td>
-                <td><button class="btn btn-outline-primary" onclick="save(this.parentNode.parentNode)">Save</button></td>
-                <td><button class="btn btn-danger" onclick="deleteRow(this.parentNode.parentNode)">Delete</button></td>
-                </div>
+  <div class="image_div">
+    <img class="w-100 op30" src="../images/indeximage_thinner.png" id="image_run">
+  </div>
+    <div class="section content_container">
+      <h1>Create your own track</h1>
+      <div class ="opacity_background">
+        <div class="form-group table_group_style">
+          <div class="form-group form_group_style mx-auto container">
+            <p>Here you can create tracks that can then be accesed during events</p>
+            <p>Make sure that all your checkpoints are functional and that their ID is visable</p>
+            <label for="InputTrackName" class="clear_text">Track name</label>
+            <input type="text" class="form-control" id="InputTrackName" placeholder="My Track">
+          </div>
+            <!-- Include the Bootstrap 5 CSS file -->
+            <!-- Create a table with Bootstrap 5 classes -->
+            <div class="form-group form_group_style mx-auto container">
+              <p>Start by adding the first section!</p>
+              <table class="table table-striped" id="sections_table">
+                <thead>
+                  <tr>
+                    <th>ID on start station</th>
+                    <th>Distance (m)</th>
+                    <th>Terrain</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <div class="row">
+                      <div class="col-sm-6">
+                      <td><input type="text" class="form-control" placeholder="101" name="id"></td>
+                      <td><input type="text" class="form-control" placeholder="15" name="distance"></td>
+                      <td><div class="dropdown" name="terrain">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonTerrain1" data-bs-toggle="dropdown" aria-expanded="false">
+                          Terrain
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButtonTerrain1">
+                          <li><a class="dropdown-item" onclick='selectWater()'>Water</a></li>
+                          <li><a class="dropdown-item" onclick='selectLand()'>Land</a></li>
+                        </ul>
+                      </div></td>
+                      <td><button class="btn btn-primary" onclick="save(this.parentNode.parentNode)" name="save_button">Save</button></td>
+                      <td><button class="btn btn-danger" onclick="deleteRow(this.parentNode.parentNode)" name="delete_button">Delete</button></td>
+                      </div>
+                    </div>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="mb-3">
+                <button id="add_button" class="btn btn-secondary" onclick="addRow()" disabled>Add next section</button>
               </div>
-            </tr>
-          </tbody>
-        </table>
-
+              <div class="">
+                <button type="submit"  button id="submit_button" class="btn btn-primary" role="button" disabled onclick=submit()>Submit</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-
-    </div>
-    <div class="mb-3 mx-auto w-50">
-      <button type="submit"  button id="submit_button" class="btn btn-primary" role="button" disabled onclick=submit()>Submit</button>
     </div>
 
 </body>
 <div include-html='../assets/footer.html'></div>
 
 <script>
+  var i = 1
+
+  function selectWater() {
+    // Get the selected value from the dropdown
+    // Set the button text to the selected value
+    document.getElementById("dropdownMenuButtonTerrain"+i).innerHTML = 'Water';
+    document.getElementById("dropdownMenuButtonTerrain"+i).classList.add("btn-success")
+    }
+  
+  function selectLand() {
+  // Get the selected value from the dropdown
+  // Set the button text to the selected value
+  document.getElementById("dropdownMenuButtonTerrain"+i).innerHTML = 'Land';
+  document.getElementById("dropdownMenuButtonTerrain"+i).classList.add("btn-success")
+  }
+
   const add_button = document.getElementById('add_button');
   const submit_button = document.getElementById('submit_button');
   var data = [];
@@ -95,6 +124,7 @@
   });
 
   function save(row) {
+    i = i+1 
 
     var id_start = row.querySelector("[name='id']").value;
     var distance = row.querySelector("[name='distance']").value;
@@ -110,7 +140,8 @@
     row.querySelector("[name='distance']").readOnly = true;
     row.querySelector("[name='terrain']").readOnly = true;
 
-    var saveBtn = row.querySelector("button");
+    var saveBtn = row.querySelector("[name='save_button']");
+    console.log(saveBtn)
     // Change the save button to an edit button
     saveBtn.innerHTML = "Edit";
     saveBtn.onclick = function () {
@@ -138,12 +169,13 @@
   }
 
   function edit(row) {
+    i = index
     row.querySelector("[name='id']").readOnly = false;
     row.querySelector("[name='distance']").readOnly = false;
     row.querySelector("[name='terrain']").readOnly = false;
 
 
-    var saveBtn = row.querySelector("button");
+    var saveBtn = row.querySelector("[name='save_button']");
     // Change the button to a save button
     saveBtn.innerHTML = "Save";
     saveBtn.onclick = function () {
@@ -162,9 +194,19 @@
     var cell5 = row.insertCell(4);
     cell1.innerHTML = "<input type='text' class='form-control' name='id'>";
     cell2.innerHTML = "<input type='text' class='form-control' name='distance'>";
-    cell3.innerHTML = "<input type='text' class='form-control' name='terrain'>";
-    cell4.innerHTML = "<button class='btn btn-outline-primary' onclick='save(this.parentNode.parentNode)'>Save</button>";
+    cell3.innerHTML = "<div class='dropdown' name='terrain'> \
+                          <button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenuButtonTerrain"+i+"' data-bs-toggle='dropdown' aria-expanded='false'> \
+                            Terrain \
+                          </button> \
+                        <ul class='dropdown-menu dropdown-menu-dark' aria-labelledby='dropdownMenuButtonTerrain"+i+"'> \
+                          <li><a class='dropdown-item' onclick='selectWater()'>Water</a></li> \
+                          <li><a class='dropdown-item' onclick='selectLand()'>Land</a></li> \
+                        </ul> \
+                      </div>" 
+
+    cell4.innerHTML = "<button class='btn btn-primary' onclick='save(this.parentNode.parentNode)' name='save_button'>Save</button>";
     cell5.innerHTML = "<button class='btn btn-danger' onclick='deleteRow(this.parentNode.parentNode)'>Delete</button>";
+    console.log(cell3.innerHTML)
   }
 
   function deleteRow(row) {

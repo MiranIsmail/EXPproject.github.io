@@ -5,7 +5,8 @@ DELIMITER //
 create procedure create_all()
 begin
 	Create table Users(
-		email varchar(255) Primary Key not null,
+        userid int Primary Key auto_increment,
+		email varchar(255) not null,
 		token varchar(255) unique,
 		first_name varchar(255) not null,
 		last_name varchar(255) not null,

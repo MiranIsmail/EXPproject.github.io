@@ -239,6 +239,17 @@ body {
   padding: 1%;
 }
 
+.clear_text {
+  color: white;
+}
+
+.opacity_background {
+  border-radius: 10%;
+  height: 100%;
+  background-color: rgba(100, 97, 247, 0.136); /* Set the background color with an alpha value of 0.6 to make it semi-transparent */
+  z-index: 1; /* Set the z-index to 1 to make sure it is behind any other elements with a higher z-index */
+}
+
 /*----------------------------------------------------LOGO*/
 @media (max-width: 574px) {
   #logo{
