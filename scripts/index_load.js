@@ -134,18 +134,30 @@ async function readCSVAndSplitData(filename) {
 }
 
 /*----------------------------------------------------------------------------------------------------------------LOADING FUNCTION*/
-function data_load_index(){
-  readCSVAndSplitData('../data_csv/events.csv')
-  .then(data => {
-    data.forEach((i) => {
-      generate_card_wide(i["name"],i["date"],i["description"],i["image_url"])
-      console.log(i["name"],i["date"],i["description"],i["image_url"])
-  });
+async function data_load_index(){
+  
+  const response = await fetch("https://rasts.se/api/Event")
+  const data = await response.json()
+  
+
+  data.forEach((i) => {
+    //console.log(i["Name"], i["Date"], i["Description"])
+    generate_card_wide(i["Name"],i["Date"],i["Description"],"../images/eventimg/ronneby.jpg")
   })
-
-
-  .catch(error => {
-    console.error(error);
-  });
-
 }
+
+/*
+function data_load_index() {
+  readCSVAndSplitData('../data_csv/events.csv')
+    .then(data => {
+      data.forEach((i) => {
+        console.log(i["name"], i["date"], i["description"], i["image_url"])
+        generate_card_wide(i["name"], i["date"], i["description"], i["image_url"])
+      });
+    })
+
+
+    .catch(error => {
+      console.error(error);
+    });
+}*/
