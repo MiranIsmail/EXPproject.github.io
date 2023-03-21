@@ -15,7 +15,8 @@ class AccountController
             case "POST":
                 $data = (array) json_decode(file_get_contents("php://input"), true);
                 $errors = $this->get_validation_errors($method, $data);
-
+                $additional_parameters = array_diff_key($data, ["email" => 1, "first_name" => 1, "last_name" => 1, "password" => 1]);
+                $this->gateway->create_account($data["email"], $data["first_name"], $data["last_name"], $data["password"], $additional_parameters);
                 if (!empty($errors)) {
                     http_response_code(422);
                     echo json_encode(["errors" => $errors]);
@@ -34,7 +35,7 @@ class AccountController
                 http_response_code(201);
                 echo json_encode(["New Password" => $data["password"]]);
                 break;
-                
+
             default:
                 http_response_code(405);
                 header("Allow: POST, DELETE, PATCH, GET");
@@ -46,10 +47,17 @@ class AccountController
         switch ($method) {
             case "POST":
                 $requirements = ["first_name", "last_name", "email", "password"];
+                $additional_parameters = ["organization", "height", "weight", "age", "equipment"];
 
                 foreach ($requirements as $attribut) {
                     if (empty($data[$attribut])) {
                         $errors[] = "$attribut is required";
+                    }
+                }
+
+                foreach ($data as $key => $_) {
+                    if (!(in_array($key, $requirements) or in_array($key, $additional_parameters))) {
+                        $errors[] = "$key is not valid parameter name";
                     }
                 }
 
@@ -60,8 +68,8 @@ class AccountController
                 }
 
                 if (array_key_exists("age", $data)) {
-                    if (filter_var($data["age"], FILTER_VALIDATE_INT, ["options" => ["min_rage" => 0, "max_range" => 190]])) {
-                        $errors[] = "Age must be an integer between 0-190 year";
+                    if (filter_var($data["age"], FILTER_VALIDATE_INT, ["options" => ["min_rage" => 1, "max_range" => 190]]) == false) {
+                        $errors[] = "Age must be an integer between 1-190 year";
                     }
                 }
 

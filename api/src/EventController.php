@@ -13,6 +13,7 @@ class EventController
 
             case "POST":
                 $data = (array) json_decode(file_get_contents("php://input"), true);
+
                 /*$errors = $this->get_validation_errors($method, $data);
 
                 if (!empty($errors)) {
@@ -24,8 +25,9 @@ class EventController
 
             case "GET":
                 $data = (array) json_decode(file_get_contents("php://input"), true);
-                $res = $this->gateway->get_event($data);
-                echo json_encode($res);
+            default:
+                http_response_code(405);
+                header("Allow: POST, DELETE, PATCH, GET");
         }
     }
 }
