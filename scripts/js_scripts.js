@@ -27,6 +27,7 @@ function createAccount() {
     })
     .then((data) => { console.log(data) })
     .catch(error => console.error(error))
+    location.href='../pages/signin_first_time.html'
 }
 
 function fill_org_form() {
