@@ -12,15 +12,19 @@ function createAccount() {
   let xpassword = document.getElementById('pword').value;
 
 
-  fetch(BASE + 'account', {
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      // "Content-Type": "multipart/form-data",
-    },
-    method: 'PUT',
-    body: JSON.stringify({ 'first_name': xfirst_name, 'last_name': xlast_name, 'password': xpassword, 'email': xemail })
-  }).then(response => response.json())
-  location.href = "../pages/signin_first_time.html"
+  fetch("https://rasts.se/api/Account", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ "email": xemail, "first_name": xfirst_name, "last_name": xlast_name, "password" : xpassword })
+  })
+
+    .then(response => {
+      var test = response.json()
+      console.log(test)
+    })
+    .then((data) => { console.log(data) })
+    .catch(error => console.error(error))
+  //location.href = "../pages/profile.html"
 }
 
 function fill_org_form() {
