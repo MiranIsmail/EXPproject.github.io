@@ -15,7 +15,7 @@ function createAccount() {
   fetch("https://rasts.se/api/Account", {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ "email": xemail, "first_name": xfirst_name, "last_name": xlast_name, "password" : xpassword })
+    body: JSON.stringify({"email": xemail, "first_name": xfirst_name, "last_name": xlast_name, "password" : xpassword })
   })
 
     .then(response => {
@@ -24,7 +24,6 @@ function createAccount() {
     })
     .then((data) => { console.log(data) })
     .catch(error => console.error(error))
-  //location.href = "../pages/profile.html"
 }
 
 function fill_org_form() {
