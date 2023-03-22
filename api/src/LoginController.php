@@ -33,7 +33,10 @@ class LoginController
                 echo json_encode(["message" => "wrong email or password"]);
 
                 break;
-
+            case "GET":
+                $data = (array) json_decode(file_get_contents("php://input"), true);
+                var_dump($data);
+                break;
 
             default:
                 http_response_code(405);
