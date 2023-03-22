@@ -65,12 +65,13 @@ begin
         );
 
     Create table Result(
+        id int not null
 		track_time varchar(255) not null,
         participant1 varchar(255) not null,
         participant2 varchar(255),
         event_id int not null,
         current_time DATETIME,
-        primary key (participant1,current_time),
+        primary key (id),
         foreign key (event_id) references Competition(event_id),
         foreign key (participant1) References Users(mail),
         foreign key (participant2) References Users(mail)
