@@ -135,10 +135,10 @@ async function readCSVAndSplitData(filename) {
 
 /*----------------------------------------------------------------------------------------------------------------LOADING FUNCTION*/
 async function data_load_index(){
-  
+
   const response = await fetch("https://rasts.se/api/Event")
   const data = await response.json()
-  
+
 
   data.forEach((i) => {
     //console.log(i["Name"], i["Date"], i["Description"])

@@ -10,6 +10,9 @@ function createAccount() {
   let xfirst_name = document.getElementById('fname').value;
   let xlast_name = document.getElementById('lname').value;
   let xpassword = document.getElementById('pword').value;
+  let xbday = document.getElementById('fetch_bday').value;
+  let xheight = document.getElementById('fetch_height').value;
+  let xweight= document.getElementById('fetch_weight').value;
 
 
   fetch("https://rasts.se/api/Account", {
