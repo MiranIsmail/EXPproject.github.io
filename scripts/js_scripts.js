@@ -77,7 +77,7 @@ function logIn() {
     })
     .then((data) => { console.log(data) })
     .catch(error => console.error(error))
-  //location.href = "../pages/profile.html"
+    location.href = "../pages/profile.html"
 }
 
 
