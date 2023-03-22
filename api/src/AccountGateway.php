@@ -5,10 +5,13 @@ class AccountGateway extends Gateway
 
     public function create_account(string $email, string $first_name, string $last_name, string $password, array $additional_parameters)
     {
-
-        $column_name = "`" . implode("`, `", array_keys($additional_parameters)) . "`";
-        $value_name = ":" . implode(", :", array_keys($additional_parameters));
-        $sql = "INSERT INTO `Users` (`email`, `token`, `first_name`, `last_name`, $column_name, `password`) VALUES (:email, :token, :first_name, :last_name, $value_name, :password)";
+        $value_name = "";
+        $column_name = "";
+        if ($additional_parameters) {
+            $column_name = ", `" . implode("`, `", array_keys($additional_parameters)) . "`";
+            $value_name = ", :" . implode(", :", array_keys($additional_parameters));
+        }
+        $sql = "INSERT INTO `Users` (`email`, `token`, `first_name`, `last_name`$column_name, `password`) VALUES (:email, :token, :first_name, :last_name$value_name, :password)";
         $stmt = $this->conn->prepare($sql);
 
         $stmt->bindValue(":email", $email, PDO::PARAM_STR);
