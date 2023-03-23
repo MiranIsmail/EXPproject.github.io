@@ -37,9 +37,9 @@ def time_diff_lformat(start_time, end_time,time_format):
     return time_diff_str
 
 
-def time_format_parse(my_string):
+def time_format_parse(time_log:str):
     time_format = '%H:%M:%S:%f'
-    fixed_string = my_string.replace(".", ":")
+    fixed_string = time_log.replace(".", ":")
     split_string = fixed_string.split("\\t")
     usb_id = split_string[3][1:]  # The USB ID is always found in this location.
 
@@ -89,12 +89,13 @@ def time_format_parse(my_string):
     json_string = json.dumps(time_dict)
     return json_string
 
-ser = serial.Serial(port="COM5", baudrate=115200)
-# send a command to the USB device
-ser.write(b"/PP0<CR><LF>")
-while True:
-    response = ser.readline()
-    if response[1] != 73:
-        if response[1] != 80:
-            print(time_format_parse(str(response)))
-            time.sleep(0.005)
+if __name__ == "__main__":
+    ser = serial.Serial(port="COM5", baudrate=115200)
+    # send a command to the USB device
+    ser.write(b"/PP0<CR><LF>")
+    while True:
+        response = ser.readline()
+        if response[1] != 73:
+            if response[1] != 80:
+                print(time_format_parse(str(response)))
+                time.sleep(0.005)
