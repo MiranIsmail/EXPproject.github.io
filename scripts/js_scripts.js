@@ -10,9 +10,7 @@ function createAccount() {
   let xfirst_name = document.getElementById('fname').value;
   let xlast_name = document.getElementById('lname').value;
   let xpassword = document.getElementById('pword').value;
-  // let xbday = document.getElementById('fetch_bday').value;
-  // let xheight = document.getElementById('fetch_height').value;
-  // let xweight= document.getElementById('fetch_weight').value;
+
 
 
   fetch("https://rasts.se/api/Account", {
@@ -28,6 +26,26 @@ function createAccount() {
     .then((data) => { console.log(data) })
     .catch(error => console.error(error))
     location.href='../pages/signin_first_time.html'
+}
+
+function update_account() {
+  let xbday = document.getElementById('fetch_bday').value;
+  let xheight = document.getElementById('fetch_height').value;
+  let xweight= document.getElementById('fetch_weight').value;
+
+  fetch("https://rasts.se/api/Account", {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({"first_name": xfirst_name, "last_name": xlast_name,"birthDate":xbday, "height":xheight, "weight":xweight })
+  })
+
+    .then(response => {
+      var test = response.json()
+      console.log(test)
+    })
+    .then((data) => { console.log(data) })
+    .catch(error => console.error(error))
+    location.href='../pages/profile.html'
 }
 
 function fill_org_form() {
@@ -58,10 +76,6 @@ function fill_org_form() {
 }
 
 
-
-
-
-
 function logIn() {
   let femail = document.getElementById('fetchEmail').value;
   let fpword = document.getElementById('fetchPword').value;
@@ -83,6 +97,18 @@ function logIn() {
 
 
 function get_user_info() {
+  const blobToImage = (blob) => {
+    return new Promise(resolve => {
+      const url = URL.createObjectURL(blob)
+      let img = new Image()
+      img.onload = () => {
+        URL.revokeObjectURL(url)
+        resolve(img)
+      }
+      img.src = url
+    })
+  }
+
   let token = document.cookie.split('=');
   /**/
 
@@ -94,6 +120,8 @@ function get_user_info() {
       document.getElementById("profile_age").innerHTML = dataString[8]
       document.getElementById("profile_length").innerHTML = dataString[6]
       document.getElementById("profile_weight").innerHTML = dataString[7]
+      document.getElementById("profile_image").innerHTML = blobToImage(dataString[100])
+
     });
 }
 
@@ -249,9 +277,5 @@ function create_event() {
 }
 
 
+
 /* EVENT PAGE*/
-
-
-
-/*Event card */
-// Create a div element for the card
