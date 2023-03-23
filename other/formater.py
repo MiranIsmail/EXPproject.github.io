@@ -72,7 +72,7 @@ if __name__ == "__main__":
 
             elif station_id == 90:
                 station_name = "Finish"
-                prev_station_timestamp = time_dict[list(time_dict.keys())[-1]]
+                prev_station_timestamp = time_dict[list(time_dict.keys())[-1]][1]
 
             else:
                 station_name = "Undefined" #If nothing applices, you are not a station, e.g. the USB. 
