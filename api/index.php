@@ -19,8 +19,9 @@ header("Access-Control-Allow-Origin: *");
 
 //header("Access-Control-Allow-Origin : *");
 //header("Access-Control-Allow-Credentials : true");
-if (in_array("Authorization",apache_request_headers())){
-    $auth_token = apache_request_headers()["Authorization"];
+
+if (array_key_exists("Authorization",apache_request_headers())){
+    define('AUTH_TOKEN', apache_request_headers()["Authorization"]);
 }
 
 $parts = explode("/", $_SERVER['REDIRECT_URL']);

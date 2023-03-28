@@ -11,7 +11,14 @@ class AccountController
     {
 
         switch ($method) {
+            case "GET":
+                if (defined("AUTH_TOKEN")) {
+                    $data = $this->gateway->get_account_data(AUTH_TOKEN);
+                    http_response_code(201);
+                    echo json_encode($data);
+                }
 
+                break;
             case "POST":
                 $data = (array) json_decode(file_get_contents("php://input"), true);
                 $errors = $this->get_validation_errors($method, $data);
