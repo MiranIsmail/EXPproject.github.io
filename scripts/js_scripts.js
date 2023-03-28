@@ -4,6 +4,9 @@ window.onload = function () {
   include_HTML()
 };
 
+const get_cookie = (name) => (
+  document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() || ''
+)
 
 function createAccount() {
   let xemail = document.getElementById('email').value;
@@ -94,7 +97,7 @@ async function get_user_info() {
 
   const response = await fetch("https://rasts.se/api/Account", {
     method: 'GET',
-    headers: { 'Authorization': document.cookie["auth_token"] }
+    headers: { 'Authorization': get_cookie('auth_token') }
   })
   const data = await response.json()
   console.log(data);
@@ -103,7 +106,7 @@ async function get_user_info() {
   document.getElementById("profile_age").innerHTML = await data["age"]
   document.getElementById("profile_length").innerHTML = await data["height"]
   document.getElementById("profile_weight").innerHTML = await data["weight"]
-  document.getElementById("profile_image").innerHTML = null
+  document.getElementById("profile_image").innerHTML = NULL
 
 }
 
