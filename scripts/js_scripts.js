@@ -16,7 +16,7 @@ function createAccount() {
   fetch("https://rasts.se/api/Account", {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({"email": xemail, "first_name": xfirst_name, "last_name": xlast_name, "password" : xpassword })
+    body: JSON.stringify({ "email": xemail, "first_name": xfirst_name, "last_name": xlast_name, "password": xpassword })
   })
 
     .then(response => {
@@ -25,18 +25,18 @@ function createAccount() {
     })
     .then((data) => { console.log(data) })
     .catch(error => console.error(error))
-    location.href='../pages/signin_first_time.html'
+  location.href = '../pages/signin_first_time.html'
 }
 
 function update_account() {
   let xbday = document.getElementById('fetch_bday').value;
   let xheight = document.getElementById('fetch_height').value;
-  let xweight= document.getElementById('fetch_weight').value;
+  let xweight = document.getElementById('fetch_weight').value;
 
   fetch("https://rasts.se/api/Account", {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({"first_name": xfirst_name, "last_name": xlast_name,"birthDate":xbday, "height":xheight, "weight":xweight })
+    body: JSON.stringify({ "first_name": xfirst_name, "last_name": xlast_name, "birthDate": xbday, "height": xheight, "weight": xweight })
   })
 
     .then(response => {
@@ -45,7 +45,7 @@ function update_account() {
     })
     .then((data) => { console.log(data) })
     .catch(error => console.error(error))
-    location.href='../pages/profile.html'
+  location.href = '../pages/profile.html'
 }
 
 function fill_org_form() {
@@ -88,11 +88,11 @@ function logIn() {
 
     .then(response => {
       var test = response.json()
-      console.log(test)
+      document.cookie = `auth_token=${test}`;
     })
     .then((data) => { console.log(data) })
     .catch(error => console.error(error))
-    location.href = "../pages/profile.html"
+  location.href = "../pages/profile.html"
 }
 
 
