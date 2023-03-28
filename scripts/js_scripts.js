@@ -4,6 +4,9 @@ window.onload = function () {
   include_HTML()
 };
 
+const get_cookie = (name) => (
+  document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() || ''
+)
 
 function createAccount() {
   let xemail = document.getElementById('email').value;
@@ -16,7 +19,7 @@ function createAccount() {
   fetch("https://rasts.se/api/Account", {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({"email": xemail, "first_name": xfirst_name, "last_name": xlast_name, "password" : xpassword })
+    body: JSON.stringify({ "email": xemail, "first_name": xfirst_name, "last_name": xlast_name, "password": xpassword })
   })
 
     .then(response => {
@@ -25,18 +28,18 @@ function createAccount() {
     })
     .then((data) => { console.log(data) })
     .catch(error => console.error(error))
-    location.href='../pages/signin_first_time.html'
+  location.href = '../pages/signin_first_time.html'
 }
 
 function update_account() {
   let xbday = document.getElementById('fetch_bday').value;
   let xheight = document.getElementById('fetch_height').value;
-  let xweight= document.getElementById('fetch_weight').value;
+  let xweight = document.getElementById('fetch_weight').value;
 
   fetch("https://rasts.se/api/Account", {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({"first_name": xfirst_name, "last_name": xlast_name,"birthDate":xbday, "height":xheight, "weight":xweight })
+    body: JSON.stringify({ "first_name": xfirst_name, "last_name": xlast_name, "birthDate": xbday, "height": xheight, "weight": xweight })
   })
 
     .then(response => {
@@ -45,7 +48,7 @@ function update_account() {
     })
     .then((data) => { console.log(data) })
     .catch(error => console.error(error))
-    location.href='../pages/profile.html'
+  location.href = '../pages/profile.html'
 }
 
 function fill_org_form() {
@@ -75,54 +78,36 @@ function fill_org_form() {
   }
 }
 
-
-function logIn() {
+async function logIn() {
   let femail = document.getElementById('fetchEmail').value;
   let fpword = document.getElementById('fetchPword').value;
-
-  fetch("https://rasts.se/api/Login", {
+  const response = await fetch("https://rasts.se/api/Login", {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ "email": femail, "password": fpword })
   })
+  const data = await response.json()
+  document.cookie = `auth_token=${await data["auth_token"]}`;
 
-    .then(response => {
-      var test = response.json()
-      console.log(test)
-    })
-    .then((data) => { console.log(data) })
-    .catch(error => console.error(error))
-    location.href = "../pages/profile.html"
 }
 
 
-function get_user_info() {
-  const blobToImage = (blob) => {
-    return new Promise(resolve => {
-      const url = URL.createObjectURL(blob)
-      let img = new Image()
-      img.onload = () => {
-        URL.revokeObjectURL(url)
-        resolve(img)
-      }
-      img.src = url
-    })
-  }
 
-  let token = document.cookie.split('=');
-  /**/
+async function get_user_info() {
 
-  fetch(BASE + 'get_info?token=' + token[1])
-    .then((response) => response.json())
-    .then((data) => {
-      var dataString = String(data).split(',')
-      document.getElementById("profileName").innerHTML = dataString[3]
-      document.getElementById("profile_age").innerHTML = dataString[8]
-      document.getElementById("profile_length").innerHTML = dataString[6]
-      document.getElementById("profile_weight").innerHTML = dataString[7]
-      document.getElementById("profile_image").innerHTML = blobToImage(dataString[100])
+  const response = await fetch("https://rasts.se/api/Account", {
+    method: 'GET',
+    headers: { 'Authorization': get_cookie('auth_token') }
+  })
+  const data = await response.json()
+  console.log(data);
 
-    });
+  document.getElementById("profileName").innerHTML = await data["first_name"] + " " + await data["last_name"]
+  document.getElementById("profile_age").innerHTML = await data["age"]
+  document.getElementById("profile_length").innerHTML = await data["height"]
+  document.getElementById("profile_weight").innerHTML = await data["weight"]
+  document.getElementById("profile_image").innerHTML = NULL
+
 }
 
 function calculate_age(date) {

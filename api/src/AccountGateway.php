@@ -2,14 +2,28 @@
 #this gets data and retursn data
 class AccountGateway extends Gateway
 {
-
+    public function get_account_data(String $auth_token)
+    {
+        if (!parent::verify_token($auth_token)) {
+            return false;
+        }
+        $sql = "SELECT first_name,last_name,height,weight, age,Pimage FROM `Users` WHERE token LIKE :auth_token";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(":auth_token", $auth_token, PDO::PARAM_STR);
+        $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if (!$data) {
+            return false;
+        }
+        return $data;
+    }
     public function create_account(string $email, string $first_name, string $last_name, string $password, array $additional_parameters)
     {
-        $value_name ="";
-        $column_name="";
+        $value_name = "";
+        $column_name = "";
         if ($additional_parameters) {
             $column_name = ", `" . implode("`, `", array_keys($additional_parameters)) . "`";
-            $value_name = ", :" . implode(", :", array_keys($additional_parameters)) ;
+            $value_name = ", :" . implode(", :", array_keys($additional_parameters));
         }
         $sql = "INSERT INTO `Users` (`email`, `token`, `first_name`, `last_name`$column_name, `password`) VALUES (:email, :token, :first_name, :last_name$value_name, :password)";
         $stmt = $this->conn->prepare($sql);
