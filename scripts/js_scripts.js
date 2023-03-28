@@ -94,15 +94,16 @@ async function get_user_info() {
 
   const response = await fetch("https://rasts.se/api/Account", {
     method: 'GET',
-    headers: { 'Content-Type': 'application/json', 'Authorization': document.cookie["auth_token"] }
+    headers: { 'Authorization': document.cookie["auth_token"] }
   })
   const data = await response.json()
+  console.log(data);
 
   document.getElementById("profileName").innerHTML = await data["first_name"] + " " + await data["first_name"]
   document.getElementById("profile_age").innerHTML = await data["age"]
   document.getElementById("profile_length").innerHTML = await data["height"]
   document.getElementById("profile_weight").innerHTML = await data["weight"]
-  document.getElementById("profile_image").innerHTML = NUll
+  document.getElementById("profile_image").innerHTML = null
 
 }
 
