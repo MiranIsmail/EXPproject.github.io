@@ -90,33 +90,20 @@ async function logIn() {
 
 
 
-function get_user_info() {
-  const blobToImage = (blob) => {
-    return new Promise(resolve => {
-      const url = URL.createObjectURL(blob)
-      let img = new Image()
-      img.onload = () => {
-        URL.revokeObjectURL(url)
-        resolve(img)
-      }
-      img.src = url
-    })
-  }
+async function get_user_info() {
 
-  let token = document.cookie.split('=');
-  /**/
+  const response = await fetch("https://rasts.se/api/Accont", {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json', 'Authorization': document.cookie["auth_token"] }
+  })
+  const data = await response.json()
 
-  fetch(BASE + 'get_info?token=' + token[1])
-    .then((response) => response.json())
-    .then((data) => {
-      var dataString = String(data).split(',')
-      document.getElementById("profileName").innerHTML = dataString[3]
-      document.getElementById("profile_age").innerHTML = dataString[8]
-      document.getElementById("profile_length").innerHTML = dataString[6]
-      document.getElementById("profile_weight").innerHTML = dataString[7]
-      document.getElementById("profile_image").innerHTML = blobToImage(dataString[100])
+  document.getElementById("profileName").innerHTML = await data["first_name"] + " " + await data["first_name"]
+  document.getElementById("profile_age").innerHTML = await data["age"]
+  document.getElementById("profile_length").innerHTML = await data["height"]
+  document.getElementById("profile_weight").innerHTML = await data["weight"]
+  document.getElementById("profile_image").innerHTML = NUll
 
-    });
 }
 
 function calculate_age(date) {
