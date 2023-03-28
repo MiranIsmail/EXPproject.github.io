@@ -75,25 +75,19 @@ function fill_org_form() {
   }
 }
 
-
-function logIn() {
+async function logIn() {
   let femail = document.getElementById('fetchEmail').value;
   let fpword = document.getElementById('fetchPword').value;
-
-  fetch("https://rasts.se/api/Login", {
+  const response = await fetch("https://rasts.se/api/Login", {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ "email": femail, "password": fpword })
   })
+  const data = await response.json()
+  document.cookie = `auth_token=${data}}`;
 
-    .then(response => {
-      var test = response.json()
-      document.cookie = `auth_token=${test}`;
-    })
-    .then((data) => { console.log(data) })
-    .catch(error => console.error(error))
-  //location.href = "../pages/profile.html"
 }
+
 
 
 function get_user_info() {
