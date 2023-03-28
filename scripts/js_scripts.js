@@ -84,9 +84,7 @@ async function logIn() {
     body: JSON.stringify({ "email": femail, "password": fpword })
   })
   const data = await response.json()
-  console.log(data);
-  console.log(data["auth_token"]);
-  document.cookie = `auth_token=${data["auth_token"]}`;
+  document.cookie = `auth_token=${await data["auth_token"]}`;
 
 }
 
