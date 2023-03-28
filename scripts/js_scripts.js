@@ -92,7 +92,7 @@ async function logIn() {
 
 async function get_user_info() {
 
-  const response = await fetch("https://rasts.se/api/Accont", {
+  const response = await fetch("https://rasts.se/api/Account", {
     method: 'GET',
     headers: { 'Content-Type': 'application/json', 'Authorization': document.cookie["auth_token"] }
   })
