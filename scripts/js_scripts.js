@@ -19,12 +19,29 @@ function calculate_age(date) {
   return age;
 }
 
+function getImageBlobFromInput(inputElement) {
+  const file = inputElement.files[0];
+  if (!file) {
+    return Promise.reject(new Error('No file selected'));
+  }
+  const reader = new FileReader();
+  reader.readAsArrayBuffer(file);
+  return new Promise((resolve, reject) => {
+    reader.onload = () => {
+      const blob = new Blob([reader.result], { type: file.type });
+      resolve(blob);
+    };
+    reader.onerror = () => {
+      reject(new Error('Error reading file'));
+    };
+  });
+}
+
 function createAccount() {
   let xemail = document.getElementById('email').value;
   let xfirst_name = document.getElementById('fname').value;
   let xlast_name = document.getElementById('lname').value;
   let xpassword = document.getElementById('pword').value;
-
 
 
   fetch("https://rasts.se/api/Account", {
@@ -118,6 +135,33 @@ async function get_user_info() {
   document.getElementById("profile_length").innerHTML = await data["height"]
   document.getElementById("profile_weight").innerHTML = await data["weight"]
   document.getElementById("profile_image").innerHTML = NULL
+
+}
+
+
+async function edit_user_info() {
+
+  let first_name = document.getElementById('send_f_name').value;
+  let last_name = document.getElementById('send_l_name').value;
+  let birth_date = document.getElementById('send_bday').value;
+  let height = document.getElementById('send_height').value;
+  let weight = document.getElementById('send_weight').value;
+  let pimage = document.getElementById('send_image');
+
+
+  await getImageBlobFromInput(pimage)
+    .then(blob => {
+      console.log(blob)
+    })
+    .catch(error => {
+      console.log("909")
+    });
+
+  console.log(first_name)
+  console.log(last_name)
+  console.log(birth_date)
+  console.log(height)
+  console.log(weight)
 
 }
 
