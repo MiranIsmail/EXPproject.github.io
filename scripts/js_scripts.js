@@ -8,6 +8,17 @@ const get_cookie = (name) => (
   document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() || ''
 )
 
+function calculate_age(date) {
+  var today = new Date();
+  var birthDate = new Date(date);
+  var age = today.getFullYear() - birthDate.getFullYear();
+  var m = today.getMonth() - birthDate.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+  return age;
+}
+
 function createAccount() {
   let xemail = document.getElementById('email').value;
   let xfirst_name = document.getElementById('fname').value;
@@ -103,22 +114,11 @@ async function get_user_info() {
   console.log(data);
 
   document.getElementById("profileName").innerHTML = await data["first_name"] + " " + await data["last_name"]
-  document.getElementById("profile_age").innerHTML = await data["age"]
+  document.getElementById("profile_age").innerHTML = await calculate_age(data["birthdate"])
   document.getElementById("profile_length").innerHTML = await data["height"]
   document.getElementById("profile_weight").innerHTML = await data["weight"]
   document.getElementById("profile_image").innerHTML = NULL
 
-}
-
-function calculate_age(date) {
-  var today = new Date();
-  var birthDate = new Date(date);
-  var age = today.getFullYear() - birthDate.getFullYear();
-  var m = today.getMonth() - birthDate.getMonth();
-  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-    age--;
-  }
-  return age;
 }
 
 async function generate_table() {
