@@ -102,7 +102,7 @@ async function get_user_info() {
   const data = await response.json()
   console.log(data);
 
-  document.getElementById("profileName").innerHTML = await data["first_name"] + " " + await data["first_name"]
+  document.getElementById("profileName").innerHTML = await data["first_name"] + " " + await data["last_name"]
   document.getElementById("profile_age").innerHTML = await data["age"]
   document.getElementById("profile_length").innerHTML = await data["height"]
   document.getElementById("profile_weight").innerHTML = await data["weight"]
