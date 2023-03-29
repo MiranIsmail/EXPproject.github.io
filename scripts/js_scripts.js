@@ -108,20 +108,24 @@ async function log_out() {
 
   const response = await fetch(BASE_ULR+"Token", {
     method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Authorization': get_cookie('auth_token') }
   })
   const data = await response.json()
-  document.cookie = `auth_token=${await data["auth_token"]}`;
-  console.log("test")
-  location.href = '../pages/profile.html'
+  console.log(await data)
+  location.href = '../pages/'
 }
 
 function load_image(indata){
   var image = new Image();
   console.log("---")
   console.log(indata)
-  image.src = "data:image/png;base64,"+indata
-  document.body.appendChild(image);
+
+  var img = document.createElement("img");
+  img.src = "data:image/png;base64,"+indata
+
+  var src = document.getElementById("profile_image");
+
+src.appendChild(img);
 }
 async function get_user_info() {
 
