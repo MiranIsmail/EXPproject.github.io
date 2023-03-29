@@ -135,7 +135,7 @@ async function get_user_info() {
   const data = await response.json()
   var image = new Image();
   console.log("123")
-  image = `data:image/png;base64,${await data["pimage"]}`;
+  image = await `data:image/png;base64,${await data["pimage"]}`;
   console.log(image)
   document.body.appendChild(image);
   console.log("test")
