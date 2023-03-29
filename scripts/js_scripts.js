@@ -116,7 +116,7 @@ async function get_user_info() {
   const data = await response.json()
   // var image = new Image();
   // console.log("123")
-  image = await `data:image/png;base64,${await data["pimage"]}`;
+  image.innerHTML = await `data:image/png;base64,${await data["pimage"]}`;
   console.log(image)
   document.body.appendChild(image);
   console.log("test")
@@ -137,10 +137,11 @@ async function edit_user_info() {
   let height = document.getElementById('send_height').value;
   let weight = document.getElementById('send_weight').value;
   let pimage = document.getElementById('send_image');
+  console.log(pimage)
   const response = await fetch(BASE+"Account", {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ "first_name": first_name, "last_name": last_name, })
+    body: JSON.stringify({ "first_name": first_name, "last_name": last_name,"birth_date":birth_date,"height":height,"weight":weight,"pimage":pimage })
   })
 
 
