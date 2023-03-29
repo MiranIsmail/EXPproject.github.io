@@ -206,14 +206,14 @@ body {
     text-align: center;
   }
 
-  #profileImage {
+  #profile_image {
     margin-left: auto;
     margin-right: auto;
   }
 }
 
 @media (min-width: 575px) {
-  #profileImage {
+  #profile_image {
     float: right;
   }
 }
