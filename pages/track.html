@@ -12,6 +12,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="../styles/stylesheet.css">
   <link rel="stylesheet" href="../styles/login_and_signup.css">
+  <link rel="stylesheet" href="../styles/google_maps_api.css">
   <script type="text/javascript" src="../scripts/js_scripts.js"></script>
 </head>
 
@@ -45,7 +46,40 @@
                 <tbody>
                     <div class="row">
                       <div class="col-sm-6">
-                      <td><input type="text" class="form-control" placeholder="101" name="id"></td>
+                      <td><input type="text" class="form-control" placeholder="101" name="id" id="usr"></td>
+                      <td>
+                    
+                        <!-- Button to Open the Modal -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+                        Pinpoint the map
+                      </button>
+                    
+                      <!-- The Modal -->
+                      <div class="modal" id="myModal">
+                        <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+                    
+                            <!-- Modal Header -->
+                            <div class="modal-header text-center">
+                              <h4 class="modal-title w-100">Map</h4>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                    
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <div id="map"></div>
+                            </div>
+                    
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >Close</button>
+                              <button type="button" class="btn btn-danger" onclick="deleteMarkers()" >Delete</button>
+                              <button type="button" class="btn btn-success" disabled id="save_btn" onclick="send_coords()" data-bs-toggle="modal">Save</button>
+                            </div>
+                    
+                          </div>
+                        </div>
+                      </div></td>
                       <td><input type="text" class="form-control" placeholder="15" name="distance"></td>
                       <td><div class="dropdown" name="terrain">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonTerrain1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -243,6 +277,64 @@
 
     window.location.href = '../eventcreate.html';
   }
-</script>
 
+
+let map;
+let markers_list = [];
+const btn= document.getElementById('save_btn')
+function init_map() {
+  const bth_coords = { lat: 56.179475 ,lng:15.595062 };
+  map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 14,
+    center: bth_coords,
+    mapTypeId: "terrain",
+  });
+  // This event listener will call add_marker() when the map is clicked.
+  map.addListener("click", (event) => {
+    setMapOnAll(null)
+    const check_point_id= document.getElementById('usr').value
+    add_marker(event.latLng,check_point_id);
+  });
+}
+
+// Adds a marker to the map and push to the array.
+function add_marker(position,check_point_id) {
+  const marker = new google.maps.Marker({
+    position,
+    map,
+    label: check_point_id
+  });
+
+  markers_list.push(marker);
+  btn.disabled = false;
+
+}
+
+// Sets the map on all markers in the array.
+function setMapOnAll(map) {
+  for (let i = 0; i < markers_list.length; i++) {
+    markers_list[i].setMap(map);
+  }
+}
+
+// Deletes all markers in the array by removing references to them.
+function deleteMarkers() {
+  setMapOnAll(null);
+  markers_list = [];
+  btn.disabled = true;
+}
+//figure out how to confirm
+function send_coords() {//needs fixing
+
+    for (let index = 0; index < markers_list.length; index++) {
+      let object_string = JSON.stringify(markers_list[index])
+      //data base call
+    }
+
+window.init_map = init_map;
+}
+</script>
+<script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkY5KKVjLNfTPCAX17XbClpOpfTQd0cFM&callback=init_map">
+</script>
 </html>
