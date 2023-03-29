@@ -90,7 +90,7 @@ function fill_org_form() {
   }
 }
 
-async function logIn() {
+async function log_in() {
 
   let femail = document.getElementById('fetchEmail').value;
   let fpword = document.getElementById('fetchPword').value;
@@ -104,27 +104,40 @@ async function logIn() {
   console.log("test")
   location.href = '../pages/profile.html'
 }
+async function log_out() {
 
-
-
+  const response = await fetch(BASE_ULR+"Token", {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+  })
+  const data = await response.json()
+  document.cookie = `auth_token=${await data["auth_token"]}`;
+  console.log("test")
+  location.href = '../pages/profile.html'
+}
+function load_image(indata){
+  var image = new Image();
+  console.log("---")
+  console.log(base64_image)
+  image.src = "data:image/png;base64,"+indata
+  return image
+}
 async function get_user_info() {
 
-  const response = await fetch("https://rasts.se/api/Account", {
+  const response = await fetch(BASE_ULR+"Account", {
     method: 'GET',
     headers: { 'Authorization': get_cookie('auth_token') }
   })
   const data = await response.json()
-  var image = new Image();
-  // console.log("123")
-  console.log(await data["pimage"])
-  image = `data:image/png;base64,`;
-  document.body.appendChild(image);
-  console.log("test")
+
+  //Just getting the source from the span. It was messy in JS.
+
   document.getElementById("profileName").innerHTML = await data["first_name"] + " " + await data["last_name"]
   document.getElementById("profile_age").innerHTML = await calculate_age(data["birthdate"])
   document.getElementById("profile_length").innerHTML = await data["height"]
   document.getElementById("profile_weight").innerHTML = await data["weight"]
-  // document.getElementById("profile_image").innerHTML = await image
+  document.getElementById("profile_image").innerHTML = await load_image(data["pimage"])
+
 }
 
 
