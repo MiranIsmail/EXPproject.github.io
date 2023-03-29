@@ -4,49 +4,51 @@ import serial
 import time
 import requests
 
-def time_diff_sformat(start_time, end_time, time_format) -> int:
-    """Sends out the amount of seconds between two different timestamps"""
-    try:
-        time_start = datetime.strptime(start_time, time_format)
-        time_goal = datetime.strptime(end_time, time_format)
 
-        # Calculate the time difference
-        time_diff = time_goal - time_start
-
-        # Get the time difference in seconds
-        time_diff_sec = time_diff.total_seconds()
-
-        return time_diff_sec
-    except ValueError:
-        print("You have old data on this device. It will not be logged")
-        return "0"
-
-
-
-def time_diff_lformat(start_time, end_time, time_format):
+def time_diff(start_time: str, end_time: str, time_format: str, off_set: int):
     """Gives to the given time format a difference in time between two timestamps"""
 
-    try:
-        time_start = datetime.strptime(start_time, time_format)
-        time_goal = datetime.strptime(end_time, time_format)
+    end_time_split = end_time.split(":")
+    e_hours = int(end_time_split[0])
+    e_minutes = int(end_time_split[1])
+    e_seconds = float(end_time_split[2])
 
-        # Calculate the time difference
-        time_diff = time_goal - time_start
+    start_time_split = start_time.split(":")
+    s_hours = int(start_time_split[0])
+    s_minutes = int(start_time_split[1])
+    s_seconds = float(start_time_split[2])
 
-        time_diff_sec = time_diff.total_seconds()
+    e_total_seconds = e_hours*3600+e_minutes*60+e_seconds
+    e_total_seconds -= off_set
 
-        # Convert time difference to hours, minutes, and seconds
-        time_diff_hrs, rem = divmod(time_diff_sec, 3600)
-        time_diff_min, time_diff_sec = divmod(rem, 60)
-        time_diff_ms = int((time_diff_sec - int(time_diff_sec)) * 1000)
-        time_diff_sec = int(time_diff_sec)
+    s_total_seconds = s_hours*3600+s_minutes*60+s_seconds
 
-        # Convert time difference back to the original format
-        time_diff_str = f"{int(time_diff_hrs):02d}:{int(time_diff_min):02d}:{int(time_diff_sec):02d}.{time_diff_ms:03d}"
+    time_diff = e_total_seconds - s_total_seconds
 
-        return time_diff_str
-    except ValueError:
-        return "0"
+    counter = 0
+    while e_total_seconds > 3600*24:
+        counter += 1
+        e_total_seconds -= 3600*24
+
+    if counter > 0:
+        return "00:00:00.000", "00:00:00.000", counter*3600*24+e_total_seconds
+
+    # Convert time difference to hours, minutes, and seconds
+    time_hrs, rem = divmod(e_total_seconds, 3600)
+    time_min, e_total_seconds = divmod(rem, 60)
+    time_ms = int((e_total_seconds - int(e_total_seconds)) * 1000)
+    time_sec = int(e_total_seconds)
+
+    # Convert time difference to hours, minutes, and seconds
+    time_diff_hrs, rem = divmod(time_diff, 3600)
+    time_diff_min, time_diff_rem = divmod(rem, 60)
+    time_diff_ms = int((time_diff_rem - int(time_diff_rem)) * 1000)
+    time_diff_sec = int(time_diff_rem)
+
+    # Convert time difference back to the original format
+    time_diff_str = f"{int(time_diff_hrs):02d}:{int(time_diff_min):02d}:{int(time_diff_sec):02d}.{time_diff_ms:03d}"
+    time_str = f"{int(time_hrs):02d}:{int(time_min):02d}:{int(time_sec):02d}.{time_ms:03d}"
+    return time_str, time_diff_str, round(time_diff,2)
 
 
 def time_format_parse(time_log: str):
@@ -59,6 +61,7 @@ def time_format_parse(time_log: str):
     usb_id = split_string[3][1:]
     chip_id = split_string[1][1:]
     total_time = "00:00:00.000"
+    off_set = 0
     time_list = []
 
     for str in split_string:
@@ -94,12 +97,19 @@ def time_format_parse(time_log: str):
 
             # if the station has had a previous
             if (station_name == "Finish" or station_name == str_part[1]) and prev_station_timestamp != None:
-                seconds_diff = time_diff_sformat(
-                    prev_station_timestamp, timestamp, time_format)
-                diff_format = time_diff_lformat(
-                    prev_station_timestamp, timestamp, time_format)
+                timestamp, diff_format, seconds_diff = time_diff(
+                    prev_station_timestamp, timestamp, time_format, off_set)
+
+                # Check if this time stamp was over a day since the last
+                if seconds_diff > 3600*24:
+                    # Reset the data. The offset is always subtracted in t
+                    off_set = seconds_diff
+                    time_list = []
+                    timestamp = "00:00:00.000"
+                    seconds_diff = 0
+                    diff_format = "00:00:00.000"
             else:
-                seconds_diff = "0"
+                seconds_diff = 0
                 diff_format = "00:00:00.000"
 
             if station_name != "Undefined":
@@ -114,17 +124,17 @@ def time_format_parse(time_log: str):
 
 
 if __name__ == "__main__":
-      ser = serial.Serial(port="COM5", baudrate=115200)
-    url = 'https://rasts.se/api/Results'
-    json_obj = {"chip_id": "4242145", "total_time": "00:02:42.003", "track_time": [["Start", "00:00:00.000", "00:00:00.000", "0", "46424898727"], ["101", "00:00:06.003", "00:00:06.003", 6.003, "46424904730"], ["102", "00:01:45.871", "00:01:39.867", 99.868, "46425004598"], ["101", "00:01:48.221", "00:00:02.350", 2.35, "46425006948"], ["102", "00:01:52.551", "00:00:04.330", 4.33, "46425011278"], ["102", "00:02:04.434", "00:00:11.882", 11.883, "46425023161"], ["102", "00:02:42.003", "00:00:37.569", 37.569, "46425060730"]]}
-    # send a command to the USB device
-    ser.write(b"/PP0<CR><LF>")
-    while True:
-        response = ser.readline()
-        if response[1] != 73:
-            if response[1] != 80:
-                print(time_format_parse(str(response)))
-                requests.post(url, json= time_format_parse(str(response)))
-                time.sleep(0.005)
-
+    # ser = serial.Serial(port="COM5", baudrate=115200)
+    # url = 'https://rasts.se/api/Results'
+    # json_obj = {"chip_id": "4242145", "total_time": "00:02:42.003", "track_time": [["Start", "00:00:00.000", "00:00:00.000", "0", "46424898727"], ["101", "00:00:06.003", "00:00:06.003", 6.003, "46424904730"], ["102", "00:01:45.871", "00:01:39.867", 99.868, "46425004598"], ["101", "00:01:48.221", "00:00:02.350", 2.35, "46425006948"], ["102", "00:01:52.551", "00:00:04.330", 4.33, "46425011278"], ["102", "00:02:04.434", "00:00:11.882", 11.883, "46425023161"], ["102", "00:02:42.003", "00:00:37.569", 37.569, "46425060730"]]}
+    # # send a command to the USB device
+    # ser.write(b"/PP0<CR><LF>")
+    # while True:
+    #     response = ser.readline()
+    #     if response[1] != 73:
+    #         if response[1] != 80:
+    #             print(time_format_parse(str(response)))
+    #             requests.post(url, json= time_format_parse(str(response)))
+    #             time.sleep(0.005)
+    print(time_format_parse(str(b'\x02D 04 11\tN4242145\tM103\tC253\tU14.10.2021\tW14:46:18.000\tL0120\tX7\tV295-285-4820\tS4242145\tRemiTag IIb\tQ0-0-46424898727-00:00:00.000-14:02:22.305-0\tQ1-101-46424904730-00:00:06.003-14:02:28.308-0\tQ2-253-46424911326-00:00:12.599-14:02:34.904-0\tQ3-102-46425004598-00:01:45.871-14:04:08.176-0\tQ4-101-46425006948-00:01:48.221-14:04:10.526-0\tQ5-102-46425011278-00:01:52.551-14:04:14.928-0\tQ6-253-46425013350-00:01:54.623-14:04:17.000-0\tQ7-102-46425023161-00:02:04.434-14:04:26.811-0\tQ8-253-46425027794-00:02:09.067-14:04:31.444-0\tQ9-102-46425060730-00:02:42.003-14:05:04.380-0\tQ10-253-46425068209-00:02:49.482-14:05:11.940-0\tQ11-253-46425308286-00:06:49.559-14:09:12.017-0\tQ12-253-46425318223-00:06:59.496-14:09:21.954-0\tQ13-253-46425323574-00:07:04.847-14:09:27.305-0\tQ14-253-46425383442-00:08:04.715-14:10:27.173-0\tQ15-253-46425453896-00:09:15.169-14:11:37.698-0\tQ16-253-46426343267-00:24:04.540-14:26:27.069-0\tQ17-253-46426375379-00:24:36.652-14:26:59.181-0\tQ18-253-46426548397-00:27:29.670-14:29:52.199-0\tQ19-253-46426654757-00:29:16.030-14:31:38.559-0\tQ20-253-46426774854-00:31:16.127-14:33:38.727-0\tQ21-253-46426780765-00:31:22.038-14:33:44.638-0\tQ22-253-46427159766-00:37:41.039-14:40:03.639-0\tQ23-253-46427165591-00:37:46.864-14:40:09.464-0\tQ24-253-46427439852-00:42:21.125-14:44:43.725-0\tQ25-253-46427535232-00:43:56.505-14:46:19.165-0\t\x03\r\n')))
 #requests.post(url, json= json_obj)
