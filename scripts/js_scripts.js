@@ -62,25 +62,6 @@ function createAccount() {
     .catch(error => console.error(error))
 }
 
-function update_account() {
-  let xbday = document.getElementById('fetch_bday').value;
-  let xheight = document.getElementById('fetch_height').value;
-  let xweight = document.getElementById('fetch_weight').value;
-
-  fetch("https://rasts.se/api/Account", {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ "first_name": xfirst_name, "last_name": xlast_name, "birthDate": xbday, "height": xheight, "weight": xweight })
-  })
-
-    .then(response => {
-      var test = response.json()
-      console.log(test)
-    })
-    .then((data) => { console.log(data) })
-    .catch(error => console.error(error))
-  location.href = '../pages/profile.html'
-}
 
 function fill_org_form() {
   // Get all required input fields
@@ -135,7 +116,7 @@ async function get_user_info() {
   const data = await response.json()
   // var image = new Image();
   // console.log("123")
-  base64img = await `data:image/png;base64,${await data["pimage"]}`;
+  image = await `data:image/png;base64,${await data["pimage"]}`;
   // console.log(image)
   // document.body.appendChild(image);
   // console.log("test")
@@ -145,20 +126,6 @@ async function get_user_info() {
   document.getElementById("profile_length").innerHTML = await data["height"]
   document.getElementById("profile_weight").innerHTML = await data["weight"]
   // document.getElementById("profile_image").innerHTML = await image
-
-  function Base64ToImage(base64img, callback) {
-    var img = new Image();
-    img.onload = function() {
-        callback(img);
-    };
-    img.src = base64img;
-  }
-  Base64ToImage(base64img, function(img) {
-      document.getElementById('main').appendChild(img);
-      var log = "w=" + img.width + " h=" + img.height;
-      document.getElementById('log').value = log;
-  });
-
 }
 
 
