@@ -134,15 +134,15 @@ async function get_user_info() {
   })
   const data = await response.json()
   var image = new Image();
+  console.log("123")
   image = `data:image/png;base64,${await data["pimage"]}`;
-  document.body.appendChild(image);
-  concole.log("test")
+  concole.log(image)
   document.getElementById("profile_image").innerHTML = img
   document.getElementById("profileName").innerHTML = await data["first_name"] + " " + await data["last_name"]
   document.getElementById("profile_age").innerHTML = await calculate_age(data["birthdate"])
   document.getElementById("profile_length").innerHTML = await data["height"]
   document.getElementById("profile_weight").innerHTML = await data["weight"]
-  document.getElementById("profile_image").innerHTML = await NULL
+  document.getElementById("profile_image").innerHTML = await image
 
 }
 
