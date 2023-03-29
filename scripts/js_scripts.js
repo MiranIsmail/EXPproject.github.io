@@ -136,7 +136,7 @@ async function get_user_info() {
   var image = new Image();
   console.log("123")
   image = `data:image/png;base64,${await data["pimage"]}`;
-  concole.log(image)
+  console.log(image)
   document.getElementById("profile_image").innerHTML = img
   document.getElementById("profileName").innerHTML = await data["first_name"] + " " + await data["last_name"]
   document.getElementById("profile_age").innerHTML = await calculate_age(data["birthdate"])
