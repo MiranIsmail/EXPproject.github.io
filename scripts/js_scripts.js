@@ -137,12 +137,14 @@ async function get_user_info() {
   console.log("123")
   image = `data:image/png;base64,${await data["pimage"]}`;
   console.log(image)
+  document.body.appendChild(image);
+  console.log("test")
   document.getElementById("profile_image").innerHTML = img
   document.getElementById("profileName").innerHTML = await data["first_name"] + " " + await data["last_name"]
   document.getElementById("profile_age").innerHTML = await calculate_age(data["birthdate"])
   document.getElementById("profile_length").innerHTML = await data["height"]
   document.getElementById("profile_weight").innerHTML = await data["weight"]
-  document.getElementById("profile_image").innerHTML = await image
+  // document.getElementById("profile_image").innerHTML = await image
 
 }
 
