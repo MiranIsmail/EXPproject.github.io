@@ -43,7 +43,6 @@ function createAccount() {
   let xlast_name = document.getElementById('lname').value;
   let xpassword = document.getElementById('pword').value;
 
-
   fetch("https://rasts.se/api/Account", {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -56,7 +55,6 @@ function createAccount() {
     })
     .then((data) => { console.log(data) })
     .catch(error => console.error(error))
-  location.href = '../pages/signin_first_time.html'
 }
 
 function update_account() {
@@ -107,24 +105,18 @@ function fill_org_form() {
 }
 
 async function logIn() {
-  try {
-    let femail = document.getElementById('fetchEmail').value;
-    let fpword = document.getElementById('fetchPword').value;
-    const response = await fetch("https://rasts.se/api/Login", {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ "email": femail, "password": fpword })
-    })
+
+  let femail = document.getElementById('fetchEmail').value;
+  let fpword = document.getElementById('fetchPword').value;
+  const response = await fetch("https://rasts.se/api/Login", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ "email": femail, "password": fpword })
+  })
   const data = await response.json()
   document.cookie = `auth_token=${await data["auth_token"]}`;
   location.href = '../pages/profile.html'
-}
-  catch (error) {
-    console.error("wrong");
-    // Expected output: ReferenceError: nonExistentFunction is not defined
-    // (Note: the exact output may be browser-dependent)
-  }
-
+  console.log("asd")
 }
 
 
