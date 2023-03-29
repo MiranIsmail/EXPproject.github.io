@@ -52,7 +52,7 @@ def time_format_parse(time_log: str):
     chip_id = split_string[1][1:]
 
     time_list = []
-    result_card = {"chip_id": chip_id, "time": time_list}
+    result_card = {"chip_id": chip_id, "track_time": time_list}
 
     for str in split_string:
         str_part = str.split("-")  # The seperator is -.
@@ -91,8 +91,8 @@ def time_format_parse(time_log: str):
                 diff_format = time_diff_lformat(
                     prev_station_timestamp, timestamp, time_format)
             else:
-                seconds_diff = "None"
-                diff_format = "None"
+                seconds_diff = "0"
+                diff_format = "00:00:00.000"
 
             if station_name != "Undefined":
                 time_list.append([station_name, timestamp, diff_format, seconds_diff, timestamp_id])

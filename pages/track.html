@@ -32,15 +32,15 @@
           </div>
             <!-- Include the Bootstrap 5 CSS file -->
             <!-- Create a table with Bootstrap 5 classes -->
-            <div class="form-group form_group_style mx-auto container">
+            <div class="form-group form_group_style mx-auto">
               <p>Start by adding the first section!</p>
-              <table class="table table-striped" id="sections_table">
+              <table class="table" id="sections_table">
                 <thead>
                   <tr>
                     <th>ID on start station</th>
                     <th>Distance (m)</th>
+                    <th>Location</th>
                     <th>Terrain</th>
-                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -49,11 +49,16 @@
                       <div class="col">
                         <td><input type="text" class="form-control" placeholder="101" name="id" id="usr"></td>
                       </div>
+                      
+                      <div class="col">
+                        <td><input type="text" class="form-control" placeholder="15" name="distance"></td>
+                      </div>
                       <div class="col">
                         <!-- Button to Open the Modal -->
                         <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
                           Pinpoint the map
                         </button>
+                        </td>
                       </div>
                     
                       <!-- The Modal -->
@@ -81,9 +86,6 @@
                     
                           </div>
                         </div>
-                      </div></td>
-                      <div class="col">
-                        <td><input type="text" class="form-control" placeholder="15" name="distance"></td>
                       </div>
                       <div class="col">
                         <td><div class="dropdown" name="terrain">
