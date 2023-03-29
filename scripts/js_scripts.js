@@ -107,15 +107,23 @@ function fill_org_form() {
 }
 
 async function logIn() {
-  let femail = document.getElementById('fetchEmail').value;
-  let fpword = document.getElementById('fetchPword').value;
-  const response = await fetch("https://rasts.se/api/Login", {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ "email": femail, "password": fpword })
-  })
+  try {
+    let femail = document.getElementById('fetchEmail').value;
+    let fpword = document.getElementById('fetchPword').value;
+    const response = await fetch("https://rasts.se/api/Login", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ "email": femail, "password": fpword })
+    })
   const data = await response.json()
   document.cookie = `auth_token=${await data["auth_token"]}`;
+  location.href = '../pages/profile.html'
+}
+  catch (error) {
+    console.error("wrong");
+    // Expected output: ReferenceError: nonExistentFunction is not defined
+    // (Note: the exact output may be browser-dependent)
+  }
 
 }
 
