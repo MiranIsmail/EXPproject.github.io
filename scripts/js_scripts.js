@@ -24,7 +24,7 @@ function calculate_age(date) {
 
 }
 
-function getImageBlobFromInput(inputElement) {
+function image_to_blob(inputElement) {
   const file = inputElement.files[0];
   if (!file) {
     return Promise.reject(new Error('No file selected'));
@@ -133,8 +133,8 @@ async function get_user_info() {
     headers: { 'Authorization': get_cookie('auth_token') }
   })
   const data = await response.json()
-  console.log(data);
-
+  img.src = URL.createObjectURL(blob);
+  document.getElementById("profileImage").innerHTML = img
   document.getElementById("profileName").innerHTML = await data["first_name"] + " " + await data["last_name"]
   document.getElementById("profile_age").innerHTML = await calculate_age(data["birthdate"])
   document.getElementById("profile_length").innerHTML = await data["height"]
@@ -154,7 +154,7 @@ async function edit_user_info() {
   let pimage = document.getElementById('send_image');
 
 
-  await getImageBlobFromInput(pimage)
+  await image_to_blob(pimage)
     .then(blob => {
       console.log(blob)
     })
