@@ -119,9 +119,9 @@ async function log_out() {
 function load_image(indata){
   var image = new Image();
   console.log("---")
-  console.log(base64_image)
+  console.log(indata)
   image.src = "data:image/png;base64,"+indata
-  return image
+  document.body.appendChild(image);
 }
 async function get_user_info() {
 
@@ -137,9 +137,8 @@ async function get_user_info() {
   document.getElementById("profile_age").innerHTML = await calculate_age(data["birthdate"])
   document.getElementById("profile_length").innerHTML = await data["height"]
   document.getElementById("profile_weight").innerHTML = await data["weight"]
-  console.log(data["pimage"])
-  document.body.appendChild(load_image(data["pimage"]));
-  document.getElementById("profile_image").innerHTML = await load_image(data["pimage"])
+  // document.getElementById("profile_image").innerHTML = await load_image(data["pimage"])
+  load_image(data["pimage"])
 
 }
 
