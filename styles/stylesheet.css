@@ -209,12 +209,14 @@ body {
   #profile_image {
     margin-left: auto;
     margin-right: auto;
+    max-width: 30vh;
   }
 }
 
 @media (min-width: 575px) {
   #profile_image {
     float: right;
+    max-width: 30vh;
   }
 }
 
