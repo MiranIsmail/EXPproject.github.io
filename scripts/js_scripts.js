@@ -133,12 +133,12 @@ async function get_user_info() {
     headers: { 'Authorization': get_cookie('auth_token') }
   })
   const data = await response.json()
-  var image = new Image();
-  console.log("123")
-  image = await `data:image/png;base64,${await data["pimage"]}`;
-  console.log(image)
-  document.body.appendChild(image);
-  console.log("test")
+  // var image = new Image();
+  // console.log("123")
+  base64img = await `data:image/png;base64,${await data["pimage"]}`;
+  // console.log(image)
+  // document.body.appendChild(image);
+  // console.log("test")
   document.getElementById("profile_image").innerHTML = img
   document.getElementById("profileName").innerHTML = await data["first_name"] + " " + await data["last_name"]
   document.getElementById("profile_age").innerHTML = await calculate_age(data["birthdate"])
@@ -146,7 +146,21 @@ async function get_user_info() {
   document.getElementById("profile_weight").innerHTML = await data["weight"]
   // document.getElementById("profile_image").innerHTML = await image
 
+  function Base64ToImage(base64img, callback) {
+    var img = new Image();
+    img.onload = function() {
+        callback(img);
+    };
+    img.src = base64img;
+  }
+  Base64ToImage(base64img, function(img) {
+      document.getElementById('main').appendChild(img);
+      var log = "w=" + img.width + " h=" + img.height;
+      document.getElementById('log').value = log;
+  });
+
 }
+
 
 
 async function edit_user_info() {
