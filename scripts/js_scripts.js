@@ -117,9 +117,9 @@ async function get_user_info() {
   // var image = new Image();
   // console.log("123")
   image = await `data:image/png;base64,${await data["pimage"]}`;
-  // console.log(image)
-  // document.body.appendChild(image);
-  // console.log("test")
+  console.log(image)
+  document.body.appendChild(image);
+  console.log("test")
   document.getElementById("profileName").innerHTML = await data["first_name"] + " " + await data["last_name"]
   document.getElementById("profile_age").innerHTML = await calculate_age(data["birthdate"])
   document.getElementById("profile_length").innerHTML = await data["height"]
@@ -130,11 +130,6 @@ async function get_user_info() {
 
 
 async function edit_user_info() {
-  const response = await fetch("https://rasts.se/api/", {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ "email": femail, "password": fpword })
-  })
   const data = await response.json()
   let first_name = document.getElementById('send_f_name').value;
   let last_name = document.getElementById('send_l_name').value;
@@ -142,6 +137,11 @@ async function edit_user_info() {
   let height = document.getElementById('send_height').value;
   let weight = document.getElementById('send_weight').value;
   let pimage = document.getElementById('send_image');
+  const response = await fetch(BASE+"Account", {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ "first_name": first_name, "last_name": last_name, })
+  })
 
 
   await image_to_blob(pimage)
