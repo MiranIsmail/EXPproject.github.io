@@ -115,8 +115,8 @@ async function logIn() {
   })
   const data = await response.json()
   document.cookie = `auth_token=${await data["auth_token"]}`;
+  console.log("test")
   location.href = '../pages/profile.html'
-  console.log("asd")
 }
 
 
