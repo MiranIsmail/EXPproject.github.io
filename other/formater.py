@@ -4,6 +4,7 @@ import serial
 import time
 
 def time_diff_sformat(start_time, end_time,time_format):
+    """Sends out..."""
     time_start = datetime.strptime(start_time, time_format)
     time_goal = datetime.strptime(end_time, time_format)
 
@@ -42,8 +43,10 @@ def time_format_parse(time_log:str):
     fixed_string = time_log.replace(".", ":")
     split_string = fixed_string.split("\\t")
     usb_id = split_string[3][1:]  # The USB ID is always found in this location.
+    chip_id = split_string[1][1:]
 
     time_dict = {}
+    result_card = {"id": chip_id, "time": time_dict}
 
     for str in split_string:
         str_part = str.split("-")  # The seperator is -.
@@ -86,7 +89,7 @@ def time_format_parse(time_log:str):
             if station_name != "Undefined":
                 time_dict[result_id] = [station_name, timestamp, diff_format, seconds_diff]
 
-    json_string = json.dumps(time_dict)
+    json_string = json.dumps(result_card)
     return json_string
 
 if __name__ == "__main__":

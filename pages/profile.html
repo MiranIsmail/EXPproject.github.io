@@ -84,14 +84,20 @@
             <div class="form-group form_group_style mx-auto needs-validation" novalidate>
 
                 <div class="mb-3 mx-auto">
-                    <label for="InputTrackName" class="form-label">Name</label>
-                    <input type="text" class="form-control" placeholder="Input Your Name" id="send_name">
+                    <label for="InputTrackName" class="form-label">First Name</label>
+                    <input type="text" class="form-control" placeholder="Input Your Name" id="send_f_name">
+                </div>
+
+                <div class="mb-3 mx-auto">
+                    <label for="InputTrackName" class="form-label">Surname</label>
+                    <input type="text" class="form-control" placeholder="Input Your Name" id="send_l_name">
                 </div>
 
                 <div class="mb-3 mx-auto">
                     <label for="InputTrackName" class="form-label">Birth day</label>
-                    <input id="b_day" class="form-control" type="date" id="send_bday">
+                    <input class="form-control" type="date" id="send_bday">
                     <span id="b_day_selected"></span>
+
                 </div>
 
                 <div class="mb-3 mx-auto">
@@ -106,9 +112,7 @@
 
                 <div class="mb-3 mx-auto">
                     <label for="InputTrackName" class="form-label">Upload Profile Picture</label>
-                    <input type="file" name="filename" id="send-image">
-                    <h3 class="text-shift"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit_profile">Edit</button>
-
+                    <input type="file" name="filename" id="send_image">
                 </div>
 
             </div>
@@ -118,7 +122,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 <div class="form-group form_group_style mx-auto">
-                    <button class="btn btn-primary" button id="submit_org_form" type="submit" onclick="">Save changes</button>
+                    <button class="btn btn-primary" button id="submit_org_form" type="submit" onclick="edit_user_info()">Save changes</button>
                 </div>
         </div>
     </div>

@@ -8,13 +8,45 @@ const get_cookie = (name) => (
   document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() || ''
 )
 
+function calculate_age(date) {
+  if(date != null){
+
+  var today = new Date();
+  var birthDate = new Date(date);
+  var age = today.getFullYear() - birthDate.getFullYear();
+  var m = today.getMonth() - birthDate.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+  return age;}
+
+  return "missing"
+
+}
+
+function getImageBlobFromInput(inputElement) {
+  const file = inputElement.files[0];
+  if (!file) {
+    return Promise.reject(new Error('No file selected'));
+  }
+  const reader = new FileReader();
+  reader.readAsArrayBuffer(file);
+  return new Promise((resolve, reject) => {
+    reader.onload = () => {
+      const blob = new Blob([reader.result], { type: file.type });
+      resolve(blob);
+    };
+    reader.onerror = () => {
+      reject(new Error('Error reading file'));
+    };
+  });
+}
+
 function createAccount() {
   let xemail = document.getElementById('email').value;
   let xfirst_name = document.getElementById('fname').value;
   let xlast_name = document.getElementById('lname').value;
   let xpassword = document.getElementById('pword').value;
-
-
 
   fetch("https://rasts.se/api/Account", {
     method: 'POST',
@@ -28,7 +60,6 @@ function createAccount() {
     })
     .then((data) => { console.log(data) })
     .catch(error => console.error(error))
-  location.href = '../pages/signin_first_time.html'
 }
 
 function update_account() {
@@ -79,6 +110,7 @@ function fill_org_form() {
 }
 
 async function logIn() {
+
   let femail = document.getElementById('fetchEmail').value;
   let fpword = document.getElementById('fetchPword').value;
   const response = await fetch("https://rasts.se/api/Login", {
@@ -88,7 +120,8 @@ async function logIn() {
   })
   const data = await response.json()
   document.cookie = `auth_token=${await data["auth_token"]}`;
-
+  console.log("test")
+  location.href = '../pages/profile.html'
 }
 
 
@@ -103,22 +136,38 @@ async function get_user_info() {
   console.log(data);
 
   document.getElementById("profileName").innerHTML = await data["first_name"] + " " + await data["last_name"]
-  document.getElementById("profile_age").innerHTML = await data["age"]
+  document.getElementById("profile_age").innerHTML = await calculate_age(data["birthdate"])
   document.getElementById("profile_length").innerHTML = await data["height"]
   document.getElementById("profile_weight").innerHTML = await data["weight"]
   document.getElementById("profile_image").innerHTML = NULL
 
 }
 
-function calculate_age(date) {
-  var today = new Date();
-  var birthDate = new Date(date);
-  var age = today.getFullYear() - birthDate.getFullYear();
-  var m = today.getMonth() - birthDate.getMonth();
-  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-    age--;
-  }
-  return age;
+
+async function edit_user_info() {
+
+  let first_name = document.getElementById('send_f_name').value;
+  let last_name = document.getElementById('send_l_name').value;
+  let birth_date = document.getElementById('send_bday').value;
+  let height = document.getElementById('send_height').value;
+  let weight = document.getElementById('send_weight').value;
+  let pimage = document.getElementById('send_image');
+
+
+  await getImageBlobFromInput(pimage)
+    .then(blob => {
+      console.log(blob)
+    })
+    .catch(error => {
+      console.log("909")
+    });
+
+  console.log(first_name)
+  console.log(last_name)
+  console.log(birth_date)
+  console.log(height)
+  console.log(weight)
+
 }
 
 async function generate_table() {
