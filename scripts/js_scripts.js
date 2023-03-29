@@ -116,8 +116,8 @@ async function get_user_info() {
   const data = await response.json()
   var image = new Image();
   // console.log("123")
-  image = `data:image/png;base64,0x89504e470d0a1a0a0000000d494844520000030c000003040806000000122ca216000030eb7a5458745261772070726f66696c6520747970652065786966000078daad9c697265b98d85ff7315b5048e20b91c8e11bd835e7e7f874f4ae750e57044dbe94a29a537dc4b006700c1e7cefffecf757ffdf557083e46974b6dd6cd3cffcb3df738f8a6f9cfffc6fb3bf8fcfefefc6ff9f4f5d35f7eeef8c7e717911fe9bbcfbf7cb3cfd7f0fdf3ef17fafa1a06df959f5ea8adaf5fcc5f7fd1f3e76b6cbfbdd0d71b255d51e49bfdf542fdeb8552fcfc227cbdc0f8dc96b7deeacfb730cfe7ebd7f33fcbd0746bfcb5ce7b6d1fbedeedf77fe7caeaedc20f538c27f163fe8e297f2e20e9bfe0d2e017e1fddde2fbd1fb3ef3b74fdf57c282fcdd3af99faecafd1195efef7e8bcafdbe97df8292ecf308c70f7e5d4cfbf1f56f7f1ecadf2fbe7b4bfcd33ba7f5f55dfcf5e76bc6fefbed7cff77ef6eeedef3b9bb918d25b5af9bfabec5f71d0f9c2c797a4f33fe54fe2b7c5fdf9fce9fe6c8de45c837193bf9b3420f91b0dc90c30e23dc70ded715169798e38995af312ea2a29fb554638f2b79f722c49f70634d3dedd488dc22bc899fc61fd712defbf6f7762b34de78071e19032f16784674faebbff1e71f5fe85ea53c85dd5ee8c38b4f884a542e4391d3`;
-  console.log(image)
+  console.log(await data["pimage"])
+  image = `data:image/png;base64,`;
   document.body.appendChild(image);
   console.log("test")
   document.getElementById("profileName").innerHTML = await data["first_name"] + " " + await data["last_name"]
