@@ -71,6 +71,7 @@ function init_map() {
   });
   // This event listener will call add_marker() when the map is clicked.
   map.addListener("click", (event) => {
+    setMapOnAll(null)
     const check_point_id= document.getElementById('usr').value
     add_marker(event.latLng,check_point_id);
   });
