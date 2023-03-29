@@ -114,9 +114,9 @@ async function get_user_info() {
     headers: { 'Authorization': get_cookie('auth_token') }
   })
   const data = await response.json()
-  // var image = new Image();
+  var image = new Image();
   // console.log("123")
-  image.innerHTML = await `data:image/png;base64,${await data["pimage"]}`;
+  image = await `data:image/png;base64,${data["pimage"]}`;
   console.log(image)
   document.body.appendChild(image);
   console.log("test")
