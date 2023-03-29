@@ -9,6 +9,8 @@ const get_cookie = (name) => (
 )
 
 function calculate_age(date) {
+  if(date != null){
+
   var today = new Date();
   var birthDate = new Date(date);
   var age = today.getFullYear() - birthDate.getFullYear();
@@ -16,7 +18,10 @@ function calculate_age(date) {
   if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
     age--;
   }
-  return age;
+  return age;}
+
+  return "missing"
+
 }
 
 function getImageBlobFromInput(inputElement) {
@@ -43,7 +48,6 @@ function createAccount() {
   let xlast_name = document.getElementById('lname').value;
   let xpassword = document.getElementById('pword').value;
 
-
   fetch("https://rasts.se/api/Account", {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -56,7 +60,6 @@ function createAccount() {
     })
     .then((data) => { console.log(data) })
     .catch(error => console.error(error))
-  location.href = '../pages/signin_first_time.html'
 }
 
 function update_account() {
@@ -107,6 +110,7 @@ function fill_org_form() {
 }
 
 async function logIn() {
+
   let femail = document.getElementById('fetchEmail').value;
   let fpword = document.getElementById('fetchPword').value;
   const response = await fetch("https://rasts.se/api/Login", {
@@ -116,7 +120,8 @@ async function logIn() {
   })
   const data = await response.json()
   document.cookie = `auth_token=${await data["auth_token"]}`;
-
+  console.log("test")
+  location.href = '../pages/profile.html'
 }
 
 
