@@ -20,9 +20,9 @@
     <a type="button"  style="float:right; padding: 0.5rem;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"><img class="op30" src="../images/settings.svg" id="settings"></a>
     <div id="container-img">
         <div class="row">
-            <div class="col-sm-6">
-                <img class="img-fluid d-block op30" alt="Profile Picture"
-                    style="padding-bottom: 1rem;" id="profileImage">
+            <div class="col-sm-6" id="profile_box">
+                <!-- <img class="img-fluid d-block op30" alt="Profile Picture"
+                    style="padding-bottom: 1rem;" id="profile_image"> -->
             </div>
             <div class="col-sm-6" style="vertical-align: middle;">
                 <div class="accout-piture">
@@ -131,6 +131,8 @@
 </body>
 <div include-html='../assets/footer.html'></div>
 <script>
+
     get_user_info();
-    generate_table()</script>
+    generate_table();
+    </script>
 </html>

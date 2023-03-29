@@ -1,4 +1,4 @@
-var BASE = "rasts.se/api/"
+var BASE_ULR = "https://rasts.se/api/"
 
 window.onload = function () {
   include_HTML()
@@ -48,7 +48,7 @@ function createAccount() {
   let xlast_name = document.getElementById('lname').value;
   let xpassword = document.getElementById('pword').value;
 
-  fetch("https://rasts.se/api/Account", {
+  fetch(BASE_ULR+"Account", {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ "email": xemail, "first_name": xfirst_name, "last_name": xlast_name, "password": xpassword })
@@ -62,25 +62,6 @@ function createAccount() {
     .catch(error => console.error(error))
 }
 
-function update_account() {
-  let xbday = document.getElementById('fetch_bday').value;
-  let xheight = document.getElementById('fetch_height').value;
-  let xweight = document.getElementById('fetch_weight').value;
-
-  fetch("https://rasts.se/api/Account", {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ "first_name": xfirst_name, "last_name": xlast_name, "birthDate": xbday, "height": xheight, "weight": xweight })
-  })
-
-    .then(response => {
-      var test = response.json()
-      console.log(test)
-    })
-    .then((data) => { console.log(data) })
-    .catch(error => console.error(error))
-  location.href = '../pages/profile.html'
-}
 
 function fill_org_form() {
   // Get all required input fields
@@ -109,11 +90,10 @@ function fill_org_form() {
   }
 }
 
-async function logIn() {
-
+async function log_in() {
   let femail = document.getElementById('fetchEmail').value;
   let fpword = document.getElementById('fetchPword').value;
-  const response = await fetch("https://rasts.se/api/Login", {
+  const response = await fetch(BASE_ULR+"Token", {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ "email": femail, "password": fpword })
@@ -124,34 +104,59 @@ async function logIn() {
   location.href = '../pages/profile.html'
 }
 
+async function log_out() {
+
+  const response = await fetch(BASE_ULR+"Token", {
+    method: 'PATCH',
+    headers: { 'Authorization': get_cookie('auth_token') }
+  })
+  const data = await response.json()
+  console.log(await data)
+  location.href = '../pages/'
+}
+
+function load_image(indata){
+  var img = document.createElement("img");
+  img.setAttribute("id", "profile_image")
+  img.src = "data:image/png;base64,"+indata
+  var src = document.getElementById("profile_box");
 
 
+src.appendChild(img);
+}
 async function get_user_info() {
 
-  const response = await fetch("https://rasts.se/api/Account", {
+  const response = await fetch(BASE_ULR+"Account", {
     method: 'GET',
     headers: { 'Authorization': get_cookie('auth_token') }
   })
   const data = await response.json()
-  img.src = URL.createObjectURL(blob);
-  document.getElementById("profileImage").innerHTML = img
+
+  //Just getting the source from the span. It was messy in JS.
+
   document.getElementById("profileName").innerHTML = await data["first_name"] + " " + await data["last_name"]
   document.getElementById("profile_age").innerHTML = await calculate_age(data["birthdate"])
   document.getElementById("profile_length").innerHTML = await data["height"]
   document.getElementById("profile_weight").innerHTML = await data["weight"]
-  document.getElementById("profile_image").innerHTML = NULL
+  load_image(data["pimage"])
 
 }
 
 
 async function edit_user_info() {
-
+  const data = await response.json()
   let first_name = document.getElementById('send_f_name').value;
   let last_name = document.getElementById('send_l_name').value;
   let birth_date = document.getElementById('send_bday').value;
   let height = document.getElementById('send_height').value;
   let weight = document.getElementById('send_weight').value;
   let pimage = document.getElementById('send_image');
+  console.log(pimage)
+  const response = await fetch(BASE+"Account", {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ "first_name": first_name, "last_name": last_name,"birth_date":birth_date,"height":height,"weight":weight,"pimage":pimage })
+  })
 
 
   await image_to_blob(pimage)
@@ -172,7 +177,7 @@ async function edit_user_info() {
 
 async function generate_table() {
   /**/
-  res = await fetch(BASE + "event?key=host_email&search_text=")
+  res = await fetch(BASE_ULR + "event?key=host_email&search_text=")
 
   text = await res.json()
   var dataString = String(text[1].replace(/[(')]/g, '').replace(/datetime.date/g, '')).split(',')

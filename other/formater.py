@@ -2,7 +2,7 @@ import json
 from datetime import datetime
 import serial
 import time
-
+import requests
 
 def time_diff_sformat(start_time, end_time, time_format) -> int:
     """Sends out the amount of seconds between two different timestamps"""
@@ -114,7 +114,9 @@ def time_format_parse(time_log: str):
 
 
 if __name__ == "__main__":
-    ser = serial.Serial(port="COM5", baudrate=115200)
+      ser = serial.Serial(port="COM5", baudrate=115200)
+    url = 'https://rasts.se/api/Results'
+    json_obj = {"chip_id": "4242145", "total_time": "00:02:42.003", "track_time": [["Start", "00:00:00.000", "00:00:00.000", "0", "46424898727"], ["101", "00:00:06.003", "00:00:06.003", 6.003, "46424904730"], ["102", "00:01:45.871", "00:01:39.867", 99.868, "46425004598"], ["101", "00:01:48.221", "00:00:02.350", 2.35, "46425006948"], ["102", "00:01:52.551", "00:00:04.330", 4.33, "46425011278"], ["102", "00:02:04.434", "00:00:11.882", 11.883, "46425023161"], ["102", "00:02:42.003", "00:00:37.569", 37.569, "46425060730"]]}
     # send a command to the USB device
     ser.write(b"/PP0<CR><LF>")
     while True:
@@ -122,4 +124,7 @@ if __name__ == "__main__":
         if response[1] != 73:
             if response[1] != 80:
                 print(time_format_parse(str(response)))
+                requests.post(url, json= time_format_parse(str(response)))
                 time.sleep(0.005)
+
+#requests.post(url, json= json_obj)
