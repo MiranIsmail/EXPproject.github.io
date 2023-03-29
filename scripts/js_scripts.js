@@ -115,6 +115,7 @@ async function log_out() {
   console.log("test")
   location.href = '../pages/profile.html'
 }
+
 function load_image(indata){
   var image = new Image();
   console.log("---")
@@ -136,6 +137,7 @@ async function get_user_info() {
   document.getElementById("profile_age").innerHTML = await calculate_age(data["birthdate"])
   document.getElementById("profile_length").innerHTML = await data["height"]
   document.getElementById("profile_weight").innerHTML = await data["weight"]
+  console.log(data["pimage"])
   document.getElementById("profile_image").innerHTML = await load_image(data["pimage"])
 
 }
