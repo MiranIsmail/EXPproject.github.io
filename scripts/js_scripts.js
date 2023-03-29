@@ -91,7 +91,6 @@ function fill_org_form() {
 }
 
 async function log_in() {
-
   let femail = document.getElementById('fetchEmail').value;
   let fpword = document.getElementById('fetchPword').value;
   const response = await fetch(BASE_ULR+"Token", {
@@ -104,6 +103,7 @@ async function log_in() {
   console.log("test")
   location.href = '../pages/profile.html'
 }
+
 async function log_out() {
 
   const response = await fetch(BASE_ULR+"Token", {
@@ -116,14 +116,11 @@ async function log_out() {
 }
 
 function load_image(indata){
-  var image = new Image();
-  console.log("---")
-  console.log(indata)
-
   var img = document.createElement("img");
+  img.setAttribute("id", "profile_image")
   img.src = "data:image/png;base64,"+indata
+  var src = document.getElementById("profile_box");
 
-  var src = document.getElementById("profile_image");
 
 src.appendChild(img);
 }
@@ -141,11 +138,9 @@ async function get_user_info() {
   document.getElementById("profile_age").innerHTML = await calculate_age(data["birthdate"])
   document.getElementById("profile_length").innerHTML = await data["height"]
   document.getElementById("profile_weight").innerHTML = await data["weight"]
-  // document.getElementById("profile_image").innerHTML = await load_image(data["pimage"])
   load_image(data["pimage"])
 
 }
-
 
 
 async function edit_user_info() {
