@@ -44,15 +44,17 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <div class="container">
                     <div class="row">
-                      <div class="col-sm-6">
-                      <td><input type="text" class="form-control" placeholder="101" name="id" id="usr"></td>
-                      <td>
-                    
+                      <div class="col">
+                        <td><input type="text" class="form-control" placeholder="101" name="id" id="usr"></td>
+                      </div>
+                      <div class="col">
                         <!-- Button to Open the Modal -->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
-                        Pinpoint the map
-                      </button>
+                        <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+                          Pinpoint the map
+                        </button>
+                      </div>
                     
                       <!-- The Modal -->
                       <div class="modal" id="myModal">
@@ -80,20 +82,26 @@
                           </div>
                         </div>
                       </div></td>
-                      <td><input type="text" class="form-control" placeholder="15" name="distance"></td>
-                      <td><div class="dropdown" name="terrain">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonTerrain1" data-bs-toggle="dropdown" aria-expanded="false">
-                          Terrain
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButtonTerrain1">
-                          <li><a class="dropdown-item" onclick='selectWater()'>Water</a></li>
-                          <li><a class="dropdown-item" onclick='selectLand()'>Land</a></li>
-                        </ul>
-                      </div></td>
-                      <td><button class="btn btn-primary" onclick="save(this.parentNode.parentNode)" name="save_button">Save</button></td>
-                      <td><button class="btn btn-danger" onclick="deleteRow(this.parentNode.parentNode)" name="delete_button">Delete</button></td>
+                      <div class="col">
+                        <td><input type="text" class="form-control" placeholder="15" name="distance"></td>
                       </div>
-
+                      <div class="col">
+                        <td><div class="dropdown" name="terrain">
+                          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonTerrain1" data-bs-toggle="dropdown" aria-expanded="false">
+                            Terrain
+                          </button>
+                          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButtonTerrain1">
+                            <li><a class="dropdown-item" onclick='selectWater()'>Water</a></li>
+                            <li><a class="dropdown-item" onclick='selectLand()'>Land</a></li>
+                          </ul>
+                        </div></td>
+                      </div>
+                      <div class="col">
+                        <td><button class="btn btn-primary" onclick="save(this.parentNode.parentNode)" name="save_button">Save</button></td>
+                      </div>
+                      <div class="col">
+                        <td><button class="btn btn-danger" onclick="deleteRow(this.parentNode.parentNode)" name="delete_button">Delete</button></td>
+                      </div>
                     </div>
                   </tr>
                 </tbody>
@@ -106,7 +114,7 @@
               </div>
             </div>
           </div>
-
+        </div>
       </div>
     </div>
 
