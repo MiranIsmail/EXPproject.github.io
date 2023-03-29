@@ -20,7 +20,7 @@ function calculate_age(date) {
   }
   return age;}
 
-  return 0
+  return "missing"
 
 }
 
