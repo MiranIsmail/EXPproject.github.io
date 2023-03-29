@@ -1,4 +1,4 @@
-var BASE = "https://rasts.se/api/"
+var BASE_ULR = "https://rasts.se/api/"
 
 window.onload = function () {
   include_HTML()
@@ -48,7 +48,7 @@ function createAccount() {
   let xlast_name = document.getElementById('lname').value;
   let xpassword = document.getElementById('pword').value;
 
-  fetch(BASE+"Account", {
+  fetch(BASE_ULR+"Account", {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ "email": xemail, "first_name": xfirst_name, "last_name": xlast_name, "password": xpassword })
@@ -120,7 +120,6 @@ async function get_user_info() {
   // console.log(image)
   // document.body.appendChild(image);
   // console.log("test")
-  // document.getElementById("profile_image").innerHTML = img
   document.getElementById("profileName").innerHTML = await data["first_name"] + " " + await data["last_name"]
   document.getElementById("profile_age").innerHTML = await calculate_age(data["birthdate"])
   document.getElementById("profile_length").innerHTML = await data["height"]
@@ -163,7 +162,7 @@ async function edit_user_info() {
 
 async function generate_table() {
   /**/
-  res = await fetch(BASE + "event?key=host_email&search_text=")
+  res = await fetch(BASE_ULR + "event?key=host_email&search_text=")
 
   text = await res.json()
   var dataString = String(text[1].replace(/[(')]/g, '').replace(/datetime.date/g, '')).split(',')
