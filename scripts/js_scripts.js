@@ -138,6 +138,7 @@ async function get_user_info() {
   document.getElementById("profile_length").innerHTML = await data["height"]
   document.getElementById("profile_weight").innerHTML = await data["weight"]
   console.log(data["pimage"])
+  document.body.appendChild(load_image(data["pimage"]));
   document.getElementById("profile_image").innerHTML = await load_image(data["pimage"])
 
 }
