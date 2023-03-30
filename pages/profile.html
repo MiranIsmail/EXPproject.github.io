@@ -20,9 +20,7 @@
     <a type="button"  style="float:right; padding: 0.5rem;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"><img class="op30" src="../images/settings.svg" id="settings"></a>
     <div id="container-img">
         <div class="row">
-            <div class="col-sm-6">
-                <img src="../images\noprofilepic.png" class="img-fluid d-block op30" alt="Profile Picture"
-                    style="padding-bottom: 1rem;" id="profileImage">
+            <div class="col-sm-6" id="profile_box">
             </div>
             <div class="col-sm-6" style="vertical-align: middle;">
                 <div class="accout-piture">
@@ -30,11 +28,11 @@
                 </div>
                 <div>
                     <h1 class="text-shift">
-                        <span id="profileName">profile name</span>
+                        <span id="profileName">Profile name</span>
                     </h1>
-                    <h3 class="text-shift">Ålder: <span id="profile_age"></span> år</h3>
-                    <h3 class="text-shift">Längd: <span id="profile_length"></span> cm</h3>
-                    <h3 class="text-shift">Vikt: <span id="profile_weight"></span> kg</h3>
+                    <h3 class="text-shift">Age: <span id="profile_age"></span> years</h3>
+                    <h3 class="text-shift">Length: <span id="profile_length"></span> cm</h3>
+                    <h3 class="text-shift">Weight: <span id="profile_weight"></span> kg</h3>
                 </div>
             </div>
         </div>
@@ -84,14 +82,20 @@
             <div class="form-group form_group_style mx-auto needs-validation" novalidate>
 
                 <div class="mb-3 mx-auto">
-                    <label for="InputTrackName" class="form-label">Name</label>
-                    <input type="text" class="form-control" placeholder="Input Your Name" id="send_name">
+                    <label for="InputTrackName" class="form-label">First Name</label>
+                    <input type="text" class="form-control" placeholder="Input Your Name" id="send_f_name">
+                </div>
+
+                <div class="mb-3 mx-auto">
+                    <label for="InputTrackName" class="form-label">Surname</label>
+                    <input type="text" class="form-control" placeholder="Input Your Name" id="send_l_name">
                 </div>
 
                 <div class="mb-3 mx-auto">
                     <label for="InputTrackName" class="form-label">Birth day</label>
-                    <input id="b_day" class="form-control" type="date" id="send_bday">
+                    <input class="form-control" type="date" id="send_bday">
                     <span id="b_day_selected"></span>
+
                 </div>
 
                 <div class="mb-3 mx-auto">
@@ -106,9 +110,7 @@
 
                 <div class="mb-3 mx-auto">
                     <label for="InputTrackName" class="form-label">Upload Profile Picture</label>
-                    <input type="file" name="filename" id="send-image">
-                    <h3 class="text-shift"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit_profile">Edit</button>
-
+                    <input type="file" name="filename" id="send_image">
                 </div>
 
             </div>
@@ -118,7 +120,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 <div class="form-group form_group_style mx-auto">
-                    <button class="btn btn-primary" button id="submit_org_form" type="submit" onclick="">Save changes</button>
+                    <button class="btn btn-primary" button id="submit_org_form" type="submit" onclick="edit_user_info()">Save changes</button>
                 </div>
         </div>
     </div>
@@ -128,5 +130,6 @@
 <div include-html='../assets/footer.html'></div>
 <script>
     get_user_info();
-    generate_table()</script>
+    generate_table();
+    </script>
 </html>
