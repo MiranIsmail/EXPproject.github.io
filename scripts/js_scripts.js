@@ -127,7 +127,8 @@ function load_image(indata){
   var img = document.createElement("img")
   img.setAttribute("id", "profile_image")
   img.setAttribute("class", "img-fluid d-block")
-  img.src = "data:image/png;base64,"+indata
+  // img.src = "data:image/png;base64,"+indata
+  img.src = indata
   var src = document.getElementById("profile_box")
   src.appendChild(img);
 }
@@ -175,9 +176,7 @@ async function edit_user_info() {
     body: JSON.stringify(parameters)
   })
 
-
-
-
+  location.href = '../pages/profile.html'
 }
 
 async function generate_table() {
