@@ -154,10 +154,11 @@ async function edit_user_info() {
   var parameters = {}
   parameters["first_name"]= document.getElementById('send_f_name').value
   parameters["last_name"]=document.getElementById('send_l_name').value
-  parameters["birth_date"]=document.getElementById('send_bday').value
+  parameters["birthdate"]=document.getElementById('send_bday').value
   parameters["height"]=document.getElementById('send_height').value
   parameters["weight"]= document.getElementById('send_weight').value
   console.log(parameters);
+  console.log(document.getElementById('send_image'))
   var blob = await image_to_blob(document.getElementById('send_image'))
   parameters["pimage"]=await blobToBase64(blob)
 
