@@ -43,7 +43,7 @@ def time_formater(start_time: str, end_time: str, off_set: int):
         return "00:00:00.000", "00:00:00.000", e_total_seconds
     
     # With the off_set, make it so all times after the reset behave as if the reset was the start.
-    e_total_seconds -= off_set
+    adjusted_time = e_total_seconds - off_set
 
     # If the timer has gone for a whole day without reset:
     if e_total_seconds > 3600*12:
@@ -55,7 +55,7 @@ def time_formater(start_time: str, end_time: str, off_set: int):
 
     # Convert time back to hours, minutes, and seconds
     time_hrs, time_min, time_sec, time_ms = seconds_to_time_format(
-        e_total_seconds)
+        adjusted_time)
 
     # Convert time difference to hours, minutes, and seconds
     time_diff_hrs, time_diff_min, time_diff_sec, time_diff_ms = seconds_to_time_format(
@@ -114,7 +114,7 @@ def time_format_parse(time_log: str):
                 # Check if this time stamp was set as the new start.
                 if timestamp == "00:00:00.000" and seconds_diff != 0:
                     # Reset the data. The offset is always subtracted in the time_diff function
-                    off_set += seconds_diff
+                    off_set = seconds_diff
                     time_list = []
                     timestamp = "00:00:00.000"
                     seconds_diff = 0
