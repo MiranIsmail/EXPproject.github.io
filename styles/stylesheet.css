@@ -210,6 +210,7 @@ body {
     margin-left: auto;
     margin-right: auto;
     max-width: 30vh;
+    padding-bottom: 1rem;
   }
 }
 
@@ -217,6 +218,7 @@ body {
   #profile_image {
     float: right;
     max-width: 30vh;
+    padding-bottom: 1rem;
   }
 }
 
