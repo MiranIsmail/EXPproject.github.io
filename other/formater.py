@@ -46,7 +46,7 @@ def time_formater(start_time: str, end_time: str, off_set: int):
     adjusted_time = e_total_seconds - off_set
 
     # If the timer has gone for a whole day without reset:
-    if e_total_seconds > 3600*12:
+    if adjusted_time > 3600*12:
         return "00:00:00.000", "00:00:00.000", e_total_seconds
 
 
