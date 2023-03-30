@@ -127,7 +127,6 @@ function load_image(indata){
   var img = document.createElement("img")
   img.setAttribute("id", "profile_image")
   img.setAttribute("class", "img-fluid d-block")
-  // img.src = "data:image/png;base64,"+indata
   img.src = indata
   var src = document.getElementById("profile_box")
   src.appendChild(img);
@@ -144,7 +143,7 @@ async function get_user_info() {
   //Just getting the source from the span. It was messy in JS.
 
   document.getElementById("profileName").innerHTML = await data["first_name"] + " " + await data["last_name"]
-  document.getElementById("profile_age").innerHTML = await calculate_age(data["birthdate"])
+  document.getElementById("profile_age").innerHTML = await calculate_age(await data["birthdate"])
   document.getElementById("profile_length").innerHTML = await data["height"]
   document.getElementById("profile_weight").innerHTML = await data["weight"]
   load_image(data["pimage"])
@@ -155,10 +154,11 @@ async function edit_user_info() {
   var parameters = {}
   parameters["first_name"]= document.getElementById('send_f_name').value
   parameters["last_name"]=document.getElementById('send_l_name').value
-  parameters["birth_date"]=document.getElementById('send_bday').value
+  parameters["birthdate"]=document.getElementById('send_bday').value
   parameters["height"]=document.getElementById('send_height').value
   parameters["weight"]= document.getElementById('send_weight').value
   console.log(parameters);
+  console.log(document.getElementById('send_image'))
   var blob = await image_to_blob(document.getElementById('send_image'))
   parameters["pimage"]=await blobToBase64(blob)
 
@@ -176,7 +176,7 @@ async function edit_user_info() {
     body: JSON.stringify(parameters)
   })
 
-  // location.href = '../pages/profile.html'
+  location.href = '../pages/profile.html'
 }
 
 async function generate_table() {
