@@ -171,7 +171,7 @@ async function edit_user_info() {
 
   const response = await fetch(BASE_ULR+"Account", {
     method: 'PATCH',
-    headers: { 'Content-Type': 'application/json','Authorizatino':get_cookie('auth_token') },
+    headers: { 'Content-Type': 'application/json','Authorization':get_cookie('auth_token') },
     body: JSON.stringify(parameters)
   })
 
