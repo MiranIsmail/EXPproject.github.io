@@ -36,8 +36,12 @@ def time_formater(start_time: str, end_time: str, off_set: int):
     e_hours, e_minutes, e_seconds = split_time(end_time)
     s_hours, s_minutes, s_seconds = split_time(start_time)
 
+    s_total_seconds = s_hours*3600+s_minutes*60+s_seconds
     e_total_seconds = e_hours*3600+e_minutes*60+e_seconds
 
+    if s_total_seconds > e_total_seconds:
+        return "00:00:00.000", "00:00:00.000", e_total_seconds
+    
     # With the off_set, make it so all times after the reset behave as if the reset was the start.
     e_total_seconds -= off_set
 
@@ -45,7 +49,6 @@ def time_formater(start_time: str, end_time: str, off_set: int):
     if e_total_seconds > 3600*12:
         return "00:00:00.000", "00:00:00.000", e_total_seconds
 
-    s_total_seconds = s_hours*3600+s_minutes*60+s_seconds
 
     # Calculate the time difference
     time_diff = e_total_seconds - s_total_seconds
@@ -96,7 +99,6 @@ def time_format_parse(time_log: str):
                 except IndexError:
                     prev_station_timestamp = None
                     print("You have not passed the start station")
-                    return
             elif station_id == 90:
                 station_name = "Finish"
                 prev_station_timestamp = time_list[-1][1]
