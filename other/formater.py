@@ -36,23 +36,26 @@ def time_formater(start_time: str, end_time: str, off_set: int):
     e_hours, e_minutes, e_seconds = split_time(end_time)
     s_hours, s_minutes, s_seconds = split_time(start_time)
 
+    s_total_seconds = s_hours*3600+s_minutes*60+s_seconds
     e_total_seconds = e_hours*3600+e_minutes*60+e_seconds
 
+    if s_total_seconds > e_total_seconds:
+        return "00:00:00.000", "00:00:00.000", e_total_seconds
+    
     # With the off_set, make it so all times after the reset behave as if the reset was the start.
-    e_total_seconds -= off_set
+    adjusted_time = e_total_seconds - off_set
 
     # If the timer has gone for a whole day without reset:
-    if e_total_seconds > 3600*12:
+    if adjusted_time > 3600*12:
         return "00:00:00.000", "00:00:00.000", e_total_seconds
 
-    s_total_seconds = s_hours*3600+s_minutes*60+s_seconds
 
     # Calculate the time difference
     time_diff = e_total_seconds - s_total_seconds
 
     # Convert time back to hours, minutes, and seconds
     time_hrs, time_min, time_sec, time_ms = seconds_to_time_format(
-        e_total_seconds)
+        adjusted_time)
 
     # Convert time difference to hours, minutes, and seconds
     time_diff_hrs, time_diff_min, time_diff_sec, time_diff_ms = seconds_to_time_format(
@@ -96,7 +99,6 @@ def time_format_parse(time_log: str):
                 except IndexError:
                     prev_station_timestamp = None
                     print("You have not passed the start station")
-                    return
             elif station_id == 90:
                 station_name = "Finish"
                 prev_station_timestamp = time_list[-1][1]
@@ -112,7 +114,7 @@ def time_format_parse(time_log: str):
                 # Check if this time stamp was set as the new start.
                 if timestamp == "00:00:00.000" and seconds_diff != 0:
                     # Reset the data. The offset is always subtracted in the time_diff function
-                    off_set += seconds_diff
+                    off_set = seconds_diff
                     time_list = []
                     timestamp = "00:00:00.000"
                     seconds_diff = 0
