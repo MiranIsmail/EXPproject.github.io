@@ -8,6 +8,15 @@ const get_cookie = (name) => (
   document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() || ''
 )
 
+function blobToBase64(blob) {
+  return new Promise((resolve, _) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result);
+    reader.readAsDataURL(blob);
+  });
+}
+
+
 function calculate_age(date) {
   if(date != null){
 
@@ -118,7 +127,8 @@ function load_image(indata){
   var img = document.createElement("img")
   img.setAttribute("id", "profile_image")
   img.setAttribute("class", "img-fluid d-block")
-  img.src = "data:image/png;base64,"+indata
+  // img.src = "data:image/png;base64,"+indata
+  img.src = indata
   var src = document.getElementById("profile_box")
   src.appendChild(img);
 }
@@ -138,40 +148,35 @@ async function get_user_info() {
   document.getElementById("profile_length").innerHTML = await data["height"]
   document.getElementById("profile_weight").innerHTML = await data["weight"]
   load_image(data["pimage"])
-
 }
 
 
 async function edit_user_info() {
-  const data = await response.json()
-  let first_name = document.getElementById('send_f_name').value;
-  let last_name = document.getElementById('send_l_name').value;
-  let birth_date = document.getElementById('send_bday').value;
-  let height = document.getElementById('send_height').value;
-  let weight = document.getElementById('send_weight').value;
-  let pimage = document.getElementById('send_image');
-  console.log(pimage)
-  const response = await fetch(BASE+"Account", {
+  var parameters = {}
+  parameters["first_name"]= document.getElementById('send_f_name').value
+  parameters["last_name"]=document.getElementById('send_l_name').value
+  parameters["birth_date"]=document.getElementById('send_bday').value
+  parameters["height"]=document.getElementById('send_height').value
+  parameters["weight"]= document.getElementById('send_weight').value
+  console.log(parameters);
+  var blob = await image_to_blob(document.getElementById('send_image'))
+  parameters["pimage"]=await blobToBase64(blob)
+
+  for (const [key, value] of Object.entries(parameters)) {
+    console.log(key, value);
+    if (!value) {
+      delete parameters[key];
+    }
+  }
+  console.log(parameters);
+
+  const response = await fetch(BASE_ULR+"Account", {
     method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ "first_name": first_name, "last_name": last_name,"birth_date":birth_date,"height":height,"weight":weight,"pimage":pimage })
+    headers: { 'Content-Type': 'application/json','Authorization':get_cookie('auth_token') },
+    body: JSON.stringify(parameters)
   })
 
-
-  await image_to_blob(pimage)
-    .then(blob => {
-      console.log(blob)
-    })
-    .catch(error => {
-      console.log("909")
-    });
-
-  console.log(first_name)
-  console.log(last_name)
-  console.log(birth_date)
-  console.log(height)
-  console.log(weight)
-
+  // location.href = '../pages/profile.html'
 }
 
 async function generate_table() {
