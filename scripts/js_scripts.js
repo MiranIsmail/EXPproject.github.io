@@ -100,7 +100,6 @@ async function log_in() {
   })
   const data = await response.json()
   document.cookie = `auth_token=${await data["auth_token"]}`;
-  console.log("test")
   location.href = '../pages/profile.html'
 }
 
@@ -116,14 +115,14 @@ async function log_out() {
 }
 
 function load_image(indata){
-  var img = document.createElement("img");
+  var img = document.createElement("img")
   img.setAttribute("id", "profile_image")
+  img.setAttribute("class", "img-fluid d-block")
   img.src = "data:image/png;base64,"+indata
-  var src = document.getElementById("profile_box");
-
-
-src.appendChild(img);
+  var src = document.getElementById("profile_box")
+  src.appendChild(img);
 }
+
 async function get_user_info() {
 
   const response = await fetch(BASE_ULR+"Account", {
