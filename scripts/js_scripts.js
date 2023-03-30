@@ -144,7 +144,7 @@ async function get_user_info() {
   //Just getting the source from the span. It was messy in JS.
 
   document.getElementById("profileName").innerHTML = await data["first_name"] + " " + await data["last_name"]
-  document.getElementById("profile_age").innerHTML = await calculate_age(data["birthdate"])
+  document.getElementById("profile_age").innerHTML = await calculate_age(await data["birthdate"])
   document.getElementById("profile_length").innerHTML = await data["height"]
   document.getElementById("profile_weight").innerHTML = await data["weight"]
   load_image(data["pimage"])
