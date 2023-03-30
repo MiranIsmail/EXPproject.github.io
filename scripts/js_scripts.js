@@ -157,9 +157,9 @@ async function edit_user_info() {
   parameters["birth_date"]=document.getElementById('send_bday').value
   parameters["height"]=document.getElementById('send_height').value
   parameters["weight"]= document.getElementById('send_weight').value
+  console.log(parameters);
   var blob = await image_to_blob(document.getElementById('send_image'))
   parameters["pimage"]=await blobToBase64(blob)
-  console.log(parameters);
 
   for (const [key, value] of Object.entries(parameters)) {
     console.log(key, value);
@@ -169,20 +169,13 @@ async function edit_user_info() {
   }
   console.log(parameters);
 
-  const response = await fetch(BASE+"Account", {
+  const response = await fetch(BASE_ULR+"Account", {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(parameters)
   })
 
 
-  await image_to_blob(pimage)
-    .then(blob => {
-      console.log(blob)
-    })
-    .catch(error => {
-      console.log("909")
-    });
 
 
 }
