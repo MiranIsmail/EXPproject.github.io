@@ -176,7 +176,7 @@ async function edit_user_info() {
     body: JSON.stringify(parameters)
   })
 
-  location.href = '../pages/profile.html'
+  // location.href = '../pages/profile.html'
 }
 
 async function generate_table() {
