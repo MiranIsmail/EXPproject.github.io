@@ -152,13 +152,14 @@ async function get_user_info() {
 
 async function edit_user_info() {
   var parameters = {}
-  parameters.bind("first_name", document.getElementById('send_f_name').value)
-  parameters.bind("last_name",document.getElementById('send_l_name').value)
-  parameters.bind("birth_date",document.getElementById('send_bday').value)
-  parameters.bind("height",document.getElementById('send_height').value)
-  parameters.bind("weight", document.getElementById('send_weight').value)
+  parameters["first_name"]= document.getElementById('send_f_name').value
+  parameters["last_name"]=document.getElementById('send_l_name').value
+  parameters["birth_date"]=document.getElementById('send_bday').value
+  parameters["height"]=document.getElementById('send_height').value
+  parameters["weight"]= document.getElementById('send_weight').value
   var blob = await image_to_blob(document.getElementById('send_image'))
-  parameters.bind("pimage", await blobToBase64(blob))
+  parameters["pimage"]=await blobToBase64(blob)
+  console.log(parameters);
 
   for (const [key, value] of Object.entries(parameters)) {
     console.log(key, value);
