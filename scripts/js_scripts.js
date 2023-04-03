@@ -322,3 +322,19 @@ function create_event() {
 
 
 /* EVENT PAGE*/
+async function get_event_info(event_id) {
+
+  const response = await fetch(BASE_ULR+"Event", {
+    method: 'GET',
+    body: JSON.stringify({"event_id": event_id })
+  })
+  const data = await response.json()
+
+  //Just getting the source from the span. It was messy in JS.
+
+  document.getElementById("event_sport").innerHTML = await data["sport"]
+  document.getElementById("event_sdate").innerHTML = await data["start_date"]
+  document.getElementById("event_edate").innerHTML = await data["end_date"]
+  document.getElementById("event_org").innerHTML = await data["host_organization"]
+  // load_image(data["pimage"])
+}
