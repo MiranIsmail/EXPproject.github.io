@@ -322,13 +322,12 @@ function create_event() {
 }
 
 
-
+var event_id = 15
 /* EVENT PAGE*/
 async function get_event_info(event_id) {
 
-  const response = await fetch(BASE_ULR+"Event", {
+  const response = await fetch(BASE_ULR+"Event/"+event_id, {
     method: 'GET',
-    body: JSON.stringify({"event_id": event_id })
   })
   const data = await response.json()
 
