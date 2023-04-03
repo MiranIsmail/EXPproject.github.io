@@ -46,7 +46,7 @@
                       <label for="numberInput" id="dist" class="form-label fw-bold">Distance</label>
                       <input type="text" class="form-control" placeholder="15" name="distance">
                     </div>
-                    <div class="col">
+                    <div class="col btn-group-vertical">
                       <!-- Button to Open the Modal -->
                       <label for="button" id="pin_button" class="form-label fw-bold">Location</label>
                       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa-solid fa-map-location-dot"></i>
@@ -85,7 +85,8 @@
                       <div class="dropdown" name="terrain">
 
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonTerrain1" data-bs-toggle="dropdown" aria-expanded="false">
-                          Terrain
+                          <i class="fa-solid fa-person-running"></i>
+                          Terrain 
                         </button>
                         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButtonTerrain1">
                           <li><a class="dropdown-item" onclick='select("Water")'>Water</a></li>
@@ -95,9 +96,7 @@
                       </div>
                     </div>
                     <div class="col btn-group-vertical">
-                      <label for="save_btn" id="save_button" class="form-label fw-bold"></label>
-                      <button class="btn btn-primary" onclick="save(this.parentNode.parentNode)" name="save_button">Save</button>
-                
+                      <label for="delete_button" class="form-label fw-bold">Option</label>
                       <button class="btn btn-danger" onclick="deleteRow(this.parentNode.parentNode)" name="delete_button"><i class="fa-solid fa-trash"></i></button>
                     </div>
                   </div>
@@ -236,7 +235,7 @@
                       <label for="numberInput" id="dist" class="form-label fw-bold">Distance</label>
                       <input type="text" class="form-control" placeholder="15" name="distance">
                     </div>
-                    <div class="col">
+                    <div class="col btn-group-vertical">
                       <!-- Button to Open the Modal -->
                       <label for="button" id="pin_button" class="form-label fw-bold">Location</label>
                       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa-solid fa-map-location-dot"></i>
@@ -275,6 +274,7 @@
                       <div class="dropdown" name="terrain">
 
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonTerrain1" data-bs-toggle="dropdown" aria-expanded="false">
+                          <i class="fa-solid fa-person-running"></i>
                           Terrain
                         </button>
                         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButtonTerrain1">
@@ -285,9 +285,7 @@
                       </div>
                     </div>
                     <div class="col btn-group-vertical">
-                      <label for="save_btn" id="save_button" class="form-label fw-bold"></label>
-                      <button class="btn btn-primary" onclick="save(this.parentNode.parentNode)" name="save_button">Save</button>
-                
+                      <label for="delete_button" class="form-label fw-bold">Option</label>
                       <button class="btn btn-danger" onclick="deleteRow(this.parentNode.parentNode)" name="delete_button"><i class="fa-solid fa-trash"></i></button>
                     </div>`
           // Add row to grid
