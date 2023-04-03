@@ -335,5 +335,14 @@ async function get_event_info(event_id) {
   document.getElementById("event_sdate").innerHTML = await data["start_date"]
   document.getElementById("event_edate").innerHTML = await data["end_date"]
   document.getElementById("event_org").innerHTML = await data["host_organization"]
-  // load_image(data["pimage"])
+  load_image_event(data["eimage"])
+}
+
+function load_image_event(indata) {
+  var img = document.createElement("img")
+  img.setAttribute("id", "profile_image")
+  img.setAttribute("class", "img-fluid d-block")
+  img.src = indata
+  var src = document.getElementById("image_box")
+  src.appendChild(img);
 }
