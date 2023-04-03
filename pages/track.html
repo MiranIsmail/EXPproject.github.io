@@ -23,7 +23,7 @@
   </div>
     <div class="section content_container">
       <h1>Create your own track</h1>
-        <div class="form-group opacity_background">
+        <div class="form-group">
           <div class="form-group form_group_style mx-auto container">
             <p>Here you can create tracks that can then be accesed during events</p>
             <p>Make sure that all your checkpoints are functional and that their ID is visable</p>
@@ -34,80 +34,82 @@
             <!-- Create a table with Bootstrap 5 classes -->
             <div class="form-group form_group_style mx-auto">
               <p>Start by adding the first section!</p>
-                
-                    <div class="row">
-                      <div class="col-sm-2">
-                        <label for="numberInput" id="numberInput" class="form-label fw-bold">ID</label>
-                        <input type="number" class="form-control" id="usr" min="100" max="200" required>
-                      </div>
-                      
-                      <div class="col-sm-2">
-                        <label for="numberInput" id="dist" class="form-label fw-bold">Distance</label>
-                        <input type="text" class="form-control" placeholder="15" name="distance">
-                      </div>
-                      <div class="col">
-                        <!-- Button to Open the Modal -->
-                        <label for="button" id="pin_button" class="form-label fw-bold">Location</label>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa-solid fa-map-location-dot"></i>
-                          
-                        </button>
-                      </div>
-                    
-                      <!-- The Modal -->
-                      <div class="modal" id="myModal">
-                        <div class="modal-dialog modal-lg">
-                          <div class="modal-content">
-                    
-                            <!-- Modal Header -->
-                            <div class="modal-header text-center">
-                              <h4 class="modal-title w-100">Map</h4>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                            </div>
-                    
-                            <!-- Modal body -->
-                            <div class="modal-body">
-                                <div id="map"></div>
-                            </div>
-                    
-                            <!-- Modal footer -->
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >Close</button>
-                              <button type="button" class="btn btn-danger" onclick="deleteMarkers()" >Delete</button>
-                              <button type="button" class="btn btn-success" disabled id="save_btn" onclick="send_coords()" data-bs-toggle="modal">Save</button>
-                            </div>
-                    
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col">
-                        <label for="dropdown" id="terrain_dropdown" class="form-label fw-bold">Terrain</label>
-                        <div class="dropdown" name="terrain">
-
-                          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonTerrain1" data-bs-toggle="dropdown" aria-expanded="false">
-                            Terrain
-                          </button>
-                          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButtonTerrain1">
-                            <li><a class="dropdown-item" onclick='selectWater()'>Water</a></li>
-                            <li><a class="dropdown-item" onclick='selectLand()'>Land</a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div class="col btn-group-vertical">
-                        <label for="save_btn" id="save_button" class="form-label fw-bold"></label>
-                        <button class="btn btn-primary" onclick="save(this.parentNode.parentNode)" name="save_button">Save</button>
+                <div class="container opacity_background" id="track_input">
                   
-                        <button class="btn btn-danger" onclick="deleteRow(this.parentNode.parentNode)" name="delete_button"><i class="fa-solid fa-trash"></i></button>
+                  <div class="row">
+                    <div class="col-sm-2">
+                      <label for="numberInput" id="numberInput" class="form-label fw-bold">ID</label>
+                      <input type="number" class="form-control" id="usr" min="100" max="200" required>
+                    </div>
+                    
+                    <div class="col-sm-2">
+                      <label for="numberInput" id="dist" class="form-label fw-bold">Distance</label>
+                      <input type="text" class="form-control" placeholder="15" name="distance">
+                    </div>
+                    <div class="col">
+                      <!-- Button to Open the Modal -->
+                      <label for="button" id="pin_button" class="form-label fw-bold">Location</label>
+                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa-solid fa-map-location-dot"></i>
+                        
+                      </button>
+                    </div>
+                  
+                    <!-- The Modal -->
+                    <div class="modal" id="myModal">
+                      <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                  
+                          <!-- Modal Header -->
+                          <div class="modal-header text-center">
+                            <h4 class="modal-title w-100">Map</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                          </div>
+                  
+                          <!-- Modal body -->
+                          <div class="modal-body">
+                              <div id="map"></div>
+                          </div>
+                  
+                          <!-- Modal footer -->
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >Close</button>
+                            <button type="button" class="btn btn-danger" onclick="deleteMarkers()" >Delete</button>
+                            <button type="button" class="btn btn-success" disabled id="save_btn" onclick="send_coords()" data-bs-toggle="modal">Save</button>
+                          </div>
+                  
+                        </div>
                       </div>
                     </div>
-                  </tr>
-                </tbody>
-              </table>
-              <div class="mb-3">
-                <button id="add_button" class="btn btn-secondary" onclick="addRow()" disabled><i class="fa-regular fa-plus"></i></button>
-              </div>
-              <div class="">
-                <button type="submit"  button id="submit_button" class="btn btn-primary" role="button" disabled onclick=submit()>Submit</button>
-              </div>
+                    <div class="col">
+                      <label for="dropdown" id="terrain_dropdown" class="form-label fw-bold">Terrain</label>
+                      <div class="dropdown" name="terrain">
+
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonTerrain1" data-bs-toggle="dropdown" aria-expanded="false">
+                          Terrain
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButtonTerrain1">
+                          <li><a class="dropdown-item" onclick='select("Water")'>Water</a></li>
+                          <li><a class="dropdown-item" onclick='select("Land")'>Land</a></li>
+                          <li><a class="dropdown-item" onclick='select("Mixed")'>Mixed</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col btn-group-vertical">
+                      <label for="save_btn" id="save_button" class="form-label fw-bold"></label>
+                      <button class="btn btn-primary" onclick="save(this.parentNode.parentNode)" name="save_button">Save</button>
+                
+                      <button class="btn btn-danger" onclick="deleteRow(this.parentNode.parentNode)" name="delete_button"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                  </div>
+                 </div>
+                <div class="container">
+                  <div class="mb-3">
+                    <button id="add_button" class="btn btn-secondary" onclick="addRow()"><i class="fa-regular fa-plus"></i></button>
+                  </div>
+                  <div class="">
+                    <button type="submit"  button id="submit_button" class="btn btn-primary" role="button" disabled onclick=submit()>Submit</button>
+                  </div>
+                </div>
             </div>
           </div>
         </div>
@@ -118,25 +120,34 @@
 <div include-html='../assets/footer.html'></div>
 
 <script>
-  var i = 1
 
-  function selectWater() {
-    // Get the selected value from the dropdown
-    // Set the button text to the selected value
-    document.getElementById("dropdownMenuButtonTerrain"+i).innerHTML = 'Water';
-    document.getElementById("dropdownMenuButtonTerrain"+i).classList.add("btn-success")
+  function select(option) {
+    // Get the button element and the dropdown menu element
+    const button = document.querySelector('.dropdown-toggle');
+    const dropdown = document.querySelector('.dropdown-menu');
+
+    // Set the button text to the selected option
+    button.textContent = option;
+
+    // Change the button color based on the selected option
+    switch(option) {
+      case 'Water':
+        button.style.backgroundColor = 'blue';
+        break;
+      case 'Land':
+        button.style.backgroundColor = 'green';
+        break;
+      case 'Mixed':
+        button.style.backgroundColor = 'turquoise';
+        break;
+      default:
+        button.style.backgroundColor = '';
+        break;
     }
 
-  function selectLand() {
-  // Get the selected value from the dropdown
-  // Set the button text to the selected value
-  document.getElementById("dropdownMenuButtonTerrain"+i).innerHTML = 'Land';
-  document.getElementById("dropdownMenuButtonTerrain"+i).classList.add("btn-success")
+    // Close the dropdown menu
+    dropdown.classList.remove('show');
   }
-
-  const add_button = document.getElementById('add_button');
-  const submit_button = document.getElementById('submit_button');
-  var data = [];
 
   class Section {
     constructor(id, distance, terrain) {
@@ -147,25 +158,13 @@
     }
   }
 
-  document.addEventListener('click', function() {
-    var saved_count = data.length
-    var table = document.getElementById("sections_table");
-    var row_count = table.rows.length;
-    if (saved_count == row_count-1) {
-      add_button.removeAttribute('disabled');
-      submit_button.removeAttribute('disabled');
-    } else {
-      add_button.setAttribute('disabled', '');
-      submit_button.setAttribute('disabled', '');
-    }
-  });
-
   function save(row) {
     i = i+1
 
     var id_start = row.querySelector("[name='id']").value;
     var distance = row.querySelector("[name='distance']").value;
     var terrain = row.querySelector("[name='terrain']").value;
+    console.log(id_start)
     var index = row.rowIndex - 1;
 
     //If the input is empty, do nothing
@@ -173,7 +172,7 @@
       return;
     }
 
-    row.querySelector("[name='id']").readOnly = true;
+    row.querySelector("[name='usr']").readOnly = true;
     row.querySelector("[name='distance']").readOnly = true;
     row.querySelector("[name='terrain']").readOnly = true;
 
@@ -220,48 +219,86 @@
     }
     row.style.backgroundColor = "#fff";
   }
+
   function addRow() {
-    var table = document.getElementById("sections_table");
-    var row = table.insertRow();
+    // Get the existing grid container
+    const gridContainer = document.querySelector(".grid-container");
 
-    var cell1 = row.insertCell(0);
-    var cell2 = row.insertCell(1);
-    var cell3 = row.insertCell(2);
-    var cell4 = row.insertCell(3);
-    var cell5 = row.insertCell(4);
-    cell1.innerHTML = "<input type='text' class='form-control' name='id'>";
-    cell2.innerHTML = "<input type='text' class='form-control' name='distance'>";
-    cell3.innerHTML = "<div class='dropdown' name='terrain'> \
-                          <button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenuButtonTerrain"+i+"' data-bs-toggle='dropdown' aria-expanded='false'> \
-                            Terrain \
-                          </button> \
-                        <ul class='dropdown-menu dropdown-menu-dark' aria-labelledby='dropdownMenuButtonTerrain"+i+"'> \
-                          <li><a class='dropdown-item' onclick='selectWater()'>Water</a></li> \
-                          <li><a class='dropdown-item' onclick='selectLand()'>Land</a></li> \
-                        </ul> \
-                      </div>"
+    // Create a new row element and add the HTML string you provided
+    const newRow = document.createElement("div");
+    newRow.classList.add("row");
+    newRow.innerHTML = `<div class="col-sm-2">
+                      <label for="numberInput" id="numberInput" class="form-label fw-bold">ID</label>
+                      <input type="number" class="form-control" id="usr" min="100" max="200" required>
+                    </div>
+                    
+                    <div class="col-sm-2">
+                      <label for="numberInput" id="dist" class="form-label fw-bold">Distance</label>
+                      <input type="text" class="form-control" placeholder="15" name="distance">
+                    </div>
+                    <div class="col">
+                      <!-- Button to Open the Modal -->
+                      <label for="button" id="pin_button" class="form-label fw-bold">Location</label>
+                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa-solid fa-map-location-dot"></i>
+                        
+                      </button>
+                    </div>
+                  
+                    <!-- The Modal -->
+                    <div class="modal" id="myModal">
+                      <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                  
+                          <!-- Modal Header -->
+                          <div class="modal-header text-center">
+                            <h4 class="modal-title w-100">Map</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                          </div>
+                  
+                          <!-- Modal body -->
+                          <div class="modal-body">
+                              <div id="map"></div>
+                          </div>
+                  
+                          <!-- Modal footer -->
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >Close</button>
+                            <button type="button" class="btn btn-danger" onclick="deleteMarkers()" >Delete</button>
+                            <button type="button" class="btn btn-success" disabled id="save_btn" onclick="send_coords()" data-bs-toggle="modal">Save</button>
+                          </div>
+                  
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <label for="dropdown" id="terrain_dropdown" class="form-label fw-bold">Terrain</label>
+                      <div class="dropdown" name="terrain">
 
-    cell4.innerHTML = "<button class='btn btn-primary' onclick='save(this.parentNode.parentNode)' name='save_button'>Save</button>";
-    cell5.innerHTML = "<button class='btn btn-danger' onclick='deleteRow(this.parentNode.parentNode)'>Delete</button>";
-    console.log(cell3.innerHTML)
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonTerrain1" data-bs-toggle="dropdown" aria-expanded="false">
+                          Terrain
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButtonTerrain1">
+                          <li><a class="dropdown-item" onclick='select("Water")'>Water</a></li>
+                          <li><a class="dropdown-item" onclick='select("Land")'>Land</a></li>
+                          <li><a class="dropdown-item" onclick='select("Mixed")'>Mixed</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col btn-group-vertical">
+                      <label for="save_btn" id="save_button" class="form-label fw-bold"></label>
+                      <button class="btn btn-primary" onclick="save(this.parentNode.parentNode)" name="save_button">Save</button>
+                
+                      <button class="btn btn-danger" onclick="deleteRow(this.parentNode.parentNode)" name="delete_button"><i class="fa-solid fa-trash"></i></button>
+                    </div>`
+          // Add row to grid
+    var myGrid = document.getElementById("track_input");
+    myGrid.appendChild(newRow);
   }
 
   function deleteRow(row) {
-    var table = document.getElementById("sections_table");
-    var index = row.rowIndex - 1;
-    //if there is no present data, dont do anything
-    if (data.length == 0 || typeof data[index] == "undefined") {
-      return;
-    }
-    //if the deleted row is not the last one, update the next_id of the previous row
-    if (index != 0) {
-    data[index-1].next_id = data[index].next_id;
-    }
-    //delete the data from the array and the row from the table
-    data.splice(index, 1);
-    row.parentNode.removeChild(row);
-    console.log(data);
-  }
+  const index = row.parentNode.parentNode.rowIndex;
+  document.getElementById("myTable").deleteRow(index);
+}
 
 
   function submit() {
