@@ -322,7 +322,6 @@ function create_event() {
 }
 
 
-var event_id = 15
 /* EVENT PAGE*/
 async function get_event_info(event_id) {
 
