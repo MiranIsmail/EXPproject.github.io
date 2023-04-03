@@ -321,8 +321,6 @@ function create_event() {
   })
 }
 
-
-var event_id = 15
 /* EVENT PAGE*/
 async function get_event_info(event_id) {
 
@@ -332,7 +330,7 @@ async function get_event_info(event_id) {
   const data = await response.json()
 
   //Just getting the source from the span. It was messy in JS.
-
+  document.getElementById("event_name").innerHTML = await data["event_name"]
   document.getElementById("event_sport").innerHTML = await data["sport"]
   document.getElementById("event_sdate").innerHTML = await data["start_date"]
   document.getElementById("event_edate").innerHTML = await data["end_date"]
