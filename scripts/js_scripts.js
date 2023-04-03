@@ -18,16 +18,17 @@ function blobToBase64(blob) {
 
 
 function calculate_age(date) {
-  if(date != null){
+  if (date != null) {
 
-  var today = new Date();
-  var birthDate = new Date(date);
-  var age = today.getFullYear() - birthDate.getFullYear();
-  var m = today.getMonth() - birthDate.getMonth();
-  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-    age--;
+    var today = new Date();
+    var birthDate = new Date(date);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
   }
-  return age;}
 
   return "missing"
 
@@ -57,7 +58,7 @@ function createAccount() {
   let xlast_name = document.getElementById('lname').value;
   let xpassword = document.getElementById('pword').value;
 
-  fetch(BASE_ULR+"Account", {
+  fetch(BASE_ULR + "Account", {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ "email": xemail, "first_name": xfirst_name, "last_name": xlast_name, "password": xpassword })
@@ -102,7 +103,7 @@ function fill_org_form() {
 async function log_in() {
   let femail = document.getElementById('fetchEmail').value;
   let fpword = document.getElementById('fetchPword').value;
-  const response = await fetch(BASE_ULR+"Token", {
+  const response = await fetch(BASE_ULR + "Token", {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ "email": femail, "password": fpword })
@@ -114,7 +115,7 @@ async function log_in() {
 
 async function log_out() {
 
-  const response = await fetch(BASE_ULR+"Token", {
+  const response = await fetch(BASE_ULR + "Token", {
     method: 'PATCH',
     headers: { 'Authorization': get_cookie('auth_token') }
   })
@@ -123,7 +124,7 @@ async function log_out() {
   location.href = '../pages/'
 }
 
-function load_image(indata){
+function load_image(indata) {
   var img = document.createElement("img")
   img.setAttribute("id", "profile_image")
   img.setAttribute("class", "img-fluid d-block")
@@ -134,7 +135,7 @@ function load_image(indata){
 
 async function get_user_info() {
 
-  const response = await fetch(BASE_ULR+"Account", {
+  const response = await fetch(BASE_ULR + "Account", {
     method: 'GET',
     headers: { 'Authorization': get_cookie('auth_token') }
   })
@@ -152,15 +153,16 @@ async function get_user_info() {
 
 async function edit_user_info() {
   var parameters = {}
-  parameters["first_name"]= document.getElementById('send_f_name').value
-  parameters["last_name"]=document.getElementById('send_l_name').value
-  parameters["birthdate"]=document.getElementById('send_bday').value
-  parameters["height"]=document.getElementById('send_height').value
-  parameters["weight"]= document.getElementById('send_weight').value
-  console.log(parameters);
-  console.log(document.getElementById('send_image'))
-  var blob = await image_to_blob(document.getElementById('send_image'))
-  parameters["pimage"]=await blobToBase64(blob)
+  parameters["first_name"] = document.getElementById('send_f_name').value
+  parameters["last_name"] = document.getElementById('send_l_name').value
+  parameters["birthdate"] = document.getElementById('send_bday').value
+  parameters["height"] = document.getElementById('send_height').value
+  parameters["weight"] = document.getElementById('send_weight').value
+
+  if (document.getElementById("send_image").files.length != 0) {
+    var blob = await image_to_blob(document.getElementById('send_image'))
+    parameters["pimage"] = await blobToBase64(blob)
+  }
 
   for (const [key, value] of Object.entries(parameters)) {
     console.log(key, value);
@@ -170,9 +172,9 @@ async function edit_user_info() {
   }
   console.log(parameters);
 
-  const response = await fetch(BASE_ULR+"Account", {
+  const response = await fetch(BASE_ULR + "Account", {
     method: 'PATCH',
-    headers: { 'Content-Type': 'application/json','Authorization':get_cookie('auth_token') },
+    headers: { 'Content-Type': 'application/json', 'Authorization': get_cookie('auth_token') },
     body: JSON.stringify(parameters)
   })
 
