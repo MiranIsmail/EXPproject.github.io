@@ -371,3 +371,15 @@ function load_image_event(indata) {
   var src = document.getElementById("image_box")
   src.appendChild(img);
 }
+
+function CreateTrack(){
+    var track_name = document.getElementById("InputTrackName")
+    fetch("rasts.se/api/Track",{method: 'POST',
+    body:JSON.stringify({
+      "track_id": 0, //most of these attributes are set to 0 for now because the inputs on the site and the attributes in the database aren't the same
+      "track_name": track_name,
+      "start_station": 0,
+      "end_station": 0
+    }), headers:{"Content-Type":"application/json; charset"}
+    })
+}
