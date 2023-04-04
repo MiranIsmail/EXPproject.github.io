@@ -138,10 +138,15 @@ async function data_load_index(){
   const response = await fetch("https://rasts.se/api/Event")
   const data = await response.json()
 
+  document.getElementById("event_name").innerHTML = await data["event_name"]
+  document.getElementById("event_sport").innerHTML = await data["sport"]
+  document.getElementById("event_sdate").innerHTML = await data["start_date"]
+  document.getElementById("event_edate").innerHTML = await data["end_date"]
+  document.getElementById("event_org").innerHTML = await data["host_organization"]
+  load_image_event(data["eimage"])
 
   data.forEach((i) => {
-    //console.log(i["Name"], i["Date"], i["Description"])
-    generate_card_wide(i["Name"],i["Date"],i["Description"],"../images/eventimg/ronneby.jpg")
+    generate_card_wide(i["event_name"],i["start_date"],i["host_organization"],"../images/eventimg/ronneby.jpg")
   })
 }
 /*
