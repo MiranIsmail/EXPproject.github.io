@@ -5,7 +5,7 @@
     <title>Profile - Rasts</title>
     <meta charset="utf-8">
     <link rel="icon" type="image/x-icon" href="../images/logo_color.png">
-        <!--Tre librarys dont remove, Bootstrap 5-->
+    <!--Tre librarys dont remove, Bootstrap 5-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -14,10 +14,10 @@
     <script type="text/javascript" src="../scripts/js_scripts.js"></script>
 </head>
 
-<div include-html='../assets/navbar.html'></div>
 
 <body>
-    <a type="button"  style="float:right; padding: 0.5rem;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"><img class="op30" src="../images/settings.svg" id="settings"></a>
+    <?php include '../assets/navbar.php'; ?>
+    <a type="button" style="float:right; padding: 0.5rem;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"><img class="op30" src="../images/settings.svg" id="settings"></a>
     <div id="container-img">
         <div class="row">
             <div class="col-sm-6" id="profile_box">
@@ -92,21 +92,21 @@
 
             </div>
 
-                <div id="success-alert" class="alert alert-success alert-dismissible fade show d-none" role="alert">
-                    Form submitted successfully!
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-                <div class="form-group form_group_style mx-auto">
-                    <button class="btn btn-primary" button id="submit_org_form" type="submit" onclick="edit_user_info()">Save changes</button>
-                </div>
+            <div id="success-alert" class="alert alert-success alert-dismissible fade show d-none" role="alert">
+                Form submitted successfully!
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <div class="form-group form_group_style mx-auto">
+                <button class="btn btn-primary" button id="submit_org_form" type="submit" onclick="edit_user_info()">Save changes</button>
+            </div>
         </div>
     </div>
 
 
 </body>
-<div include-html='../assets/footer.html'></div>
 <script>
     get_user_info();
     generate_table();
-    </script>
+</script>
+
 </html>

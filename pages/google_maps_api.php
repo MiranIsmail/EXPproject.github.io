@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Homepage - Rasts</title>
+  <meta charset="utf-8">
+  <link rel="icon" type="image/x-icon" href="../images/logo_color.png">
+  <!--Tre librarys dont remove, Bootstrap 5-->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="../styles/stylesheet.css">
+  <link rel="stylesheet" href="../styles/login_style.css">
+  <link rel="stylesheet" href="../styles/SignUp_LogIn_style.css">
+  <script type="text/javascript" src="../scripts/js_scripts.js"></script>
+  <link rel="stylesheet" href="../styles/google_maps_api.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+
+
+<body>
+
+  <?php include '../assets/navbar.php'; ?>
+  <div class="form-group">
+    <label for="usr">Name:</label>
+    <input type="text" class="form-control" id="usr">
+  </div>
+
+  <!-- Button to Open the Modal -->
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+    Pinpoint the map
+  </button>
+
+  <!-- The Modal -->
+  <div class="modal" id="myModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header text-center">
+          <h4 class="modal-title w-100">Map</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div id="map"></div>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" onclick="deleteMarkers()">Delete</button>
+          <button type="button" class="btn btn-success" disabled id="save_btn" onclick="send_coords()" data-bs-toggle="modal">Save</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let map;
+    let markers_list = [];
+    const btn = document.getElementById('save_btn')
+
+    function init_map() {
+      const bth_coords = {
+        lat: 56.179475,
+        lng: 15.595062
+      };
+      map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 14,
+        center: bth_coords,
+        mapTypeId: "terrain",
+      });
+      // This event listener will call add_marker() when the map is clicked.
+      map.addListener("click", (event) => {
+        setMapOnAll(null)
+        const check_point_id = document.getElementById('usr').value
+        add_marker(event.latLng, check_point_id);
+      });
+    }
+
+    // Adds a marker to the map and push to the array.
+    function add_marker(position, check_point_id) {
+      const marker = new google.maps.Marker({
+        position,
+        map,
+        label: check_point_id
+      });
+
+      markers_list.push(marker);
+      btn.disabled = false;
+
+    }
+
+    // Sets the map on all markers in the array.
+    function setMapOnAll(map) {
+      for (let i = 0; i < markers_list.length; i++) {
+        markers_list[i].setMap(map);
+      }
+    }
+
+    // Deletes all markers in the array by removing references to them.
+    function deleteMarkers() {
+      setMapOnAll(null);
+      markers_list = [];
+      btn.disabled = true;
+    }
+    //figure out how to confirm
+    function send_coords() { //needs fixing
+
+      for (let index = 0; index < markers_list.length; index++) {
+        let object_string = JSON.stringify(markers_list[index])
+        //data base call
+      }
+
+    }
+
+    window.init_map = init_map;
+  </script>
+  <!--Footer-->
+  <!--apis-->
+  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkY5KKVjLNfTPCAX17XbClpOpfTQd0cFM&callback=init_map">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  <?php include '../assets/footer.php'; ?>
+</body>
+
+</html>

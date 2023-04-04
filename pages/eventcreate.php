@@ -15,11 +15,14 @@
   <script type="text/javascript" src="../scripts/js_scripts.js"></script>
 </head>
 
-<div include-html='../assets/navbar.html'></div>
 
 <body">
-  <div class = "nice_text">
-  <h1><p1 class="mx-auto">Create your Event here</p1></h1> </div>
+  <?php include '../assets/navbar.php'; ?>
+  <div class="nice_text">
+    <h1>
+      <p1 class="mx-auto">Create your Event here</p1>
+    </h1>
+  </div>
   <div class="mb-3 mx-auto w-50">
     <label for="InputEventName" class="form-label">Event Name</label>
     <input type="text" class="form-control" id="InputEventName" placeholder="Input Event Name">
@@ -59,8 +62,9 @@
   </div>
   <!-- Include the Bootstrap 5 CSS file -->
   <div class="mb-3 mx-auto w-50">
-    <button type="submit" class="btn btn-primary" href="../eventcreate.html" onclick="submit()">Submit</button>
+    <button type="submit" class="btn btn-primary" href="../eventcreate.php" onclick="submit()">Submit</button>
   </div>
+  <?php include '../assets/footer.php'; ?>
   </body>
-  <div include-html='../assets/footer.html'></div>
+
 </html>

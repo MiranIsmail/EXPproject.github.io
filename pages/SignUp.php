@@ -2,20 +2,21 @@
 <html lang="en">
 
 <head>
-  <title>Signup - Rasts</title>
-  <meta charset="utf-8">
-  <link rel="icon" type="image/x-icon" href="../images/logo_color.png">
+    <title>Signup - Rasts</title>
+    <meta charset="utf-8">
+    <link rel="icon" type="image/x-icon" href="../images/logo_color.png">
     <!--Tre librarys dont remove, Bootstrap 5-->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-  <link rel="stylesheet" href="../styles/stylesheet.css">
-  <link rel="stylesheet" href="../styles/login_and_signup.css">
-  <script type="text/javascript" src="../scripts/js_scripts.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="../styles/stylesheet.css">
+    <link rel="stylesheet" href="../styles/login_and_signup.css">
+    <script type="text/javascript" src="../scripts/js_scripts.js"></script>
 </head>
 <!--header-->
-<div include-html='../assets/navbar.html'></div>
-<body >
+
+<body>
+    <?php include '../assets/navbar.php'; ?>
     <!--The swimrun image-->
     <div class="image_div">
         <img class="w-100 op30" src="../images/indeximage_thinner.png" id="image_run">
@@ -25,39 +26,39 @@
 
         <form id="orgform">
             <div class="form-group form_group_style mx-auto">
-            <button class="button-modular" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Want to register your organisation?</button>
+                <button class="button-modular" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Want to register your organisation?</button>
 
-            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-                <div class="offcanvas-header">
-                    <h5 id="offcanvasRightLabel">Register your organisation</h5>
-                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body canvas_container">
-                    To make sure you are an organisation, we would like you till fill this form:
-                    <div class="form-group form_group_style mx-auto needs-validation" novalidate>
-                        <div class="form-group form_group_style mx-auto"></div>
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                    <div class="offcanvas-header">
+                        <h5 id="offcanvasRightLabel">Register your organisation</h5>
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body canvas_container">
+                        To make sure you are an organisation, we would like you till fill this form:
+                        <div class="form-group form_group_style mx-auto needs-validation" novalidate>
+                            <div class="form-group form_group_style mx-auto"></div>
                             <p>Organisation name</p>
 
                             <input type="text" class="form-control input_field_style" placeholder="Name" id="org_name" required>
 
                         </div>
                         <div class="form-group form_group_style mx-auto">
-                        <p>Country</p>
-                        <input type="text" class="form-control input_field_style"  placeholder="Region of domain" id="org_country" required>
+                            <p>Country</p>
+                            <input type="text" class="form-control input_field_style" placeholder="Region of domain" id="org_country" required>
 
                         </div>
                         <div class="form-group form_group_style mx-auto">
                             <p>Email Address for organisation </p>
-                            <input type="text" class="form-control input_field_style"  placeholder="expproject@gmail.com" id="org_email" required>
+                            <input type="text" class="form-control input_field_style" placeholder="expproject@gmail.com" id="org_email" required>
                         </div>
                         <h2>Contact information</h2>
                         <div class="form-group form_group_style mx-auto">
                             <p>Private Email Address </p>
-                            <input type="text" class="form-control input_field_style"  placeholder="expproject@gmail.com" id="user_email" required>
+                            <input type="text" class="form-control input_field_style" placeholder="expproject@gmail.com" id="user_email" required>
                         </div>
                         <div class="form-group form_group_style mx-auto">
                             <p>Phone Number </p>
-                            <input type="text" class="form-control input_field_style"  placeholder="+46" id="user_email" required>
+                            <input type="text" class="form-control input_field_style" placeholder="+46" id="user_email" required>
                         </div>
                         <div id="success-alert" class="alert alert-success alert-dismissible fade show d-none" role="alert">
                             Form submitted successfully!
@@ -67,19 +68,19 @@
                             <button class="btn btn-primary" button id="submit_org_form" type="submit" onclick="fill_org_form()">Submit form</button>
                         </div>
                         After submission we will as soon as possible get back to you to give you more information on how to set up your organisational account. We will be in touch!
+                    </div>
                 </div>
-            </div>
             </div>
         </form>
         <form>
             <div class="form-group form_group_style mx-auto">
-            <p>First Name</p>
-            <input type="text" class="form-control input_field_style" placeholder="Name" id="fname">
+                <p>First Name</p>
+                <input type="text" class="form-control input_field_style" placeholder="Name" id="fname">
             </div>
 
             <div class="form-group form_group_style mx-auto">
-            <p>Surname</p>
-            <input type="text" class="form-control input_field_style"  placeholder="Surname" id="lname">
+                <p>Surname</p>
+                <input type="text" class="form-control input_field_style" placeholder="Surname" id="lname">
             </div>
 
             <div class="form-group form_group_style mx-auto">
@@ -89,21 +90,22 @@
 
             <div class="form-group form_group_style mx-auto">
                 <p>Password</p>
-                <input type="password" class="form-control input_field_style"  placeholder="Password" id="pword">
+                <input type="password" class="form-control input_field_style" placeholder="Password" id="pword">
             </div>
 
             <div class="form-group form_group_style mx-auto">
                 <p>Confirm password</p>
-                <input type="password" class="form-control input_field_style"  placeholder="Password">
+                <input type="password" class="form-control input_field_style" placeholder="Password">
             </div>
 
             <div class="form-group form_group_style mx-auto">
                 <button type="button" id="button_style" onclick="createAccount()">Continnue</button>
             </div>
-            <p class="center_item">Already Signed Up? <a href="../pages/Login.html">SIGN IN HERE!</a></p>
+            <p class="center_item">Already Signed Up? <a href="../pages/Login.php">SIGN IN HERE!</a></p>
         </form>
     </div>
 
+    <?php include '../assets/footer.php'; ?>
 
 </body>
 
@@ -120,6 +122,5 @@
     });
 </script>
 <!--footer-->
-<div include-html='../assets/footer.html'></div>
 
 </html>

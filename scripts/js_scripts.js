@@ -1,7 +1,7 @@
 var BASE_ULR = "https://rasts.se/api/"
 
 window.onload = function () {
-  include_HTML()
+  update_navbar()
 };
 
 const get_cookie = (name) => (
@@ -110,7 +110,7 @@ async function log_in() {
   })
   const data = await response.json()
   document.cookie = `auth_token=${await data["auth_token"]}`;
-  location.href = '../pages/profile.html'
+  location.href = '../pages/profile.php'
 }
 
 async function log_out() {
@@ -178,7 +178,7 @@ async function edit_user_info() {
     body: JSON.stringify(parameters)
   })
 
-  location.href = '../pages/profile.html'
+  location.href = '../pages/profile.php'
 }
 
 async function generate_table() {
@@ -321,10 +321,22 @@ function create_event() {
   })
 }
 
+function update_navbar() {
+  status_code = 401
+  if (status_code == 200) {
+    document.getElementById("navbar-log-out").classList.remove("d-none")
+    document.getElementById("navbar-profile").classList.remove("d-none")
+
+  }
+  else {
+    document.getElementById("navbar-log-in").classList.remove("d-none")
+  }
+}
+
 /* EVENT PAGE*/
 async function get_event_info(event_id) {
 
-  const response = await fetch(BASE_ULR+"Event/"+event_id, {
+  const response = await fetch(BASE_ULR + "Event/" + event_id, {
     method: 'GET',
   })
   const data = await response.json()

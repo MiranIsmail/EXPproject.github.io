@@ -14,9 +14,8 @@
   <link rel="stylesheet" href="../styles/SignUp_LogIn_style.css">
   <script type="text/javascript" src="../scripts/js_scripts.js"></script>
 </head>
-
-<div include-html='../assets/navbar.html'></div>
 <body>
+  <?php include '../assets/navbar.php'; ?>
     <!--add content here-->
+    <?php include '../assets/footer.php'; ?>
 </body>
-<div include-html='../assets/footer.html'></div>

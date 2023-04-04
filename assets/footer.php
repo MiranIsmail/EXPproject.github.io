@@ -26,13 +26,13 @@
 
         <ul class="list-unstyled ">
           <li>
-            <a href="../pages/event.html">Event</a>
+            <a href="../pages/event.php">Event</a>
           </li>
           <li>
-            <a href="../pages/Login.html">Log In</a>
+            <a href="../pages/Login.php">Log In</a>
           </li>
           <li>
-            <a href="../pages/profile.html">Profile</a>
+            <a href="../pages/profile.php">Profile</a>
           </li>
         </ul>
       </div>
