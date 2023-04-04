@@ -139,10 +139,8 @@ async function data_load_index(){
   const response = await fetch("https://rasts.se/api/Event")
   const data = await response.json()
 
-
   data.forEach((i) => {
-    //console.log(i["Name"], i["Date"], i["Description"])
-    generate_card_wide(i["Name"],i["Date"],i["Description"],"../images/eventimg/ronneby.jpg")
+    generate_card_wide(i["event_name"],i["start_date"],i["host_organization"],i["eimage"])
   })
 }
 
