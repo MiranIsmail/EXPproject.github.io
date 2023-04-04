@@ -380,6 +380,6 @@ function CreateTrack(){
       "track_name": track_name,
       "start_station": 0,
       "end_station": 0
-    }), headers:{"Content-Type":"application/json; charset"}
+    }), headers:{"Content-Type":"application/json; charset=UTF-8"}
     })
 }
