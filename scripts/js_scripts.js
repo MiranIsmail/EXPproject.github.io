@@ -328,11 +328,13 @@ async function update_navbar() {
   if (get_cookie("auth_token")) {
 
     const response = await fetch(BASE_ULR + "Token", {
-      method: 'PATCH',
+      method: 'GET',
       headers: { 'Content-Type': 'application/json', 'Authorization': get_cookie('auth_token') }
     })
     status_code = await response.status
+    console.log(status_code)
   }
+  console.log(status_code)
 
   if (status_code == 200) {
     document.getElementById("navbar-log-out").classList.remove("d-none")
