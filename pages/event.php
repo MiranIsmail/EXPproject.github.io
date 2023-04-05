@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="../styles/login_style.css" />
   <link rel="stylesheet" href="../styles/SignUp_LogIn_style.css" />
   <script type="text/javascript" src="../scripts/js_scripts.js"></script>
+  <script type="text/javascript" src="../scripts/index_load.js"></script>
   <script type="text/javascript" src="../scripts/event_page_load.js"></script>
 </head>
 
@@ -24,7 +25,7 @@
 
 
 
-    
+
     <div class="events section w-100" style="padding-bottom: 4rem;">
       <div id="event_cards_dynamic"></div>
     </div>
