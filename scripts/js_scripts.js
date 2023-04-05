@@ -443,16 +443,12 @@ function preview_event(){
   }
 }
 
-function GetTrack(){
-  fetch("https://rasts.se/api/Track", {method:'GET', headers: {'Accept': 'Application/json'}})
-  .then(response => response.json())
-  .then(response => console.log(JSON.stringify(response)))
-  return response.json();
-}
-
-function TrackDropdown(){
+async function TrackDropdown(){
+  response = await fetch("https://rasts.se/api/Track", {method:'GET',
+   headers: {'Accept': 'Application/json'}})
   let dropdown = document.getElementById('dropdown');
-  var data = GetTrack();
+  data = await response.json();
+  //var data = GetTrack();
   for(let i = 0; i < data.length; i++){
     dropdown.add(new Option(data[i].track_name))
 }}
