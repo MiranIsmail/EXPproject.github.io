@@ -248,13 +248,18 @@ body {
 
 .opacity_background {
   border-radius:0%;
-  border-width:5cm;
-  border-color: black;
+  border-width:10cm;
+  padding-bottom: 3%;
+  padding-top: 2%;
 
   background-color: rgba(9, 84, 127, 0.187); /* Set the background color with an alpha value of 0.6 to make it semi-transparent */
   z-index: 1; /* Set the z-index to 1 to make sure it is behind any other elements with a higher z-index */
 }
 
+.option_background {
+  padding-top: 5%;
+  border-bottom-left-radius:2% 
+}
 /*----------------------------------------------------LOGO*/
 @media (max-width: 574px) {
   #logo{
