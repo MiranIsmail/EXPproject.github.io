@@ -50,7 +50,20 @@
                         <input type="text" class="form-control" placeholder="Ex: 312343" aria-label="" aria-describedby="basic-addon1">
                         </div>
                     </div>
-            <div id="myTableContainer"></div>
+
+
+
+                <table id="my-table" class="table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Country</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
         </div>
     </div>
     <?php include '../assets/footer.php'; ?>
@@ -60,9 +73,8 @@
     var g_event_id = sessionStorage.getItem('s_event_id');
     console.log(g_event_id)
     get_event_info(g_event_id)
-    console.log("-----")
-    let myTable = generate_table_results(2);
-    document.getElementById('myTableContainer').appendChild(myTable);
+    get_event_results(2)
+
 </script>
 
 </html>
