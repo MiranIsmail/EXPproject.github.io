@@ -359,6 +359,7 @@ async function get_event_info(event_id) {
   document.getElementById("event_sdate").innerHTML = await data["startdate"]
   document.getElementById("event_edate").innerHTML = await data["enddate"]
   document.getElementById("event_org").innerHTML = await data["host_email"]
+  document.getElementById("event_desc").innerHTML = await data["description"]
   load_image_event(data["eimage"])
 }
 
@@ -457,3 +458,38 @@ function TrackDropdown(){
   for(let i = 0; i < data.length; i++){
     dropdown.add(new Option(data[i].track_name))
 }}
+
+
+async function generate_table(event_id) {
+  const response = await fetch(BASE_ULR + "Results?event_id=" + event_id, {
+    method: 'GET',
+  })
+  const data = await response.json()
+  console.log(data)
+
+  let table = document.createElement('table');
+
+
+
+  // create table header row
+  let headerRow = document.createElement('tr');
+  for (let key in data[0]) {
+    let headerCell = document.createElement('th');
+    headerCell.textContent = key;
+    headerRow.appendChild(headerCell);
+  }
+  table.appendChild(headerRow);
+
+  // create table rows
+  for (let i = 0; i < data.length; i++) {
+    let row = document.createElement('tr');
+    for (let key in data[i]) {
+      let cell = document.createElement('td');
+      cell.textContent = data[i][key];
+      row.appendChild(cell);
+    }
+    table.appendChild(row);
+  }
+
+  return table;
+}
