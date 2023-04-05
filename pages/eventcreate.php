@@ -33,6 +33,7 @@
         dropdown = document.getElementById("dropdown");
         dropdown.add(new Option("Select a Track"))
         TrackDropdown();
+        GetTrack();
       </script>
       <input type="text" class="form-control" id="send_track_name" placeholder="Input Track Name">
     </div>
