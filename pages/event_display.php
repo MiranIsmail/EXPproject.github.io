@@ -62,6 +62,13 @@
     console.log(g_event_id)
     get_event_info(g_event_id);
 
+    let myData = [
+  {name: 'John', age: 30, city: 'New York'},
+  {name: 'Mary', age: 25, city: 'Chicago'},
+  {name: 'Bob', age: 40, city: 'San Francisco'}
+];
+    console.log(myData.length)
+
     let container = document.getElementById('myTableContainer');
     let myTable = generate_event_results(2);
     container.appendChild(myTable);
