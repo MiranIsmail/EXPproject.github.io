@@ -52,15 +52,15 @@
       <input type="file" name="filename" id="send_image" accept=".jpg, .jpeg, .png" multiple="false">
     </div>
     <div class="form-check form-switch mb-3 mx-auto w-50">
-      <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" aria-describedby="publicHelpBlock">
-      <label class="form-check-label" for="flexSwitchCheckDefault">Open for Entry</label>
+      <input class="form-check-input" type="checkbox" id="send_open" aria-describedby="publicHelpBlock">
+      <label class="form-check-label" for="send_open">Open for Entry</label>
       <div id="publicHelpBlock" class="form-text">
         Check this box if you want all users to be able to participate to your event
       </div>
     </div>
     <div class="form-check form-switch mb-3 mx-auto w-50">
-      <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" aria-describedby="openHelpBlock">
-      <label class="form-check-label" for="flexSwitchCheckDefault">Public View</label>
+      <input class="form-check-input" type="checkbox" id="send_public" aria-describedby="openHelpBlock">
+      <label class="form-check-label" for="send_public">Public View</label>
       <div id="openHelpBlock" class="form-text">
         Check this box if you want the event to be visable and searchable for all users.
       </div>
