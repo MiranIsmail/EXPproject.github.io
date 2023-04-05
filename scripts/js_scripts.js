@@ -443,7 +443,7 @@ function preview_event(){
 }
 
 function GetTrack(){
-  fetch('rasts.se/api/Track', {method:'GET', headers: {'Accept': 'Application/json'}})
+  fetch("https://rasts.se/api/Track", {method:'GET', headers: {'Accept': 'Application/json'}})
   .then(response => response.json())
   .then(response => console.log(JSON.stringify(response)))
 }
