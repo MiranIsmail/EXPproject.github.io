@@ -19,14 +19,14 @@
 <body>
 <div class="container">
   <h1 class="mx-auto" style="text-align: center; padding-top: 20rem;">Event created successfully!</h1>
-  <p class="mx-auto" style="text-align: center;">You will be redirected in <span id="countdown">5</span> seconds.</p>
+  <p class="mx-auto" style="text-align: center;">You will be redirected in <span id="countdown">3</span> seconds.</p>
 </div>
 </body>
 </html>
 
 <script>
     window.onload = function() {
-      var count = 5;
+      var count = 3;
       var countdown = setInterval(function() {
         document.getElementById("countdown").innerHTML = count;
         count--;
