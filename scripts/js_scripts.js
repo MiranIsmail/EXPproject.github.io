@@ -464,6 +464,7 @@ async function generate_event_results(event_id) {
   })
   const data = await response.json()
   console.log(data.length)
+  console.log(data)
 
   let table = document.createElement('table');
   table.setAttribute('class','table')
