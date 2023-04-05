@@ -70,6 +70,7 @@ function createAccount() {
     })
     .then((data) => { console.log(data) })
     .catch(error => console.error(error))
+  location.href = '../pages/confirmation_account.php'
 }
 
 
@@ -300,26 +301,26 @@ function include_HTML() {
 
 /*CREATE EVENT */
 
-function create_event() {
-  let startDate = document.getElementById('startDate')
-  let endDate = document.getElementById('endDate')
-  let b_day = document.getElementById('b_day')
+// function create_event() {
+//   let startDate = document.getElementById('startDate')
+//   let endDate = document.getElementById('endDate')
+//   let b_day = document.getElementById('b_day')
 
-  startDate.addEventListener('change', (e) => {
-    let startDateVal = e.target.value
-    document.getElementById('startDateSelected').innerText = startDateVal
-  })
+//   startDate.addEventListener('change', (e) => {
+//     let startDateVal = e.target.value
+//     document.getElementById('startDateSelected').innerText = startDateVal
+//   })
 
-  endDate.addEventListener('change', (e) => {
-    let endDateVal = e.target.value
-    document.getElementById('endDateSelected').innerText = endDateVal
-  })
+//   endDate.addEventListener('change', (e) => {
+//     let endDateVal = e.target.value
+//     document.getElementById('endDateSelected').innerText = endDateVal
+//   })
 
-  b_day.addEventListener('change', (e) => {
-    let b_day_val = e.target.value
-    document.getElementById('b_day_selected').innerText = b_day_val
-  })
-}
+//   b_day.addEventListener('change', (e) => {
+//     let b_day_val = e.target.value
+//     document.getElementById('b_day_selected').innerText = b_day_val
+//   })
+// }
 
 async function update_navbar() {
 
@@ -424,7 +425,7 @@ async function create_event() {
     body: JSON.stringify(parameters)
   })
 
-  // location.href = '../pages/profile.php'
+  location.href = '../pages/confirmation_event.php'
 }
 
 function preview_event(){
