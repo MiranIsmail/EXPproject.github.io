@@ -469,12 +469,13 @@ async function generate_event_results(event_id) {
 
 
   let table = document.createElement('table');
-  table.setAttribute('class','table mx-auto')
+  table.setAttribute('class','table')
 
   // create table header row
   let headerRow = document.createElement('tr');
   for (let key in await data.results[0]) {
     let headerCell = document.createElement('th');
+    headerCell.setAttribute("class","mx-auto")
     headerCell.textContent = key;
     headerRow.appendChild(headerCell);
   }
