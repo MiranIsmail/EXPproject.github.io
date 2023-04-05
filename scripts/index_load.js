@@ -97,8 +97,8 @@ function generate_card_wide(input_name,input_date,input_text,input_image,input_i
   GoToEvent.textContent = 'GoToEvent';
 
   GoToEvent.addEventListener('click', function(){
-    console.log(event_id)
     sessionStorage.setItem("s_event_id",event_id);
+    location.href = '../pages/event_display.php'
   })
 
   // Append the button element to the card body
