@@ -67,11 +67,6 @@
   {name: 'Mary', age: 25, city: 'Chicago'},
   {name: 'Bob', age: 40, city: 'San Francisco'}
 ];
-    console.log(myData.length)
-    let container = document.getElementById('myTableContainer');
-  let myTable = await generate_event_results(2);
-  await container.appendChild(myTable);
-
 
 </script>
 
