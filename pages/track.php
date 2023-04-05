@@ -177,8 +177,11 @@
   function submit() {
     const rows = document.querySelectorAll('.row');
 
-    const trackInput = rows.querySelector('input[id=InputTrackName]')
+    const track_input = rows.querySelector('input[id=InputTrackName]')
   // Loop through each row
+  let i = 0;
+  let start_station;
+  let end_station;
     rows.forEach(row => {
       // Get the input fields in the row
       const idInput = row.querySelector('input[id=CheckID]');
@@ -192,7 +195,14 @@
       
       // Do something with the data
       console.log(`ID: ${id}, Distance: ${distance}, Terrain: ${terrain}`);
+      if(i === 0){
+        start_station = idInput.value;
+      }
+      i++;
+      end_station = idInput.value;
+      CreateTrack(track_input, start_station, end_station);
     });
+
   }
 
 
