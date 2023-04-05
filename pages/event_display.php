@@ -49,7 +49,7 @@
                         </div>
                         <input type="text" class="form-control" placeholder="Ex: 312343" aria-label="" aria-describedby="basic-addon1" id="send_chip">
                         </div>
-                        <div id="myTableContainer"></div>
+                        <div id="myTableContainer" class="mx-auto"></div>
                     </div>
         </div>
     </div>
