@@ -418,7 +418,7 @@ async function create_event() {
       delete parameters[key];
     }
   }
-  console.log(parameters);
+
 
   const response = await fetch(BASE_ULR + "Event", {
     method: 'POST',

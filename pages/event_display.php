@@ -43,7 +43,7 @@
                     </div>
                 </div>
             </div>
-            <div class="input-group mb-3 w-50 mx-auto">
+            <div class="input-group mb-3 mx-auto" id="chip_input_witdh">
                         <div class="input-group-prepend">
                             <button class="btn btn-dark" type="button" onclick="register_on_event(g_event_id)">Register</button>
                         </div>

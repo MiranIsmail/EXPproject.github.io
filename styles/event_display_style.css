@@ -14,8 +14,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    max-width: 100vh;
-    max-height: 40vh;
+    max-width: 150vh;
+    max-height: 60vh;
     overflow: hidden;
   }
 
@@ -75,9 +75,15 @@
     #wrapper_button {
       max-width: 75%;
     }
+    #chip_input_witdh {
+        max-width: 75%;
+    }
   }
   @media (min-width: 993px) {
     #wrapper_button {
       max-width: 50%;
+    }
+    #chip_input_witdh {
+        max-width: 50%;
     }
   }
