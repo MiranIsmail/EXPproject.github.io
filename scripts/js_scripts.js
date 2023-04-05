@@ -352,7 +352,7 @@ async function get_event_info(event_id) {
     method: 'GET',
   })
   const data = await response.json()
-
+  console.log(data)
   //Just getting the source from the span. It was messy in JS.
   document.getElementById("event_name").innerHTML = await data["event_name"]
   document.getElementById("event_sport").innerHTML = await data["sport"]
