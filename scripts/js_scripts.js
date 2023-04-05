@@ -495,12 +495,13 @@ async function generate_event_results(event_id) {
   return table;
 }
 
-async function register_on_event(event_id){
+function register_on_event(event_id){
+  console.log(event_id)
   var parameters = {}
   parameters["chip_id"] = document.getElementById('send_chip').value
   parameters["event_id"] = event_id
   console.log(parameters)
-  const response = await fetch(BASE_ULR + "Registration", {
+  const response = fetch(BASE_ULR + "Registration", {
     method: 'POST',
     body: JSON.stringify(parameters)
   })
