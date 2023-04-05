@@ -63,7 +63,6 @@
 
     let myTable = generate_table_results(2);
     document.getElementById('myTableContainer').appendChild(myTable);
-    generate_table_results(2)
 </script>
 
 </html>
