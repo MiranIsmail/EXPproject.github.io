@@ -475,7 +475,6 @@ async function generate_event_results(event_id) {
   let headerRow = document.createElement('tr');
   for (let key in await data.results[0]) {
     let headerCell = document.createElement('th');
-    headerCell.setAttribute("class","mx-auto")
     headerCell.textContent = key;
     headerRow.appendChild(headerCell);
   }
