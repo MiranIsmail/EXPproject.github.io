@@ -60,7 +60,7 @@
     var g_event_id = sessionStorage.getItem('s_event_id');
     console.log(g_event_id)
     get_event_info(g_event_id)
-
+    console.log("-----")
     let myTable = generate_table_results(2);
     document.getElementById('myTableContainer').appendChild(myTable);
 </script>
