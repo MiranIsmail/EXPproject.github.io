@@ -33,16 +33,37 @@
                         <h5>Sport: <span id="event_sport"></span></h5>
                         <h5>StartDate: <span id="event_sdate"></span></h5>
                         <h5>EndDate: <span id="event_edate"></span></h5>
-                        <h5>Organization: <span id="event_org"></span></h5>
+                        <h5>Host Mail: <span id="event_org"></span></h5>
                     </div>
                 </div>
                 <div class="col-md-8" id="info_grid">
                     <div class="padding_border">
                         <h3>Description</h3>
-                        <h5 class="mx-auto">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et</h5>
+                        <h5 class="mx-auto"><span id="event_desc"></span></h5>
                     </div>
                 </div>
             </div>
+            <div class="input-group mb-3 w-50 mx-auto">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-dark" type="button" onclicl="">Register</button>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Ex: 312343" aria-label="" aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+
+
+
+                <table id="my-table" class="table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Country</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
         </div>
     </div>
     <?php include '../assets/footer.php'; ?>
@@ -51,7 +72,9 @@
 <script>
     var g_event_id = sessionStorage.getItem('s_event_id');
     console.log(g_event_id)
-    get_event_info(g_event_id)
+    get_event_info(g_event_id);
+    get_event_results(2);
+
 </script>
 
 </html>
