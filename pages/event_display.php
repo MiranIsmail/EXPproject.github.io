@@ -63,7 +63,7 @@
     get_event_info(g_event_id);
 
     let container = document.getElementById('myTableContainer');
-    let myTable = generate_event_results(myData);
+    let myTable = generate_event_results(2);
     container.appendChild(myTable);
 
 
