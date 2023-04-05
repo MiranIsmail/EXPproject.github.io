@@ -392,8 +392,10 @@ async function create_event() {
   parameters["startdate"] = document.getElementById('send_start_date').value
   parameters["enddate"] = document.getElementById('send_end_date').value
   parameters["eimage"] = document.getElementById('send_image').value
-  parameters["open_for_entry"] = document.getElementById('send_open').value
-  parameters["public_view"] = document.getElementById('send_public').value
+  // parameters["open_for_entry"] = document.getElementById('send_open').value
+  // parameters["public_view"] = document.getElementById('send_public').value
+  parameters["open_for_entry"] = 1
+  parameters["public_view"] = 1
 
   console.log(parameters["open_for_entry"])
   console.log(parameters["public_view"])
