@@ -24,30 +24,55 @@
             <div id="image_box">
             </div>
         </div>
-        <div class="row information">
-            <h1><span id="event_name"></span></h1>
-            <div class="col-md-4" id="info_grid">
-                <div class="padding_border">
-                    <h3>Information</h3>
-                    <h5>Sport: <span id="event_sport"></span></h5>
-                    <h5>StartDate: <span id="event_sdate"></span></h5>
-                    <h5>EndDate: <span id="event_edate"></span></h5>
-                    <h5>Organization: <span id="event_org"></span></h5>
+        <div class="overflow-hidden" id="information_container">
+            <div class="row information">
+                <h1><span id="event_name"></span></h1>
+                <div class="col-lg-4" id="info_grid">
+                    <div class="padding_border">
+                        <h3>Information</h3>
+                        <h5>Sport: <span id="event_sport"></span></h5>
+                        <h5>StartDate: <span id="event_sdate"></span></h5>
+                        <h5>EndDate: <span id="event_edate"></span></h5>
+                        <h5>Host Mail: <span id="event_org"></span></h5>
+                    </div>
+                </div>
+                <div class="col-md-8" id="info_grid">
+                    <div class="padding_border">
+                        <h3>Description</h3>
+                        <h5 class="mx-auto"><span id="event_desc"></span></h5>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-8" id="info_grid">
-                <div class="padding_border">
-                    <h3>Description</h3>
-                    <h5 class="mx-auto">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et</h5>
-                </div>
-            </div>
+            <div class="input-group mb-3 w-50 mx-auto">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-dark" type="button" onclicl="">Register</button>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Ex: 312343" aria-label="" aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+
+                <div id="myTableContainer"></div>
         </div>
     </div>
     <?php include '../assets/footer.php'; ?>
 </body>
 
 <script>
-    get_event_info(15)
+    var g_event_id = sessionStorage.getItem('s_event_id');
+    console.log(g_event_id)
+    get_event_info(g_event_id);
+
+    let myData = [
+  {name: 'John', age: 30, city: 'New York'},
+  {name: 'Mary', age: 25, city: 'Chicago'},
+  {name: 'Bob', age: 40, city: 'San Francisco'}
+];
+    console.log(myData.length)
+    let container = document.getElementById('myTableContainer');
+  let myTable = await generate_event_results(2);
+  await container.appendChild(myTable);
+
+
 </script>
 
 </html>
