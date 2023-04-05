@@ -60,3 +60,24 @@
 #event_image_display{
     width:100%;
 }
+
+#button_style_create{
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+    background-color: rgb(30, 30, 30);
+    color: white;
+    border-color: rgb(30, 30, 30);
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 992px) {
+    #wrapper_button {
+      max-width: 75%;
+    }
+  }
+  @media (min-width: 993px) {
+    #wrapper_button {
+      max-width: 50%;
+    }
+  }
