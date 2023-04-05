@@ -458,13 +458,7 @@ async function TrackDropdown(){
     dropdown.add(new Option(data[i].track_name))
 }}
 
-ssdata = [{"Result_id":"67","participant1":"a7","participant2":"a8","event_id":"2","date_time":"2023-04-05 12:54:57","total_time":"04:43:09"},{"Result_id":"63","participant1":"a7","participant2":"a8","event_id":"2","date_time":"2023-04-05 13:00:36","total_time":"04:43:09"},{"Result_id":"64","participant1":"a7","participant2":"a8","event_id":"2","date_time":"2023-04-05 13:00:47","total_time":"04:43:09"}]
 
-let addata = [
-  {name: 'John', age: 30, city: 'New York'},
-  {name: 'Mary', age: 25, city: 'Chicago'},
-  {name: 'Bob', age: 40, city: 'San Francisco'}
-];
 // Function to generate table
 async function generate_event_results(event_id) {
 
@@ -472,8 +466,7 @@ async function generate_event_results(event_id) {
     method: 'GET',
   })
   const data = await response.json()
-  console.log(await data.results.length)
-  console.log(await data.results)
+
 
   let table = document.createElement('table');
   table.setAttribute('class','table')
@@ -500,4 +493,15 @@ async function generate_event_results(event_id) {
   }
 
   return table;
+}
+
+async function register_on_event(event_id){
+  var parameters = {}
+  parameters["chip_id"] = document.getElementById('send_chip').value
+  parameters["event_id"] = event_id
+  console.log(parameters)
+  const response = await fetch(BASE_ULR + "Registration", {
+    method: 'POST',
+    body: JSON.stringify(parameters)
+  })
 }
