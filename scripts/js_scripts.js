@@ -447,14 +447,12 @@ function GetTrack(){
   fetch("https://rasts.se/api/Track", {method:'GET', headers: {'Accept': 'Application/json'}})
   .then(response => response.json())
   .then(response => console.log(JSON.stringify(response)))
+  return response.json();
 }
 
 function TrackDropdown(){
   let dropdown = document.getElementById('dropdown');
-  var data = [{"track_name": "track1",
-                    "track_id": "101"},
-                    {"track_name":"track2",
-                  "track_id": "102"}]; //= GetTracks();
+  var data = GetTrack();
   for(let i = 0; i < data.length; i++){
     dropdown.add(new Option(data[i].track_name))
 }}
