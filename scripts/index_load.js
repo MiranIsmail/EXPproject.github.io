@@ -141,6 +141,7 @@ async function data_load_index(){
 
 
   data.forEach((i) => {
+    console.log(i["event_id"])
     generate_card_wide(i["event_name"], 'Date: '+i["startdate"]+'\n -: '+i["enddate"], i["description"], i["eimage"])
   })
 }
