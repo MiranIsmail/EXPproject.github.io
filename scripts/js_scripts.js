@@ -468,7 +468,6 @@ async function generate_event_results(event_id) {
     method: 'GET',
   })
   const data = await response.json()
-  data = data.results
   console.log(await data.results.length)
   console.log(await data.results)
 
