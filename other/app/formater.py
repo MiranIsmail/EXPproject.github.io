@@ -1,4 +1,4 @@
-import json
+#import json
 from datetime import datetime
 import serial
 import time
@@ -27,7 +27,7 @@ def seconds_to_time_format(seconds: int):
 def time_formater(start_time: str, end_time: str, off_set: int):
     """Gives to the given time format a difference in time between two timestamps \n
 
-    This function has three return values:
+    This function has three return values inside a dictionary:
     1. The timestamp (str)
     2. The timestamp difference (str)
     3. The difference in seconds (int)"""
@@ -133,20 +133,24 @@ def time_format_parse(time_log: str):
                    "total_time": total_time, "track_time": time_list}
 
     # export to json
-    json_string = json.dumps(result_card)
-    return json_string
+    #json_string = json.dumps(result_card)
+    return result_card
 
 
-if __name__ == "__main__":
+def main():
+    runner= True
     ser = serial.Serial(port="COM5", baudrate=115200)
     url = 'https://rasts.se/api/Results'
-    json_obj = {"chip_id": "4242145", "total_time": "00:02:42.003", "track_time": [["Start", "00:00:00.000", "00:00:00.000", "0", "46424898727"], ["101", "00:00:06.003", "00:00:06.003", 6.003, "46424904730"], ["102", "00:01:45.871", "00:01:39.867", 99.868, "46425004598"], ["101", "00:01:48.221", "00:00:02.350", 2.35, "46425006948"], ["102", "00:01:52.551", "00:00:04.330", 4.33, "46425011278"], ["102", "00:02:04.434", "00:00:11.882", 11.883, "46425023161"], ["102", "00:02:42.003", "00:00:37.569", 37.569, "46425060730"]]}
+    #json_obj = {"chip_id": "4242145", "total_time": "00:02:42.003", "track_time": [["Start", "00:00:00.000", "00:00:00.000", "0", "46424898727"], ["101", "00:00:06.003", "00:00:06.003", 6.003, "46424904730"], ["102", "00:01:45.871", "00:01:39.867", 99.868, "46425004598"], ["101", "00:01:48.221", "00:00:02.350", 2.35, "46425006948"], ["102", "00:01:52.551", "00:00:04.330", 4.33, "46425011278"], ["102", "00:02:04.434", "00:00:11.882", 11.883, "46425023161"], ["102", "00:02:42.003", "00:00:37.569", 37.569, "46425060730"]]}
     # send a command to the USB device
-    ser.write(b"/PP0<CR><LF>")
-    while True:
+    #ser.write(b"/PP0<CR><LF>")
+    while runner:
         response = ser.readline()
         if response[1] != 73:
             if response[1] != 80:
-                print(time_format_parse(str(response)))
+                res:dict=time_format_parse(str(response))
+                #print(time_format_parse(str(response)))
                 requests.post(url, data= time_format_parse(str(response)))
                 time.sleep(0.005)
+                runner = False
+    return res
