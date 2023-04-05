@@ -36,7 +36,6 @@
       <div class="form-group form_group_style mx-auto">
         <p>Start by adding the first section!</p>
         <div class="container opacity_background" id="track_input">
-
           <div class="row" id="0">
             <div class="col-sm-2">
               <label for="numberInput" id="numberInput" class="form-label fw-bold">ID</label>
@@ -98,16 +97,14 @@
             </div>
             <div class="col btn-group-vertical">
               <label for="delete_button" class="form-label fw-bold">Option</label>
-              <button class="btn btn-danger" onclick="deleteRow(this.parentNode.parentNode)" name="delete_button"><i class="fa-solid fa-trash"></i></button>
+              <button class="btn btn-danger" onclick="deleteRow(this)" name="delete_button"><i class="fa-solid fa-trash"></i></button>
             </div>
           </div>
-          <div class="">
-            <div class="col mb-3">
-              <button id="add_button" class="btn btn-secondary" onclick="addRow(event)"><i class="fa-regular fa-plus"></i></button>
-            </div>
-            <div class="col mb-3">
-              <button type="submit" button id="submit_button" class="btn btn-primary" role="button" onclick='submit()'>Submit</button>
-            </div>
+        </div>
+        <div class="container">
+          <div class="option_background">
+            <button id="add_button" button type="button" class="btn btn-secondary" onclick="addRow(event)">Add another section <i class="fa-regular fa-plus"></i></button>
+            <button type="submit" button type="button" button id="submit_button" class="btn btn-primary" role="button" onclick='submit()'>Submit</button>     
           </div>
         </div>
       </div>
@@ -160,7 +157,7 @@
     const gridContainer = document.querySelector(".grid-container");
     // Create a new row element and add the HTML string you provided
     const newRow = document.createElement("div");
-    newRow.classList.add("row");
+    newRow.classList.add('row');
     newRow.id = i
     newRow.innerHTML = info
     // Add row to grid
@@ -168,9 +165,9 @@
     myGrid.appendChild(newRow);
   }
 
-  function deleteRow(row) {
-    const index = row.parentNode.parentNode.rowIndex;
-    document.getElementById("track_input").deleteRow(index);
+  function deleteRow(button) {
+    var row = button.parentNode.parentNode;
+    row.remove();
   }
 
 
