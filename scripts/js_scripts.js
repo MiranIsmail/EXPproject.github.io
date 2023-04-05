@@ -463,15 +463,16 @@ async function generate_event_results(event_id) {
     method: 'GET',
   })
   const data = await response.json()
-  console.log(data.results.length)
-  console.log(data.results)
+  data = data.results
+  console.log(data.length)
+  console.log(data)
 
   let table = document.createElement('table');
   table.setAttribute('class','table')
 
   // create table header row
   let headerRow = document.createElement('tr');
-  for (let key in data.results[0]) {
+  for (let key in data[0]) {
     let headerCell = document.createElement('th');
     headerCell.textContent = key;
     headerRow.appendChild(headerCell);
@@ -479,12 +480,12 @@ async function generate_event_results(event_id) {
   table.appendChild(headerRow);
 
   // create table rows
-  for (let i = 0; i < data.results.length; i++) {
+  for (let i = 0; i < data.length; i++) {
     let row = document.createElement('tr');
-    for (let key in data.results[i]) {
+    for (let key in data[i]) {
       let cell = document.createElement('td');
-      cell.textContent = data.results[i][key];
-      console.log(data.results[i][key])
+      cell.textContent = data[i][key];
+      console.log(data[i][key])
       row.appendChild(cell);
     }
     table.appendChild(row);
