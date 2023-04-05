@@ -365,7 +365,7 @@ async function get_event_info(event_id) {
 
 function load_image_event(indata) {
   var img = document.createElement("img")
-  img.setAttribute("id", "profile_image")
+  img.setAttribute("id", "event_image_display")
   img.setAttribute("class", "img-fluid d-block")
   img.src = indata
   var src = document.getElementById("image_box")
@@ -382,4 +382,55 @@ function CreateTrack(){
       "end_station": 0
     }), headers:{"Content-Type":"application/json; charset=UTF-8"}
     })
+}
+
+async function create_event() {
+  var parameters = {}
+  parameters["event_name"] = document.getElementById('send_event_name').value
+  parameters["track_id"] = document.getElementById('send_track_name').value
+  parameters["host_email"] = document.getElementById('send_host_email').value
+  parameters["startdate"] = document.getElementById('send_start_date').value
+  parameters["enddate"] = document.getElementById('send_end_date').value
+  parameters["eimage"] = document.getElementById('send_image').value
+
+  if (document.getElementById("send_image").files.length != 0) {
+    var blob = await image_to_blob(document.getElementById('send_image'))
+    parameters["eimage"] = await blobToBase64(blob)
+  }
+
+  for (const [key, value] of Object.entries(parameters)) {
+    console.log(key, value);
+    if (!value) {
+      delete parameters[key];
+    }
+  }
+  console.log(parameters);
+
+  const response = await fetch(BASE_ULR + "Event", {
+    method: 'POST',
+    body: JSON.stringify(parameters)
+  })
+
+  // location.href = '../pages/profile.php'
+}
+
+function preview_event(){
+  let event_name = document.getElementById('send_event_name').value;
+  let host_name = document.getElementById('send_description').value;
+  let start_date = document.getElementById('send_start_date').value;
+  let end_date = document.getElementById('send_end_date').value;
+  let imageInput = document.getElementById('send_image');
+  let image = '';
+
+  // check if an image was selected
+  if (imageInput.files && imageInput.files[0]) {
+    let reader = new FileReader(); // create a FileReader object
+    reader.onload = function() {
+      image = reader.result; // set image to the result of the FileReader
+      generate_card_wide(event_name, 'Date: '+start_date+'\n - '+end_date, host_name, image);
+    }
+    reader.readAsDataURL(imageInput.files[0]); // read the selected file as a data URL
+  } else {
+    generate_card_wide(event_name, 'Date: '+start_date+'\n - '+end_date, host_name, image);
+  }
 }

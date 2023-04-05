@@ -24,21 +24,23 @@
             <div id="image_box">
             </div>
         </div>
-        <div class="row information">
-            <h1><span id="event_name"></span></h1>
-            <div class="col-md-4" id="info_grid">
-                <div class="padding_border">
-                    <h3>Information</h3>
-                    <h5>Sport: <span id="event_sport"></span></h5>
-                    <h5>StartDate: <span id="event_sdate"></span></h5>
-                    <h5>EndDate: <span id="event_edate"></span></h5>
-                    <h5>Organization: <span id="event_org"></span></h5>
+        <div class="overflow-hidden" id="information_container">
+            <div class="row information">
+                <h1><span id="event_name"></span></h1>
+                <div class="col-lg-4" id="info_grid">
+                    <div class="padding_border">
+                        <h3>Information</h3>
+                        <h5>Sport: <span id="event_sport"></span></h5>
+                        <h5>StartDate: <span id="event_sdate"></span></h5>
+                        <h5>EndDate: <span id="event_edate"></span></h5>
+                        <h5>Organization: <span id="event_org"></span></h5>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-8" id="info_grid">
-                <div class="padding_border">
-                    <h3>Description</h3>
-                    <h5 class="mx-auto">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et</h5>
+                <div class="col-md-8" id="info_grid">
+                    <div class="padding_border">
+                        <h3>Description</h3>
+                        <h5 class="mx-auto">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et</h5>
+                    </div>
                 </div>
             </div>
         </div>
