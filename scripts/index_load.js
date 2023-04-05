@@ -4,7 +4,7 @@ function generate_card_wide(input_name,input_date,input_text,input_image,input_i
     let event_name = input_name
     let event_date = input_date
     let event_image = input_image
-    let event_id = input_image
+    let event_id = input_id
 
    // Create a div element for the card
   var cardDiv = document.createElement('div');
@@ -92,14 +92,14 @@ function generate_card_wide(input_name,input_date,input_text,input_image,input_i
     }
   });
 
-  GoToEvent.addEventListener('click', function(){
-    console.log()
-    sessionStorage.setItem("favoriteMovie", "Shrek");
-  })
-
   // Create a button element for the "go to event" button
   var GoToEvent = document.createElement('button');
   GoToEvent.textContent = 'GoToEvent';
+
+  GoToEvent.addEventListener('click', function(){
+    sessionStorage.setItem("s_event_id",event_id);
+    location.href = '../pages/event_display.php'
+  })
 
   // Append the button element to the card body
   cardBodyColDiv.appendChild(showMoreBtn);
@@ -152,7 +152,6 @@ async function data_load_index(){
 
 
   data.forEach((i) => {
-    console.log(i["event_id"])
     generate_card_wide(i["event_name"], 'Date: '+i["startdate"]+'\n -: '+i["enddate"], i["description"], i["eimage"],i["event_id"])
   })
 }

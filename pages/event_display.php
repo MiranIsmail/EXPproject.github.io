@@ -50,6 +50,7 @@
 
 <script>
     var g_event_id = sessionStorage.getItem('s_event_id');
+    console.log(g_event_id)
     get_event_info(g_event_id)
 </script>
 
