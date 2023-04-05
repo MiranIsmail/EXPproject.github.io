@@ -49,9 +49,8 @@
                         </div>
                         <input type="text" class="form-control" placeholder="Ex: 312343" aria-label="" aria-describedby="basic-addon1" id="send_chip">
                         </div>
+                        <div id="myTableContainer"></div>
                     </div>
-
-                <div id="myTableContainer"></div>
         </div>
     </div>
     <?php include '../assets/footer.php'; ?>
