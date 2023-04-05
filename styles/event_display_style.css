@@ -74,6 +74,8 @@
 @media (max-width: 992px) {
     #wrapper_button {
       max-width: 75%;
+      padding-bottom: 3vh;
+      padding-top: 3vh;
     }
     #chip_input_witdh {
         max-width: 75%;
@@ -82,6 +84,7 @@
   @media (min-width: 993px) {
     #wrapper_button {
       max-width: 50%;
+      padding-bottom: 3vh;
     }
     #chip_input_witdh {
         max-width: 50%;

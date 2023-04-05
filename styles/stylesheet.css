@@ -28,6 +28,7 @@ body {
 
 #image_run {
   display: block;
+  padding-top:3vh;
 }
 
 #searchFade {

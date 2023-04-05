@@ -20,7 +20,7 @@
   <?php include '../assets/navbar.php'; ?>
     <!--Image with sporting people-------------------------------------------------------------------------------------------->
     <img class="w-100 op30" src="../images/indeximage_thinner.png" id="image_run">
-    <div style="padding-bottom: 4rem;" id="searchFade">
+    <div style="padding-bottom: 2rem;" id="searchFade">
     <!--Create event button--------------------------------------------------------------------------------------------------->
     <div id="wrapper_button" class="mx-auto">
       <button type="button" id="button_style_create" onclick="location.href='eventcreate.php'">Create yout own event!</button>
