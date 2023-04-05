@@ -484,6 +484,7 @@ async function generate_event_results(event_id) {
     for (let key in data.results[i]) {
       let cell = document.createElement('td');
       cell.textContent = data.results[i][key];
+      console.log(data.results[i][key])
       row.appendChild(cell);
     }
     table.appendChild(row);
