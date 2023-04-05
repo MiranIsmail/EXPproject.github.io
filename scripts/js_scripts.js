@@ -383,3 +383,20 @@ function CreateTrack(){
     }), headers:{"Content-Type":"application/json; charset=UTF-8"}
     })
 }
+
+async function GetTracks(){
+  const response = await fetch("rasts.se/api/Track",{method: 'GET'});
+  const data = await response.json();
+  return data;
+}
+
+function TrackDropdown(){
+  let dropdown = document.getElementById('dropdown');
+  var data = [{"track_name": "track1",
+                    "track_id": "101"},
+                    {"track_name":"track2",
+                  "track_id": "102"}]; //= GetTracks();
+  for(let i = 0; i < data.length; i++){
+    dropdown.add(new Option(data[i].track_name))
+  };
+}

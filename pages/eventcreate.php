@@ -27,6 +27,12 @@
     </div>
     <div class="mb-3 mx-auto w-50">
       <label for="InputTrackName" class="form-label">Track Name</label>
+      <select id="dropdown"></select>
+      <script>
+        dropdown = document.getElementById("dropdown");
+        dropdown.add(new Option("Select a Track"))
+        TrackDropdown();
+      </script>
       <input type="text" class="form-control" id="InputTrackName" placeholder="Input Track Name">
     </div>
     <div class="mb-3 mx-auto w-50">
