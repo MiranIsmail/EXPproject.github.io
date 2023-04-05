@@ -1,8 +1,10 @@
 {
   "folders": [
-	{
-		"path": "."
-	}
-],
-  "settings": {}
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "open-php-html-js-in-browser.documentRootFolder": "/var/www/"
+  }
 }
