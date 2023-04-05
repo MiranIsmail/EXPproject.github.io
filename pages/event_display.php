@@ -61,7 +61,7 @@
     console.log(g_event_id)
     get_event_info(g_event_id)
 
-    let myTable = generate_table(2);
+    let myTable = generate_table_results(2);
     document.getElementById('myTableContainer').appendChild(myTable);
     generate_table_results(2)
 </script>
