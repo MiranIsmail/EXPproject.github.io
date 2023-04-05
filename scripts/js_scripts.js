@@ -442,3 +442,13 @@ function preview_event(){
     generate_card_wide(event_name, 'Date: '+start_date+'\n - '+end_date, host_name, image);
   }
 }
+
+function TrackDropdown(){
+  let dropdown = document.getElementById('dropdown');
+  var data = [{"track_name": "track1",
+                    "track_id": "101"},
+                    {"track_name":"track2",
+                  "track_id": "102"}]; //= GetTracks();
+  for(let i = 0; i < data.length; i++){
+    dropdown.add(new Option(data[i].track_name))
+}}
