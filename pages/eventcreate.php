@@ -40,9 +40,8 @@
     </div>
 
     <div class="mb-3 mx-auto w-50">
-      <img id="blah" src="#" alt="your image" />
       <label for="InputTrackName" class="form-label">Upload Event Image</label>
-      <input type="file" name="filename" id="send_eimage" onchange="readURL(this);">
+      <input type="file" name="filename" id="send_eimage">
     </div>
 
     <div class="form-check form-switch mb-3 mx-auto w-50">
@@ -59,30 +58,11 @@
         Check this box if you want the event to be visable and searchable for all users.
       </div>
     </div>
-    <!-- Include the Bootstrap 5 CSS file -->
     <div class="mb-3 mx-auto w-50">
       <button type="submit" class="btn btn-primary" href="../eventcreate.php" onclick="submit()">Submit</button>
     </div>
   </div>
-  <input type='file' onchange="readURL(this);" />
-  <img id="blah" src="#" alt="your image" />
   <?php include '../assets/footer.php'; ?>
   </body>
 
-  <script>
-    function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    $('#blah')
-                        .attr('src', e.target.result)
-                        .width(150)
-                        .height(200);
-                };
-
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-  </script>
 </html>
