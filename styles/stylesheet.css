@@ -235,14 +235,11 @@ body {
   color: black;
 }
 
-.nice_text {
+#nice_text {
   font-family: 'Lato ';
   border:  black;
-  margin-top: 10%;
-  margin-left: 10%;
-  margin-right: 10%;
-  margin-bottom: 10%;
-  padding: 1%;
+  text-align: center;
+  padding-top: 10vh;
 }
 
 .clear_text {
@@ -253,7 +250,7 @@ body {
   border-radius:0%;
   border-width:5cm;
   border-color: black;
-  
+
   background-color: rgba(9, 84, 127, 0.187); /* Set the background color with an alpha value of 0.6 to make it semi-transparent */
   z-index: 1; /* Set the z-index to 1 to make sure it is behind any other elements with a higher z-index */
 }
