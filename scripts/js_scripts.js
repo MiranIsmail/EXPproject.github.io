@@ -348,7 +348,6 @@ async function update_navbar() {
 
 /* EVENT PAGE*/
 async function get_event_info(event_id) {
-
   const response = await fetch(BASE_ULR + "Event/" + event_id, {
     method: 'GET',
   })

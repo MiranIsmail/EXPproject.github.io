@@ -49,7 +49,8 @@
 </body>
 
 <script>
-    get_event_info(15)
+    var g_event_id = sessionStorage.getItem('s_event_id');
+    get_event_info(g_event_id)
 </script>
 
 </html>
