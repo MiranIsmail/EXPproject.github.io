@@ -479,7 +479,7 @@ async function generate_event_results(event_id) {
   table.appendChild(headerRow);
 
   // create table rows
-  for (let i = 0; i < data..resultslength; i++) {
+  for (let i = 0; i < data.results.length; i++) {
     let row = document.createElement('tr');
     for (let key in data.results[i]) {
       let cell = document.createElement('td');
