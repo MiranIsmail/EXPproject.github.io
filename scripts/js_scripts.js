@@ -395,6 +395,9 @@ async function create_event() {
   parameters["open_for_entry"] = document.getElementById('send_open').value
   parameters["public_view"] = document.getElementById('send_public').value
 
+  console.log(parameters["open_for_entry"])
+  console.log(parameters["public_view"])
+
   if (document.getElementById("send_image").files.length != 0) {
     var blob = await image_to_blob(document.getElementById('send_image'))
     parameters["eimage"] = await blobToBase64(blob)
