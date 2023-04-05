@@ -363,7 +363,7 @@ async function get_event_info(event_id) {
   load_image_event(data["eimage"])
 
   let container = document.getElementById('myTableContainer');
-  let myTable = await generate_event_results(2);
+  let myTable = await generate_event_results(event_id);
   container.appendChild(myTable);
 
 }
