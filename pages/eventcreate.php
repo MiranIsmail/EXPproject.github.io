@@ -32,7 +32,7 @@
     </div>
     <div class="mb-3 mx-auto w-50">
       <label for="InputTrackName" class="form-label">Host Email</label>
-      <input type="text" class="form-control" id="send_host_name" placeholder="Input Host Email">
+      <input type="text" class="form-control" id="send_host_email" placeholder="Input Host Email">
     </div>
     <div class="mb-3 mx-auto w-50">
       <label for="InputStartDate" class="form-label">Start Date</label>
@@ -70,7 +70,7 @@
     </div>
     <div id="event_cards_dynamic" class="w-75 mx-auto"></div>
     <div class="mb-3 mx-auto w-50">
-      <button type="submit" class="btn btn-primary" href="../eventcreate.php" onclick="create_event()">Submit</button>
+      <button type="submit" class="btn btn-primary" onclick="create_event()">Submit</button>
     </div>
   </div>
   <?php include '../assets/footer.php'; ?>
