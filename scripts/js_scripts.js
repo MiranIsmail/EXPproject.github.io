@@ -471,7 +471,7 @@ async function generate_event_results(event_id) {
 
   // create table header row
   let headerRow = document.createElement('tr');
-  for (let key in data[0]) {
+  for (let key in data.results[0]) {
     let headerCell = document.createElement('th');
     headerCell.textContent = key;
     headerRow.appendChild(headerCell);
@@ -479,11 +479,11 @@ async function generate_event_results(event_id) {
   table.appendChild(headerRow);
 
   // create table rows
-  for (let i = 0; i < data.length; i++) {
+  for (let i = 0; i < data..resultslength; i++) {
     let row = document.createElement('tr');
-    for (let key in data[i]) {
+    for (let key in data.results[i]) {
       let cell = document.createElement('td');
-      cell.textContent = data[i][key];
+      cell.textContent = data.results[i][key];
       row.appendChild(cell);
     }
     table.appendChild(row);
