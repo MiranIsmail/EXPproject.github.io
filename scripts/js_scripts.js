@@ -356,9 +356,9 @@ async function get_event_info(event_id) {
   //Just getting the source from the span. It was messy in JS.
   document.getElementById("event_name").innerHTML = await data["event_name"]
   document.getElementById("event_sport").innerHTML = await data["sport"]
-  document.getElementById("event_sdate").innerHTML = await data["start_date"]
-  document.getElementById("event_edate").innerHTML = await data["end_date"]
-  document.getElementById("event_org").innerHTML = await data["host_organization"]
+  document.getElementById("event_sdate").innerHTML = await data["startdate"]
+  document.getElementById("event_edate").innerHTML = await data["enddate"]
+  document.getElementById("event_org").innerHTML = await data["host_email"]
   load_image_event(data["eimage"])
 }
 
