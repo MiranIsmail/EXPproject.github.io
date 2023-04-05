@@ -459,7 +459,7 @@ async function TrackDropdown(){
 // Function to generate table
 async function generate_event_results(event_id) {
 
-  const response = await fetch(BASE_ULR + "Event/?event_id="+event_id, {
+  const response = await fetch(BASE_ULR + "Results/?event_id="+event_id, {
     method: 'GET',
   })
   const data = await response.json()
