@@ -92,14 +92,14 @@ function generate_card_wide(input_name,input_date,input_text,input_image,input_i
     }
   });
 
-  GoToEvent.addEventListener('click', function(){
-    console.log()
-    sessionStorage.setItem("favoriteMovie", "Shrek");
-  })
-
   // Create a button element for the "go to event" button
   var GoToEvent = document.createElement('button');
   GoToEvent.textContent = 'GoToEvent';
+
+  GoToEvent.addEventListener('click', function(){
+    console.log(event_id)
+    sessionStorage.setItem("s_event_id",event_id);
+  })
 
   // Append the button element to the card body
   cardBodyColDiv.appendChild(showMoreBtn);
