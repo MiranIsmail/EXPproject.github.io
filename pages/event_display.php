@@ -68,10 +68,9 @@
   {name: 'Bob', age: 40, city: 'San Francisco'}
 ];
     console.log(myData.length)
-
     let container = document.getElementById('myTableContainer');
-    let myTable = generate_event_results(2);
-    container.appendChild(myTable);
+  let myTable = generate_event_results(2);
+  container.appendChild(myTable);
 
 
 </script>

@@ -362,7 +362,6 @@ async function get_event_info(event_id) {
   document.getElementById("event_desc").innerHTML = await data["description"]
   load_image_event(data["eimage"])
 
-
 }
 
 function load_image_event(indata) {
@@ -455,7 +454,13 @@ async function TrackDropdown(){
     dropdown.add(new Option(data[i].track_name))
 }}
 
+ssdata = [{"Result_id":"62","participant1":"a7","participant2":"a8","event_id":"2","date_time":"2023-04-05 12:54:57","total_time":"04:43:09"},{"Result_id":"63","participant1":"a7","participant2":"a8","event_id":"2","date_time":"2023-04-05 13:00:36","total_time":"04:43:09"},{"Result_id":"64","participant1":"a7","participant2":"a8","event_id":"2","date_time":"2023-04-05 13:00:47","total_time":"04:43:09"}]
 
+let addata = [
+  {name: 'John', age: 30, city: 'New York'},
+  {name: 'Mary', age: 25, city: 'Chicago'},
+  {name: 'Bob', age: 40, city: 'San Francisco'}
+];
 // Function to generate table
 async function generate_event_results(event_id) {
 
@@ -464,15 +469,15 @@ async function generate_event_results(event_id) {
   })
   const data = await response.json()
   data = data.results
-  console.log(data.length)
-  console.log(data)
+  console.log(await data.results.length)
+  console.log(await data.results)
 
   let table = document.createElement('table');
   table.setAttribute('class','table')
 
   // create table header row
   let headerRow = document.createElement('tr');
-  for (let key in data[0]) {
+  for (let key in await data.results[0]) {
     let headerCell = document.createElement('th');
     headerCell.textContent = key;
     headerRow.appendChild(headerCell);
@@ -480,12 +485,12 @@ async function generate_event_results(event_id) {
   table.appendChild(headerRow);
 
   // create table rows
-  for (let i = 0; i < data.length; i++) {
+  for (let i = 0; i < await data.results.length; i++) {
     let row = document.createElement('tr');
-    for (let key in data[i]) {
+    for (let key in  await data.results[i]) {
       let cell = document.createElement('td');
-      cell.textContent = data[i][key];
-      console.log(data[i][key])
+      cell.textContent = await data.results[i][key];
+      console.log(await data.results[i][key])
       row.appendChild(cell);
     }
     table.appendChild(row);
