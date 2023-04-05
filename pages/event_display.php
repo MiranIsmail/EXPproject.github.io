@@ -51,19 +51,7 @@
                         </div>
                     </div>
 
-
-
-                <table id="my-table" class="table">
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Age</th>
-                        <th>Country</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
+                <div id="myTableContainer"></div>
         </div>
     </div>
     <?php include '../assets/footer.php'; ?>
@@ -72,8 +60,12 @@
 <script>
     var g_event_id = sessionStorage.getItem('s_event_id');
     console.log(g_event_id)
-    get_event_results(2);
     get_event_info(g_event_id);
+
+    let container = document.getElementById('myTableContainer');
+    let myTable = generate_event_results(myData);
+    container.appendChild(myTable);
+
 
 </script>
 

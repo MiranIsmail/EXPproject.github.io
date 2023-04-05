@@ -462,28 +462,37 @@ function TrackDropdown(){
 }}
 
 
-async function get_event_results(event_id) {
-    const response = await fetch(BASE_ULR + "Event/?event_id=" + event_id, {
-      method: 'GET',
-    })
-    const data = await response.json()
-    console.log(data)
+// Function to generate table
+async function generate_event_results(event_id) {
 
-  const tableBody = document.querySelector('#my-table tbody');
-  data.forEach(rowData => {
-    const row = document.createElement('tr');
-    const nameCell = document.createElement('td');
-    const ageCell = document.createElement('td');
-    const countryCell = document.createElement('td');
+  const response = await fetch(BASE_ULR + "Event/?event_id="+event_id, {
+    method: 'GET',
+  })
+  const data = await response.json()
+  console.log(data)
 
-    nameCell.textContent = rowData.name;
-    ageCell.textContent = rowData.age;
-    countryCell.textContent = rowData.country;
+  let table = document.createElement('table');
+  table.setAttribute('class','table')
 
-    row.appendChild(nameCell);
-    row.appendChild(ageCell);
-    row.appendChild(countryCell);
+  // create table header row
+  let headerRow = document.createElement('tr');
+  for (let key in data[0]) {
+    let headerCell = document.createElement('th');
+    headerCell.textContent = key;
+    headerRow.appendChild(headerCell);
+  }
+  table.appendChild(headerRow);
 
-    tableBody.appendChild(row);
-  });
+  // create table rows
+  for (let i = 0; i < data.length; i++) {
+    let row = document.createElement('tr');
+    for (let key in data[i]) {
+      let cell = document.createElement('td');
+      cell.textContent = data[i][key];
+      row.appendChild(cell);
+    }
+    table.appendChild(row);
+  }
+
+  return table;
 }
