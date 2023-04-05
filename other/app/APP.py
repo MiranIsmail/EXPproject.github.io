@@ -3,7 +3,7 @@ from tkinter import ttk
 #import formater
 import tkinter.messagebox
 import threading
-#import json
+import json
 from datetime import datetime
 import serial
 import time
@@ -136,9 +136,6 @@ def time_format_parse(time_log: str):
     total_time = time_list[-1][1]
     result_card = {"chip_id": chip_id,
                    "total_time": total_time, "track_time": time_list}
-
-    # export to json
-    #json_string = json.dumps(result_card)
     return result_card
 
 
@@ -156,7 +153,9 @@ def formater():
                 print("bug12")
                 res:dict=time_format_parse(str(response))
                 #print(time_format_parse(str(response)))
-                requests.post(url, data= time_format_parse(str(response)))
+                # export to json
+                json_string = json.dumps(res)
+                requests.post(url, data= json_string)
                 time.sleep(0.005)
                 runner = False
     return res
