@@ -45,7 +45,7 @@
             </div>
             <div class="input-group mb-3 w-50 mx-auto">
                         <div class="input-group-prepend">
-                            <button class="btn btn-dark" type="button" onclick="register_on_event(<scrip>g_event_id</script>)">Register</button>
+                            <button class="btn btn-dark" type="button" onclick="register_on_event(g_event_id)">Register</button>
                         </div>
                         <input type="text" class="form-control" placeholder="Ex: 312343" aria-label="" aria-describedby="basic-addon1" id="send_chip">
                         </div>
@@ -61,7 +61,6 @@
     var g_event_id = sessionStorage.getItem('s_event_id');
     console.log(g_event_id)
     get_event_info(g_event_id);
--
 
 </script>
 
