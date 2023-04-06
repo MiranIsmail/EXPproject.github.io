@@ -35,7 +35,7 @@
         TrackDropdown();
         GetTrack();
       </script>
-      <input type="text" class="form-control" id="send_track_name" placeholder="Input Track Name">
+      <input type="text" class="form-control" id="send_track_name" placeholder="Input Track ID">
     </div>
     <div class="mb-3 mx-auto w-50">
       <label for="InputTrackName" class="form-label">Host Email</label>
