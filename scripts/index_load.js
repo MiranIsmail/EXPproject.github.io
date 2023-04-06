@@ -94,7 +94,7 @@ function generate_card_wide(input_name,input_date,input_text,input_image,input_i
 
   // Create a button element for the "go to event" button
   var GoToEvent = document.createElement('button');
-  GoToEvent.textContent = 'GoToEvent';
+  GoToEvent.textContent = 'Go To Event';
 
   // cardDiv.addEventListener('click', function(){
   GoToEvent.addEventListener('click', function(){

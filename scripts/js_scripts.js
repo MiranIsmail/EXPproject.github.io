@@ -16,18 +16,13 @@ function blobToBase64(blob) {
   });
 }
 
-// await calculate_age_scuffed(date):
 
 
 async function calculate_age(date) {
-  console.log(date)
   if (date != null) {
     var today = new Date();
     var birthDate = new Date(await date);
-    console.log(today)
-    console.log(birthDate)
     var age = today.getFullYear() - birthDate.getFullYear();
-    console.log(age)
     var m = today.getMonth() - birthDate.getMonth();
     if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
       age--;
