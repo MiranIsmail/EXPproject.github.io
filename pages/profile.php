@@ -102,11 +102,13 @@
         </div>
     </div>
 
+    <div id="myTableContainerResults"></div>
+
 
 </body>
 <script>
     get_user_info();
-    generate_table();
+    generate_user_results();
 </script>
 
 </html>

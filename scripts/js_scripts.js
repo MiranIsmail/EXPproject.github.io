@@ -18,6 +18,7 @@ function blobToBase64(blob) {
 
 
 function calculate_age(date) {
+  console.log(date)
   if (date != null) {
 
     var today = new Date();
@@ -25,6 +26,7 @@ function calculate_age(date) {
     console.log(today)
     console.log(birthDate)
     var age = today.getFullYear() - birthDate.getFullYear();
+    console.log(age)
     var m = today.getMonth() - birthDate.getMonth();
     if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
       age--;
@@ -183,72 +185,91 @@ async function edit_user_info() {
 
   location.href = '../pages/profile.php'
 }
+async function get_user_results() {
+  const response = await fetch(BASE_ULR + "Event/" + get_cookie('auth_token'), {
+    method: 'GET',
+  })
+  const data = await response.json()
+  console.log(data)
+  //Just getting the source from the span. It was messy in JS.
+  document.getElementById("event_name").innerHTML = await data["event_name"]
+  document.getElementById("event_sport").innerHTML = await data["sport"]
+  document.getElementById("event_sdate").innerHTML = await data["startdate"]
+  document.getElementById("event_edate").innerHTML = await data["enddate"]
+  document.getElementById("event_org").innerHTML = await data["host_email"]
+  document.getElementById("event_desc").innerHTML = await data["description"]
+  load_image_event(data["eimage"])
 
-async function generate_table() {
-  /**/
-  res = await fetch(BASE_ULR + "event?key=host_email&search_text=")
+  let container = document.getElementById('myTableContainerResults');
+  let myTable = await generate_event_results(event_id);
+  container.appendChild(myTable);
 
-  text = await res.json()
-  var dataString = String(text[1].replace(/[(')]/g, '').replace(/datetime.date/g, '')).split(',')
-  console.log(dataString)
-  let amount_event = dataString.length / 9
-
-
-  const tbl = document.createElement("table");
-  tbl.setAttribute("id", "profile_table")
-  const tbl_head = document.createElement("thead");
-  const row = document.createElement("tr");
-  const cellText1 = document.createTextNode(`Tävling`);
-  const cellText2 = document.createTextNode(`Organisatör`);
-  const cellText3 = document.createTextNode(`Sport`);
-  const cellText4 = document.createTextNode(`StartDatum`);
-  const cellText5 = document.createTextNode(`SlutDatum`);
-
-  const tblBody = document.createElement("tbody");
-
-  // creating all cells
-  for (let i = 0; i < amount_event; i++) {
-    var startdate = dataString[i * 9 + 3].trim() + "-" + dataString[i * 9 + 4].trim() + "-" + dataString[i * 9 + 5].trim()
-    var enddate = dataString[i * 9 + 6].trim() + "-" + dataString[i * 9 + 7].trim() + "-" + dataString[i * 9 + 8].trim()
-
-    // creates a table row
-    const row = document.createElement("tr");
-
-    for (let j = 0; j < 5; j++) {
-      // Create a <td> element and a text node, make the text
-      // node the contents of the <td>, and put the <td> at
-      // the end of the table row
-      const cell = document.createElement("td");
-      let cellText = ''
-      if (j < 3) {
-        cellText = document.createTextNode(dataString[i * 9 + j]);
-      }
-      else if (j == 3) {
-        cellText = document.createTextNode(startdate);
-      }
-      else {
-        cellText = document.createTextNode(enddate);
-
-      }
-
-      cell.appendChild(cellText);
-      row.appendChild(cell);
-    }
-
-    // add the row to the end of the table body
-    tblBody.appendChild(row);
-  }
-
-  // put the <tbody> in the <table>
-  tbl.appendChild(tbl_head)
-  tbl.appendChild(tblBody);
-  // appends <table> into <body>
-  document.getElementById("event").appendChild(tbl)
-
-  // sets the border attribute of tbl to '2'
-  tbl.setAttribute("border", "4");
-  tbl.setAttribute("class", "mx-auto w-75")
 }
+// async function generate_table() {
+//   /**/
+//   res = await fetch(BASE_ULR + "event?key=host_email&search_text=")
+
+//   text = await res.json()
+//   var dataString = String(text[1].replace(/[(')]/g, '').replace(/datetime.date/g, '')).split(',')
+//   console.log(dataString)
+//   let amount_event = dataString.length / 9
+
+
+//   const tbl = document.createElement("table");
+//   tbl.setAttribute("id", "profile_table")
+//   const tbl_head = document.createElement("thead");
+//   const row = document.createElement("tr");
+//   const cellText1 = document.createTextNode(`Tävling`);
+//   const cellText2 = document.createTextNode(`Organisatör`);
+//   const cellText3 = document.createTextNode(`Sport`);
+//   const cellText4 = document.createTextNode(`StartDatum`);
+//   const cellText5 = document.createTextNode(`SlutDatum`);
+
+//   const tblBody = document.createElement("tbody");
+
+//   // creating all cells
+//   for (let i = 0; i < amount_event; i++) {
+//     var startdate = dataString[i * 9 + 3].trim() + "-" + dataString[i * 9 + 4].trim() + "-" + dataString[i * 9 + 5].trim()
+//     var enddate = dataString[i * 9 + 6].trim() + "-" + dataString[i * 9 + 7].trim() + "-" + dataString[i * 9 + 8].trim()
+
+//     // creates a table row
+//     const row = document.createElement("tr");
+
+//     for (let j = 0; j < 5; j++) {
+//       // Create a <td> element and a text node, make the text
+//       // node the contents of the <td>, and put the <td> at
+//       // the end of the table row
+//       const cell = document.createElement("td");
+//       let cellText = ''
+//       if (j < 3) {
+//         cellText = document.createTextNode(dataString[i * 9 + j]);
+//       }
+//       else if (j == 3) {
+//         cellText = document.createTextNode(startdate);
+//       }
+//       else {
+//         cellText = document.createTextNode(enddate);
+
+//       }
+
+//       cell.appendChild(cellText);
+//       row.appendChild(cell);
+//     }
+
+//     // add the row to the end of the table body
+//     tblBody.appendChild(row);
+//   }
+
+//   // put the <tbody> in the <table>
+//   tbl.appendChild(tbl_head)
+//   tbl.appendChild(tblBody);
+//   // appends <table> into <body>
+//   document.getElementById("event").appendChild(tbl)
+
+//   // sets the border attribute of tbl to '2'
+//   tbl.setAttribute("border", "4");
+//   tbl.setAttribute("class", "mx-auto w-75")
+// }
 
 
 function search_event() {
