@@ -108,7 +108,6 @@
 </body>
 <script>
     get_user_info();
-    generate_user_results();
 </script>
 
 </html>

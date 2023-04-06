@@ -148,6 +148,10 @@ async function get_user_info() {
   document.getElementById("profile_length").innerHTML = await data["height"]
   document.getElementById("profile_weight").innerHTML = await data["weight"]
   load_image(data["pimage"])
+
+  let container = document.getElementById('myTableContainerResults');
+  let myTable = await generate_user_results();
+  container.appendChild(myTable);
 }
 
 
@@ -180,26 +184,43 @@ async function edit_user_info() {
 
   location.href = '../pages/profile.php'
 }
-async function get_user_results() {
-  const response = await fetch(BASE_ULR + "Event/" + get_cookie('auth_token'), {
+
+
+async function generate_user_results() {
+
+  const response = await fetch(BASE_ULR + "Results/?token="+get_cookie('auth_token'), {
     method: 'GET',
   })
   const data = await response.json()
-  console.log(data)
-  //Just getting the source from the span. It was messy in JS.
-  document.getElementById("event_name").innerHTML = await data["event_name"]
-  document.getElementById("event_sport").innerHTML = await data["sport"]
-  document.getElementById("event_sdate").innerHTML = await data["startdate"]
-  document.getElementById("event_edate").innerHTML = await data["enddate"]
-  document.getElementById("event_org").innerHTML = await data["host_email"]
-  document.getElementById("event_desc").innerHTML = await data["description"]
-  load_image_event(data["eimage"])
 
-  let container = document.getElementById('myTableContainerResults');
-  let myTable = await generate_event_results(event_id);
-  container.appendChild(myTable);
 
+  let table = document.createElement('table');
+  table.setAttribute('class','table')
+
+  // create table header row
+  let headerRow = document.createElement('tr');
+  for (let key in await data.results[0]) {
+    let headerCell = document.createElement('th');
+    headerCell.textContent = key;
+    headerRow.appendChild(headerCell);
+  }
+  table.appendChild(headerRow);
+
+  // create table rows
+  for (let i = 0; i < await data.results.length; i++) {
+    let row = document.createElement('tr');
+    for (let key in  await data.results[i]) {
+      let cell = document.createElement('td');
+      cell.textContent = await data.results[i][key];
+      console.log(await data.results[i][key])
+      row.appendChild(cell);
+    }
+    table.appendChild(row);
+  }
+
+  return table;
 }
+
 // async function generate_table() {
 //   /**/
 //   res = await fetch(BASE_ULR + "event?key=host_email&search_text=")
