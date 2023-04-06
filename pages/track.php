@@ -171,7 +171,7 @@
   }
 
 
-    function submit() {
+  function submit() {
     const rows = document.querySelectorAll('.row');
 
     let track_name = document.getElementById('InputTrackName').value
@@ -182,8 +182,11 @@
   let end_station;
   const checkpoint_list = [];
   class checkpoint{
-    constructor(track_id, distance, terrain){
-      this.track_id = track_id, this.distance = distance, this.terrain = terrain
+    constructor(check_id, distance, terrain, next){
+      this.check_id = check_id, this.distance = distance, this.terrain = terrain, this.next = NULL
+    }
+    UpdateNext(checkpoint_id){
+      this.next = checkpoint_id;
     }
   }
     rows.forEach(row => {
@@ -196,7 +199,7 @@
       const id = idInput.value;
       const distance = distanceInput.value;
       const terrain = terrainDropdown.textContent;
-      let check = new checkpoint(id, distance, terrain)
+      let check = new checkpoint(id, distance, terrain, next)
       checkpoint_list[i] = check
       console.log(checkpoint_list[i])
       //console.log(i)
@@ -208,11 +211,16 @@
       i++;
       end_station = idInput.value;
       CreateTrack(track_name, start_station, end_station);
+      for(let i = 0; i < checkpoint_list.length - 1; i++){
+        checkpoint_list[i].UpdateNext(checkpoint_list[i+1].check_id)
+      }
     });
 
   }
 
   }
+
+  
 
 
   let map;
