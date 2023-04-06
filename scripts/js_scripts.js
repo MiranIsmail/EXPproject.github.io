@@ -150,7 +150,7 @@ async function get_user_info() {
   load_image(data["pimage"])
 
   let container = document.getElementById('myTableContainerResults');
-  let myTable = await generate_user_results(event_id);
+  let myTable = await generate_user_results();
   container.appendChild(myTable);
 }
 
