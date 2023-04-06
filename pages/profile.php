@@ -100,9 +100,8 @@
                 <button class="btn btn-primary" button id="submit_org_form" type="submit" onclick="edit_user_info()">Save changes</button>
             </div>
         </div>
-        <div id="myTableContainerResults"></div>
     </div>
-
+    <div id="myTableContainerResults"></div>
 
 </body>
 <script>
