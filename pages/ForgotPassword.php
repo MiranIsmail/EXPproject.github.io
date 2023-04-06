@@ -26,21 +26,15 @@
     </div>
 
     <div class="section w-100 content_container">
-        <h1> Welcome back!</h1>
+        <h1> Welcome!</h1>
         <form>
             <div class="form-group form_group_style mx-auto">
-                <p>Email address</p>
+                <p>Enter your Email address</p>
                 <input type="email" class="form-control input_field_style" aria-describedby="emailHelp" placeholder="Enter email" id="fetchEmail">
             </div>
             <div class="form-group form_group_style mx-auto">
-                <p>Password</p>
-                <input type="password" class="form-control input_field_style" placeholder="Password" id="fetchPword">
+                <button type="button" id="button_style" onclick="">Send A Reset Password Link To Email</button>
             </div>
-            <div class="form-group form_group_style mx-auto">
-                <button type="button" id="button_style" onclick="log_in()">Sign in</button>
-            </div>
-            <p class="center_item">Forgot password? <a href="../pages/ForgotPassword.php">CLICK HERE!</a></p>
-            <p class="center_item">Don't have an account? <a href="../pages/SignUp.php">SIGN UP HERE!</a></p>
         </form>
     </div>
     <?php include '../assets/footer.php'; ?>
