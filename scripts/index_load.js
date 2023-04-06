@@ -93,17 +93,18 @@ function generate_card_wide(input_name,input_date,input_text,input_image,input_i
   });
 
   // Create a button element for the "go to event" button
-  // var GoToEvent = document.createElement('button');
-  // GoToEvent.textContent = 'GoToEvent';
+  var GoToEvent = document.createElement('button');
+  GoToEvent.textContent = 'GoToEvent';
 
-  cardDiv.addEventListener('click', function(){
+  // cardDiv.addEventListener('click', function(){
+  GoToEvent.addEventListener('click', function(){
     sessionStorage.setItem("s_event_id",event_id);
     location.href = '../pages/event_display.php'
   })
 
   // Append the button element to the card body
   cardBodyColDiv.appendChild(showMoreBtn);
-  // cardBodyColDiv.appendChild(GoToEvent);
+  cardBodyColDiv.appendChild(GoToEvent);
 
   // Append the image
   // Append the image column to the row
