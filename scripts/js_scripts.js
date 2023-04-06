@@ -405,9 +405,9 @@ function CreateTrack(track_input, start_station, end_station){
     //var track_name = document.getElementById("InputTrackName")
     fetch("rasts.se/api/Track",{method: 'POST',
     body:JSON.stringify({
-      "track_id": track_input, //most of these attributes are set to 0 for now because the inputs on the site and the attributes in the database aren't the same
-      "track_name": track_name,
-      "start_station": 0,
+      "track_id": 0, //most of these attributes are set to 0 for now because the inputs on the site and the attributes in the database aren't the same
+      "track_name": track_input,
+      "start_station": start_station,
       "end_station": end_station
     }), headers:{"Content-Type":"application/json; charset=UTF-8"}
     })

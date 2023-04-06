@@ -174,7 +174,8 @@
   function submit() {
     const rows = document.querySelectorAll('.row');
 
-    const track_input = rows.querySelector('input[id=InputTrackName]')
+    let track_name = document.getElementById('InputTrackName').value
+    console.log(track_name)
   // Loop through each row
   let i = 0;
   let start_station;
@@ -197,7 +198,7 @@
       }
       i++;
       end_station = idInput.value;
-      CreateTrack(track_input, start_station, end_station);
+      CreateTrack(track_name, start_station, end_station);
     });
 
   }
