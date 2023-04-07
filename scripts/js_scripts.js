@@ -440,8 +440,8 @@ async function create_event() {
   parameters["description"] = document.getElementById('send_description').value
   // parameters["open_for_entry"] = document.getElementById('send_open').value
   // parameters["public_view"] = document.getElementById('send_public').value
-  parameters["open_for_entry"] = 1
-  parameters["public_view"] = 1
+  parameters["open_for_entry"] = document.getElementById('send_open').checked
+  parameters["public_view"] = document.getElementById('send_public').checked
 
   console.log(parameters["open_for_entry"])
   console.log(parameters["public_view"])
