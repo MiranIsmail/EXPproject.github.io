@@ -49,7 +49,7 @@
                         </div>
                         <div class="form-group form_group_style mx-auto">
                             <p>Email Address for organisation </p>
-                            <input type="text" class="form-control input_field_style" placeholder="expproject@gmail.com" id="org_email" required>
+                            <input type="email" class="form-control input_field_style" placeholder="expproject@gmail.com" id="org_email" required>
                         </div>
                         <h2>Contact information</h2>
                         <div class="form-group form_group_style mx-auto">
