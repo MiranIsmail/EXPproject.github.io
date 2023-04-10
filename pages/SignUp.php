@@ -65,7 +65,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                         <div class="form-group form_group_style mx-auto">
-                            <button class="btn btn-primary" button id="submit_org_form" type="submit" onclick="fill_org_form()">Submit form</button>
+                            <button class="btn btn-primary" button id="submit_org_form" type="submit" onclick="fill_org_form()" value="Submit">Submit form</button>
                         </div>
                         After submission we will as soon as possible get back to you to give you more information on how to set up your organisational account. We will be in touch!
                     </div>
