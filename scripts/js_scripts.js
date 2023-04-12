@@ -129,6 +129,7 @@ function load_image(indata) {
   var img = document.createElement("img")
   img.setAttribute("id", "profile_image")
   img.setAttribute("class", "img-fluid d-block")
+  img.alt="Profile Image"
   img.src = indata
   var src = document.getElementById("profile_box")
   src.appendChild(img);
@@ -350,6 +351,7 @@ function load_image_event(indata) {
   img.setAttribute("id", "event_image_display")
   img.setAttribute("class", "img-fluid d-block")
   img.src = indata
+  img.alt = "Event image"
   var src = document.getElementById("image_box")
   src.appendChild(img);
 }
