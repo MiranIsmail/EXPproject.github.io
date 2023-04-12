@@ -1,30 +1,37 @@
 <?php
 
-
 function is_logged_in()
 {
     if (!isset($_COOKIE["auth_token"])) {
         return false;
     }
     $url = 'https://rasts.se/api/Token';
-
     $curl = curl_init();
 
     curl_setopt_array($curl, array(
         CURLOPT_URL => $url,
-        CURLOPT_CUSTOMREQUEST => "PATCH",
+        CURLOPT_CUSTOMREQUEST => "GET",
         CURLOPT_HTTPHEADER => array(
 
-            'Authorization: $_COOKIE["auth_token"]',
+            "Authorization: $_COOKIE[auth_token]",
         ),
         CURLOPT_RETURNTRANSFER => true,
     ));
 
-    $response = curl_exec($curl);
-    curl_close($curl);
+    curl_exec($curl);
+    $status_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
-    return $response;
+    curl_close($curl);
+    $tmp = explode("/", $_SERVER['REQUEST_URI']);
+
+
+    if ($status_code == 200) {
+        return true;
+    } else {
+        return false;
+    }
 }
+$is_logged_in = is_logged_in();
 ?>
 <style>
     .navtext {
@@ -57,7 +64,7 @@ function is_logged_in()
                 </li>
 
                 <?php
-                if (is_logged_in()) {
+                if ($is_logged_in) {
                 ?>
                     <li class="nav-item">
                         <a class="nav-link navtext" href="../pages/profile.php" id="navbar-profile">PROFILE</a>
