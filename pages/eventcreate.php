@@ -34,7 +34,6 @@
         dropdown = document.getElementById("dropdown");
         dropdown.add(new Option("Select a Track"))
         TrackDropdown();
-        GetTrack();
       </script>
 
       <input type="text" class="form-control" id="send_track_name" placeholder="Input Track Name">
@@ -79,7 +78,7 @@
     </div>
     <div id="event_cards_dynamic" class="w-75 mx-auto"></div>
     <div class="mb-3 mx-auto w-50">
-      <button type="submit" class="btn btn-primary" onclick="create_event()">Submit</button>
+      <button type="submit" class="btn btn-primary" onclick="ReturnTrack(),create_event()">Submit</button>
     </div>
   </div>
   <?php include '../assets/footer.php'; ?>
@@ -87,3 +86,8 @@
   </body>
 
 </html>
+<script>
+  function ReturnTrack(){
+    return document.getElementById('dropdown').value
+  }
+</script>
