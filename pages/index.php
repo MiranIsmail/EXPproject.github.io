@@ -18,7 +18,6 @@
 
 <body>
   <?php include '../assets/navbar.php'; ?>
-  <!--<div include-html='../assets/navbar.html'></div>
   <!--run bar-->
   <img class="mx-auto d-block bg-logo" alt="Logo" src="../images/RASTS.svg" id="logo">
   <div>
