@@ -37,27 +37,16 @@
         <p>Start by adding the first section!</p>
         <div class="container" id="track_input">
           <div class="row track_form" id="0">
-            <div class="col-sm-2">
-              <label for="numberInput" id="numberInput" class="form-label fw-bold">Start ID</label>
-              <input type="number" class="form-control" name="StartID" min="100" max="200" placeholder="Ex. 101" required>
-            </div>
-            <div class="col-sm-2">
-              <label for="btn-group" id="Location" class="form-label fw-bold">Start Pin</label>
-              <button type="button" class="btn btn-secondary" name="pin" onclick="find_pin_id(event, 'StartID')" data-bs-toggle="modal" data-bs-target="#myModal">
+            <div class="col-4 input-group mb-3">
+              <input type="number" class="form-control" name="StartID" min="100" max="200" placeholder="Station ID" required>
+              <button type="button" class="btn btn-secondary" name="Startpin" onclick="find_pin_id(event, 'Start')" data-bs-toggle="modal" data-bs-target="#myModal">
                 <i class="fa-solid fa-map-location-dot"></i>
-                Pin
               </button>
             </div>
-            <div class="col-sm-2">
-              <label for="numberInput" id="numberInput" class="form-label fw-bold">End ID</label>
-              <input type="number" class="form-control" name="EndID" min="100" max="200" placeholder="Ex. 102" required>
-            </div>
-            <div class="col-sm-2">
-              <!-- Button to Open the Modal -->
-              <label for="btn-group" id="Location" class="form-label fw-bold">End Pin</label>
-              <button type="button" class="btn btn-secondary" name="pin" onclick="find_pin_id(event, 'EndID')" data-bs-toggle="modal" data-bs-target="#myModal">
-                <i class="fa-solid fa-map-location-dot"></i>
-                Pin
+            <div class="col-4 input-group md-3">
+              <input type="number" class="form-control" name="EndID" min="100" max="200" placeholder="Station ID" required>
+              <button type="button" class="btn btn-secondary" name="Endpin" onclick="find_pin_id(event, 'End')" data-bs-toggle="modal" data-bs-target="#myModal">
+                <i class="fa-solid fa-map-location-dot"></i> 
               </button>
             </div>
 
@@ -92,18 +81,17 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
               <label for="dropdown" id="terrain_dropdown" class="form-label fw-bold">Terrain</label>
               <div class="dropdown" name="terrain">
 
                 <button class="btn btn-secondary dropdown-toggle" type="button" name="Terrain" data-bs-toggle="dropdown" aria-expanded="false">
                   <i class="fa-solid fa-person-running"></i>
-                  Terrain
                 </button>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButtonTerrain1">
-                  <li><a class="dropdown-item" onclick='select("Water", event)'>Water</a></li>
-                  <li><a class="dropdown-item" onclick='select("Land", event)'>Land</a></li>
-                  <li><a class="dropdown-item" onclick='select("Mixed", event)'>Mixed</a></li>
+                  <li><a class="dropdown-item" onclick='select("Swim", event)'>Swim <i class="fa-solid fa-person-swimming"></i></a></li>
+                  <li><a class="dropdown-item" onclick='select("Run", event)'>Run <i class="fa-solid fa-person-running"></i></a></li>
+                  <li><a class="dropdown-item" onclick='select("Mixed", event)'>Mixed <i class="fa-solid fa-frog"></i></a></li>
                 </ul>
               </div>
             </div>
@@ -153,19 +141,18 @@
 
   function select(option, event) {
     // Get the button element and the dropdown menu element
-    var row = event.target.closest('div')
+    var row = event.target.closest('div');
     var button = row.querySelector('button[name="Terrain"]');
     var dropdown = document.querySelector('.dropdown-menu');
     
     // Set the button text to the selected option
     button.textContent = option;
-
     // Change the button color based on the selected option
     switch (option) {
-      case 'Water':
+      case "Swim":
         button.style.backgroundColor = 'blue';
         break;
-      case 'Land':
+      case 'Run':
         button.style.backgroundColor = 'green';
         break;
       case 'Mixed':
@@ -239,10 +226,10 @@
   let markers_list = [];
   const btn = document.getElementById('save_btn')
 
-  function find_pin_id(event, name) {
+  function find_pin_id(event, type) {
     var row = event.target.closest('.row')
-    checkpoint_id = row.querySelector(`input[name=${name}]`).value
-    pin_button = row.querySelector('button[name=pin]')
+    checkpoint_id = row.querySelector(`input[name=${type+"ID"}]`).value
+    pin_button = row.querySelector(`button[name=${type+"pin"}]`)
   }
   
   function init_map() {
