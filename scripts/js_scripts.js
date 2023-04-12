@@ -431,7 +431,6 @@ async function TrackDropdown(){
    headers: {'Accept': 'Application/json'}})
   let dropdown = document.getElementById('dropdown');
   data = await response.json();
-  //var data = GetTrack();
   for(let i = 0; i < data.length; i++){
     dropdown.add(new Option(data[i].track_name))
 }}
