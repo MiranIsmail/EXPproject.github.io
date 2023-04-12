@@ -370,7 +370,7 @@ async function create_event() {
   var parameters = {}
   parameters["event_name"] = document.getElementById('send_event_name').value
   parameters["track_id"] = document.getElementById('send_track_name').value
-  parameters["host_email"] = document.getElementById('send_host_email').value
+  parameters["username"] = document.getElementById('send_host_username').value
   parameters["startdate"] = document.getElementById('send_start_date').value
   parameters["enddate"] = document.getElementById('send_end_date').value
   parameters["eimage"] = document.getElementById('send_image').value
