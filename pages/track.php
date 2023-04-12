@@ -20,7 +20,7 @@
 <body>
   <?php include '../assets/navbar.php'; ?>
   <div class="image_div">
-    <img class="w-100 op30" src="../images/indeximage_thinner.png" id="image_run">
+    <img class="w-100 op30" src="../images/indeximage_thinner.png" id="image_run" alt="Running figures">
   </div>
   <div class="section content_container">
     <h1>Create your own track</h1>

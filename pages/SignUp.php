@@ -19,7 +19,7 @@
     <?php include '../assets/navbar.php'; ?>
     <!--The swimrun image-->
     <div class="image_div">
-        <img class="w-100 op30" src="../images/indeximage_thinner.png" id="image_run">
+        <img class="w-100 op30" src="../images/indeximage_thinner.png" id="image_run" alt="Running figures">
     </div>
     <div class="section content_container order-1">
         <h1> Welcome!</h1>

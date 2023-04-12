@@ -20,7 +20,7 @@
 <body>
   <?php include '../assets/navbar.php'; ?>
   <h1 class="mx-auto" id="nice_text">Create your Event here</h1>
-  <img class="w-100 op30" src="../images/indeximage_thinner.png" alt="running figures" id="image_run">
+  <img class="w-100 op30" src="../images/indeximage_thinner.png" alt="Running figures" id="image_run">
 
   <div class="section w-100" style="padding-bottom: 4rem;" id="searchFade">    <div class="mb-3 mx-auto w-50">
       <label for="InputEventName" class="form-label">Event Name</label>

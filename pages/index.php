@@ -23,7 +23,7 @@
   <!--run bar-->
   <img class="mx-auto d-block bg-logo" alt="Logo" src="../images/RASTS.svg" id="logo">
   <div>
-    <img class="w-100 op30" src="../images/indeximage_thinner.png" alt="running figures" id="image_run">
+    <img class="w-100 op30" src="../images/indeximage_thinner.png" alt="Running figures" id="image_run">
     <div style="padding-bottom: 2rem;" id="searchFade">
       <div class="wrapper drop_shadow">
         <div class="searchBar">
