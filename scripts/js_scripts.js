@@ -56,11 +56,12 @@ function createAccount() {
   let xfirst_name = document.getElementById('fname').value;
   let xlast_name = document.getElementById('lname').value;
   let xpassword = document.getElementById('pword').value;
+  let xusername = document.getElementById('fuser').value;
 
   fetch(BASE_ULR + "Account", {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ "email": xemail, "first_name": xfirst_name, "last_name": xlast_name, "password": xpassword })
+    body: JSON.stringify({ "email": xemail, "first_name": xfirst_name, "last_name": xlast_name, "password": xpassword,"username": xusername })
   })
 
     .then(response => {
@@ -128,6 +129,7 @@ function load_image(indata) {
   var img = document.createElement("img")
   img.setAttribute("id", "profile_image")
   img.setAttribute("class", "img-fluid d-block")
+  img.alt="Profile Image"
   img.src = indata
   var src = document.getElementById("profile_box")
   src.appendChild(img);
@@ -221,88 +223,47 @@ async function generate_user_results() {
   return table;
 }
 
-// async function generate_table() {
-//   /**/
-//   res = await fetch(BASE_ULR + "event?key=host_email&search_text=")
 
-//   text = await res.json()
-//   var dataString = String(text[1].replace(/[(')]/g, '').replace(/datetime.date/g, '')).split(',')
-//   console.log(dataString)
-//   let amount_event = dataString.length / 9
+// function search_event() {
+//   let input = document.getElementById('searchQueryInput').value
+//   input = input.toLowerCase();
+//   let x = document.getElementsByClassName('card').querySelector('.card-title.title-text');
+//   console.log(x)
+//   let xcard = document.getElementsByClassName('eventCards');
 
+//   const cardTitle = document.querySelector('.card-title.title-text');
+//   const eventName = cardTitle.textContent.trim();
+//   console.log(eventName)
 
-//   const tbl = document.createElement("table");
-//   tbl.setAttribute("id", "profile_table")
-//   const tbl_head = document.createElement("thead");
-//   const row = document.createElement("tr");
-//   const cellText1 = document.createTextNode(`Tävling`);
-//   const cellText2 = document.createTextNode(`Organisatör`);
-//   const cellText3 = document.createTextNode(`Sport`);
-//   const cellText4 = document.createTextNode(`StartDatum`);
-//   const cellText5 = document.createTextNode(`SlutDatum`);
-
-//   const tblBody = document.createElement("tbody");
-
-//   // creating all cells
-//   for (let i = 0; i < amount_event; i++) {
-//     var startdate = dataString[i * 9 + 3].trim() + "-" + dataString[i * 9 + 4].trim() + "-" + dataString[i * 9 + 5].trim()
-//     var enddate = dataString[i * 9 + 6].trim() + "-" + dataString[i * 9 + 7].trim() + "-" + dataString[i * 9 + 8].trim()
-
-//     // creates a table row
-//     const row = document.createElement("tr");
-
-//     for (let j = 0; j < 5; j++) {
-//       // Create a <td> element and a text node, make the text
-//       // node the contents of the <td>, and put the <td> at
-//       // the end of the table row
-//       const cell = document.createElement("td");
-//       let cellText = ''
-//       if (j < 3) {
-//         cellText = document.createTextNode(dataString[i * 9 + j]);
-//       }
-//       else if (j == 3) {
-//         cellText = document.createTextNode(startdate);
-//       }
-//       else {
-//         cellText = document.createTextNode(enddate);
-
-//       }
-
-//       cell.appendChild(cellText);
-//       row.appendChild(cell);
+//   for (i = 0; i < x.length; i++) {
+//     if (!xcard[i].innerHTML.toLowerCase().includes(input)) {
+//       xcard[i].style.display = "none";
 //     }
-
-//     // add the row to the end of the table body
-//     tblBody.appendChild(row);
+//     else {
+//       xcard[i].style.display = "list-item";
+//     }
 //   }
-
-//   // put the <tbody> in the <table>
-//   tbl.appendChild(tbl_head)
-//   tbl.appendChild(tblBody);
-//   // appends <table> into <body>
-//   document.getElementById("event").appendChild(tbl)
-
-//   // sets the border attribute of tbl to '2'
-//   tbl.setAttribute("border", "4");
-//   tbl.setAttribute("class", "mx-auto w-75")
 // }
 
-
 function search_event() {
+  // Retrieve all cards
   let input = document.getElementById('searchQueryInput').value
-  input = input.toLowerCase();
-  let x = document.getElementsByClassName('card-title');
-  let xcard = document.getElementsByClassName('eventCards');
 
-  for (i = 0; i < x.length; i++) {
-    if (!xcard[i].innerHTML.toLowerCase().includes(input)) {
-      xcard[i].style.display = "none";
+  const cards = document.querySelectorAll('.card');
+  console.log(input)
+  const searchQuery = input.toLowerCase();
+  console.log(searchQuery)
+  // Loop through cards and show/hide based on search query
+  cards.forEach(card => {
+    const title = card.querySelector('.card-title').textContent.toLowerCase();
+    if (title.indexOf(searchQuery) > -1) {
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
     }
-    else {
-      xcard[i].style.display = "list-item";
-    }
-  }
+  });
 }
+
 
 
 function include_HTML() {
@@ -337,29 +298,6 @@ function include_HTML() {
   }
 }
 
-
-/*CREATE EVENT */
-
-// function create_event() {
-//   let startDate = document.getElementById('startDate')
-//   let endDate = document.getElementById('endDate')
-//   let b_day = document.getElementById('b_day')
-
-//   startDate.addEventListener('change', (e) => {
-//     let startDateVal = e.target.value
-//     document.getElementById('startDateSelected').innerText = startDateVal
-//   })
-
-//   endDate.addEventListener('change', (e) => {
-//     let endDateVal = e.target.value
-//     document.getElementById('endDateSelected').innerText = endDateVal
-//   })
-
-//   b_day.addEventListener('change', (e) => {
-//     let b_day_val = e.target.value
-//     document.getElementById('b_day_selected').innerText = b_day_val
-//   })
-// }
 
 async function update_navbar() {
 
@@ -413,6 +351,7 @@ function load_image_event(indata) {
   img.setAttribute("id", "event_image_display")
   img.setAttribute("class", "img-fluid d-block")
   img.src = indata
+  img.alt = "Event image"
   var src = document.getElementById("image_box")
   src.appendChild(img);
 }
@@ -432,8 +371,8 @@ function CreateTrack(track_input, start_station, end_station){
 async function create_event() {
   var parameters = {}
   parameters["event_name"] = document.getElementById('send_event_name').value
-  parameters["track_id"] = document.getElementById('send_track_name').value
-  parameters["host_email"] = document.getElementById('send_host_email').value
+  parameters["track_name"] = document.getElementById('send_track_name').value
+  parameters["username"] = document.getElementById('send_host_username').value
   parameters["startdate"] = document.getElementById('send_start_date').value
   parameters["enddate"] = document.getElementById('send_end_date').value
   parameters["eimage"] = document.getElementById('send_image').value
@@ -445,6 +384,7 @@ async function create_event() {
 
   console.log(parameters["open_for_entry"])
   console.log(parameters["public_view"])
+  console.log(parameters)
 
   if (document.getElementById("send_image").files.length != 0) {
     var blob = await image_to_blob(document.getElementById('send_image'))
@@ -493,7 +433,6 @@ async function TrackDropdown(){
    headers: {'Accept': 'Application/json'}})
   let dropdown = document.getElementById('dropdown');
   data = await response.json();
-  //var data = GetTrack();
   for(let i = 0; i < data.length; i++){
     dropdown.add(new Option(data[i].track_name))
 }}

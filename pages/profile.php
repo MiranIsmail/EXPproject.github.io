@@ -17,7 +17,7 @@
 
 <body>
     <?php include '../assets/navbar.php'; ?>
-    <a type="button" style="float:right; padding: 0.5rem;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"><img class="op30" src="../images/settings.svg" id="settings"></a>
+    <a type="button" style="float:right; padding: 0.5rem;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"><img class="op30" src="../images/settings.svg" id="settings" alt=Gear"></a>
     <div id="container-img">
         <div class="row">
             <div class="col-sm-6" id="profile_box">
@@ -40,7 +40,7 @@
 
 
 
-    <img class="w-100 op30" style="padding-top:2rem;" src="../images/indeximage_thinner.png" id="image_run">
+    <img class="w-100 op30" style="padding-top:2rem;" src="../images/indeximage_thinner.png" id="image_run" alt="Running figures">
 
     <div id="previousEventes">
         <h1 class="text-center">Previous Events</h1>
@@ -83,6 +83,11 @@
                 <div class="mb-3 mx-auto">
                     <label for="InputTrackName" class="form-label">Weight</label>
                     <input type="number" class="form-control" placeholder="Input Your Weight" id="send_weight">
+                </div>
+
+                <div class="mb-3 mx-auto">
+                    <label for="InputTrackName" class="form-label">Personal ChipID</label>
+                    <input type="number" class="form-control" placeholder="Input Your Personal ChipID" id="send_chip">
                 </div>
 
                 <div class="mb-3 mx-auto">

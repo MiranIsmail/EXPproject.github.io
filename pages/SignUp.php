@@ -19,7 +19,7 @@
     <?php include '../assets/navbar.php'; ?>
     <!--The swimrun image-->
     <div class="image_div">
-        <img class="w-100 op30" src="../images/indeximage_thinner.png" id="image_run">
+        <img class="w-100 op30" src="../images/indeximage_thinner.png" id="image_run" alt="Running figures">
     </div>
     <div class="section content_container order-1">
         <h1> Welcome!</h1>
@@ -73,6 +73,11 @@
             </div>
         </form>
         <form>
+
+            <div class="form-group form_group_style mx-auto">
+                <p>Username</p>
+                <input type="text" class="form-control input_field_style" placeholder="Username" id="fuser">
+            </div>
             <div class="form-group form_group_style mx-auto">
                 <p>First Name</p>
                 <input type="text" class="form-control input_field_style" placeholder="Name" id="fname">

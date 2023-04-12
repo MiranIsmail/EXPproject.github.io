@@ -1,6 +1,5 @@
 import tkinter as tk
 from tkinter import ttk
-#import formater
 import tkinter.messagebox
 import threading
 import json
@@ -8,7 +7,9 @@ from datetime import datetime
 import serial
 import time
 import requests
-
+from tkinter import *
+from PIL import Image, ImageTk
+from win32api import GetSystemMetrics
 
 def split_time(time: str):
     time_split = time.split(":")
@@ -143,17 +144,11 @@ def formater():
     runner= True
     ser = serial.Serial(port="COM5", baudrate=115200)
     url = 'https://rasts.se/api/Results'
-    #json_obj = {"chip_id": "4242145", "total_time": "00:02:42.003", "track_time": [["Start", "00:00:00.000", "00:00:00.000", "0", "46424898727"], ["101", "00:00:06.003", "00:00:06.003", 6.003, "46424904730"], ["102", "00:01:45.871", "00:01:39.867", 99.868, "46425004598"], ["101", "00:01:48.221", "00:00:02.350", 2.35, "46425006948"], ["102", "00:01:52.551", "00:00:04.330", 4.33, "46425011278"], ["102", "00:02:04.434", "00:00:11.882", 11.883, "46425023161"], ["102", "00:02:42.003", "00:00:37.569", 37.569, "46425060730"]]}
-    # send a command to the USB device
-    #ser.write(b"/PP0<CR><LF>")
     while runner:
         response = ser.readline()
         if response[1] != 73:
             if response[1] != 80:
-                print("bug12")
                 res:dict=time_format_parse(str(response))
-                #print(time_format_parse(str(response)))
-                # export to json
                 json_string = json.dumps(res)
                 requests.post(url, data= json_string)
                 time.sleep(0.005)
@@ -161,7 +156,7 @@ def formater():
     return res
 
 
-data = {"chip_id": "4243283", "total_time": "00:00:26.937", "track_time": [["Start", "00:00:00.000", "00:00:00.000", 0, "47086825730"], ["101", "00:00:00.518", "00:00:00.518", 0.52, "47086826248"], ["101", "00:00:15.653", "00:00:15.134", 15.13, "47086841383"]]}
+data = {"chip_id": "0", "total_time": "0", "track_time": []}
 headings = ['Station ID', 'Start Time','Delta Time']
 exit_event = threading.Event()
 update_thread = None
@@ -184,7 +179,6 @@ def update_table(new_data):
     # Update column headings
     for col in headings:
         table.heading(col, text=col)
-    print("bug1")
 
 def start():
     """This function is bound to the start button. It should give a warning about
@@ -196,7 +190,7 @@ def start():
             new_data = formater()
             update_table(new_data)
             if not exit_event.is_set():
-                root.after(1000, update(exit_event))
+                root.after(500, update(exit_event))
 
         # Create a new thread if one does not exist or if the previous one has finished
         if not update_thread or not update_thread.is_alive():
@@ -216,16 +210,27 @@ def close():
 root = tk.Tk()
 root.title("RASTS")
 root.iconbitmap(r"C:\Users\miran\Desktop\EXPproject\other\logo.ico")
-
+root.attributes('-fullscreen',True)
+label_text = "Hello from RASTS.se"
+label_font = ('helvetica', 62)
+image = Image.open(r"C:\Users\miran\Desktop\EXPproject\other\app\RASTS.png")
+w,h=GetSystemMetrics(0),GetSystemMetrics(1)
+resize_image = image.resize((w//3, h//3))
+img = ImageTk.PhotoImage(resize_image)
 # Create a label
-label = ttk.Label(root, text="Hello from RASTS.se", font=('helvetica', 62), background='gray', foreground='white')
-label.pack(fill='both', expand=True)
+label = ttk.Label(root, text=label_text, font=label_font, background='gray', foreground='white',image=img)
 
+label.pack(fill='both', expand=True)
+label.configure(anchor="center")
 # Create a button to start the program
 start_button = ttk.Button(root, text="START", command=start)
-start_button.pack(pady=10)
+start_button.pack(side="top")
 
-# Create a table
+# Create a button to close the window
+close_button = ttk.Button(root, text="Close", command=close)
+close_button.pack()
+
+
 table = ttk.Treeview(root, columns=headings, show='headings')
 table.pack(fill='both', expand=True)
 
@@ -246,8 +251,6 @@ for row in data['track_time']:
 for col in headings:
     table.heading(col, text=col)
 
-# Create a button to close the window
-close_button = ttk.Button(root, text="Close", command=close)
-close_button.pack(pady=10)
+
 
 root.mainloop()

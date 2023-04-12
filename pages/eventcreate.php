@@ -20,7 +20,7 @@
 <body>
   <?php include '../assets/navbar.php'; ?>
   <h1 class="mx-auto" id="nice_text">Create your Event here</h1>
-  <img class="w-100 op30" src="../images/indeximage_thinner.png" alt="running figures" id="image_run">
+  <img class="w-100 op30" src="../images/indeximage_thinner.png" alt="Running figures" id="image_run">
 
   <div class="section w-100" style="padding-bottom: 4rem;" id="searchFade">    <div class="mb-3 mx-auto w-50">
       <label for="InputEventName" class="form-label">Event Name</label>
@@ -29,17 +29,18 @@
     <div class="mb-3 mx-auto w-50">
       <label for="InputTrackName" class="form-label">Track Name</label>
       <select id="dropdown"></select>
+
       <script>
         dropdown = document.getElementById("dropdown");
         dropdown.add(new Option("Select a Track"))
         TrackDropdown();
-        GetTrack();
       </script>
-      <input type="text" class="form-control" id="send_track_name" placeholder="Input Track ID">
+
+      <input type="text" class="form-control" id="send_track_name" placeholder="Input Track Name">
     </div>
     <div class="mb-3 mx-auto w-50">
-      <label for="InputTrackName" class="form-label">Host Email</label>
-      <input type="text" class="form-control" id="send_host_email" placeholder="Input Host Email">
+      <label for="InputTrackName" class="form-label">Host Username</label>
+      <input type="text" class="form-control" id="send_host_username" placeholder="Input Host Username">
     </div>
     <div class="mb-3 mx-auto w-50">
       <label for="InputStartDate" class="form-label">Start Date</label>
@@ -52,7 +53,7 @@
     </div>
     <div class="mb-3 mx-auto w-50">
       <label for="InputTrackName" class="form-label">Write a description for your event</label>
-      <textarea class="form-control" aria-label="With textarea" id="send_description">Write your description here!</textarea>
+      <textarea class="form-control" aria-label="With textarea" id="send_description" placeholder="Write your description here!"></textarea>
     </div>
     <div class="mb-3 mx-auto w-50">
       <label for="InputTrackName" class="form-label">Upload Event Image</label>
@@ -77,7 +78,7 @@
     </div>
     <div id="event_cards_dynamic" class="w-75 mx-auto"></div>
     <div class="mb-3 mx-auto w-50">
-      <button type="submit" class="btn btn-primary" onclick="create_event()">Submit</button>
+      <button type="submit" class="btn btn-primary" onclick="ReturnTrack(),create_event()">Submit</button>
     </div>
   </div>
   <?php include '../assets/footer.php'; ?>
@@ -85,3 +86,8 @@
   </body>
 
 </html>
+<script>
+  function ReturnTrack(){
+    return document.getElementById('dropdown').value
+  }
+</script>
