@@ -108,6 +108,8 @@ body {
 .events {
   /*background-color: #0000004D;*/
   background: linear-gradient(#00000080 0%, #00000099 97%, #000000cc 100%);
+  /* background: linear-gradient(#0033ff 0%, #00000099 97%, #000000cc 100%); */
+
   width: 100%;
   padding-bottom: 4rem;
 }
@@ -153,12 +155,7 @@ body {
 }
 
 
-.events {
-  /*background-color: #0000004D;*/
-  background: linear-gradient(#00000080 0%, #00000099 97%, #000000cc 100%);
-  width: 100%;
-  padding-bottom: 4rem;
-}
+
 
 #event{
   min-height: 30vh;
@@ -257,7 +254,7 @@ body {
 
 .option_background {
   padding-top: 5%;
-  border-bottom-left-radius:2% 
+  border-bottom-left-radius:2%
 }
 /*----------------------------------------------------LOGO*/
 @media (max-width: 574px) {

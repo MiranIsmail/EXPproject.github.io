@@ -1,7 +1,6 @@
 var BASE_ULR = "https://rasts.se/api/"
 
 window.onload = function () {
-  update_navbar()
 };
 
 const get_cookie = (name) => (
@@ -129,6 +128,7 @@ function load_image(indata) {
   var img = document.createElement("img")
   img.setAttribute("id", "profile_image")
   img.setAttribute("class", "img-fluid d-block")
+  img.alt="Profile Image"
   img.src = indata
   var src = document.getElementById("profile_box")
   src.appendChild(img);
@@ -350,6 +350,7 @@ function load_image_event(indata) {
   img.setAttribute("id", "event_image_display")
   img.setAttribute("class", "img-fluid d-block")
   img.src = indata
+  img.alt = "Event image"
   var src = document.getElementById("image_box")
   src.appendChild(img);
 }
@@ -377,8 +378,8 @@ async function create_event() {
   parameters["description"] = document.getElementById('send_description').value
   // parameters["open_for_entry"] = document.getElementById('send_open').value
   // parameters["public_view"] = document.getElementById('send_public').value
-  parameters["open_for_entry"] = document.getElementById('send_open').checked
-  parameters["public_view"] = document.getElementById('send_public').checked
+  parameters["open_for_entry"] = document.getElementById('send_open').value
+  parameters["public_view"] = document.getElementById('send_public').value
 
   console.log(parameters["open_for_entry"])
   console.log(parameters["public_view"])

@@ -1,3 +1,38 @@
+<?php
+
+function is_logged_in()
+{
+    if (!isset($_COOKIE["auth_token"])) {
+        return false;
+    }
+    $url = 'https://rasts.se/api/Token';
+    $curl = curl_init();
+
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => $url,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => array(
+
+            "Authorization: $_COOKIE[auth_token]",
+        ),
+        CURLOPT_RETURNTRANSFER => true,
+    ));
+
+    curl_exec($curl);
+    $status_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+    curl_close($curl);
+    $tmp = explode("/", $_SERVER['REQUEST_URI']);
+
+
+    if ($status_code == 200) {
+        return true;
+    } else {
+        return false;
+    }
+}
+$is_logged_in = is_logged_in();
+?>
 <style>
     .navtext {
         font-size: 1.3rem;
@@ -28,16 +63,24 @@
                     <a class="nav-link navtext" href="../pages/track.php">TRACK</a>
                 </li>
 
+                <?php
+                if ($is_logged_in) {
+                ?>
+                    <li class="nav-item">
+                        <a class="nav-link navtext" href="../pages/profile.php" id="navbar-profile">PROFILE</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link navtext" href="" id="navbar-log-out" onclick="log_out()">LOG OUT</a>
+                    </li>
+                <?php
+                } else {
+                ?><li class="nav-item">
+                        <a class="nav-link navtext" href="../pages/Login.php" id="navbar-log-in">LOG IN</a>
+                    </li><?php
+                        }
 
-                <li class="nav-item">
-                    <a class="nav-link navtext d-none" href="../pages/profile.php" id="navbar-profile">PROFILE</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link navtext d-none" href="../pages/Login.php" id="navbar-log-in">LOG IN</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link navtext d-none" href="" id="navbar-log-out" onclick="log_out()">LOG OUT</a>
-                </li>
+                            ?>
+
 
             </ul>
         </div>
