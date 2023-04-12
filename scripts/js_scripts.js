@@ -369,7 +369,7 @@ function CreateTrack(track_input, start_station, end_station){
 async function create_event() {
   var parameters = {}
   parameters["event_name"] = document.getElementById('send_event_name').value
-  parameters["track_id"] = document.getElementById('send_track_name').value
+  parameters["track_name"] = document.getElementById('send_track_name').value
   parameters["username"] = document.getElementById('send_host_username').value
   parameters["startdate"] = document.getElementById('send_start_date').value
   parameters["enddate"] = document.getElementById('send_end_date').value
