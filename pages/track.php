@@ -33,29 +33,41 @@
       </div>
       <!-- Include the Bootstrap 5 CSS file -->
       <!-- Create a table with Bootstrap 5 classes -->
-      <div class="form-group form_group_style mx-auto">
+      <div class="form-group col-md-12 form_group_style mx-auto">
         <p>Start by adding the first section!</p>
-        <div class="container opacity_background" id="track_input">
-          <div class="row" id="0">
+        <div class="container" id="track_input">
+          <div class="row track_form" id="0">
             <div class="col-sm-2">
-              <label for="numberInput" id="numberInput" class="form-label fw-bold">ID</label>
-              <input type="number" class="form-control" name="ID" id="CheckID" min="100" max="200" placeholder="Ex. 101" required>
+              <label for="numberInput" id="numberInput" class="form-label fw-bold">Start ID</label>
+              <input type="number" class="form-control" name="ID" id="StartID" min="100" max="200" placeholder="Ex. 101" required>
+            </div>
+            <div class="col-sm-2">
+              <label for="btn-group" id="Location" class="form-label fw-bold">Start Pin</label>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+                <i class="fa-solid fa-map-location-dot"></i>
+                Pin
+              </button>
+            </div>
+            <div class="col-sm-2">
+              <label for="numberInput" id="numberInput" class="form-label fw-bold">End ID</label>
+              <input type="number" class="form-control" name="ID" id="EndID" min="100" max="200" placeholder="Ex. 102" required>
+            </div>
+            <div class="col-sm-2">
+              <!-- Button to Open the Modal -->
+              <label for="btn-group" id="Location" class="form-label fw-bold">End Pin</label>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+                <i class="fa-solid fa-map-location-dot"></i>
+                Pin
+              </button>
             </div>
 
             <div class="col-sm-2">
               <label for="numberInput" id="dist" class="form-label fw-bold">Distance</label>
-              <input type="text" class="form-control" placeholder="Ex. 15" name="distance">
-            </div>
-            <div class="col btn-group-vertical">
-              <!-- Button to Open the Modal -->
-              <label for="button" id="pin_button" class="form-label fw-bold">Location</label>
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa-solid fa-map-location-dot"></i>
-
-              </button>
+              <input type="number" class="form-control" placeholder="Ex. 15" name="distance">
             </div>
 
             <!-- The Modal -->
-            <div class="modal" id="myModal">
+            <div class="modal" id="myModal" onload="find_pin_id()">
               <div class="modal-dialog modal-lg">
                 <div class="modal-content">
 
@@ -80,7 +92,7 @@
                 </div>
               </div>
             </div>
-            <div class="col">
+            <div class="col-sm-3">
               <label for="dropdown" id="terrain_dropdown" class="form-label fw-bold">Terrain</label>
               <div class="dropdown" name="terrain">
 
@@ -95,15 +107,17 @@
                 </ul>
               </div>
             </div>
-            <div class="col btn-group-vertical">
+            <div class="col-md-2">
               <label for="delete_button" class="form-label fw-bold">Option</label>
-              <button class="btn btn-danger" onclick="deleteRow(this)" name="delete_button"><i class="fa-solid fa-trash"></i></button>
+              <button class="btn btn-danger" onclick="deleteRow(this)" name="delete_button"><i class="fa-solid fa-trash"></i>
+              Delete
+              </button>
             </div>
           </div>
         </div>
         <div class="container">
           <div class="option_background">
-            <button id="add_button" button type="button" class="btn btn-secondary" onclick="addRow(event)">Add another section <i class="fa-regular fa-plus"></i></button>
+            <button id="add_button" button type="button" class="btn btn-secondary" onclick="addRow()">Add another section <i class="fa-regular fa-plus"></i></button>
             <button type="submit" button type="button" button id="submit_button" class="btn btn-primary" role="button" onclick='submit()'>Submit</button>     
           </div>
         </div>
@@ -120,6 +134,22 @@
   // Create template row 
   const template_row = document.getElementById("0")
   const info = template_row.innerHTML
+
+  var i = 0
+  function addRow() {
+    i = i + 1 
+    // Get the existing grid container
+    const gridContainer = document.querySelector(".grid-container");
+    // Create a new row element and add the HTML string you provided
+    const newRow = document.createElement("div");
+    newRow.classList.add('row');
+    newRow.classList.add('track_form')
+    newRow.id = i
+    newRow.innerHTML = info
+    // Add row to grid
+    var myGrid = document.getElementById("track_input");
+    myGrid.appendChild(newRow);
+  }
 
   function select(option, event) {
     // Get the button element and the dropdown menu element
@@ -148,21 +178,6 @@
 
     // Close the dropdown menu
     dropdown.classList.remove('show');
-  }
-
-  var i = 0
-  function addRow(event) {
-    i = i + 1 
-    // Get the existing grid container
-    const gridContainer = document.querySelector(".grid-container");
-    // Create a new row element and add the HTML string you provided
-    const newRow = document.createElement("div");
-    newRow.classList.add('row');
-    newRow.id = i
-    newRow.innerHTML = info
-    // Add row to grid
-    var myGrid = document.getElementById("track_input");
-    myGrid.appendChild(newRow);
   }
 
   function deleteRow(button) {
@@ -225,6 +240,10 @@
   let markers_list = [];
   const btn = document.getElementById('save_btn')
 
+  function find_pin_id() {
+    console.log("hej")
+  }
+  
   function init_map() {
     const bth_coords = {
       lat: 56.179475,
