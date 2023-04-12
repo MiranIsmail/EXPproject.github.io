@@ -247,14 +247,12 @@ body {
   color: white;
 }
 
-.opacity_background {
-  border-radius:0%;
-  border-width:10cm;
-  padding-bottom: 3%;
-  padding-top: 2%;
-
-  background-color: rgba(9, 84, 127, 0.187); /* Set the background color with an alpha value of 0.6 to make it semi-transparent */
-  z-index: 1; /* Set the z-index to 1 to make sure it is behind any other elements with a higher z-index */
+.track_form {
+  background-color: #2ac8ab81;
+  padding: 20px;
+  border-radius: 5px;
+  border: 2px solid #5FACE8;
+  margin-bottom: 5px;
 }
 
 .option_background {
