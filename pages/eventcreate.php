@@ -52,7 +52,7 @@
     </div>
     <div class="mb-3 mx-auto w-50">
       <label for="InputTrackName" class="form-label">Write a description for your event</label>
-      <textarea class="form-control" aria-label="With textarea" id="send_description">Write your description here!</textarea>
+      <textarea class="form-control" aria-label="With textarea" id="send_description" placeholder="Write your description here!"></textarea>
     </div>
     <div class="mb-3 mx-auto w-50">
       <label for="InputTrackName" class="form-label">Upload Event Image</label>
