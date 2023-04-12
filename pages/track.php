@@ -39,23 +39,23 @@
           <div class="row track_form" id="0">
             <div class="col-sm-2">
               <label for="numberInput" id="numberInput" class="form-label fw-bold">Start ID</label>
-              <input type="number" class="form-control" name="ID" id="StartID" min="100" max="200" placeholder="Ex. 101" required>
+              <input type="number" class="form-control" name="StartID" min="100" max="200" placeholder="Ex. 101" required>
             </div>
             <div class="col-sm-2">
               <label for="btn-group" id="Location" class="form-label fw-bold">Start Pin</label>
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+              <button type="button" class="btn btn-secondary" name="pin" onclick="find_pin_id(event, 'StartID')" data-bs-toggle="modal" data-bs-target="#myModal">
                 <i class="fa-solid fa-map-location-dot"></i>
                 Pin
               </button>
             </div>
             <div class="col-sm-2">
               <label for="numberInput" id="numberInput" class="form-label fw-bold">End ID</label>
-              <input type="number" class="form-control" name="ID" id="EndID" min="100" max="200" placeholder="Ex. 102" required>
+              <input type="number" class="form-control" name="EndID" min="100" max="200" placeholder="Ex. 102" required>
             </div>
             <div class="col-sm-2">
               <!-- Button to Open the Modal -->
               <label for="btn-group" id="Location" class="form-label fw-bold">End Pin</label>
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+              <button type="button" class="btn btn-secondary" name="pin" onclick="find_pin_id(event, 'EndID')" data-bs-toggle="modal" data-bs-target="#myModal">
                 <i class="fa-solid fa-map-location-dot"></i>
                 Pin
               </button>
@@ -67,7 +67,7 @@
             </div>
 
             <!-- The Modal -->
-            <div class="modal" id="myModal" onload="find_pin_id()">
+            <div class="modal" id="myModal">
               <div class="modal-dialog modal-lg">
                 <div class="modal-content">
 
@@ -169,7 +169,7 @@
         button.style.backgroundColor = 'green';
         break;
       case 'Mixed':
-        button.style.backgroundColor = 'turquoise';
+        button.style.backgroundColor = '#2ac8ab';
         break;
       default:
         button.style.backgroundColor = '';
@@ -233,15 +233,16 @@
 
   }
 
-  
-
-
+  let checkpoint_id;
+  let pin_button;
   let map;
   let markers_list = [];
   const btn = document.getElementById('save_btn')
 
-  function find_pin_id() {
-    console.log("hej")
+  function find_pin_id(event, name) {
+    var row = event.target.closest('.row')
+    checkpoint_id = row.querySelector(`input[name=${name}]`).value
+    pin_button = row.querySelector('button[name=pin]')
   }
   
   function init_map() {
@@ -258,19 +259,17 @@
     
     // This event listener will call add_marker() when the map is clicked.
     map.addListener("click", (event) => {
-      console.log("hej")
-      var check_point_id = "101"
-      setMapOnAll(null)
-      add_marker(event.latLng, check_point_id);
+      deleteMarkers();
+      add_marker(event.latLng, checkpoint_id);
     });
   }
 
   // Adds a marker to the map and push to the array.
-  function add_marker(position, check_point_id) {
+  function add_marker(position, checkpoint_id) {
     const marker = new google.maps.Marker({
       position,
       map,
-      label: check_point_id
+      label: checkpoint_id
     });
 
     markers_list.push(marker);
@@ -285,15 +284,25 @@
     }
   }
 
+
+
   // Deletes all markers in the array by removing references to them.
   function deleteMarkers() {
-    setMapOnAll(null);
-    markers_list = [];
+    for (let i = 0; i < markers_list.length; i++) {
+      console.log(markers_list[i].getLabel())
+      if (markers_list[i].getLabel() == checkpoint_id) {
+        console.log("found")
+        markers_list[i].setMap(null);
+        markers_list.splice(i, 1);
+        pin_button.style.backgroundColor = 'maroon'
+      }
+    }
+    console.log(markers_list)
     btn.disabled = true;
   }
   //figure out how to confirm
   function send_coords() { //needs fixing
-
+    pin_button.style.backgroundColor = 'green'
     for (let index = 0; index < markers_list.length; index++) {
       let object_string = JSON.stringify(markers_list[index])
       //data base call
@@ -301,7 +310,7 @@
   
   function open_map(event) {
     window.init_map = init_map;
-    console.log(check_point_id)
+    console.log(checkpoint_id)
   }
   }
 </script>
