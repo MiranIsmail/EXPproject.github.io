@@ -1,8 +1,5 @@
 <?php
-SESSION_START();
-$_SESSION["favcolor"] = "<h1>green</h1>";
-$_SESSION["favanimal"] = "cat";
-echo $_SESSION["favcolor"];
+
 ?>
 
 <!DOCTYPE html>
