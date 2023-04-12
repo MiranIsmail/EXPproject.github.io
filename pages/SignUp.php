@@ -73,6 +73,11 @@
             </div>
         </form>
         <form>
+
+            <div class="form-group form_group_style mx-auto">
+                <p>Username</p>
+                <input type="text" class="form-control input_field_style" placeholder="Username" id="fuser">
+            </div>
             <div class="form-group form_group_style mx-auto">
                 <p>First Name</p>
                 <input type="text" class="form-control input_field_style" placeholder="Name" id="fname">
