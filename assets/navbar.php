@@ -1,3 +1,31 @@
+<?php
+
+
+function is_logged_in()
+{
+    if (!isset($_COOKIE["auth_token"])) {
+        return false;
+    }
+    $url = 'https://rasts.se/api/Token';
+
+    $curl = curl_init();
+
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => $url,
+        CURLOPT_CUSTOMREQUEST => "PATCH",
+        CURLOPT_HTTPHEADER => array(
+
+            'Authorization: $_COOKIE["auth_token"]',
+        ),
+        CURLOPT_RETURNTRANSFER => true,
+    ));
+
+    $response = curl_exec($curl);
+    curl_close($curl);
+
+    return $response;
+}
+?>
 <style>
     .navtext {
         font-size: 1.3rem;
@@ -28,16 +56,24 @@
                     <a class="nav-link navtext" href="../pages/track.php">TRACK</a>
                 </li>
 
+                <?php
+                if (is_logged_in()) {
+                ?>
+                    <li class="nav-item">
+                        <a class="nav-link navtext" href="../pages/profile.php" id="navbar-profile">PROFILE</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link navtext" href="" id="navbar-log-out" onclick="log_out()">LOG OUT</a>
+                    </li>
+                <?php
+                } else {
+                ?><li class="nav-item">
+                        <a class="nav-link navtext" href="../pages/Login.php" id="navbar-log-in">LOG IN</a>
+                    </li><?php
+                        }
 
-                <li class="nav-item">
-                    <a class="nav-link navtext d-none" href="../pages/profile.php" id="navbar-profile">PROFILE</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link navtext d-none" href="../pages/Login.php" id="navbar-log-in">LOG IN</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link navtext d-none" href="" id="navbar-log-out" onclick="log_out()">LOG OUT</a>
-                </li>
+                            ?>
+
 
             </ul>
         </div>
