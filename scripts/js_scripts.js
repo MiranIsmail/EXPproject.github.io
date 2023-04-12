@@ -56,7 +56,7 @@ function createAccount() {
   let xfirst_name = document.getElementById('fname').value;
   let xlast_name = document.getElementById('lname').value;
   let xpassword = document.getElementById('pword').value;
-  let xusername = document.getElementById('pfuser').value;
+  let xusername = document.getElementById('fuser').value;
 
   fetch(BASE_ULR + "Account", {
     method: 'POST',
