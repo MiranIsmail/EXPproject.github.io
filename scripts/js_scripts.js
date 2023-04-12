@@ -223,21 +223,46 @@ async function generate_user_results() {
 }
 
 
-function search_event() {
-  let input = document.getElementById('searchQueryInput').value
-  input = input.toLowerCase();
-  let x = document.getElementsByClassName('card-title');
-  let xcard = document.getElementsByClassName('eventCards');
+// function search_event() {
+//   let input = document.getElementById('searchQueryInput').value
+//   input = input.toLowerCase();
+//   let x = document.getElementsByClassName('card').querySelector('.card-title.title-text');
+//   console.log(x)
+//   let xcard = document.getElementsByClassName('eventCards');
 
-  for (i = 0; i < x.length; i++) {
-    if (!xcard[i].innerHTML.toLowerCase().includes(input)) {
-      xcard[i].style.display = "none";
+//   const cardTitle = document.querySelector('.card-title.title-text');
+//   const eventName = cardTitle.textContent.trim();
+//   console.log(eventName)
+
+//   for (i = 0; i < x.length; i++) {
+//     if (!xcard[i].innerHTML.toLowerCase().includes(input)) {
+//       xcard[i].style.display = "none";
+//     }
+//     else {
+//       xcard[i].style.display = "list-item";
+//     }
+//   }
+// }
+
+function search_event() {
+  // Retrieve all cards
+  let input = document.getElementById('searchQueryInput').value
+
+  const cards = document.querySelectorAll('.card');
+  console.log(input)
+  const searchQuery = input.toLowerCase();
+  console.log(searchQuery)
+  // Loop through cards and show/hide based on search query
+  cards.forEach(card => {
+    const title = card.querySelector('.card-title').textContent.toLowerCase();
+    if (title.indexOf(searchQuery) > -1) {
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
     }
-    else {
-      xcard[i].style.display = "list-item";
-    }
-  }
+  });
 }
+
 
 
 function include_HTML() {
@@ -357,6 +382,7 @@ async function create_event() {
 
   console.log(parameters["open_for_entry"])
   console.log(parameters["public_view"])
+  console.log(parameters)
 
   if (document.getElementById("send_image").files.length != 0) {
     var blob = await image_to_blob(document.getElementById('send_image'))
