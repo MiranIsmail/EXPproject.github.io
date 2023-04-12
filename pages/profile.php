@@ -86,6 +86,11 @@
                 </div>
 
                 <div class="mb-3 mx-auto">
+                    <label for="InputTrackName" class="form-label">Personal ChipID</label>
+                    <input type="number" class="form-control" placeholder="Input Your Personal ChipID" id="send_chip">
+                </div>
+
+                <div class="mb-3 mx-auto">
                     <label for="InputTrackName" class="form-label">Upload Profile Picture</label>
                     <input type="file" name="filename" id="send_image">
                 </div>
