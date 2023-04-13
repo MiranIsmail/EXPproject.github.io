@@ -397,9 +397,6 @@ async function create_event() {
   }else{parameters["public_view"] = "0"
   }
 
-parameters["open_for_entry"] = entry ? 1 : 0;
-parameters["public_view"] = view ? 1 : 0;
-
   console.log(parameters["open_for_entry"])
   console.log(parameters["public_view"])
   console.log(parameters)
