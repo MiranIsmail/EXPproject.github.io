@@ -1,4 +1,4 @@
-<?php include '../assets/navbar.php'; ?>
+<?php include '../assets/head.php'; ?>
 <!--header-->
 
 <body>
