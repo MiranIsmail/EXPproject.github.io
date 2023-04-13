@@ -38,19 +38,25 @@
         <div class="container" id="track_input">
           <div class="row track_form" id="0">
             <div class="col-4 input-group mb-3">
-              <input type="number" class="form-control" name="StartID" min="100" max="200" placeholder="Station ID" required>
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputGroupSelect01">Start</label>
+            </div>
+              <input type="number" class="form-control" name="StartID" min="100" max="200" placeholder="Start Station ID" required>
               <button type="button" class="btn btn-secondary" name="Startpin" onclick="find_pin_id(event, 'Start')" data-bs-toggle="modal" data-bs-target="#myModal">
                 <i class="fa-solid fa-map-location-dot"></i>
               </button>
             </div>
             <div class="col-4 input-group md-3">
-              <input type="number" class="form-control" name="EndID" min="100" max="200" placeholder="Station ID" required>
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">End</label>
+              </div>
+              <input type="number" class="form-control" name="EndID" min="100" max="200" placeholder="End Station ID" required>
               <button type="button" class="btn btn-secondary" name="Endpin" onclick="find_pin_id(event, 'End')" data-bs-toggle="modal" data-bs-target="#myModal">
                 <i class="fa-solid fa-map-location-dot"></i> 
               </button>
             </div>
 
-            <div class="col-sm-2">
+            <div class="col-sm-3">
               <label for="numberInput" id="dist" class="form-label fw-bold">Distance</label>
               <input type="number" class="form-control" placeholder="Ex. 15" name="distance">
             </div>
@@ -81,12 +87,12 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-4">
               <label for="dropdown" id="terrain_dropdown" class="form-label fw-bold">Terrain</label>
               <div class="dropdown" name="terrain">
-
                 <button class="btn btn-secondary dropdown-toggle" type="button" name="Terrain" data-bs-toggle="dropdown" aria-expanded="false">
                   <i class="fa-solid fa-person-running"></i>
+                  Terrain
                 </button>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButtonTerrain1">
                   <li><a class="dropdown-item" onclick='select("Swim", event)'>Swim <i class="fa-solid fa-person-swimming"></i></a></li>
@@ -95,8 +101,8 @@
                 </ul>
               </div>
             </div>
-            <div class="col-md-2">
-              <label for="delete_button" class="form-label fw-bold">Option</label>
+            <div class="col-md-3">
+              <label for="delete_button" class="form-label fw-bold">Options</label>
               <button class="btn btn-danger" onclick="deleteRow(this)" name="delete_button"><i class="fa-solid fa-trash"></i>
               Delete
               </button>
