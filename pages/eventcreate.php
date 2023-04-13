@@ -28,19 +28,15 @@
     </div>
     <div class="mb-3 mx-auto w-50">
       <label for="InputTrackName" class="form-label">Track Name</label>
-      <select id="dropdown"></select>
+      <select id="dropdown_track" class="w-100"></select>
 
       <script>
-        dropdown = document.getElementById("dropdown");
-        dropdown.add(new Option("Select a Track"))
+        dropdown = document.getElementById("dropdown_track");
+        dropdown.add(new Option("Select a Track"));
         TrackDropdown();
       </script>
 
-      <input type="text" class="form-control" id="send_track_name" placeholder="Input Track Name">
-    </div>
-    <div class="mb-3 mx-auto w-50">
-      <label for="InputTrackName" class="form-label">Host Username</label>
-      <input type="text" class="form-control" id="send_host_username" placeholder="Input Host Username">
+      <!-- <input type="text" class="form-control" id="send_track_name" placeholder="Input Track Name"> -->
     </div>
     <div class="mb-3 mx-auto w-50">
       <label for="InputStartDate" class="form-label">Start Date</label>
@@ -78,7 +74,7 @@
     </div>
     <div id="event_cards_dynamic" class="w-75 mx-auto"></div>
     <div class="mb-3 mx-auto w-50">
-      <button type="submit" class="btn btn-primary" onclick="ReturnTrack(),create_event()">Submit</button>
+      <button type="submit" class="btn btn-primary" onclick="create_event()">Submit</button>
     </div>
   </div>
   <?php include '../assets/footer.php'; ?>
@@ -86,8 +82,8 @@
   </body>
 
 </html>
-<script>
+<!-- <script>
   function ReturnTrack(){
     return document.getElementById('dropdown').value
   }
-</script>
+</script> -->

@@ -377,7 +377,7 @@ async function create_event() {
 
   var parameters = {}
   parameters["event_name"] = document.getElementById('send_event_name').value
-  parameters["track_name"] = document.getElementById('send_track_name').value
+  parameters["track_name"] = document.getElementById('dropdown_track').value
   parameters["username"] = await data_incoming["username"]
   parameters["startdate"] = document.getElementById('send_start_date').value
   parameters["enddate"] = document.getElementById('send_end_date').value
@@ -437,7 +437,7 @@ function preview_event(){
 async function TrackDropdown(){
   response = await fetch("https://rasts.se/api/Track", {method:'GET',
    headers: {'Accept': 'Application/json'}})
-  let dropdown = document.getElementById('dropdown');
+  let dropdown = document.getElementById('dropdown_track');
   data = await response.json();
   for(let i = 0; i < data.length; i++){
     dropdown.add(new Option(data[i].track_name))
