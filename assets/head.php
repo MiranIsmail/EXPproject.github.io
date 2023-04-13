@@ -34,7 +34,7 @@ $blocked_site_logged_in = ["Login", "SignUp"];
 $blocked_site_logged_out = ["profile", "eventcreate", "track"];
 
 $is_logged_in = is_logged_in();
-$page_name_tile = ["index" => "Rasts", "event_display" => "Rasts - Event", "event" => "Rasts - Events", "profile" => "Profile", "Login" => "Login", "SignUp" => "Register", "eventcreate" => "Create Event", "track" => "Track"];
+$page_name_tile = ["index" => "Rasts",""=>"Rasts", "event_display" => "Rasts - Event", "event" => "Rasts - Events", "profile" => "Profile", "Login" => "Login", "SignUp" => "Register", "eventcreate" => "Create Event", "track" => "Track"];
 $title = $page_name_tile[explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0]];
 /*
 if ($is_logged_in) {
