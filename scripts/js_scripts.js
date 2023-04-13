@@ -416,9 +416,10 @@ async function create_event() {
     method: 'POST',
     body: JSON.stringify(parameters)
   })
-
+  console.log(JSON.stringify(parameters))
   location.href = '../pages/confirmation_event.php'
 }
+
 
 function preview_event(){
   let event_name = document.getElementById('send_event_name').value;
