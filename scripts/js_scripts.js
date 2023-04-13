@@ -368,18 +368,32 @@ function CreateTrack(track_input, start_station, end_station){
 }
 
 async function create_event() {
+  const response_incoming = await fetch(BASE_ULR + "Account", {
+    method: 'GET',
+    headers: { 'Authorization': get_cookie('auth_token') }
+  })
+  const data_incoming = await response_incoming.json()
+
+
   var parameters = {}
   parameters["event_name"] = document.getElementById('send_event_name').value
-  parameters["track_name"] = document.getElementById('send_track_name').value
-  parameters["username"] = document.getElementById('send_host_username').value
+  parameters["track_name"] = document.getElementById('dropdown_track').value
+  parameters["username"] = await data_incoming["username"]
   parameters["startdate"] = document.getElementById('send_start_date').value
   parameters["enddate"] = document.getElementById('send_end_date').value
   parameters["eimage"] = document.getElementById('send_image').value
   parameters["description"] = document.getElementById('send_description').value
-  // parameters["open_for_entry"] = document.getElementById('send_open').value
-  // parameters["public_view"] = document.getElementById('send_public').value
-  parameters["open_for_entry"] = document.getElementById('send_open').value
-  parameters["public_view"] = document.getElementById('send_public').value
+
+  var entry = document.getElementById('send_open').checked
+  var view = document.getElementById('send_public').checked
+  if (entry == true){
+    parameters["open_for_entry"] = 1
+  }else{parameters["open_for_entry"] = 0}
+
+  if (view == true){
+    parameters["public_view"] = 1
+  }else{parameters["public_view"] = 0}
+
 
   console.log(parameters["open_for_entry"])
   console.log(parameters["public_view"])
@@ -430,7 +444,7 @@ function preview_event(){
 async function TrackDropdown(){
   response = await fetch("https://rasts.se/api/Track", {method:'GET',
    headers: {'Accept': 'Application/json'}})
-  let dropdown = document.getElementById('dropdown');
+  let dropdown = document.getElementById('dropdown_track');
   data = await response.json();
   for(let i = 0; i < data.length; i++){
     dropdown.add(new Option(data[i].track_name))
