@@ -386,13 +386,14 @@ async function create_event() {
 
   var entry = document.getElementById('send_open').checked
   var view = document.getElementById('send_public').checked
+
   if (entry == true){
-    parameters["open_for_entry"] = 1
-  }else{parameters["open_for_entry"] = 0}
+    parameters["open_for_entry"] = "1"
+  }else{parameters["open_for_entry"] = "0"}
 
   if (view == true){
-    parameters["public_view"] = 1
-  }else{parameters["public_view"] = 0}
+    parameters["public_view"] = "1"
+  }else{parameters["public_view"] = "0"}
 
 
   console.log(parameters["open_for_entry"])
