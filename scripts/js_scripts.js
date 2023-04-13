@@ -383,17 +383,19 @@ async function create_event() {
   parameters["enddate"] = document.getElementById('send_end_date').value
   parameters["eimage"] = document.getElementById('send_image').value
   parameters["description"] = document.getElementById('send_description').value
+  parameters["sport"] = document.getElementById('send_sport').value
 
   var entry = document.getElementById('send_open').checked
   var view = document.getElementById('send_public').checked
+
   if (entry == true){
-    parameters["open_for_entry"] = 1
-  }else{parameters["open_for_entry"] = 0}
+    parameters["open_for_entry"] = "1"
+  }else{parameters["open_for_entry"] = "0"}
 
   if (view == true){
-    parameters["public_view"] = 1
-  }else{parameters["public_view"] = 0}
-
+    parameters["public_view"] = "1"
+  }else{parameters["public_view"] = "0"
+  }
 
   console.log(parameters["open_for_entry"])
   console.log(parameters["public_view"])

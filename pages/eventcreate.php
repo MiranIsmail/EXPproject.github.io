@@ -31,6 +31,10 @@ include '../assets/head.php';
       <textarea class="form-control" aria-label="With textarea" id="send_description" placeholder="Write your description here!"></textarea>
     </div>
     <div class="mb-3 mx-auto w-50">
+      <label for="InputEventName" class="form-label">Event Sport</label>
+      <input type="text" class="form-control" id="send_sport" placeholder="Input the sport for the event">
+    </div>
+    <div class="mb-3 mx-auto w-50">
       <label for="InputTrackName" class="form-label">Upload Event Image</label>
       <input type="file" name="filename" id="send_image" accept=".jpg, .jpeg, .png" multiple="false">
     </div>
