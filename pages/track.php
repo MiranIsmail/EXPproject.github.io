@@ -1,20 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <title>Track - Rasts</title>
-  <meta charset="utf-8">
-  <link rel="icon" type="image/x-icon" href="../images/logo_color.png">
-  <!--Tre librarys dont remove, Bootstrap 5-->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-  <link rel="stylesheet" href="../styles/stylesheet.css">
-  <link rel="stylesheet" href="../styles/login_and_signup.css">
-  <link rel="stylesheet" href="../styles/google_maps_api.css">
-  <script src="https://kit.fontawesome.com/dbe6ff92a1.js" crossorigin="anonymous"></script>
-</head>
-
+<?php include '../assets/head.php'; ?>
 
 <body>
   <?php include '../assets/navbar.php'; ?>
@@ -37,9 +21,9 @@
         <div class="container" id="track_input">
           <div class="row track_form" id="0">
             <div class="col-4 input-group mb-3">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="inputGroupSelect01">Start</label>
-            </div>
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Start</label>
+              </div>
               <input type="number" class="form-control" name="StartID" min="100" max="200" placeholder="Start Station ID" required>
               <button type="button" class="btn btn-secondary" name="Startpin" onclick="find_pin_id(event, 'Start')" data-bs-toggle="modal" data-bs-target="#myModal">
                 <i class="fa-solid fa-map-location-dot"></i>
