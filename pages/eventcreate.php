@@ -29,13 +29,6 @@
     <div class="mb-3 mx-auto w-50">
       <label for="InputTrackName" class="form-label">Track Name</label>
       <select id="dropdown_track" class="w-100"></select>
-
-      <script>
-        dropdown = document.getElementById("dropdown_track");
-        dropdown.add(new Option("Select a Track"));
-        TrackDropdown();
-      </script>
-
       <!-- <input type="text" class="form-control" id="send_track_name" placeholder="Input Track Name"> -->
     </div>
     <div class="mb-3 mx-auto w-50">
@@ -80,10 +73,10 @@
   <?php include '../assets/footer.php'; ?>
 
   </body>
+  <script>
+    dropdown = document.getElementById("dropdown_track");
+    dropdown.add(new Option("Select a Track"));
+    TrackDropdown();
+  </script>
 
 </html>
-<!-- <script>
-  function ReturnTrack(){
-    return document.getElementById('dropdown').value
-  }
-</script> -->
