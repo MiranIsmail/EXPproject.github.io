@@ -1,6 +1,7 @@
 <?php
 include '../assets/head.php';
 ?>
+
 <body>
   <?php include '../assets/navbar.php'; ?>
   <h1 class="mx-auto" id="nice_text">Create your Event here</h1>
@@ -57,13 +58,13 @@ include '../assets/head.php';
   </div>
   <?php include '../assets/footer.php'; ?>
 
-<script type="text/javascript" src="../scripts/js_scripts.js"></script>
-<script type="text/javascript" src="../scripts/index_load.js"></script>
-    <script>
-  function ReturnTrack(){
-    return document.getElementById('dropdown').value
-  }
-</script>
+  <script type="text/javascript" src="../scripts/js_scripts.js"></script>
+  <script type="text/javascript" src="../scripts/index_load.js"></script>
+  <script>
+    dropdown = document.getElementById("dropdown_track");
+    dropdown.add(new Option("Select a Track"));
+    TrackDropdown();
+  </script>
 </body>
 
 </html>
