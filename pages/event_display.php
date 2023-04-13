@@ -20,7 +20,7 @@ include '../assets/head.php';
                         <h5>Sport: <span id="event_sport"></span></h5>
                         <h5>StartDate: <span id="event_sdate"></span></h5>
                         <h5>EndDate: <span id="event_edate"></span></h5>
-                        <h5>Host Mail: <span id="event_org"></span></h5>
+                        <h5>Host Username: <span id="event_org"></span></h5>
                     </div>
                 </div>
                 <div class="col-md-8" id="info_grid">
@@ -43,12 +43,12 @@ include '../assets/head.php';
             <?php include '../assets/footer.php'; ?>
             <script type="text/javascript" src="../scripts/js_scripts.js"></script>
         </body>
-        
+
 <script>
     var g_event_id = sessionStorage.getItem('s_event_id');
     console.log(g_event_id)
     get_event_info(g_event_id);
-    
+
 </script>
 
 </html>

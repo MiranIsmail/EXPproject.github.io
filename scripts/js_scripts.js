@@ -335,8 +335,9 @@ async function get_event_info(event_id) {
   document.getElementById("event_sport").innerHTML = await data["sport"]
   document.getElementById("event_sdate").innerHTML = await data["startdate"]
   document.getElementById("event_edate").innerHTML = await data["enddate"]
-  document.getElementById("event_org").innerHTML = await data["host_email"]
+  document.getElementById("event_org").innerHTML = await data["username"]
   document.getElementById("event_desc").innerHTML = await data["description"]
+  console.log(await data["description"])
   load_image_event(data["eimage"])
 
   let container = document.getElementById('myTableContainer');
@@ -396,10 +397,6 @@ async function create_event() {
     parameters["public_view"] = "1"
   }else{parameters["public_view"] = "0"
   }
-
-  console.log(parameters["open_for_entry"])
-  console.log(parameters["public_view"])
-  console.log(parameters)
 
   if (document.getElementById("send_image").files.length != 0) {
     var blob = await image_to_blob(document.getElementById('send_image'))
