@@ -1,7 +1,6 @@
 var BASE_ULR = "https://rasts.se/api/"
 
 window.onload = function () {
-  update_navbar()
 };
 
 const get_cookie = (name) => (
