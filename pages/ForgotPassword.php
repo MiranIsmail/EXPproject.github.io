@@ -9,13 +9,13 @@
 
     <div class="section w-100 content_container">
         <h1> Welcome!</h1>
-        <form>
+        <form action="../api/src/TokenController.php" method="POST">
             <div class="form-group form_group_style mx-auto">
                 <p>Enter your Email address</p>
-                <input type="email" class="form-control input_field_style" aria-describedby="emailHelp" placeholder="Enter email" id="fetchEmail">
+                <input type="text" class="form-control input_field_style" aria-describedby="emailHelp" placeholder="Enter email" id="fetchEmail" name="email">
             </div>
             <div class="form-group form_group_style mx-auto">
-                <button type="button" id="button_style" onclick="">Send A Reset Password Link To Email</button>
+                <button type="submit" id="button_style" name="reset_request_submit">Send A Reset Password Link To Email</button>
             </div>
         </form>
     </div>
