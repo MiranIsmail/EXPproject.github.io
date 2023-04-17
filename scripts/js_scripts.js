@@ -60,7 +60,7 @@ function createAccount() {
   fetch(BASE_ULR + "Account", {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ "email": xemail, "first_name": xfirst_name, "last_name": xlast_name, "password": xpassword,"username": xusername })
+    body: JSON.stringify({ "email": xemail, "first_name": xfirst_name, "last_name": xlast_name, "password": xpassword, "username": xusername })
   })
 
     .then(response => {
@@ -116,7 +116,7 @@ async function log_in() {
 async function log_out() {
 
   const response = await fetch(BASE_ULR + "Token", {
-    method: 'PATCH',
+    method: 'DELETE',
     headers: { 'Authorization': get_cookie('auth_token') }
   })
   const data = await response.json()
@@ -128,7 +128,7 @@ function load_image(indata) {
   var img = document.createElement("img")
   img.setAttribute("id", "profile_image")
   img.setAttribute("class", "img-fluid d-block")
-  img.alt="Profile Image"
+  img.alt = "Profile Image"
   img.src = indata
   var src = document.getElementById("profile_box")
   src.appendChild(img);
@@ -189,14 +189,14 @@ async function edit_user_info() {
 
 async function generate_user_results() {
 
-  const response = await fetch(BASE_ULR + "Results/?token="+get_cookie('auth_token'), {
+  const response = await fetch(BASE_ULR + "Results/?token=" + get_cookie('auth_token'), {
     method: 'GET',
   })
   const data = await response.json()
 
 
   let table = document.createElement('table');
-  table.setAttribute('class','table')
+  table.setAttribute('class', 'table')
 
   // create table header row
   let headerRow = document.createElement('tr');
@@ -210,7 +210,7 @@ async function generate_user_results() {
   // create table rows
   for (let i = 0; i < await data.results.length; i++) {
     let row = document.createElement('tr');
-    for (let key in  await data.results[i]) {
+    for (let key in await data.results[i]) {
       let cell = document.createElement('td');
       cell.textContent = await data.results[i][key];
       console.log(await data.results[i][key])
@@ -356,16 +356,17 @@ function load_image_event(indata) {
   src.appendChild(img);
 }
 
-function CreateTrack(track_input, start_station, end_station){
-    //var track_name = document.getElementById("InputTrackName")
-    fetch("rasts.se/api/Track",{method: 'POST',
-    body:JSON.stringify({
+function CreateTrack(track_input, start_station, end_station) {
+  //var track_name = document.getElementById("InputTrackName")
+  fetch("rasts.se/api/Track", {
+    method: 'POST',
+    body: JSON.stringify({
       "track_id": 0, //most of these attributes are set to 0 for now because the inputs on the site and the attributes in the database aren't the same
       "track_name": track_input,
       "start_station": start_station,
       "end_station": end_station
-    }), headers:{"Content-Type":"application/json; charset=UTF-8"}
-    })
+    }), headers: { "Content-Type": "application/json; charset=UTF-8" }
+  })
 }
 
 async function create_event() {
@@ -389,13 +390,14 @@ async function create_event() {
   var entry = document.getElementById('send_open').checked
   var view = document.getElementById('send_public').checked
 
-  if (entry == true){
+  if (entry == true) {
     parameters["open_for_entry"] = "1"
-  }else{parameters["open_for_entry"] = "0"}
+  } else { parameters["open_for_entry"] = "0" }
 
-  if (view == true){
+  if (view == true) {
     parameters["public_view"] = "1"
-  }else{parameters["public_view"] = "0"
+  } else {
+    parameters["public_view"] = "0"
   }
 
   if (document.getElementById("send_image").files.length != 0) {
@@ -420,7 +422,7 @@ async function create_event() {
 }
 
 
-function preview_event(){
+function preview_event() {
   let event_name = document.getElementById('send_event_name').value;
   let host_name = document.getElementById('send_description').value;
   let start_date = document.getElementById('send_start_date').value;
@@ -431,37 +433,40 @@ function preview_event(){
   // check if an image was selected
   if (imageInput.files && imageInput.files[0]) {
     let reader = new FileReader(); // create a FileReader object
-    reader.onload = function() {
+    reader.onload = function () {
       image = reader.result; // set image to the result of the FileReader
-      generate_card_wide(event_name, 'Date: '+start_date+'\n - '+end_date, host_name, image);
+      generate_card_wide(event_name, 'Date: ' + start_date + '\n - ' + end_date, host_name, image);
     }
     reader.readAsDataURL(imageInput.files[0]); // read the selected file as a data URL
   } else {
-    generate_card_wide(event_name, 'Date: '+start_date+'\n - '+end_date, host_name, image);
+    generate_card_wide(event_name, 'Date: ' + start_date + '\n - ' + end_date, host_name, image);
   }
 }
 
-async function TrackDropdown(){
-  response = await fetch("https://rasts.se/api/Track", {method:'GET',
-   headers: {'Accept': 'Application/json'}})
+async function TrackDropdown() {
+  response = await fetch("https://rasts.se/api/Track", {
+    method: 'GET',
+    headers: { 'Accept': 'Application/json' }
+  })
   let dropdown = document.getElementById('dropdown_track');
   data = await response.json();
-  for(let i = 0; i < data.length; i++){
+  for (let i = 0; i < data.length; i++) {
     dropdown.add(new Option(data[i].track_name))
-}}
+  }
+}
 
 
 // Function to generate table
 async function generate_event_results(event_id) {
 
-  const response = await fetch(BASE_ULR + "Results/?event_id="+event_id, {
+  const response = await fetch(BASE_ULR + "Results/?event_id=" + event_id, {
     method: 'GET',
   })
   const data = await response.json()
 
 
   let table = document.createElement('table');
-  table.setAttribute('class','table')
+  table.setAttribute('class', 'table')
 
   // create table header row
   let headerRow = document.createElement('tr');
@@ -475,7 +480,7 @@ async function generate_event_results(event_id) {
   // create table rows
   for (let i = 0; i < await data.results.length; i++) {
     let row = document.createElement('tr');
-    for (let key in  await data.results[i]) {
+    for (let key in await data.results[i]) {
       let cell = document.createElement('td');
       cell.textContent = await data.results[i][key];
       console.log(await data.results[i][key])
@@ -487,7 +492,7 @@ async function generate_event_results(event_id) {
   return table;
 }
 
-function register_on_event(event_id){
+function register_on_event(event_id) {
   var parameters = {}
   parameters["chip_id"] = document.getElementById('send_chip').value
   parameters["event_id"] = event_id
