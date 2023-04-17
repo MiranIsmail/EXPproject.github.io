@@ -9,7 +9,7 @@
 
     <div class="section w-100 content_container">
         <h1> Welcome!</h1>
-        <form action="../api/src/TokenController.php" method="POST">
+        <form method="POST">
             <div class="form-group form_group_style mx-auto">
                 <p>Enter your Email address</p>
                 <input type="text" class="form-control input_field_style" aria-describedby="emailHelp" placeholder="Enter email" id="fetchEmail" name="email">
