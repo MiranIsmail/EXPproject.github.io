@@ -10,7 +10,7 @@
     <div class="section content_container order-1">
         <h1> Welcome!</h1>
 
-        <form id="orgform">
+        <form action="../assets/organization_request.php" class="orgform" method="POST">
             <div class="form-group form_group_style mx-auto">
                 <button class="button-modular" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Want to register your organisation?</button>
 
@@ -25,26 +25,26 @@
                             <div class="form-group form_group_style mx-auto"></div>
                             <p>Organisation name</p>
 
-                            <input type="text" class="form-control input_field_style" placeholder="Name" id="org_name" required>
+                            <input type="text" name="org_name" class="form-control input_field_style" placeholder="Name" id="org_name" required>
 
                         </div>
                         <div class="form-group form_group_style mx-auto">
                             <p>Country</p>
-                            <input type="text" class="form-control input_field_style" placeholder="Region of domain" id="org_country" required>
+                            <input type="text" name="Country" class="form-control input_field_style" placeholder="Region of domain" id="org_country" required>
 
                         </div>
                         <div class="form-group form_group_style mx-auto">
                             <p>Email Address for organisation </p>
-                            <input type="email" class="form-control input_field_style" placeholder="expproject@gmail.com" id="org_email" required>
+                            <input type="email" name="org_email" class="form-control input_field_style" placeholder="expproject@gmail.com" id="org_email" required>
                         </div>
                         <h2>Contact information</h2>
                         <div class="form-group form_group_style mx-auto">
                             <p>Private Email Address </p>
-                            <input type="text" class="form-control input_field_style" placeholder="expproject@gmail.com" id="user_email" required>
+                            <input type="text" name="contact_email" class="form-control input_field_style" placeholder="expproject@gmail.com" id="user_email" required>
                         </div>
                         <div class="form-group form_group_style mx-auto">
                             <p>Phone Number </p>
-                            <input type="text" class="form-control input_field_style" placeholder="+46" id="user_email" required>
+                            <input type="tel"  name=" number" class="form-control input_field_style" placeholder="+46" id="user_email" required>
                         </div>
                         <div id="success-alert" class="alert alert-success alert-dismissible fade show d-none" role="alert">
                             Form submitted successfully!
@@ -102,7 +102,7 @@
 
     <script>
         // Add event listener for form submission
-        document.getElementById("orgform").addEventListener("submit", function(event) {
+        document.getElementsByClassName("orgform").addEventListener("submit", function(event) {
             // Prevent default form submission behavior
             event.preventDefault();
             // Show success alert
