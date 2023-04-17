@@ -7,4 +7,4 @@ $msg = wordwrap($msg, 70);
 
 // send email
 mail("aminafzali0209@gmail.com", $_POST["contact_email"], $msg);
-header('Location: ' . "https://www.rasts.se/");
+//header('Location: ' . "https://www.rasts.se/");
