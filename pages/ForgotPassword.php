@@ -18,6 +18,13 @@
                 <button type="submit" id="button_style" name="reset_request_submit">Send A Reset Password Link To Email</button>
             </div>
         </form>
+        <?php
+            if (isset($_GET["reset"])) {
+                if ($_GET["reset"] == "success") {
+                    echo '<p color="green">Check your e-mail!</p>';
+                }
+            }
+        ?>
     </div>
     <?php include '../assets/footer.php'; ?>
     <script type="text/javascript" src="../scripts/js_scripts.js"></script>
