@@ -6,5 +6,6 @@ $msg = "First line of text\nSecond line of text";
 $msg = wordwrap($msg, 70);
 
 // send email
-mail("aminafzali0209@gmail.com", $_POST["contact_email"], $msg);
+
+mail($_POST["contact_email"], "teste", $msg);
 //header('Location: ' . "https://www.rasts.se/");
