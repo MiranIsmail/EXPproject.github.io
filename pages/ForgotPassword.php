@@ -1,5 +1,11 @@
-<?php include '../assets/navbar.php'; ?>
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <title>Reset Password - Rasts</title>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="../scripts/js_scripts.js"></script>
+</head>
 <body>
     <?php include '../assets/navbar.php'; ?>
     <!--The swimrun image-->
@@ -9,25 +15,17 @@
 
     <div class="section w-100 content_container">
         <h1> Welcome!</h1>
-        <form action="../api/src/TokenGateway.php" method="post">
+        <form>
             <div class="form-group form_group_style mx-auto">
                 <p>Enter your Email address</p>
                 <input type="email" id="email" placeholder="Enter email" name="email">
             </div>
             <div class="form-group form_group_style mx-auto">
-                <input type="submit" value="Send a Reset Password Link To Email">
+                <input type="submit" value="Send a Reset Password Link To Email" onclick="email_to_forgot_password()">
             </div>
         </form>
-        <?php
-            if (isset($_GET["reset"])) {
-                if ($_GET["reset"] == "success") {
-                    echo '<p color="green">Check your e-mail!</p>';
-                }
-            }
-        ?>
     </div>
     <?php include '../assets/footer.php'; ?>
-    <script type="text/javascript" src="../scripts/js_scripts.js"></script>
 </body>
 
 </html>

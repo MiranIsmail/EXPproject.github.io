@@ -502,3 +502,18 @@ function register_on_event(event_id) {
   })
   alert("Chip has been Registerd");
 }
+
+async function email_to_forgot_password() {
+  var email = document.getElementById('email').value;
+  const response = await fetch("../api/src/TokenGateway.php", {
+    method: "PATCH",
+    body: JSON.stringify({email: email}),
+    headers:{"Content-Type": "application/json"}
+  });
+
+  if (response.ok) {
+    alert("Email was sent successfully!");
+  } else {
+    alert("There was an error sending the email!");
+  }
+}
