@@ -2,14 +2,14 @@
 <html lang="en">
 
 <head>
-    <title>Forgot Password - Rasts</title>
+    <title>Reset Password - Rasts</title>
     <meta charset="utf-8">
     <link rel="icon" type="image/x-icon" href="../images/logo_color.png">
     <!--Tre librarys dont remove, Bootstrap 5-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="google-signin-client_id" content="1028296111112-0dfp9jds49j0a3nr942ui74lachcl9os.apps.googleusercontent.com">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://apis.google.com/js/api.js"></script>
     <link rel="stylesheet" href="../styles/stylesheet.css">
     <link rel="stylesheet" href="../styles/login_and_signup.css">
@@ -26,11 +26,15 @@
         <h1> Welcome!</h1>
         <form>
             <div class="form-group form_group_style mx-auto">
-                <p>Enter your Email address</p>
-                <input type="email" id="email" placeholder="Enter Email" name="email">
+                <p>Enter your New Password</p>
+                <input type="password" id="password_reseted" placeholder="New Password" name="password">
             </div>
             <div class="form-group form_group_style mx-auto">
-            <input type="submit" value="Send a Reset Password Link to Email" onclick="email_to_forgot_password()">
+                <p>Confirm New Password</p>
+                <input type="password" id="confirm_password_reseted" placeholder="Confirm Password" name="confirm password">
+            </div>
+            <div class="form-group form_group_style mx-auto">
+                <input type="submit" value="Reset Password" onclick="update_user_password()">
             </div>
         </form>
     </div>

@@ -5,7 +5,7 @@ DELIMITER //
 create procedure create_all()
 begin
 	Create table Users(
-        userid int Primary Key auto_increment,
+        username varchar(255) Primary Key not null
 		email varchar(255) not null,
 		token varchar(255) unique,
 		first_name varchar(255) not null,
@@ -13,26 +13,32 @@ begin
 		organization varchar(255),
 		height int,
 		weight int,
-		age int,
-		equipment varchar(255),
+		birthdate date,
+        pimage varchar(255),
+        equipment varchar(255),
+        token_date timestamp default current_timestamp(),
+        public boolean not null default 1,
         password varchar(255) not null);
 
     Create table Organization(
-        email varchar(255) Primary Key not null,
+        description varchar(255) not null,
+        pimage mediumblob not null,
+        password varchar(255) not null,
+        country varchar(255) not null,
+        email varchar(255) not null,
         token varchar(255) unique,
-        org_name varchar(255) not null,
+        org_name varchar(255) Primary key not null,
     )
     Create table Chip(
 		chip_id int Primary key not null,
         team_name varchar(255) not null,
-        email1 varchar(255) not null,
-        email2 varchar(255),
-        foreign key (email1) References Users(email),
-        foreign key (email2) References Users(email));
+        user1 varchar(255) not null,
+        user2 varchar(255),
+        foreign key (user1) References Users(username),
+        foreign key (user2) References Users(username));
 
 	Create table Track(
-		track_id int primary key not null auto_increment,
-        track_name varchar(255) not null,
+        track_name varchar(255) Primary key not null,
         start_station int not null,
         end_station int not null
     );
@@ -42,44 +48,45 @@ begin
         next_id int,
         next_distance int,
         terrain varchar(255) not null,
-        track_id int not null,
-        foreign key (track_id) references Track(track_id)
+        track_name varchar(255) not null,
+        coordinates varchar(255) not null,
+        foreign key (track_name) references Track(track_name)
     );
 
 	Create table Competition(
 		event_id int primary key not null auto_increment,
         event_name varchar(255) not null,
-		track_id int not null,
-		host_email varchar(255) not null,
-        host_organisation varchar(255) not null,
+		track_name varchar(255) not null,
+		username varchar(255) not null,
+        host_organisation varchar(255),
 		sport varchar(255),
-        start_date date not null,
-        end_date date not null,
-        module_id int not null,
+        startdate date not null,
+        enddate date not null,
         open_for_entry bool not null default 0,
         public_view bool not null default 0,
-        foreign key (track_id) References Track(track_id),
-        foreign key (host_email) References Users(email)
+        foreign key (track_name) References Track(track_name),
+        foreign key (username) References Users(username)
     );
 
     Create table Registration(
 		event_id int not null auto_increment,
         chip_id int not null,
         primary key (event_id,chip_id),
-        foreign key (event_id) references Competition(event_id),
+        foreign key (event_id) references Event(event_id),
         foreign key (chip_id) references Chip(chip_id)
         );
 
     Create table Result(
+        result_id int primary key not null auto_increment,
 		track_time varchar(255) not null,
-        participant1 varchar(255) not null,
-        participant2 varchar(255),
+        user1 varchar(255) not null,
+        user2 varchar(255),
         event_id int not null,
-        `current_time` DATETIME,
-        primary key (participant1,`current_time`),
-        foreign key (event_id) references Competition(event_id),
-        foreign key (participant1) References Users(email),
-        foreign key (participant2) References Users(email)
+        date_time timestamp default current_timestamp(),
+        total_time time not null,
+        foreign key (event_id) references Event(event_id),
+        foreign key (user1) References Users(username),
+        foreign key (user2) References Users(username)
     );
 
 end; // DELIMITER ;

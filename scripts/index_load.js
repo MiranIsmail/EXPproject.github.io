@@ -23,7 +23,7 @@ function generate_card_wide(input_name,input_date,input_text,input_image,input_i
   var img = document.createElement('img');
   img.src = event_image;
   img.classList.add('img-fluid', 'rounded_style');
-  img.alt = '...';
+  img.alt = 'one of our events';
 
   // Append the image element to the image column
   imgColDiv.appendChild(img);

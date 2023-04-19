@@ -11,7 +11,6 @@
 
 body {
   background-color: #b7e3ff;
-
 }
 
 .op30 {
@@ -28,26 +27,25 @@ body {
 
 #image_run {
   display: block;
-  padding-top:3vh;
+  padding-top: 3vh;
 }
 
 #searchFade {
   background: linear-gradient(#0000004d 0%, #00000080 80%);
 }
 
-
 /*AUTO GENERADEDD EVENT CARDS*/
-.title-text{
-  padding-top:1rem;
+.title-text {
+  padding-top: 1rem;
   padding-left: 1rem;
 }
 
-.card-text-content{
+.card-text-content {
   padding-left: 1rem;
 }
 
 @media (max-width: 992px) {
-  .rounded_style{
+  .rounded_style {
     border-top-left-radius: 0.3rem;
     border-top-right-radius: 0.3rem;
   }
@@ -56,7 +54,7 @@ body {
   }
 }
 @media (min-width: 993px) {
-  .rounded_style{
+  .rounded_style {
     border-top-left-radius: 0.3rem;
     border-bottom-left-radius: 0.3rem;
   }
@@ -108,6 +106,8 @@ body {
 .events {
   /*background-color: #0000004D;*/
   background: linear-gradient(#00000080 0%, #00000099 97%, #000000cc 100%);
+  /* background: linear-gradient(#0033ff 0%, #00000099 97%, #000000cc 100%); */
+
   width: 100%;
   padding-bottom: 4rem;
 }
@@ -122,14 +122,18 @@ body {
   padding-top: 4rem;
 }
 
-
 @media (max-width: 574px) {
-
 }
 @media (min-width: 575px) {
-  #col_devider{
+  #col_devider {
     border-right: 1px dashed #333;
   }
+}
+
+#dropdown_track {
+  padding: 0.375rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.375rem;
 }
 
 /*Profile page*/
@@ -152,21 +156,12 @@ body {
   height: 3rem;
 }
 
-
-.events {
-  /*background-color: #0000004D;*/
-  background: linear-gradient(#00000080 0%, #00000099 97%, #000000cc 100%);
-  width: 100%;
-  padding-bottom: 4rem;
-}
-
-#event{
+#event {
   min-height: 30vh;
 }
 /*EVENT WEBSITE*/
 
-
-.show-more-btn{
+.show-more-btn {
   border: none;
   background-color: white;
   text-decoration: underline;
@@ -179,7 +174,7 @@ body {
   width: 85%;
 }
 
-#button_black{
+#button_black {
   border-radius: 10px;
   background-color: rgb(30, 30, 30);
   color: white;
@@ -237,8 +232,8 @@ body {
 }
 
 #nice_text {
-  font-family: 'Lato ';
-  border:  black;
+  font-family: "Lato ";
+  border: black;
   text-align: center;
   padding-top: 10vh;
 }
@@ -251,23 +246,26 @@ body {
   background-color: #2ac8ab77;
   padding: 20px;
   border-radius: 5px;
-  border: 2px solid #5FACE8;
+  border: 2px solid #5face8;
   margin-bottom: 5px;
 }
 
 .option_background {
   padding-top: 5%;
-  border-bottom-left-radius:2% 
+  border-bottom-left-radius: 2%;
+}
+
+.input_fields {
+  margin-bottom: 5px;
 }
 /*----------------------------------------------------LOGO*/
 @media (max-width: 574px) {
-  #logo{
+  #logo {
     width: 50%;
   }
 }
 @media (min-width: 575px) {
-  #logo{
+  #logo {
     width: 25%;
   }
 }
-
