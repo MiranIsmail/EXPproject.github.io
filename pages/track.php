@@ -37,16 +37,16 @@
         <p>Start by adding the first section!</p>
         <div class="container" id="track_input">
           <div class="row track_form" id="0">
-            <div class="col-4 input-group mb-3">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="inputGroupSelect01">Start</label>
-            </div>
+            <div class="col-3 input-group mb-3">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Start</label>
+              </div>
               <input type="number" class="form-control" name="StartID" min="100" max="200" placeholder="Start Station ID" required>
               <button type="button" class="btn btn-secondary" name="Startpin" onclick="find_pin_id(event, 'Start')" data-bs-toggle="modal" data-bs-target="#myModal">
                 <i class="fa-solid fa-map-location-dot"></i>
               </button>
             </div>
-            <div class="col-4 input-group md-3">
+            <div class="col-3 input-group md-3">
               <div class="input-group-prepend">
                 <label class="input-group-text" for="inputGroupSelect01">End</label>
               </div>
@@ -56,55 +56,25 @@
               </button>
             </div>
 
-            <div class="col-sm-3">
+            <div class="col-4">
               <label for="numberInput" id="dist" class="form-label fw-bold">Distance</label>
-              <input type="number" class="form-control" placeholder="Ex. 15" name="distance">
+              <input type="number" class="form-control" placeholder="Ex. 15" name="distance" required>
             </div>
-
-            <!-- The Modal -->
-            <div class="modal" id="myModal">
-              <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-
-                  <!-- Modal Header -->
-                  <div class="modal-header text-center">
-                    <h4 class="modal-title w-100">Map</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                  </div>
-
-                  <!-- Modal body -->
-                  <div class="modal-body">
-                    <div id="map"></div>
-                  </div>
-
-                  <!-- Modal footer -->
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger" onclick="deleteMarkers()">Delete</button>
-                    <button type="button" class="btn btn-success" disabled id="save_btn" onclick="send_coords()" data-bs-toggle="modal">Save</button>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
+            <div class="col-4">
               <label for="dropdown" id="terrain_dropdown" class="form-label fw-bold">Terrain</label>
               <div class="dropdown" name="terrain">
                 <button class="btn btn-secondary dropdown-toggle" type="button" name="Terrain" data-bs-toggle="dropdown" aria-expanded="false">
                   <i class="fa-solid fa-person-running"></i>
-                  Terrain
                 </button>
-                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButtonTerrain1">
-                  <li><a class="dropdown-item" onclick='select("Swim", event)'>Swim <i class="fa-solid fa-person-swimming"></i></a></li>
-                  <li><a class="dropdown-item" onclick='select("Run", event)'>Run <i class="fa-solid fa-person-running"></i></a></li>
-                  <li><a class="dropdown-item" onclick='select("Mixed", event)'>Mixed <i class="fa-solid fa-frog"></i></a></li>
+                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButtonTerrain1" required>
+                  <li><a class="dropdown-item" onclick='select("Swim", event)'><i class="fa-solid fa-person-swimming"></i> Swim</a></li>
+                  <li><a class="dropdown-item" onclick='select("Run", event)'><i class="fa-solid fa-person-running"></i> Land</a></li>
+                  <li><a class="dropdown-item" onclick='select("Mixed", event)'><i class="fa-solid fa-frog"></i> Mixed</a></li>
                 </ul>
               </div>
             </div>
-            <div class="col-md-3">
-              <label for="delete_button" class="form-label fw-bold">Options</label>
+            <div class="col-4">
               <button class="btn btn-danger" onclick="deleteRow(this)" name="delete_button"><i class="fa-solid fa-trash"></i>
-              Delete
               </button>
             </div>
           </div>
@@ -115,6 +85,32 @@
             <button type="submit" button type="button" button id="submit_button" class="btn btn-primary" role="button" onclick='submit()'>Submit</button>     
           </div>
         </div>
+        <!-- The Modal -->
+        <div class="modal" id="myModal">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+              <!-- Modal Header -->
+              <div class="modal-header text-center">
+                <h4 class="modal-title w-100">Map</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+
+              <!-- Modal body -->
+              <div class="modal-body">
+                <div id="map"></div>
+              </div>
+
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" onclick="deleteMarkers()">Delete</button>
+                <button type="button" class="btn btn-success" disabled id="save_btn" onclick="send_coords()" data-bs-toggle="modal">Save</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -122,7 +118,7 @@
   </div>
 
   <?php include '../assets/footer.php'; ?>
-</body>
+
 
 <script>
   // Create template row 
@@ -132,17 +128,41 @@
   var i = 0
   function addRow() {
     i = i + 1 
-    // Get the existing grid container
-    const gridContainer = document.querySelector(".grid-container");
+
     // Create a new row element and add the HTML string you provided
     const newRow = document.createElement("div");
     newRow.classList.add('row');
     newRow.classList.add('track_form')
     newRow.id = i
     newRow.innerHTML = info
-    // Add row to grid
+
     var myGrid = document.getElementById("track_input");
     myGrid.appendChild(newRow);
+    
+    // Add row to grid
+  
+    // Change row
+    const container = document.getElementById(i)
+    const fieldInput = container.querySelector('input[name="StartID"]')
+    const pinButton = container.querySelector('button[name="Startpin"]')
+    
+    const previousRow = newRow.previousElementSibling;
+    const previousRowFieldInput = previousRow.querySelector('input[name="EndID"]')
+    const previousRowPinButton = previousRow.querySelector('button[name="Endpin"]')
+
+    fieldInput.value = previousRowFieldInput.value;
+    fieldInput.disabled = true
+    pinButton.style.backgroundColor = previousRowPinButton.style.backgroundColor
+    pinButton.disabled = true 
+
+    // Add so that when the row above changes, the below one does as well
+    previousRowFieldInput.addEventListener("change", () => {
+      fieldInput.value = previousRowFieldInput.value
+    })
+    previousRowFieldInput.addEventListener("keydown", () => {
+      fieldInput.value = previousRowFieldInput.value
+    })
+
   }
 
   function select(option, event) {
@@ -175,11 +195,49 @@
 
   function deleteRow(button) {
     var row = button.parentNode.parentNode;
+    const StartID = row.querySelector('input[name="StartID"]').value
+    const EndID = row.querySelector('input[name="EndID"]').value
+    console.log(StartID)
+    console.log(EndID)
+    const previousRow = row.previousElementSibling;
+    const nextRow = row.nextElementSibling;
+
+
+    if (previousRow == null && nextRow == null) {
+      row.remove();
+      deleteMarkersPrompt(StartID)
+      deleteMarkersPrompt(EndID)
+    }
+    else if (previousRow == null) {
+      const nextRowStartFieldInput = nextRow.querySelector('input[name="StartID"]')
+      const nextRowStartPinButton = nextRow.querySelector('button[name="Startpin"]')
+      nextRowStartFieldInput.disabled = false
+      nextRowStartPinButton.disabled = false
+      row.remove()
+    }
+    else if (nextRow == null) {
+      const prevRowEndFieldInput = previousRow.querySelector('input[name="EndID"]')
+      const prevRowEndPinButton = previousRow.querySelector('button[name="Endpin"]')
+      prevRowEndFieldInput.disabled = false
+      prevRowEndPinButton.disabled = false
+      row.remove()
+    }
+
+
+  
     row.remove();
   }
-
+  function DeleteSection(){
+  
+}
 
   function submit() {
+    // Get all required input fields
+    const requiredFields = document.querySelectorAll('input[required]')
+
+    // Check if all required fields are filled in and valid
+    const allFieldsValid = Array.from(requiredFields).every(field => field.checkValidity());
+
     const rows = document.querySelectorAll('.row');
 
     let track_name = document.getElementById('InputTrackName').value
@@ -190,52 +248,72 @@
   let end_station;
   const checkpoint_list = [];
   class checkpoint{
-    constructor(check_id, distance, terrain, next){
-      this.check_id = check_id, this.distance = distance, this.terrain = terrain, this.next = NULL
+    constructor(lat, long, check_id, distance, terrain, next, prev){
+      this.lat = lat, this.long = long,
+      this.check_id = check_id, this.distance = distance, 
+      this.terrain = terrain, this.next = next,
+      this.prev = prev
     }
-    UpdateNext(checkpoint_id){
-      this.next = checkpoint_id;
+    UpdateNext(next){
+      this.next = next;
     }
+    UpdatePrev(prev){
+      this.prev = prev
+    }
+    UpdateTerrain(terrain){
+      this.terrain = terrain;
+    }
+
   }
     rows.forEach(row => {
       // Get the input fields in the row
-      const idInput = row.querySelector('input[id=CheckID]');
+      const idInputStart = row.querySelector('input[name=StartID]');
+      const idInputEnd = row.querySelector('input[name=EndID]');
       const distanceInput = row.querySelector('input[name=distance]');
       const terrainDropdown = row.querySelector('button[name=Terrain]');
       
       // Get the values of the input fields
-      const id = idInput.value;
+      const start_id = idInputStart.value;
+      const end_id = idInputEnd.value;
       const distance = distanceInput.value;
       const terrain = terrainDropdown.textContent;
-      let check = new checkpoint(id, distance, terrain, next)
+      let start_check = new checkpoint(id, distance, terrain, next)
+      let end_check = new checkpoint(id, distance, terrain, next)
       checkpoint_list[i] = check
       console.log(checkpoint_list[i])
       //console.log(i)
-      // Do something with the data
-      console.log(`ID: ${id}, Distance: ${distance}, Terrain: ${terrain}`);
+
+      let gps;
+      
+      // Add endpoint post here 
+
       if(i === 0){
-        start_station = idInput.value;
+        start_station = start_id; 
+      
       }
       i++;
-      end_station = idInput.value;
+      console.log(`ID: ${id}, Distance: ${distance}, Terrain: ${terrain}`);
+      end_station = end_id
       CreateTrack(track_name, start_station, end_station);
-      for(let i = 0; i < checkpoint_list.length - 1; i++){
-        checkpoint_list[i].UpdateNext(checkpoint_list[i+1].check_id)
-      }
-    });
+    })
 
   }
 
   let checkpoint_id;
   let pin_button;
+  let next_pin_button;
   let map;
   let markers_list = [];
   const btn = document.getElementById('save_btn')
 
   function find_pin_id(event, type) {
     var row = event.target.closest('.row')
+    var nextRow = row.nextElementSibling;
     checkpoint_id = row.querySelector(`input[name=${type+"ID"}]`).value
     pin_button = row.querySelector(`button[name=${type+"pin"}]`)
+    if (type == "End" && nextRow !== null) {
+      next_pin_button = nextRow.querySelector('button[name="]')
+    }
   }
   
   function init_map() {
@@ -279,6 +357,14 @@
 
 
 
+  function deleteMarkersPrompt(CheckID) {
+    for (let i = 0; i < markers_list.length; i++) {
+      if (markers_list[i].getLabel() == CheckID) {
+        markers_list[i].setMap(null);
+        markers_list.splice(i, 1);
+      }
+    }
+  }
   // Deletes all markers in the array by removing references to them.
   function deleteMarkers() {
     for (let i = 0; i < markers_list.length; i++) {
@@ -294,20 +380,21 @@
     btn.disabled = true;
   }
   //figure out how to confirm
-  function send_coords() { //needs fixing
+  function send_coords() { 
+    next_pin_button.style.backgroundColor = 'green'
     pin_button.style.backgroundColor = 'green'
     for (let index = 0; index < markers_list.length; index++) {
       let object_string = JSON.stringify(markers_list[index])
       //data base call
     }
-  
+  }
   function open_map(event) {
     window.init_map = init_map;
     console.log(checkpoint_id)
   }
-  }
+  
 </script>
 <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkY5KKVjLNfTPCAX17XbClpOpfTQd0cFM&callback=init_map">
 </script>
-
+</body>
 </html>
