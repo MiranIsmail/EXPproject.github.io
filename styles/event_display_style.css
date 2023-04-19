@@ -90,3 +90,16 @@
         max-width: 50%;
     }
   }
+
+.underline_text{
+    text-decoration: underline;
+    text-align: center;
+}
+
+#register_card{
+    background-color:#b7e3ff;
+}
+
+#inputfield_padding{
+    padding-bottom: 1rem;
+}
