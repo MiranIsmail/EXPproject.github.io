@@ -18,6 +18,8 @@
       };
     
     async function GetChecks(result_id){
+      document.getElementById('event_title').innerHTML = "Event:"
+      document.getElementById('track_title').innerHTML = "Track:"
       response = await fetch("https://rasts.se/api/Results/" + result_id, {method:'GET',
       headers: {'Accept': 'Application/json'}})
       data = await response.json();
@@ -30,15 +32,14 @@
       }
       console.log(checkpts_obj)
       FillTable(checkpts_obj)
-      //async returns promise, fix later
-      //may have to put all code in async as jank solution
-      //need to make sure it only grabs specific user data, not all to avoid potential privacy problems
+      
     }
   </script>
 
 
   <div class="mb-3 mx-auto w-50">
-    <h1>Event:</h1>
+    <h1 id="event_title">Event:</h1>
+    <h2 id="track_title">Track:</h2>
     <table style="border-color: black;" class="table table-bordered" id="timetable">
       <thead>
         <tr>
@@ -77,7 +78,7 @@
             cell6.innerHTML = data[i].result_id
           }
         }
-          GetChecks("89")
+          GetChecks("93")
         </script>
       </tbody>
     </table>
