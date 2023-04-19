@@ -9,7 +9,7 @@
     </div>
     <div class="section content_container order-1">
         <h1> Welcome!</h1>
-        <form action="../assets/organization_request.php" class="orgform" method="GET>
+        <form action="../assets/organization_request.php" class="orgform" method="GET">
             <div class=" form-group form_group_style mx-auto">
             <button class="button-modular" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Want to register your organisation?</button>
 
