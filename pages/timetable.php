@@ -1,49 +1,64 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <title>Timetable</title>
-  <meta charset="utf-8">
-  <link rel="icon" type="image/x-icon" href="../images/logo_color.png">
-  <!--Tre librarys dont remove, Bootstrap 5-->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-  <link rel="stylesheet" href="../styles/stylesheet.css">
-  <script type="text/javascript" src="../scripts/timetable.js"></script>
-</head>
-
-<script>
-  class dummydata {
-    constructor(starttime, endtime, totaltime, terrain, distance, velocity) {
-      this.starttime = starttime
-      this.endtime = endtime
-      this.totaltime = totaltime
-      this.terrain = terrain
-      this.distance = distance
-      this.velocity = velocity
-    };
-  };
-  var check1 = new dummydata(1, 2, 2, "land", 45, 300);
-  var check2 = new dummydata(1, 2, 2, "land", 45, 300);
-  var check3 = new dummydata(1, 2, 2, "land", 45, 300);
-  var data = [check1, check2, check3];
-</script>
+<?php include '../assets/head.php'; ?>
 
 <body>
   <?php include '../assets/navbar.php'; ?>
+
+  <script>
+    class checkpoint {
+      constructor(id, next, starttime, endtime, totaltime, terrain, distance) {
+        this.id = id
+        this.next = next
+        this.starttime = starttime
+        this.endtime = null
+        this.totaltime = totaltime
+        this.terrain = terrain
+        this.distance = distance
+        this.velocity = null
+      };
+      CalcVelocity(starttime, endtime, distance){
+        this.velocity = distance/(endtime - starttime)
+      }
+      UpdateNext(prevInd){//I HATE SETTERS
+        this.next = prevInd
+      }
+      UpdateEndTime(next){
+        this.endtime = next.starttime
+        //last checkpoint/ finish line should have same endtime as starttime?
+      }
+    };
+
+    var check1 = new checkpoint(101, 102, 2, 3, "land", 45, 300, 0);
+    var check2 = new checkpoint(102, 103, 3, 4, "land", 45, 300, 0);
+    var check3 = new checkpoint(103, 103, 4, 4, "land", 45, 300, 0);
+    var data = [check1, check2, check3];
+    
+    async function GetChecks(){
+      response = await fetch("https://rasts.se/api/Checkpoint", {method:'GET',
+      headers: {'Accept': 'Application/json'}})
+      data = await response.json();
+      checkpts_obj = []
+      for(let i = 0; i < data.length; i++){
+        checkpts_obj[i] = new checkpoint()
+      }
+      //async returns promise, fix later
+      //may have to put all code in async as jank solution
+      //need to make sure it only grabs specific user data, not all to avoid potential privacy problems
+    }
+  </script>
+
+
   <div class="mb-3 mx-auto w-50">
-    <h1>Timetable</h1>
+    <h1>Event:</h1>
     <table style="border-color: black;" class="table table-bordered" id="timetable">
       <thead>
         <tr>
-          <th scope="col">Checkpoint</th>
-          <th scope="col">Starttime</th>
-          <th scope="col">Endtime</th>
-          <th scope="col">Total time</th>
-          <th scope="col">Terrain</th>
-          <th scope="col">Distance</th>
-          <th scope="col">Velocity</th>
+          <th scope="col">Checkpoint nr:</th>
+          <th scope="col">Starttime:</th>
+          <th scope="col">Endtime:</th>
+          <th scope="col">Total time:</th>
+          <th scope="col">Terrain:</th>
+          <th scope="col">Distance:</th>
+          <th scope="col">Velocity:</th>
 
         </tr>
       </thead>
@@ -70,6 +85,8 @@
             cell4.innerHTML = data[i].totaltime
             cell5.innerHTML = data[i].terrain
             cell6.innerHTML = data[i].distance
+            data[i].CalcVelocity(data[i].starttime, 
+            data[i].endtime, data[i].distance)
             cell7.innerHTML = data[i].velocity
           }
         </script>
@@ -77,4 +94,6 @@
     </table>
   </div>
   <?php include '../assets/footer.php'; ?>
+  <script type="text/javascript" src="../scripts/timetable.js"></script>
+
 </body>

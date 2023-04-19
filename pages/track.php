@@ -1,21 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <title>Track - Rasts</title>
-  <meta charset="utf-8">
-  <link rel="icon" type="image/x-icon" href="../images/logo_color.png">
-  <!--Tre librarys dont remove, Bootstrap 5-->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-  <link rel="stylesheet" href="../styles/stylesheet.css">
-  <link rel="stylesheet" href="../styles/login_and_signup.css">
-  <link rel="stylesheet" href="../styles/google_maps_api.css">
-  <script src="https://kit.fontawesome.com/dbe6ff92a1.js" crossorigin="anonymous"></script>
-  <script type="text/javascript" src="../scripts/js_scripts.js"></script>
-</head>
-
+<?php include '../assets/head.php'; ?>
 
 <body>
   <?php include '../assets/navbar.php'; ?>
@@ -52,7 +35,7 @@
               </div>
               <input type="number" class="form-control" name="EndID" min="100" max="200" placeholder="End Station ID" required>
               <button type="button" class="btn btn-secondary" name="Endpin" onclick="find_pin_id(event, 'End')" data-bs-toggle="modal" data-bs-target="#myModal">
-                <i class="fa-solid fa-map-location-dot"></i> 
+                <i class="fa-solid fa-map-location-dot"></i>
               </button>
             </div>
 
@@ -82,7 +65,7 @@
         <div class="container">
           <div class="option_background">
             <button id="add_button" button type="button" class="btn btn-secondary" onclick="addRow()">Add another section <i class="fa-regular fa-plus"></i></button>
-            <button type="submit" button type="button" button id="submit_button" class="btn btn-primary" role="button" onclick='submit()'>Submit</button>     
+            <button type="submit" button type="button" button id="submit_button" class="btn btn-primary" role="button" onclick='submit()'>Submit</button>
           </div>
         </div>
         <!-- The Modal -->
@@ -353,7 +336,6 @@
     for (let i = 0; i < markers_list.length; i++) {
       markers_list[i].setMap(map);
     }
-  }
 
 
 
@@ -375,6 +357,8 @@
         markers_list.splice(i, 1);
         pin_button.style.backgroundColor = 'maroon'
       }
+      console.log(markers_list)
+      btn.disabled = true;
     }
     console.log(markers_list)
     btn.disabled = true;
