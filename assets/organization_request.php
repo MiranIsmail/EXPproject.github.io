@@ -7,5 +7,5 @@ $msg = wordwrap($msg, 70);
 
 // send email
 
-mail($_POST["contact_email"], "teste", $msg);
-//header('Location: ' . "https://www.rasts.se/");
+mail($_GET["contact_email"], "teste", $msg);
+header('Location: ' . "https://www.rasts.se/");
