@@ -336,7 +336,7 @@
     for (let i = 0; i < markers_list.length; i++) {
       markers_list[i].setMap(map);
     }
-
+  }
 
 
   function deleteMarkersPrompt(CheckID) {
