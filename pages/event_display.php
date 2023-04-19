@@ -69,7 +69,7 @@ include '../assets/head.php';
                         <div class="card card-body" id="register_card">
                             <div class="form-group mx-auto w-100" id="inputfield_padding">
                                 <p>Chip ID:</p>
-                                <input type="text" class="form-control input_field_style w-100" placeholder="Input The ChipID on provided chip:" aria-describedby="emailHelp" id="chip_id_display" readonly>
+                                <input type="text" class="form-control input_field_style w-100" placeholder="Input The ChipID on provided chip:" aria-describedby="emailHelp" id="chip_id_display" disabled>
                             </div>
                         </div>
                     </div>

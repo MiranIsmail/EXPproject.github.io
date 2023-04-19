@@ -19,11 +19,11 @@ include '../assets/head.php';
     </div>
     <div class="mb-3 mx-auto w-50">
       <label for="InputStartDate" class="form-label">Start Date</label>
-      <input class="form-control" type="date" id="send_start_date" />
+      <input class="form-control" type="datetime-local" id="send_start_date" />
       <span id="startDateSelected"></span>
     </div>
     <div class="mb-3 mx-auto w-50">End Date
-      <input class="form-control" type="date" id="send_end_date" />
+      <input class="form-control" type="datetime-local" id="send_end_date" />
       <span id="endDateSelected"></span>
     </div>
     <div class="mb-3 mx-auto w-50">
