@@ -10,6 +10,7 @@ import requests
 from tkinter import *
 from PIL import Image, ImageTk
 from win32api import GetSystemMetrics
+import serial.tools.list_ports as stlp
 
 def split_time(time: str):
     time_split = time.split(":")
@@ -142,16 +143,22 @@ def time_format_parse(time_log: str):
 
 def formater():
     runner= True
-    ser = serial.Serial(port="COM5", baudrate=115200)
+    #s = stlp.comports()
+    #for port in sorted(s):
+        #print(port.product)
+        #print("{}: {} [{}]".format(port, desc, manufacturer))
+    ser = serial.Serial(port="COM3", baudrate=115200)
     url = 'https://rasts.se/api/Results'
     while runner:
         response = ser.readline()
         if response[1] != 73:
             if response[1] != 80:
                 res:dict=time_format_parse(str(response))
-                json_string = json.dumps(res)
-                requests.post(url, data= json_string)
-                time.sleep(0.005)
+                chip_id:str = res.get("chip_id")
+                update_options(chip_id)
+                #json_string = json.dumps(res)
+                #requests.post(url, data= json_string)
+                time.sleep(0.1)
                 runner = False
     return res
 
@@ -211,6 +218,18 @@ root = tk.Tk()
 root.title("RASTS")
 root.iconbitmap(r"C:\Users\miran\Desktop\EXPproject\other\logo.ico")
 root.attributes('-fullscreen',True)
+my_note = ttk.Notebook(root)
+my_note.pack(fill="both",expand=True)
+
+
+f1= Frame(my_note)
+f1.pack(fill="both",expand=True)
+f2= Frame(my_note)
+f2.pack(fill="both",expand=True)
+
+my_note.add(f1,text="Home")
+my_note.add(f2,text="Settings")
+
 label_text = "Hello from RASTS.se"
 label_font = ('helvetica', 62)
 image = Image.open(r"C:\Users\miran\Desktop\EXPproject\other\app\RASTS.png")
@@ -218,20 +237,42 @@ w,h=GetSystemMetrics(0),GetSystemMetrics(1)
 resize_image = image.resize((w//3, h//3))
 img = ImageTk.PhotoImage(resize_image)
 # Create a label
-label = ttk.Label(root, text=label_text, font=label_font, background='gray', foreground='white',image=img)
+label = ttk.Label(f1, text=label_text, font=label_font, background='gray', foreground='white',image=img)
 
 label.pack(fill='both', expand=True)
 label.configure(anchor="center")
+
+options = ['Option 1', 'Option 2', 'Option 3']
+var = tk.StringVar(f1)
+var.set(options[0])
+
+menu = tk.OptionMenu(f1, var, *options)
+menu.pack()
+
+# function to update options
+def update_options(chip_id):
+    url_id_event = 'https://rasts.se/api/Registration?chip_id='+chip_id
+    new_options = []
+    get_result:list = requests.get(url_id_event).json()
+    print(type(get_result))
+    for ev_dict in get_result:
+        new_options.append(ev_dict["event_name"])
+    
+    menu['menu'].delete(0, 'end') # delete old options
+    for option in new_options:
+        menu['menu'].add_command(label=option, command=tk._setit(var, option)) # add new options
+    var.set(new_options[0]) # set default value
+
 # Create a button to start the program
-start_button = ttk.Button(root, text="START", command=start)
+start_button = ttk.Button(f1, text="START", command=start)
 start_button.pack(side="top")
 
 # Create a button to close the window
-close_button = ttk.Button(root, text="Close", command=close)
+close_button = ttk.Button(f1, text="Close", command=close)
 close_button.pack()
 
 
-table = ttk.Treeview(root, columns=headings, show='headings')
+table = ttk.Treeview(f1, columns=headings, show='headings')
 table.pack(fill='both', expand=True)
 
 # Configure alternating row colors
@@ -251,6 +292,33 @@ for row in data['track_time']:
 for col in headings:
     table.heading(col, text=col)
 
+# function to update options
+def update_options_f2(chip_id):
+    url_id_event = 'https://rasts.se/api/Registration?chip_id='+chip_id
+    new_options = []
+    get_result:list = requests.get(url_id_event).json()
+    for ev_dict in get_result:
+        new_options.append(ev_dict["event_name"])
+    
+    menu_f2['menu'].delete(0, 'end') # delete old options
+    for option in new_options:
+        menu_f2['menu'].add_command(label=option, command=tk._setit(var_f2, option)) # add new options
+    var_f2.set(new_options[0]) # set default value
 
+def button_clicked_f2():
+    entry_value = entry.get()
+    update_options_f2(entry_value)
 
+entry = tk.Entry(f2, validate="key")
+entry.pack()
+
+button_f2_1 = tk.Button(f2, text="Get events", command=button_clicked_f2)
+button_f2_1.pack()
+
+options_f2 = ['Option 1', 'Option 2', 'Option 3']
+var_f2 = tk.StringVar(f2)
+var_f2.set(options_f2[0])
+
+menu_f2 = tk.OptionMenu(f2, var_f2, *options_f2)
+menu_f2.pack()
 root.mainloop()
