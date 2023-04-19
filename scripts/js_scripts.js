@@ -489,7 +489,7 @@ async function get_chip() {
   })
   const data = await response.json()
 
-  document.getElementById("chip_id_display").innerHTML = await data["chip_id"]
+  document.getElementById("chip_id_display").value = await data["chip_id"]
 }
 
 async function email_to_forgot_password() {
