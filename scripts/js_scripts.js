@@ -504,5 +504,6 @@ async function email_to_forgot_password() {
     alert("Email was sent successfully!");
   } else {
     alert("There was an error sending the email!");
+    alert(response);
   }
 }
