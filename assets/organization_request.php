@@ -12,5 +12,5 @@ $msg = wordwrap($msg, 70);
 // send email
 // org nummber
 
-mail($_GET["contact_email"], $_GET["org_name"] . "wants a account", $msg);
+mail($_GET["contact_email"], "Organization request", $msg);
 header('Location: ' . "https://www.rasts.se/");
