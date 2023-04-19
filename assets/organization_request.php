@@ -8,9 +8,9 @@ $msg = "Thank you for your request to register your organization. We will get ba
 
 // use wordwrap() if lines are longer than 70 characters
 $msg_rast = wordwrap($msg_rast, 70);
+//$msg = wordwrap($msg, 70);
 
-// send email
-// org nummber
+
 mail("info@rasts.se", "Organization request", $msg_rast);
 mail($_GET["contact_email"], "Organization request", $msg);
 header('Location: ' . "https://www.rasts.se/");
