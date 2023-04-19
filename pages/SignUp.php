@@ -28,13 +28,17 @@
 
                     </div>
                     <div class="form-group form_group_style mx-auto">
-                        <p>Country</p>
-                        <input type="text" name="Country" class="form-control input_field_style" placeholder="Region of domain" id="org_country" required>
+                        <p>Address</p>
+                        <input type="text" name="address" class="form-control input_field_style" placeholder="Region of domain" id="org_country" required>
 
                     </div>
                     <div class="form-group form_group_style mx-auto">
                         <p>Email Address for organisation </p>
                         <input type="email" name="org_email" class="form-control input_field_style" placeholder="expproject@gmail.com" id="org_email" required>
+                    </div>
+                    <div class="form-group form_group_style mx-auto">
+                        <p>Organisation number </p>
+                        <input type="text" name="org_number" class="form-control input_field_style" placeholder="111111-0000" id="org_email" required>
                     </div>
                     <h2>Contact information</h2>
                     <div class="form-group form_group_style mx-auto">
