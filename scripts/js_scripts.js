@@ -223,27 +223,6 @@ async function generate_user_results() {
 }
 
 
-// function search_event() {
-//   let input = document.getElementById('searchQueryInput').value
-//   input = input.toLowerCase();
-//   let x = document.getElementsByClassName('card').querySelector('.card-title.title-text');
-//   console.log(x)
-//   let xcard = document.getElementsByClassName('eventCards');
-
-//   const cardTitle = document.querySelector('.card-title.title-text');
-//   const eventName = cardTitle.textContent.trim();
-//   console.log(eventName)
-
-//   for (i = 0; i < x.length; i++) {
-//     if (!xcard[i].innerHTML.toLowerCase().includes(input)) {
-//       xcard[i].style.display = "none";
-//     }
-//     else {
-//       xcard[i].style.display = "list-item";
-//     }
-//   }
-// }
-
 function search_event() {
   // Retrieve all cards
   let input = document.getElementById('searchQueryInput').value
@@ -501,4 +480,14 @@ function register_on_event(event_id) {
     body: JSON.stringify(parameters)
   })
   alert("Chip has been Registerd");
+}
+
+async function get_chip() {
+  const response = await fetch(BASE_ULR + "Account", {
+    method: 'GET',
+    headers: { 'Authorization': get_cookie('auth_token') }
+  })
+  const data = await response.json()
+
+  document.getElementById("chip_id_display").innerHTML = await data["chip_id"]
 }
