@@ -36,9 +36,26 @@ include '../assets/head.php';
                 </div>
                 <input type="text" class="form-control" placeholder="Ex: 312343" aria-label="" aria-describedby="basic-addon1" id="send_chip">
             </div>
-                        <div id="myTableContainer"></div>
-                    </div>
-                </div>
+
+
+
+            <p>
+  <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+    Link with href
+  </a>
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    Button with data-target
+  </button>
+</p>
+<div class="collapse" id="collapseExample">
+  <div class="card card-body">
+    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+  </div>
+</div>
+
+            <div id="myTableContainer"></div>
+            </div>
+            </div>
             </div>
             <?php include '../assets/footer.php'; ?>
             <script type="text/javascript" src="../scripts/js_scripts.js"></script>
