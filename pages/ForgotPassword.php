@@ -9,13 +9,13 @@
 
     <div class="section w-100 content_container">
         <h1> Welcome!</h1>
-        <form method="POST">
+        <form action="../api/src/TokenGateway.php" method="post">
             <div class="form-group form_group_style mx-auto">
                 <p>Enter your Email address</p>
-                <input type="text" class="form-control input_field_style" aria-describedby="emailHelp" placeholder="Enter email" id="fetchEmail" name="email">
+                <input type="email" id="email" placeholder="Enter email" name="email">
             </div>
             <div class="form-group form_group_style mx-auto">
-                <button type="submit" id="button_style" name="reset_request_submit">Send A Reset Password Link To Email</button>
+                <input type="submit" value="Send a Reset Password Link To Email">
             </div>
         </form>
         <?php
