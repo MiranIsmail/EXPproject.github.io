@@ -21,25 +21,23 @@
         <div class="container" id="track_input">
           <div class="row track_form" id="0">
             <p>Section<p>
-            <div class="input_fields">
-              <div class="col-3 input-group mb-3">
-                <div class="input-group-prepend">
-                  <label class="input-group-text" for="inputGroupSelect01">Start</label>
-                </div>
-                <input type="number" class="form-control" name="StartID" min="100" max="200" placeholder="Start Station ID" required>
-                <button type="button" class="btn btn-secondary" name="Startpin" onclick="find_pin_id(this, 'Start')" data-bs-toggle="modal" data-bs-target="#myModal">
-                  <i class="fa-solid fa-map-location-dot"></i>
-                </button>
+            <div class="col-3 input-group mb-3">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Start</label>
               </div>
-              <div class="col-3 input-group md-3">
-                <div class="input-group-prepend">
-                  <label class="input-group-text" for="inputGroupSelect01">End</label>
-                </div>
-                <input type="number" class="form-control" name="EndID" min="100" max="200" placeholder="End Station ID" required>
-                <button type="button" class="btn btn-secondary" name="Endpin" onclick="find_pin_id(this, 'End')" data-bs-toggle="modal" data-bs-target="#myModal">
-                  <i class="fa-solid fa-map-location-dot"></i>
-                </button>
+              <input type="number" class="form-control" name="StartID" min="100" max="200" placeholder="Start Station ID" required>
+              <button type="button" class="btn btn-secondary" name="Startpin" onclick="find_pin_id(this, 'Start')" data-bs-toggle="modal" data-bs-target="#myModal">
+                <i class="fa-solid fa-map-location-dot"></i>
+              </button>
+            </div>
+            <div class="col-3 input-group md-3">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">End</label>
               </div>
+              <input type="number" class="form-control" name="EndID" min="100" max="200" placeholder="End Station ID" required>
+              <button type="button" class="btn btn-secondary" name="Endpin" onclick="find_pin_id(this, 'End')" data-bs-toggle="modal" data-bs-target="#myModal">
+                <i class="fa-solid fa-map-location-dot"></i>
+              </button>
             </div>
 
             <div class="col-4">
@@ -64,38 +62,38 @@
               <button class="btn btn-danger" onclick="deleteRow(this)" name="delete_button"><i class="fa-solid fa-trash"></i>
               </button>
             </div>
-          <div>
+          </div>
         </div>
-      </div>
-      <div class="container">
-        <div class="option_background">
-          <button id="add_button" button type="button" class="btn btn-secondary" onclick="addRow()">Add another section <i class="fa-regular fa-plus"></i></button>
-          <button type="submit" button type="button" button id="submit_button" class="btn btn-primary" role="button" onclick='submit()'>Submit</button>
+        <div class="container">
+          <div class="option_background">
+            <button id="add_button" button type="button" class="btn btn-secondary" onclick="addRow()">Add another section <i class="fa-regular fa-plus"></i></button>
+            <button type="submit" button type="button" button id="submit_button" class="btn btn-primary" role="button" onclick='submit()'>Submit</button>
+          </div>
         </div>
-      </div>
-      <!-- The Modal -->
-      <div class="modal" id="myModal">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
+        <!-- The Modal -->
+        <div class="modal" id="myModal">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
 
-            <!-- Modal Header -->
-            <div class="modal-header text-center">
-              <h4 class="modal-title w-100">Map</h4>
-              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              <!-- Modal Header -->
+              <div class="modal-header text-center">
+                <h4 class="modal-title w-100">Map</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+
+              <!-- Modal body -->
+              <div class="modal-body">
+                <div id="map"></div>
+              </div>
+
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" onclick="deleteMarkers()">Delete</button>
+                <button type="button" class="btn btn-success" disabled id="save_btn" onclick="send_coords()" data-bs-toggle="modal">Save</button>
+              </div>
+
             </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-              <div id="map"></div>
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-danger" onclick="deleteMarkers()">Delete</button>
-              <button type="button" class="btn btn-success" disabled id="save_btn" onclick="send_coords()" data-bs-toggle="modal">Save</button>
-            </div>
-
           </div>
         </div>
       </div>
