@@ -34,7 +34,7 @@
                 <input type="password" id="confirm_password_reseted" placeholder="Confirm Password" name="confirm password">
             </div>
             <div class="form-group form_group_style mx-auto">
-                <input type="submit" value="Reset Password" onclick="">
+                <input type="submit" value="Reset Password" onclick="update_user_password()">
             </div>
         </form>
     </div>
