@@ -20,27 +20,30 @@
         <p>Start by adding the first section!</p>
         <div class="container" id="track_input">
           <div class="row track_form" id="0">
-            <div class="col-3 input-group mb-3">
-              <div class="input-group-prepend">
-                <label class="input-group-text" for="inputGroupSelect01">Start</label>
+            <p>Section<p>
+            <div class="input_fields">
+              <div class="col-3 input-group mb-3">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="inputGroupSelect01">Start</label>
+                </div>
+                <input type="number" class="form-control" name="StartID" min="100" max="200" placeholder="Start Station ID" required>
+                <button type="button" class="btn btn-secondary" name="Startpin" onclick="find_pin_id(this, 'Start')" data-bs-toggle="modal" data-bs-target="#myModal">
+                  <i class="fa-solid fa-map-location-dot"></i>
+                </button>
               </div>
-              <input type="number" class="form-control" name="StartID" min="100" max="200" placeholder="Start Station ID" required>
-              <button type="button" class="btn btn-secondary" name="Startpin" onclick="find_pin_id(event, 'Start')" data-bs-toggle="modal" data-bs-target="#myModal">
-                <i class="fa-solid fa-map-location-dot"></i>
-              </button>
-            </div>
-            <div class="col-3 input-group md-3">
-              <div class="input-group-prepend">
-                <label class="input-group-text" for="inputGroupSelect01">End</label>
+              <div class="col-3 input-group md-3">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="inputGroupSelect01">End</label>
+                </div>
+                <input type="number" class="form-control" name="EndID" min="100" max="200" placeholder="End Station ID" required>
+                <button type="button" class="btn btn-secondary" name="Endpin" onclick="find_pin_id(this, 'End')" data-bs-toggle="modal" data-bs-target="#myModal">
+                  <i class="fa-solid fa-map-location-dot"></i>
+                </button>
               </div>
-              <input type="number" class="form-control" name="EndID" min="100" max="200" placeholder="End Station ID" required>
-              <button type="button" class="btn btn-secondary" name="Endpin" onclick="find_pin_id(event, 'End')" data-bs-toggle="modal" data-bs-target="#myModal">
-                <i class="fa-solid fa-map-location-dot"></i>
-              </button>
             </div>
 
             <div class="col-4">
-              <label for="numberInput" id="dist" class="form-label fw-bold">Distance</label>
+              <label for="numberInput" id="dist" class="form-label fw-bold">Distance (in meters)</label>
               <input type="number" class="form-control" placeholder="Ex. 15" name="distance" required>
             </div>
             <div class="col-4">
@@ -56,42 +59,43 @@
                 </ul>
               </div>
             </div>
-            <div class="col-4">
+            <div class="col-1">
+            <label for="button_delete" id="del" class="form-label fw-bold">Options</label>
               <button class="btn btn-danger" onclick="deleteRow(this)" name="delete_button"><i class="fa-solid fa-trash"></i>
               </button>
             </div>
-          </div>
+          <div>
         </div>
-        <div class="container">
-          <div class="option_background">
-            <button id="add_button" button type="button" class="btn btn-secondary" onclick="addRow()">Add another section <i class="fa-regular fa-plus"></i></button>
-            <button type="submit" button type="button" button id="submit_button" class="btn btn-primary" role="button" onclick='submit()'>Submit</button>
-          </div>
+      </div>
+      <div class="container">
+        <div class="option_background">
+          <button id="add_button" button type="button" class="btn btn-secondary" onclick="addRow()">Add another section <i class="fa-regular fa-plus"></i></button>
+          <button type="submit" button type="button" button id="submit_button" class="btn btn-primary" role="button" onclick='submit()'>Submit</button>
         </div>
-        <!-- The Modal -->
-        <div class="modal" id="myModal">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
+      </div>
+      <!-- The Modal -->
+      <div class="modal" id="myModal">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
 
-              <!-- Modal Header -->
-              <div class="modal-header text-center">
-                <h4 class="modal-title w-100">Map</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-              </div>
-
-              <!-- Modal body -->
-              <div class="modal-body">
-                <div id="map"></div>
-              </div>
-
-              <!-- Modal footer -->
-              <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger" onclick="deleteMarkers()">Delete</button>
-                <button type="button" class="btn btn-success" disabled id="save_btn" onclick="send_coords()" data-bs-toggle="modal">Save</button>
-              </div>
-
+            <!-- Modal Header -->
+            <div class="modal-header text-center">
+              <h4 class="modal-title w-100">Map</h4>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+              <div id="map"></div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-danger" onclick="deleteMarkers()">Delete</button>
+              <button type="button" class="btn btn-success" disabled id="save_btn" onclick="send_coords()" data-bs-toggle="modal">Save</button>
+            </div>
+
           </div>
         </div>
       </div>
@@ -107,6 +111,8 @@
   // Create template row 
   const template_row = document.getElementById("0")
   const info = template_row.innerHTML
+  const success = 'green'
+  const fail = 'maroon'
 
   var i = 0
   function addRow() {
@@ -129,21 +135,21 @@
     const fieldInput = container.querySelector('input[name="StartID"]')
     const pinButton = container.querySelector('button[name="Startpin"]')
     
-    const previousRow = newRow.previousElementSibling;
-    const previousRowFieldInput = previousRow.querySelector('input[name="EndID"]')
-    const previousRowPinButton = previousRow.querySelector('button[name="Endpin"]')
+    const previous_row = newRow.previousElementSibling;
+    const previous_rowFieldInput = previous_row.querySelector('input[name="EndID"]')
+    const previous_rowPinButton = previous_row.querySelector('button[name="Endpin"]')
 
-    fieldInput.value = previousRowFieldInput.value;
+    fieldInput.value = previous_rowFieldInput.value;
     fieldInput.disabled = true
-    pinButton.style.backgroundColor = previousRowPinButton.style.backgroundColor
+    pinButton.style.backgroundColor = previous_rowPinButton.style.backgroundColor
     pinButton.disabled = true 
 
     // Add so that when the row above changes, the below one does as well
-    previousRowFieldInput.addEventListener("change", () => {
-      fieldInput.value = previousRowFieldInput.value
+    previous_rowFieldInput.addEventListener("change", () => {
+      fieldInput.value = previous_rowFieldInput.value
     })
-    previousRowFieldInput.addEventListener("keydown", () => {
-      fieldInput.value = previousRowFieldInput.value
+    previous_rowFieldInput.addEventListener("keydown", () => {
+      fieldInput.value = previous_rowFieldInput.value
     })
 
   }
@@ -180,30 +186,57 @@
     var row = button.parentNode.parentNode;
     const StartID = row.querySelector('input[name="StartID"]').value
     const EndID = row.querySelector('input[name="EndID"]').value
-    console.log(StartID)
-    console.log(EndID)
-    const previousRow = row.previousElementSibling;
-    const nextRow = row.nextElementSibling;
+    const previous_row = row.previousElementSibling;
+    const next_row = row.nextElementSibling;
 
 
-    if (previousRow == null && nextRow == null) {
+    if (previous_row == null && next_row == null) {
       row.remove();
       deleteMarkersPrompt(StartID)
       deleteMarkersPrompt(EndID)
     }
-    else if (previousRow == null) {
-      const nextRowStartFieldInput = nextRow.querySelector('input[name="StartID"]')
-      const nextRowStartPinButton = nextRow.querySelector('button[name="Startpin"]')
-      nextRowStartFieldInput.disabled = false
-      nextRowStartPinButton.disabled = false
+    else if (previous_row == null) {
+      const next_row_start_field_input = next_row.querySelector('input[name="StartID"]')
+      const next_row_start_pin_button = next_row.querySelector('button[name="Startpin"]')
+      if (next_row_start_pin_button.style.backgroundColor !== success) {
+        next_row_start_field_input.disabled = false
+      }
+      next_row_start_pin_button.disabled = false
+      row.remove()
+      deleteMarkersPrompt(StartID)
+    }
+    else if (next_row == null) {
+      const prev_row_end_field_input = previous_row.querySelector('input[name="EndID"]')
+      const prev_row_end_pin_button = previous_row.querySelector('button[name="Endpin"]')
+      
+      if (prev_row_end_pin_button.style.backgroundColor !== success) {
+        prev_row_end_field_input.disabled = false
+      }
+      prev_row_end_pin_button.disabled = false
+      deleteMarkersPrompt(EndID)
       row.remove()
     }
-    else if (nextRow == null) {
-      const prevRowEndFieldInput = previousRow.querySelector('input[name="EndID"]')
-      const prevRowEndPinButton = previousRow.querySelector('button[name="Endpin"]')
-      prevRowEndFieldInput.disabled = false
-      prevRowEndPinButton.disabled = false
-      row.remove()
+    else {
+      const next_row_start_field_input = next_row.querySelector('input[name="StartID"]')
+      const next_row_start_pin_button = next_row.querySelector('button[name="Startpin"]')
+      const prev_row_end_field_input = previous_row.querySelector('input[name="EndID"]')
+      const prev_row_end_pin_button = previous_row.querySelector('button[name="Endpin"]')
+
+      prev_row_end_field_input.removeEventListener("change", KeyboardEvent)
+      prev_row_end_field_input.removeEventListener("keydown", KeyboardEvent)
+
+      prev_row_end_field_input.addEventListener("change", () => {
+        next_row_start_field_input.value = prev_row_end_field_input.value;
+      })
+      prev_row_end_field_input.addEventListener("keydown", () => {
+        next_row_start_field_input.value = prev_row_end_field_input.value;
+      })
+      next_row_start_field_input.value = prev_row_end_field_input.value;
+      next_row_start_field_input.disabled = true
+      next_row_start_pin_button.style.backgroundColor = prev_row_end_pin_button.style.backgroundColor
+      next_row_start_pin_button.disabled = true 
+      deleteMarkersPrompt(EndID)
+
     }
 
 
@@ -282,6 +315,9 @@
 
   }
 
+  let row
+  let next_row
+  let input_field
   let checkpoint_id;
   let pin_button;
   let next_pin_button;
@@ -289,14 +325,12 @@
   let markers_list = [];
   const btn = document.getElementById('save_btn')
 
-  function find_pin_id(event, type) {
-    var row = event.target.closest('.row')
-    var nextRow = row.nextElementSibling;
-    checkpoint_id = row.querySelector(`input[name=${type+"ID"}]`).value
+  function find_pin_id(button, type) {
+    row = button.parentNode.parentNode;
+    input_field = row.querySelector(`input[name=${type+"ID"}]`)
+    checkpoint_id = input_field.value
     pin_button = row.querySelector(`button[name=${type+"pin"}]`)
-    if (type == "End" && nextRow !== null) {
-      next_pin_button = nextRow.querySelector('button[name="]')
-    }
+
   }
   
   function init_map() {
@@ -349,13 +383,21 @@
   }
   // Deletes all markers in the array by removing references to them.
   function deleteMarkers() {
+    let last_row = document.getElementById("track_input").lastElementChild
+    let first_row = document.getElementById("track_input").firstElementChild
     for (let i = 0; i < markers_list.length; i++) {
       console.log(markers_list[i].getLabel())
       if (markers_list[i].getLabel() == checkpoint_id) {
         console.log("found")
         markers_list[i].setMap(null);
         markers_list.splice(i, 1);
-        pin_button.style.backgroundColor = 'maroon'
+        pin_button.style.backgroundColor = fail
+        if (row !== last_row && row !== first_row) {
+          next_row = row.nextElementSibling;
+          var next_pin_button = next_row.querySelector('button[name="Startpin"]')
+          next_pin_button.style.backgroundColor = fail
+        }
+        input_field.disabled = false
       }
       console.log(markers_list)
       btn.disabled = true;
@@ -365,11 +407,19 @@
   }
   //figure out how to confirm
   function send_coords() { 
-    next_pin_button.style.backgroundColor = 'green'
-    pin_button.style.backgroundColor = 'green'
+    console.log(next_pin_button)
+    let last_row = document.getElementById("track_input").lastElementChild
+
+    if (row !== last_row) {
+      next_row = row.nextElementSibling;
+      var next_pin_button = next_row.querySelector('button[name="Startpin"]')
+      next_pin_button.style.backgroundColor = success
+    }
+    input_field.disabled = true
+    pin_button.style.backgroundColor = success
     for (let index = 0; index < markers_list.length; index++) {
-      let object_string = JSON.stringify(markers_list[index])
-      //data base call
+    let object_string = JSON.stringify(markers_list[index])
+    //data base call
     }
   }
   function open_map(event) {
