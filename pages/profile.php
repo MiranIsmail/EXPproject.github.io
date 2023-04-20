@@ -32,6 +32,7 @@
     </div>
 
     <div class="events" id="event">
+        <div id="myTableContainerResults"></div>
     </div>
 
     <!--Edit profile popup-->
@@ -91,7 +92,6 @@
             </div>
         </div>
     </div>
-    <div id="myTableContainerResults"></div>
 
     <script type="text/javascript" src="../scripts/js_scripts.js"></script>
     <script>

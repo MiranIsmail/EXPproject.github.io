@@ -159,6 +159,10 @@ body {
 #event {
   min-height: 30vh;
 }
+
+#myTableContainerResults{
+  color: white;
+}
 /*EVENT WEBSITE*/
 
 .show-more-btn {
@@ -270,7 +274,7 @@ body {
   }
 }
 
-
+/*----------------------------------------STANDARD PADDING DONT CHANGE---*/
 /*PADDINGS*/
 .padding_top{
   padding-top: 1rem;
