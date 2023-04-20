@@ -17,6 +17,7 @@
                     <h3 class="text-shift">Age: <span id="profile_age"></span> years</h3>
                     <h3 class="text-shift">Length: <span id="profile_length"></span> cm</h3>
                     <h3 class="text-shift">Weight: <span id="profile_weight"></span> kg</h3>
+                    <h3 class="text-shift">Private Chip: <span id="profile_chip_id"></span></h3>
                 </div>
             </div>
         </div>
@@ -31,6 +32,7 @@
     </div>
 
     <div class="events" id="event">
+        <div id="myTableContainerResults"></div>
     </div>
 
     <!--Edit profile popup-->
@@ -41,24 +43,24 @@
         <div class="offcanvas-body canvas_container">
             <h4>Edit your profile</h4>
             <div class="form-group form_group_style mx-auto needs-validation" novalidate>
-                
+
                 <div class="mb-3 mx-auto">
                     <label for="InputTrackName" class="form-label">First Name</label>
                     <input type="text" class="form-control" placeholder="Input Your Name" id="send_f_name">
                 </div>
-                
+
                 <div class="mb-3 mx-auto">
                     <label for="InputTrackName" class="form-label">Surname</label>
                     <input type="text" class="form-control" placeholder="Input Your Name" id="send_l_name">
                 </div>
-                
+
                 <div class="mb-3 mx-auto">
                     <label for="InputTrackName" class="form-label">Birth day</label>
                     <input class="form-control" type="date" id="send_bday">
                     <span id="b_day_selected"></span>
 
                 </div>
-                
+
                 <div class="mb-3 mx-auto">
                     <label for="InputTrackName" class="form-label">Height</label>
                     <input type="number" class="form-control" placeholder="Input Your Height" id="send_height">
@@ -68,7 +70,7 @@
                     <label for="InputTrackName" class="form-label">Weight</label>
                     <input type="number" class="form-control" placeholder="Input Your Weight" id="send_weight">
                 </div>
-                
+
                 <div class="mb-3 mx-auto">
                     <label for="InputTrackName" class="form-label">Personal ChipID</label>
                     <input type="number" class="form-control" placeholder="Input Your Personal ChipID" id="send_chip">
@@ -78,7 +80,7 @@
                     <label for="InputTrackName" class="form-label">Upload Profile Picture</label>
                     <input type="file" name="filename" id="send_image">
                 </div>
-                
+
             </div>
 
             <div id="success-alert" class="alert alert-success alert-dismissible fade show d-none" role="alert">
@@ -90,7 +92,6 @@
             </div>
         </div>
     </div>
-    <div id="myTableContainerResults"></div>
 
     <script type="text/javascript" src="../scripts/js_scripts.js"></script>
     <script>

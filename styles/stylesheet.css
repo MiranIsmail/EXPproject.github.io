@@ -159,6 +159,11 @@ body {
 #event {
   min-height: 30vh;
 }
+
+#myTableContainerResults tr{
+  color: white;
+  text-align: center;
+}
 /*EVENT WEBSITE*/
 
 .show-more-btn {
@@ -268,4 +273,77 @@ body {
   #logo {
     width: 25%;
   }
+}
+
+/*----------------------------------------STANDARD PADDING DONT CHANGE---*/
+/*PADDINGS*/
+.padding_top{
+  padding-top: 1rem;
+}
+
+.padding_bottom{
+  padding-bottom: 1rem;
+}
+
+.padding_left{
+  padding-left: 1rem;
+}
+
+.padding_right{
+  padding-right: 1rem;
+}
+
+.padding_sides{
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.padding_vert{
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+}
+
+.padding_all{
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+}
+
+.padding_bottom_half{
+  padding-bottom: 0.25rem;
+}
+
+/*Margins*/
+.padding_top{
+  margin-top: 1rem;
+}
+
+.margin_bottom{
+  margin-bottom: 1rem;
+}
+
+.margin_left{
+  margin-left: 1rem;
+}
+
+.margin_right{
+  margin-right: 1rem;
+}
+
+.margin_sides{
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.margin_vert{
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.margin_all{
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
 }
