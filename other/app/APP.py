@@ -12,6 +12,10 @@ from PIL import Image, ImageTk
 from win32api import GetSystemMetrics
 import serial.tools.list_ports as stlp
 
+
+global_event_id = ""
+global_track_name = ""
+
 def split_time(time: str):
     time_split = time.split(":")
     t_hours = int(time_split[0])
@@ -214,6 +218,10 @@ def close():
     root.quit()
     root.destroy()
 
+################################################################
+############### !!! Here begins the graphics !!! ############### 
+################################################################
+
 root = tk.Tk()
 root.title("RASTS")
 root.iconbitmap(r"C:\Users\miran\Desktop\EXPproject\other\logo.ico")
@@ -221,27 +229,37 @@ root.attributes('-fullscreen',True)
 my_note = ttk.Notebook(root)
 my_note.pack(fill="both",expand=True)
 
-
+##############################################################
+### This section creates the frames 1 and 2 ie settings and home
 f1= Frame(my_note)
 f1.pack(fill="both",expand=True)
 f2= Frame(my_note)
 f2.pack(fill="both",expand=True)
-
 my_note.add(f1,text="Home")
 my_note.add(f2,text="Settings")
 
+##############################################################
+### This section handles the images that are used in both frame 1 and 2
 label_text = "Hello from RASTS.se"
 label_font = ('helvetica', 62)
 image = Image.open(r"C:\Users\miran\Desktop\EXPproject\other\app\RASTS.png")
 w,h=GetSystemMetrics(0),GetSystemMetrics(1)
 resize_image = image.resize((w//3, h//3))
 img = ImageTk.PhotoImage(resize_image)
-# Create a label
+##############################################################
+### Picture in frame 1(Home)
 label = ttk.Label(f1, text=label_text, font=label_font, background='gray', foreground='white',image=img)
-
 label.pack(fill='both', expand=True)
 label.configure(anchor="center")
 
+### Picture in frame 2(settings)
+label_f2 = ttk.Label(f2, text=label_text, font=label_font, background='gray', foreground='white',image=img)
+label_f2.pack(fill='both', expand=True)
+label_f2.configure(anchor="center")
+
+
+######################################################################################
+# This section handles the options in frame 1 
 options = ['Option 1', 'Option 2', 'Option 3']
 var = tk.StringVar(f1)
 var.set(options[0])
@@ -251,6 +269,7 @@ menu.pack()
 
 # function to update options
 def update_options(chip_id):
+    """This function is a part of a chain that handles options in frame 1"""
     url_id_event = 'https://rasts.se/api/Registration?chip_id='+chip_id
     new_options = []
     get_result:list = requests.get(url_id_event).json()
@@ -263,15 +282,19 @@ def update_options(chip_id):
         menu['menu'].add_command(label=option, command=tk._setit(var, option)) # add new options
     var.set(new_options[0]) # set default value
 
-# Create a button to start the program
+######################################################################################
+
+
+# a button that handles the program start "!!!! see the function start()"
 start_button = ttk.Button(f1, text="START", command=start)
 start_button.pack(side="top")
 
-# Create a button to close the window
+# a button that handles app closing "!!! see the function close()"
 close_button = ttk.Button(f1, text="Close", command=close)
 close_button.pack()
 
-
+######################################################################################
+# This section handles the visualisation of the table that shows results from a chip
 table = ttk.Treeview(f1, columns=headings, show='headings')
 table.pack(fill='both', expand=True)
 
@@ -292,33 +315,66 @@ for row in data['track_time']:
 for col in headings:
     table.heading(col, text=col)
 
+######################################################################################
+
 # function to update options
 def update_options_f2(chip_id):
-    url_id_event = 'https://rasts.se/api/Registration?chip_id='+chip_id
-    new_options = []
-    get_result:list = requests.get(url_id_event).json()
-    for ev_dict in get_result:
-        new_options.append(ev_dict["event_name"])
+    """this function is part of a chain that updates options in frame 2
+    it needs a correct track name to work. !!! No error handling is done here"""
+    url_id_event_f2 = 'https://rasts.se/api/Registration?chip_id='+chip_id
+    new_options_f2 = []
+    get_result_f2:list = requests.get(url_id_event_f2).json()
+    print(type(get_result_f2))
+    for ev_dict_2 in get_result_f2:
+        new_options_f2.append(ev_dict_2["event_name"])
     
     menu_f2['menu'].delete(0, 'end') # delete old options
-    for option in new_options:
-        menu_f2['menu'].add_command(label=option, command=tk._setit(var_f2, option)) # add new options
-    var_f2.set(new_options[0]) # set default value
+    for option_f2 in new_options_f2:
+        menu_f2['menu'].add_command(label=option_f2, command=tk._setit(var_f2, option_f2)) # add new options
+    var_f2.set(new_options_f2[0]) # set default value
 
 def button_clicked_f2():
-    entry_value = entry.get()
+    """This function updates(!!!triggers another function) the (options) in frame 2 (settings) and uses entry in the same frame"""
+    entry_value:str = entry.get()
     update_options_f2(entry_value)
 
+##Label and entry for track name
+label_f2_2 = tk.Label(f2,text="Track name:")
+label_f2_2.pack()
 entry = tk.Entry(f2, validate="key")
 entry.pack()
 
+#button that is connected to the function(see command) and is named get events
 button_f2_1 = tk.Button(f2, text="Get events", command=button_clicked_f2)
 button_f2_1.pack()
 
+##this is the options in frame 2 (settings)
 options_f2 = ['Option 1', 'Option 2', 'Option 3']
 var_f2 = tk.StringVar(f2)
 var_f2.set(options_f2[0])
-
 menu_f2 = tk.OptionMenu(f2, var_f2, *options_f2)
 menu_f2.pack()
+
+def button_clicked_f2_2():
+    """This function is connected to buhtton _f2_2 and sets the global variale(global global_track_name) to what is inside the 
+    entry field"""
+    entry_value:str = entry.get()
+    global global_track_name
+    global_track_name = entry_value #####!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! maybe do a check so that the track exists
+
+def button_clicked_f2_3():
+    """This function is connected to button_f2_3 and sets the global variable(global_event_id) to an selected event"""
+    global global_event_id
+    selected_event = var_f2.get()
+    global_event_id = selected_event#####!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! maybe do am error handling
+
+###button named "set track" connected to the function(see command)
+button_f2_2 = tk.Button(f2, text="Set track", command=button_clicked_f2_2)
+button_f2_2.pack()
+
+###button named "set event" connected to the function(see command)
+button_f2_3 = tk.Button(f2, text="Set event", command=button_clicked_f2_3)
+button_f2_3.pack()
+
+#run the program
 root.mainloop()
