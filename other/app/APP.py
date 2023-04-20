@@ -254,7 +254,7 @@ label.configure(anchor="center")
 
 ### Picture in frame 2(settings)
 label_f2 = ttk.Label(f2, text=label_text, font=label_font, background='gray', foreground='white',image=img)
-label_f2.pack(fill='both', expand=True)
+label_f2.place(relx=0,rely=0,relwidth=1,relheight=0.5)
 label_f2.configure(anchor="center")
 
 
@@ -340,20 +340,20 @@ def button_clicked_f2():
 
 ##Label and entry for track name
 label_f2_2 = tk.Label(f2,text="Track name:")
-label_f2_2.pack()
+label_f2_2.place(relx=0.01,rely=0.51)
 entry = tk.Entry(f2, validate="key")
-entry.pack()
+entry.place(relx=0.08,rely=0.51)
 
 #button that is connected to the function(see command) and is named get events
 button_f2_1 = tk.Button(f2, text="Get events", command=button_clicked_f2)
-button_f2_1.pack()
+button_f2_1.place(relx=0.01,rely=0.57,relheight=0.05,relwidth=0.05)
 
 ##this is the options in frame 2 (settings)
 options_f2 = ['Option 1', 'Option 2', 'Option 3']
 var_f2 = tk.StringVar(f2)
 var_f2.set(options_f2[0])
 menu_f2 = tk.OptionMenu(f2, var_f2, *options_f2)
-menu_f2.pack()
+menu_f2.place(relx=0.11,rely=0.57,relheight=0.05)
 
 def button_clicked_f2_2():
     """This function is connected to buhtton _f2_2 and sets the global variale(global global_track_name) to what is inside the 
@@ -369,12 +369,12 @@ def button_clicked_f2_3():
     global_event_id = selected_event#####!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! maybe do am error handling
 
 ###button named "set track" connected to the function(see command)
-button_f2_2 = tk.Button(f2, text="Set track", command=button_clicked_f2_2)
-button_f2_2.pack()
+button_f2_2 = tk.Button(f2, text="Set track", command=button_clicked_f2_2,bg='green')
+button_f2_2.place(relx=0.01,rely=0.63,relheight=0.05,relwidth=0.05)
 
 ###button named "set event" connected to the function(see command)
-button_f2_3 = tk.Button(f2, text="Set event", command=button_clicked_f2_3)
-button_f2_3.pack()
+button_f2_3 = tk.Button(f2, text="Set event", command=button_clicked_f2_3,bg='green')
+button_f2_3.place(relx=0.01,rely=0.69,relheight=0.05,relwidth=0.05)
 
 #run the program
 root.mainloop()
