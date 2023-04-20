@@ -167,6 +167,7 @@ async function edit_user_info() {
   parameters["birthdate"] = document.getElementById("send_bday").value;
   parameters["height"] = document.getElementById("send_height").value;
   parameters["weight"] = document.getElementById("send_weight").value;
+  parameters["chip_id"] = document.getElementById("send_chip").value;
 
   if (document.getElementById("send_image").files.length != 0) {
     var blob = await image_to_blob(document.getElementById("send_image"));
