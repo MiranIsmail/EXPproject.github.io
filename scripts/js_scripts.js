@@ -530,7 +530,7 @@ async function get_chip() {
 
 async function email_to_forgot_password() {
   var email = document.getElementById("email").value;
-  const response = await fetch("../api/src/TokenGateway.php", {
+  const response = await fetch(BASE_ULR + "Token", {
     method: "PATCH",
     body: JSON.stringify({ email: email }),
     headers: { "Content-Type": "application/json" },
