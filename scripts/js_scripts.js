@@ -355,7 +355,8 @@ async function CreateCheckpoint(
   next_id,
   distance,
   terrain,
-  coordinates
+  lng,
+  lat
 ) {
   await fetch(BASE_ULR + "Checkpoint", {
     method: "POST",
@@ -365,7 +366,8 @@ async function CreateCheckpoint(
       next_id: next_id,
       next_distance: distance,
       terrain: terrain,
-      coordinates: coordinates,
+      longitude: lng,
+      latitude: lat,
     }),
     headers: { "Content-Type": "application/json; charset=UTF-8" },
   });
