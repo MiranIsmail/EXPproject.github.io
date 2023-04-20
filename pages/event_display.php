@@ -39,24 +39,24 @@ include '../assets/head.php';
             </p>
             <div class="collapse" id="register_event">
                 <div class="card card-body" id="register_card">
-                    <h3 class="underline_text">Register on event!</h3>
+                    <h3 class="underline_text">Register on <span id="event_name_colapse"><span></h3>
 
                     <div class="form-group mx-auto w-100" id="inputfield_padding">
                         <p>Team member:</p>
-                        <input type="text" class="form-control input_field_style w-100" placeholder="Team members username:" aria-describedby="emailHelp" id="email">
+                        <input type="text" class="form-control input_field_style w-100" placeholder="Team members username: (optional)" aria-describedby="emailHelp" id="email">
                     </div>
                     <div class="row">
-                        <div class="col-sm-6">
-                            <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off" data-bs-toggle="collapse" data-bs-target="#mychip" aria-expanded="true" aria-controls="collapseExample" checked>
+                        <div class="col-sm-6 padding_bottom_half">
+                            <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off" data-bs-toggle="collapse" data-bs-target="#thirechip" aria-expanded="true" aria-controls="collapseExample" checked>
                             <label class="btn btn-secondary w-100" for="option1">Register New Chip</label>
                         </div>
-                        <div class="col-sm-6">
-                            <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" data-bs-toggle="collapse" data-bs-target="#thirechip" aria-expanded="false" aria-controls="collapseExample">
+                        <div class="col-sm-6 padding_bottom_half">
+                            <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" data-bs-toggle="collapse" data-bs-target="#mychip" aria-expanded="false" aria-controls="collapseExample">
                             <label class="btn btn-secondary w-100" for="option2">I Have My Own</label>
                         </div>
                     </div>
 
-                    <div class="collapse show" id="mychip">
+                    <div class="collapse show" id="thirechip">
                         <div class="card card-body" id="register_card">
                             <div class="form-group mx-auto w-100" id="inputfield_padding">
                                 <p>Chip ID:</p>
@@ -64,14 +64,16 @@ include '../assets/head.php';
                             </div>
                         </div>
                     </div>
-                    <div class="collapse" id="thirechip">
+                    <div class="collapse" id="mychip">
                         <div class="card card-body" id="register_card">
                             <div class="form-group mx-auto w-100" id="inputfield_padding">
                                 <p>Chip ID:</p>
-                                <input type="text" class="form-control input_field_style w-100" placeholder="Input The ChipID on provided chip:" aria-describedby="emailHelp" id="chip_id_display" disabled>
+                                <input type="text" class="form-control input_field_style w-100" placeholder="You have no registerd chip!" aria-describedby="emailHelp" id="chip_id_display" disabled>
                             </div>
                         </div>
                     </div>
+
+                    <button class="btn w-100 padding_top" id="button_style_create" onclick="">Register</button>
 
                     <script>
                         const option1 = document.getElementById("option1");
@@ -79,13 +81,13 @@ include '../assets/head.php';
                         const mychip = document.getElementById("mychip");
                         const thirechip = document.getElementById("thirechip");
 
-                        option1.addEventListener("click", function() {
+                        option2.addEventListener("click", function() {
                             if (!mychip.classList.contains("show")) {
                                 thirechip.classList.remove("show");
                             }
                         });
 
-                        option2.addEventListener("click", function() {
+                        option1.addEventListener("click", function() {
                             if (!thirechip.classList.contains("show")) {
                                 mychip.classList.remove("show");
                             }
