@@ -208,7 +208,7 @@ async function generate_user_results() {
 
   // create table header row
   let headerRow = document.createElement("tr");
-  for (let key in await data.results[0]) {
+  for (let key in await data.results.results[0]) {
     let headerCell = document.createElement("th");
     headerCell.textContent = key;
     headerRow.appendChild(headerCell);
@@ -216,12 +216,12 @@ async function generate_user_results() {
   table.appendChild(headerRow);
 
   // create table rows
-  for (let i = 0; i < (await data.results.length); i++) {
+  for (let i = 0; i < (await data.results.results.length); i++) {
     let row = document.createElement("tr");
-    for (let key in await data.results[i]) {
+    for (let key in await data.results.results[i]) {
       let cell = document.createElement("td");
-      cell.textContent = await data.results[i][key];
-      console.log(await data.results[i][key]);
+      cell.textContent = await data.results.results[i][key];
+      console.log(await data.results.results[i][key]);
       row.appendChild(cell);
     }
     table.appendChild(row);
