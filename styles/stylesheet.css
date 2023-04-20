@@ -160,7 +160,7 @@ body {
   min-height: 30vh;
 }
 
-#myTableContainerResults{
+#myTableContainerResults tr{
   color: white;
 }
 /*EVENT WEBSITE*/
