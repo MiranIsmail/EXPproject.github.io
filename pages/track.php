@@ -245,53 +245,76 @@
 }
   function submit() {
     // Get all required input fields
-    const requiredFields = document.querySelectorAll('input[required]')
+    var requiredFields = document.querySelectorAll('input[required]')
 
     // Check if all required fields are filled in and valid
-    const allFieldsValid = Array.from(requiredFields).every(field => field.checkValidity());
+    var allFieldsValid = Array.from(requiredFields).every(field => field.checkValidity());
 
-    const rows = document.querySelectorAll('.track_form');
+    var rows = document.querySelectorAll('.track_form');
 
-    const last_row = document.getElementById("track_input").lastElementChild
-    const first_row = document.getElementById("track_input").firstElementChild
+    var last_row = document.getElementById("track_input").lastElementChild
+    var first_row = document.getElementById("track_input").firstElementChild
 
-    const start_station_id = first_row.querySelector('input[name="StartID"]').value
-    const end_station_id = last_row.querySelector('input[name="EndID"]').value
-    const track_name = document.getElementById('InputTrackName').value
+    var start_station_id = first_row.querySelector('input[name="StartID"]').value
+    var end_station_id = last_row.querySelector('input[name="EndID"]').value
+    var track_name = document.getElementById('InputTrackName').value
     
     CreateTrack(track_name, start_station_id, end_station_id)
     
     // Loop through each row
-    let i = 0;
-    let start_station;
-    let end_station;
-
+    let j = 0;
     rows.forEach(row => {
       // Get the input fields in the row
-      console.log(row)
-      const idInputStart = row.querySelector('input[name="StartID"]');
-      const idInputEnd = row.querySelector('input[name="EndID"]');
-      const distanceInput = row.querySelector('input[name="distance"]');
-      const terrainDropdown = row.querySelector('button[name="Terrain"]');
+      console.log(rows)
+      console.log(j)
+      var idInputStart = row.querySelector('input[name="StartID"]');
+      var idInputEnd = row.querySelector('input[name="EndID"]');
+      var distanceInput = row.querySelector('input[name="distance"]');
+      var terrainDropdown = row.querySelector('button[name="Terrain"]');
       
       // Get the values of the input fields
-      const start_id = idInputStart.value;
-      const end_id = idInputEnd.value;
-      const distance = distanceInput.value;
-      const terrain = terrainDropdown.textContent;
+      var start_id = idInputStart.value;
+      var end_id = idInputEnd.value;
+      var distance = distanceInput.value;
+      var terrain = terrainDropdown.textContent;
       
-      console.log(start_id, end_id, distance, terrain)
       //console.log(i)
 
-      let gps;
-      
-      // Add endpoint post here 
-      CreateCheckpoint(track_name, start_id, end_id, distance, terrain, "5");
-      i++;
-      end_station = end_id
+      var current_marker
+      var marker_longitude
+      var marker_latitude
 
+      for (let i = 0; i < markers_list.length; i++) {
+        if (markers_list[i].getLabel() == start_id) {
+          current_marker = markers_list[i]
+          marker_longitude = current_marker.getPosition().lng()
+          marker_latitude = current_marker.getPosition().lat()
+        }
+      }
+
+      CreateCheckpoint(track_name, start_id, end_id, distance, terrain, marker_longitude, marker_latitude);
+      console.log(track_name, start_id, end_id, distance, terrain, marker_longitude, marker_latitude)
+
+      if (j == markers_list.length-2) {
+        // Get the last station
+        for (let i = 0; i < markers_list.length; i++) {
+          if (markers_list[i].getLabel() == end_id) {
+            current_marker = markers_list[i]
+            marker_longitude = current_marker.getPosition().lng()
+            marker_latitude = current_marker.getPosition().lat()
+            CreateCheckpoint(track_name, end_id, null, null, null, marker_longitude, marker_latitude)
+            console.log(track_name, end_id, null, null, null, marker_longitude, marker_latitude)
+            }
+          } 
+
+          
+        }
+      
+
+      
+      j++;
     })
-    console.log("Submitted")
+    
   }
 
   let row
@@ -305,14 +328,6 @@
   const btn = document.getElementById('save_btn')
 
   function find_pin_id(button, type) {
-    for (let i = 0; i < markers_list.length; i++) {
-      if (markers_list[i].getLabel() == checkpoint_id) {
-        
-        markers_list[i].setMap(null);
-        markers_list.splice(i, 1); } 
-        console.log("Already exists")
-        break
-      }
     row = button.parentNode.parentNode;
     input_field = row.querySelector(`input[name=${type+"ID"}]`)
     checkpoint_id = input_field.value
@@ -342,8 +357,10 @@
   // Adds a marker to the map and push to the array.
   function add_marker(position, checkpoint_id) {
     const marker = new google.maps.Marker({
-      position,
-      map,
+      position: position,
+      map: map,
+      draggable: true,
+      animation: google.maps.Animation.DROP,
       label: checkpoint_id
     });
 
