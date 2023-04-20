@@ -5,33 +5,25 @@
 
   <script>
 
-    class checkpoint {
-      constructor(station_name, time_stamp, diff_time_stamp, diff_sec,
-      checkpoint_result_id, result_id){
-        this.station_name = station_name
-        this.time_stamp = time_stamp 
-        this.diff_time_stamp = diff_time_stamp
-        this.diff_sec = diff_sec
-        this.checkpoint_result_id = checkpoint_result_id
-        this.result_id = result_id
-        }
-      };
+    // class checkpoint { Not a necessary class right now but might be useful for manipulating data later on
+    //   constructor(station_name, time_stamp, diff_time_stamp, diff_sec,
+    //   checkpoint_result_id, result_id){
+    //     this.station_name = station_name
+    //     this.time_stamp = time_stamp 
+    //     this.diff_time_stamp = diff_time_stamp
+    //     this.diff_sec = diff_sec
+    //     this.checkpoint_result_id = checkpoint_result_id
+    //     this.result_id = result_id
+    //     }
+    //   };
     
-    async function GetChecks(result_id){
-      document.getElementById('event_title').innerHTML = "Event:"
-      document.getElementById('track_title').innerHTML = "Track:"
-      response = await fetch("https://rasts.se/api/Results/" + result_id, {method:'GET',
+    async function GetChecks(result_id, event_name, track_name){
+      document.getElementById('event_title').innerHTML = "Event: " + event_name
+      document.getElementById('track_title').innerHTML = "Track: " + track_name  
+      response = await fetch("https://rasts.se/api/Results/" + result_id.toString(), {method:'GET',
       headers: {'Accept': 'Application/json'}})
       data = await response.json();
-      checkpts_obj = []
-      for(let i = 0; i < data.length; i++){
-        if (data[i].result_id === result_id){
-          checkpts_obj[i] = new checkpoint(data[i].station_name, data[i].time_stamp,
-          data[i].diff_time_stamp, data[i].diff_sec, data[i].checkpoint_result_id, data[i].result_id)
-        }
-      }
-      console.log(checkpts_obj)
-      FillTable(checkpts_obj)
+      FillTable(data.result)
       
     }
   </script>
@@ -78,7 +70,7 @@
             cell6.innerHTML = data[i].result_id
           }
         }
-          GetChecks("93")
+          GetChecks(93, "testtevent", "testtrack")
         </script>
       </tbody>
     </table>
