@@ -534,12 +534,19 @@ async function email_to_forgot_password() {
     method: "PATCH",
     body: JSON.stringify({ email: email }),
     headers: { "Content-Type": "application/json" },
+  })
+
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return response.json();
+  })
+  .catch((error) => {
+    console.error("There was an error sending the email:", error);
   });
 
   if (response.ok) {
     alert("Email was sent successfully!");
-  } else {
-    alert("There was an error sending the email!");
-    alert(response);
   }
 }
