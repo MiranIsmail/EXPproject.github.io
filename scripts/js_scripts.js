@@ -153,6 +153,7 @@ async function get_user_info() {
   );
   document.getElementById("profile_length").innerHTML = await data["height"];
   document.getElementById("profile_weight").innerHTML = await data["weight"];
+  document.getElementById("profile_chip_id").innerHTML = await data["chip_id"];
   load_image(data["pimage"]);
 
   let container = document.getElementById("myTableContainerResults");
