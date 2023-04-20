@@ -283,7 +283,7 @@
       if(i === 0){
         start_station = start_id; 
       }
-      CreateCheckpoint(track_name, end_id, end_id, distance, terrain, 1);
+      CreateCheckpoint(track_name, start_id, end_id, distance, terrain, 1);
       i++;
       end_station = end_id
 
