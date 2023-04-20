@@ -338,7 +338,7 @@ function load_image_event(indata) {
 
 async function CreateTrack(track_input, start_station, end_station) {
   //var track_name = document.getElementById("InputTrackName")
-  fetch("rasts.se/api/Track", {
+  await fetch(BASE_ULR + "Track", {
     method: "POST",
     body: JSON.stringify({
       track_name: track_input,
@@ -357,7 +357,7 @@ async function CreateCheckpoint(
   terrain,
   coordinates
 ) {
-  fetch("rasts.se/api/Checkpoint"),
+  await fetch(BASE_ULR + "Checkpoint"),
     {
       method: "POST",
       body: JSON.stringify({
