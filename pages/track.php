@@ -243,7 +243,6 @@
   function DeleteSection(){
   
 }
-
   function submit() {
     // Get all required input fields
     const requiredFields = document.querySelectorAll('input[required]')
@@ -253,8 +252,15 @@
 
     const rows = document.querySelectorAll('.track_form');
 
-    let track_name = document.getElementById('InputTrackName').value
-    console.log(track_name)
+    const last_row = document.getElementById("track_input").lastElementChild
+    const first_row = document.getElementById("track_input").firstElementChild
+
+    const start_station_id = first_row.querySelector('input[name="StartID"]').value
+    const end_station_id = last_row.querySelector('input[name="EndID"]').value
+    const track_name = document.getElementById('InputTrackName').value
+    
+    CreateTrack(track_name, start_station_id, end_station_id)
+    
     // Loop through each row
     let i = 0;
     let start_station;
@@ -280,16 +286,11 @@
       let gps;
       
       // Add endpoint post here 
-
-      if(i === 0){
-        start_station = start_id; 
-      }
       CreateCheckpoint(track_name, start_id, end_id, distance, terrain, "5");
       i++;
       end_station = end_id
 
     })
-    CreateTrack(track_name, start_station, end_station);
     console.log("Submitted")
   }
 
