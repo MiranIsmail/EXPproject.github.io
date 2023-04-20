@@ -1,5 +1,4 @@
 <?php include '../assets/head.php'; ?>
-
 <body>
   <?php include '../assets/navbar.php'; ?>
   <div class="image_div">
@@ -41,7 +40,7 @@
             </div>
 
             <div class="col-4">
-              <label for="numberInput" id="dist" class="form-label fw-bold">Distance (in meters)</label>
+              <label for="numberInput" id="dist" class="form-label fw-bold">Distance (m)</label>
               <input type="number" class="form-control" placeholder="Ex. 15" name="distance" required>
             </div>
             <div class="col-4">
@@ -104,7 +103,7 @@
 
   <?php include '../assets/footer.php'; ?>
 
-
+<script type="text/javascript" src="../scripts/js_scripts.js"></script>    
 <script>
   // Create template row 
   const template_row = document.getElementById("0")
@@ -252,49 +251,29 @@
     // Check if all required fields are filled in and valid
     const allFieldsValid = Array.from(requiredFields).every(field => field.checkValidity());
 
-    const rows = document.querySelectorAll('.row');
+    const rows = document.querySelectorAll('.track_form');
 
     let track_name = document.getElementById('InputTrackName').value
     console.log(track_name)
-  // Loop through each row
-  let i = 0;
-  let start_station;
-  let end_station;
-  const checkpoint_list = [];
-  class checkpoint{
-    constructor(lat, long, check_id, distance, terrain, next, prev){
-      this.lat = lat, this.long = long,
-      this.check_id = check_id, this.distance = distance, 
-      this.terrain = terrain, this.next = next,
-      this.prev = prev
-    }
-    UpdateNext(next){
-      this.next = next;
-    }
-    UpdatePrev(prev){
-      this.prev = prev
-    }
-    UpdateTerrain(terrain){
-      this.terrain = terrain;
-    }
+    // Loop through each row
+    let i = 0;
+    let start_station;
+    let end_station;
 
-  }
     rows.forEach(row => {
       // Get the input fields in the row
-      const idInputStart = row.querySelector('input[name=StartID]');
-      const idInputEnd = row.querySelector('input[name=EndID]');
-      const distanceInput = row.querySelector('input[name=distance]');
-      const terrainDropdown = row.querySelector('button[name=Terrain]');
+      console.log(row)
+      const idInputStart = row.querySelector('input[name="StartID"]');
+      const idInputEnd = row.querySelector('input[name="EndID"]');
+      const distanceInput = row.querySelector('input[name="distance"]');
+      const terrainDropdown = row.querySelector('button[name="Terrain"]');
       
       // Get the values of the input fields
       const start_id = idInputStart.value;
       const end_id = idInputEnd.value;
       const distance = distanceInput.value;
       const terrain = terrainDropdown.textContent;
-      let start_check = new checkpoint(id, distance, terrain, next)
-      let end_check = new checkpoint(id, distance, terrain, next)
-      checkpoint_list[i] = check
-      console.log(checkpoint_list[i])
+ 
       //console.log(i)
 
       let gps;
@@ -303,14 +282,14 @@
 
       if(i === 0){
         start_station = start_id; 
-      
       }
+      CreateCheckpoint(track_name, end_id, end_id, distance, terrain, 1);
       i++;
-      console.log(`ID: ${id}, Distance: ${distance}, Terrain: ${terrain}`);
       end_station = end_id
-      CreateTrack(track_name, start_station, end_station);
-    })
 
+    })
+    CreateTrack(track_name, start_station, end_station);
+    console.log("Submited")
   }
 
   let row
@@ -324,6 +303,14 @@
   const btn = document.getElementById('save_btn')
 
   function find_pin_id(button, type) {
+    for (let i = 0; i < markers_list.length; i++) {
+      if (markers_list[i].getLabel() == checkpoint_id) {
+        
+        markers_list[i].setMap(null);
+        markers_list.splice(i, 1); } 
+        console.log("Already exists")
+        break
+      }
     row = button.parentNode.parentNode;
     input_field = row.querySelector(`input[name=${type+"ID"}]`)
     checkpoint_id = input_field.value
@@ -382,15 +369,16 @@
   // Deletes all markers in the array by removing references to them.
   function deleteMarkers() {
     let last_row = document.getElementById("track_input").lastElementChild
-    let first_row = document.getElementById("track_input").firstElementChild
+    
     for (let i = 0; i < markers_list.length; i++) {
-      console.log(markers_list[i].getLabel())
+      
       if (markers_list[i].getLabel() == checkpoint_id) {
-        console.log("found")
+        
         markers_list[i].setMap(null);
         markers_list.splice(i, 1);
         pin_button.style.backgroundColor = fail
-        if (row !== last_row && row !== first_row) {
+  
+        if (row !== last_row && input_field.name == "EndID") {
           next_row = row.nextElementSibling;
           var next_pin_button = next_row.querySelector('button[name="Startpin"]')
           next_pin_button.style.backgroundColor = fail
@@ -408,7 +396,7 @@
     console.log(next_pin_button)
     let last_row = document.getElementById("track_input").lastElementChild
 
-    if (row !== last_row) {
+    if (row !== last_row && input_field.name == "EndID") {
       next_row = row.nextElementSibling;
       var next_pin_button = next_row.querySelector('button[name="Startpin"]')
       next_pin_button.style.backgroundColor = success
