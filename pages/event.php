@@ -9,7 +9,7 @@ include '../assets/head.php';
   <div style="padding-bottom: 2rem;" id="searchFade">
     <!--Create event button--------------------------------------------------------------------------------------------------->
     <div id="wrapper_button" class="mx-auto">
-      <button type="button" id="button_style_create" onclick="location.href='eventcreate.php'">Create yout own event!</button>
+      <button type="button" id="button_style_create" onclick="location.href='eventcreate.php'">Create your own event!</button>
     </div>
     <!--Search bar------------------------------------------------------------------------------------------------------------>
     <div class="wrapper drop_shadow">
