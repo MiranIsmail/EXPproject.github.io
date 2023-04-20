@@ -195,7 +195,7 @@ async function edit_user_info() {
 
 async function generate_user_results() {
   const response = await fetch(
-    BASE_ULR + "Results/?token=" + get_cookie("auth_token"),
+    BASE_ULR + "Event/?token=" + get_cookie("auth_token"),
     {
       method: "GET",
     }

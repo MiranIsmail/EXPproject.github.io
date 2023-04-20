@@ -64,7 +64,6 @@ include '../assets/head.php';
                             </div>
                         </div>
                     </div>
-                    chip_id_display
                     <div class="collapse" id="thirechip">
                         <div class="card card-body" id="register_card">
                             <div class="form-group mx-auto w-100" id="inputfield_padding">
