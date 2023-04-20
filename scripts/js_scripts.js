@@ -357,19 +357,18 @@ async function CreateCheckpoint(
   terrain,
   coordinates
 ) {
-  await fetch(BASE_ULR + "Checkpoint"),
-    {
-      method: "POST",
-      body: JSON.stringify({
-        track_name: track_name,
-        station_id: station_id,
-        next_id: next_id,
-        next_distance: distance,
-        terrain: terrain,
-        coordinates: coordinates,
-      }),
-      headers: { "Content-Type": "application/json; charset=UTF-8" },
-    };
+  await fetch(BASE_ULR + "Checkpoint", {
+    method: "POST",
+    body: JSON.stringify({
+      track_name: track_name,
+      station_id: station_id,
+      next_id: next_id,
+      next_distance: distance,
+      terrain: terrain,
+      coordinates: coordinates,
+    }),
+    headers: { "Content-Type": "application/json; charset=UTF-8" },
+  });
 }
 
 async function create_event() {
