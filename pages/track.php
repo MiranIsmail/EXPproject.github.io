@@ -273,7 +273,8 @@
       const end_id = idInputEnd.value;
       const distance = distanceInput.value;
       const terrain = terrainDropdown.textContent;
- 
+      
+      console.log(start_id, end_id, distance, terrain)
       //console.log(i)
 
       let gps;
@@ -283,13 +284,13 @@
       if(i === 0){
         start_station = start_id; 
       }
-      CreateCheckpoint(track_name, start_id, end_id, distance, terrain, 1);
+      CreateCheckpoint(track_name, start_id, end_id, distance, terrain, "5");
       i++;
       end_station = end_id
 
     })
     CreateTrack(track_name, start_station, end_station);
-    console.log("Submited")
+    console.log("Submitted")
   }
 
   let row
