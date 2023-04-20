@@ -20,11 +20,12 @@
     async function GetChecks(result_id, event_name, track_name){
       document.getElementById('event_title').innerHTML = "Event: " + event_name
       document.getElementById('track_title').innerHTML = "Track: " + track_name  
-      response = await fetch("https://rasts.se/api/Results/" + result_id.toString(), {method:'GET',
+      document.getElementById('date').innerHTML = "Date"
+      checkpoint_time = await fetch("https://rasts.se/api/Results/" + result_id.toString(), {method:'GET',
       headers: {'Accept': 'Application/json'}})
-      data = await response.json();
+      data = await checkpoint_time.json();
       FillTable(data.result)
-      
+      console.log(data.result)
     }
   </script>
 
@@ -32,16 +33,17 @@
   <div class="mb-3 mx-auto w-50">
     <h1 id="event_title">Event:</h1>
     <h2 id="track_title">Track:</h2>
+    <h2 id="date">Date: </h2>
     <table style="border-color: black;" class="table table-bordered" id="timetable">
       <thead>
         <tr>
-          <th scope="col">Checkpoint nr:</th>
-          <th scope="col">Starttime:</th>
-          <th scope="col">Endtime:</th>
-          <th scope="col">Total time:</th>
-          <th scope="col">Terrain:</th>
+          <th scope="col">Station Name:</th>
+          <th scope="col">Timestamp:</th>
+          <th scope="col">Diff Timestamp:</th>
+          <th scope="col">Diff Sec:</th>
+          <th scope="col">Checkpoint Result ID:</th>
           <th scope="col">Distance:</th>
-          <th scope="col">Velocity:</th>
+          <th scope="col">Result ID:</th>
 
         </tr>
       </thead>
@@ -57,16 +59,16 @@
             let cell5 = row.insertCell(4)
             let cell6 = row.insertCell(5)
             if (i == 0) {
-              cell1.innerHTML = data[i].station_name + "(Start)"
+              cell1.innerHTML = data[i].station_name + " (Start)"
             } else if (i == data.length - 1) {
-              cell1.innerHTML = data[i].station_name + "(Finish)"
+              cell1.innerHTML = data[i].station_name + " (Finish)"
             } else {
               cell1.innerHTML = data[i].station_name
             }
             cell2.innerHTML = data[i].time_stamp
             cell3.innerHTML = data[i].diff_time_stamp
             cell4.innerHTML = data[i].diff_sec
-            cell5.innerHTML = data[i].checkpoint_result_id
+            cell5.innerHTML = data[i].checkpointresult_id
             cell6.innerHTML = data[i].result_id
           }
         }
