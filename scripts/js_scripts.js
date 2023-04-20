@@ -312,6 +312,7 @@ async function get_event_info(event_id) {
   const data = await response.json();
   console.log(data);
   //Just getting the source from the span. It was messy in JS.
+  document.getElementById("event_name_colapse").innerHTML = await data["event_name"];
   document.getElementById("event_name").innerHTML = await data["event_name"];
   document.getElementById("event_sport").innerHTML = await data["sport"];
   document.getElementById("event_sdate").innerHTML = await data["startdate"];
@@ -324,6 +325,8 @@ async function get_event_info(event_id) {
   let container = document.getElementById("myTableContainer");
   let myTable = await generate_event_results(event_id);
   container.appendChild(myTable);
+
+
 }
 
 function load_image_event(indata) {
