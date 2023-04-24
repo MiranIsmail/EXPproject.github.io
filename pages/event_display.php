@@ -33,71 +33,71 @@ include '../assets/head.php';
 
             <div class="mx-auto" id="chip_input_witdh">
 
-            <p><button class="btn w-100" type="button" data-bs-toggle="collapse" data-bs-target="#register_event" aria-expanded="false" aria-controls="collapseExample" id="button_style_create">
-                Register On This Event!
-            </button>
-            </p>
-            <div class="collapse" id="register_event">
-                <div class="card card-body" id="register_card">
-                    <h3 class="underline_text">Register on <span id="event_name_colapse"><span></h3>
+                <p><button class="btn w-100" type="button" data-bs-toggle="collapse" data-bs-target="#register_event" aria-expanded="false" aria-controls="collapseExample" id="button_style_create">
+                        Register On This Event!
+                    </button>
+                </p>
+                <div class="collapse" id="register_event">
+                    <div class="card card-body" id="register_card">
+                        <h3 class="underline_text">Register on <span id="event_name_colapse"><span></h3>
 
-                    <div class="form-group mx-auto w-100" id="inputfield_padding">
-                        <p>Team member:</p>
-                        <input type="text" class="form-control input_field_style w-100" placeholder="Team members username: (optional)" aria-describedby="emailHelp" id="email">
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6 padding_bottom_half">
-                            <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off" data-bs-toggle="collapse" data-bs-target="#thirechip" aria-expanded="true" aria-controls="collapseExample" checked>
-                            <label class="btn btn-secondary w-100" for="option1">Register New Chip</label>
+                        <div class="form-group mx-auto w-100" id="inputfield_padding">
+                            <p>Team member:</p>
+                            <input type="text" class="form-control input_field_style w-100" placeholder="Team members username: (optional)" aria-describedby="emailHelp" id="email">
                         </div>
-                        <div class="col-sm-6 padding_bottom_half">
-                            <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" data-bs-toggle="collapse" data-bs-target="#mychip" aria-expanded="false" aria-controls="collapseExample">
-                            <label class="btn btn-secondary w-100" for="option2">I Have My Own</label>
-                        </div>
-                    </div>
-
-                    <div class="collapse show" id="thirechip">
-                        <div class="card card-body" id="register_card">
-                            <div class="form-group mx-auto w-100" id="inputfield_padding">
-                                <p>Chip ID:</p>
-                                <input type="text" class="form-control input_field_style w-100" placeholder="Input The ChipID on provided chip:" aria-describedby="emailHelp" id="send_chip">
+                        <div class="row">
+                            <div class="col-sm-6 padding_bottom_half">
+                                <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off" data-bs-toggle="collapse" data-bs-target="#thirechip" aria-expanded="true" aria-controls="collapseExample" checked>
+                                <label class="btn btn-secondary w-100" for="option1">Register New Chip</label>
+                            </div>
+                            <div class="col-sm-6 padding_bottom_half">
+                                <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" data-bs-toggle="collapse" data-bs-target="#mychip" aria-expanded="false" aria-controls="collapseExample">
+                                <label class="btn btn-secondary w-100" for="option2">I Have My Own</label>
                             </div>
                         </div>
-                    </div>
-                    <div class="collapse" id="mychip">
-                        <div class="card card-body" id="register_card">
-                            <div class="form-group mx-auto w-100" id="inputfield_padding">
-                                <p>Chip ID:</p>
-                                <input type="text" class="form-control input_field_style w-100" placeholder="You have no registerd chip!" aria-describedby="emailHelp" id="chip_id_display" disabled>
+
+                        <div class="collapse show" id="thirechip">
+                            <div class="card card-body" id="register_card">
+                                <div class="form-group mx-auto w-100" id="inputfield_padding">
+                                    <p>Chip ID:</p>
+                                    <input type="text" class="form-control input_field_style w-100" placeholder="Input The ChipID on provided chip:" aria-describedby="emailHelp" id="send_chip">
+                                </div>
                             </div>
                         </div>
+                        <div class="collapse" id="mychip">
+                            <div class="card card-body" id="register_card">
+                                <div class="form-group mx-auto w-100" id="inputfield_padding">
+                                    <p>Chip ID:</p>
+                                    <input type="text" class="form-control input_field_style w-100" placeholder="You have no registerd chip!" aria-describedby="emailHelp" id="chip_id_display" disabled>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn w-100 padding_top" id="button_style_create" onclick="">Register</button>
+
+                        <script>
+                            const option1 = document.getElementById("option1");
+                            const option2 = document.getElementById("option2");
+                            const mychip = document.getElementById("mychip");
+                            const thirechip = document.getElementById("thirechip");
+
+                            option2.addEventListener("click", function() {
+                                if (!mychip.classList.contains("show")) {
+                                    thirechip.classList.remove("show");
+                                }
+                            });
+
+                            option1.addEventListener("click", function() {
+                                if (!thirechip.classList.contains("show")) {
+                                    mychip.classList.remove("show");
+                                }
+                            });
+                        </script>
+
+
+
                     </div>
-
-                    <button class="btn w-100 padding_top" id="button_style_create" onclick="">Register</button>
-
-                    <script>
-                        const option1 = document.getElementById("option1");
-                        const option2 = document.getElementById("option2");
-                        const mychip = document.getElementById("mychip");
-                        const thirechip = document.getElementById("thirechip");
-
-                        option2.addEventListener("click", function() {
-                            if (!mychip.classList.contains("show")) {
-                                thirechip.classList.remove("show");
-                            }
-                        });
-
-                        option1.addEventListener("click", function() {
-                            if (!thirechip.classList.contains("show")) {
-                                mychip.classList.remove("show");
-                            }
-                        });
-                    </script>
-
-
-
                 </div>
-            </div>
 
                 <!-- <div class="input-group-prepend">
                     <button class="btn btn-dark" type="button" onclick="register_on_event(g_event_id)">Register</button>
@@ -111,19 +111,19 @@ include '../assets/head.php';
 
             <h2 class="underline_text"> Results </h2>
             <div id="myTableContainer"></div>
-            </div>
-            </div>
-            </div>
-            <?php include '../assets/footer.php'; ?>
-            <script type="text/javascript" src="../scripts/js_scripts.js"></script>
-        </body>
+        </div>
+    </div>
+    </div>
+    <?php include '../assets/footer.php'; ?>
+    <script type="text/javascript" src="../scripts/js_scripts.js"></script>
+</body>
 
 <script>
-    var g_event_id = sessionStorage.getItem('s_event_id');
+    const urlParams = new URLSearchParams(window.location.search);
+    g_event_id = urlParams.get('event_id');
     console.log(g_event_id)
     get_event_info(g_event_id);
     get_chip()
-
 </script>
 
 </html>
