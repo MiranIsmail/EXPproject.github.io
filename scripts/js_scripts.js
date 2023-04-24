@@ -543,7 +543,7 @@ async function email_to_forgot_password() {
     return response.json();
   })
   .catch((error) => {
-    console.error("There was an error sending the email:", error);
+    alert("There was an error sending the email:", error);
   });
 
   if (response.ok) {
