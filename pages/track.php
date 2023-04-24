@@ -36,17 +36,20 @@
             </div>
             <div class="col-3 input-group md-3">
               <div class="input-group-prepend">
-                <label class="input-group-text" for="inputGroupSelect01">End</label>
+                <label class="input-group-text" for="inputGroupSelect01"> End </label>
               </div>
               <input type="number" class="form-control" name="EndID" min="100" max="200" placeholder="End Station ID" required>
               <button type="button" class="btn btn-secondary" name="Endpin" onclick="find_pin_id(this, 'End')" data-bs-toggle="modal" data-bs-target="#myModal">
                 <i class="fa-solid fa-map-location-dot"></i>
               </button>
+              <div class="col-12">
+                <small class="form-text ">IDs of 0, 90 and 101-199 are accepted</small>
+              </div>
             </div>
 
             <div class="col-4">
               <label for="numberInput" id="dist" class="form-label fw-bold">Distance (m)</label>
-              <input type="number" class="form-control" placeholder="Ex. 15" name="distance" required>
+              <input type="number" class="form-control" placeholder="1500" name="distance" required>
             </div>
             <div class="col-4">
               <label for="dropdown" id="terrain_dropdown" class="form-label fw-bold">Terrain</label>
@@ -61,8 +64,8 @@
                 </ul>
               </div>
             </div>
-            <div class="col-1">
-            <label for="button_delete" id="del" class="form-label fw-bold">Options</label>
+            <div class="col-4">
+              <label for="button_delete" id="del" class="form-label fw-bold">Options</label>
               <button class="btn btn-danger" onclick="deleteRow(this)" name="delete_button"><i class="fa-solid fa-trash"></i>
               </button>
             </div>
@@ -361,8 +364,8 @@
       var terrainDropdown = row.querySelector('button[name="Terrain"]');
       
       // Get the values of the input fields
-      var start_id = idInputStart.value;
-      var end_id = idInputEnd.value;
+      var start_id = idInputStart.value.toString();
+      var end_id = idInputEnd.value.toString();
       var distance = distanceInput.value;
       var terrain = terrainDropdown.textContent;
       
@@ -381,8 +384,7 @@
       }
 
       CreateCheckpoint(track_name, start_id, end_id, distance, terrain, marker_longitude, marker_latitude);
-      console.log(track_name, start_id, end_id, distance, terrain, marker_longitude, marker_latitude)
-
+    
       if (j == markers_list.length-2) {
         // Get the last station
         for (let i = 0; i < markers_list.length; i++) {

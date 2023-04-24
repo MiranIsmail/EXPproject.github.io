@@ -98,8 +98,8 @@ function generate_card_wide(input_name,input_date,input_text,input_image,input_i
 
   // cardDiv.addEventListener('click', function(){
   GoToEvent.addEventListener('click', function(){
-    sessionStorage.setItem("s_event_id",event_id);
-    location.href = '../pages/event_display.php'
+    //sessionStorage.setItem("s_event_id",event_id);
+    location.href = '../pages/event_display.php?event_id='+event_id;
   })
 
   // Append the button element to the card body
