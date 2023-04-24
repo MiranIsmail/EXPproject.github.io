@@ -8,8 +8,10 @@
     <h1>Create your own track</h1>
     <div class="form-group">
       <div class="form-group form_group_style mx-auto container">
-        <p>Here you can create tracks that can then be accesed during events</p>
-        <p>Make sure that all your checkpoints are functional and that their ID is visable</p>
+        <p>Here you can create tracks that can then be chosen when creating events.</p>
+        <p>Make sure that all your checkpoints are functional and that their ID is visable.</p>
+        <p>The sections are automatically connected. Following sections always start where the last one ended.</p>
+  
         <label for="InputTrackName" class="clear_text">Track name</label>
         <input type="text" class="form-control" id="InputTrackName" placeholder="My Track">
       </div>
@@ -17,12 +19,15 @@
       <!-- Create a table with Bootstrap 5 classes -->
       <div class="form-group col-md-12 form_group_style mx-auto">
         <p>Start by adding the first section!</p>
-        <div class="container" id="track_input">
+        <div class="container needs-validation" id="track_input" novalidate>
           <div class="row track_form" id="0">
             <p>Section<p>
             <div class="col-3 input-group mb-3">
-              <div class="input-group-prepend">
+              <div class="input-group-prepend" required>
                 <label class="input-group-text" for="inputGroupSelect01">Start</label>
+              </div>
+              <div class="invalid-feedback">
+                Please enter in an ID number between 101 and 199
               </div>
               <input type="number" class="form-control" name="StartID" min="100" max="200" placeholder="Start Station ID" required>
               <button type="button" class="btn btn-secondary" name="Startpin" onclick="find_pin_id(this, 'Start')" data-bs-toggle="modal" data-bs-target="#myModal">
@@ -31,17 +36,20 @@
             </div>
             <div class="col-3 input-group md-3">
               <div class="input-group-prepend">
-                <label class="input-group-text" for="inputGroupSelect01">End</label>
+                <label class="input-group-text" for="inputGroupSelect01"> End </label>
               </div>
               <input type="number" class="form-control" name="EndID" min="100" max="200" placeholder="End Station ID" required>
               <button type="button" class="btn btn-secondary" name="Endpin" onclick="find_pin_id(this, 'End')" data-bs-toggle="modal" data-bs-target="#myModal">
                 <i class="fa-solid fa-map-location-dot"></i>
               </button>
+              <div class="col-12">
+                <small class="form-text ">IDs of 0, 90 and 101-199 are accepted</small>
+              </div>
             </div>
 
             <div class="col-4">
               <label for="numberInput" id="dist" class="form-label fw-bold">Distance (m)</label>
-              <input type="number" class="form-control" placeholder="Ex. 15" name="distance" required>
+              <input type="number" class="form-control" placeholder="1500" name="distance" required>
             </div>
             <div class="col-4">
               <label for="dropdown" id="terrain_dropdown" class="form-label fw-bold">Terrain</label>
@@ -49,15 +57,15 @@
                 <button class="btn btn-secondary dropdown-toggle" type="button" name="Terrain" data-bs-toggle="dropdown" aria-expanded="false">
                   <i class="fa-solid fa-person-running"></i>
                 </button>
-                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButtonTerrain1" required>
+                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButtonTerrain1">
                   <li><a class="dropdown-item" onclick='select("Swim", event)'><i class="fa-solid fa-person-swimming"></i> Swim</a></li>
                   <li><a class="dropdown-item" onclick='select("Run", event)'><i class="fa-solid fa-person-running"></i> Land</a></li>
                   <li><a class="dropdown-item" onclick='select("Mixed", event)'><i class="fa-solid fa-frog"></i> Mixed</a></li>
                 </ul>
               </div>
             </div>
-            <div class="col-1">
-            <label for="button_delete" id="del" class="form-label fw-bold">Options</label>
+            <div class="col-4">
+              <label for="button_delete" id="del" class="form-label fw-bold">Options</label>
               <button class="btn btn-danger" onclick="deleteRow(this)" name="delete_button"><i class="fa-solid fa-trash"></i>
               </button>
             </div>
@@ -66,7 +74,7 @@
         <div class="container">
           <div class="option_background">
             <button id="add_button" button type="button" class="btn btn-secondary" onclick="addRow()">Add another section <i class="fa-regular fa-plus"></i></button>
-            <button type="submit" button type="button" button id="submit_button" class="btn btn-primary" role="button" onclick='submit()'>Submit</button>
+            <button type="submit" button type="button" button id="submit_button" class="btn btn-primary" role="button">Submit</button>
           </div>
         </div>
         <!-- The Modal -->
@@ -83,8 +91,10 @@
               <!-- Modal body -->
               <div class="modal-body">
                 <div id="map"></div>
+                SAVED pins must be DELETED before their ID can be modified.
               </div>
 
+              
               <!-- Modal footer -->
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
@@ -110,6 +120,73 @@
   const info = template_row.innerHTML
   const success = 'green'
   const fail = 'maroon'
+  const submit_btn = document.getElementById("submit_button")
+
+  submit_btn.addEventListener('click', function(e) {
+    e.preventDefault();
+
+    const inputs = document.querySelectorAll('input');
+    const dropdowns = document.querySelectorAll('dropdown')
+    let allDisabled = true;
+    let allValid = true;
+
+    inputs.forEach(function(input) {
+      if (!input.disabled && input.name == "EndID" || !input.disabled && input.name == "StartID") {
+        allDisabled = false;
+      }
+    });
+
+    inputs.forEach(function(input) {
+      let name = input.name
+      switch (name) {
+        case 'StartID':
+          const start_id = parseInt(input.value);
+          if (start_id != 0) {
+            if (isNaN(start_id) || start_id < 101 || start_id > 199) {
+            allValid = false;
+            break;
+            }
+          }
+          // additional validation for text input
+          break;
+
+        case 'EndID':
+          const end_id = parseInt(input.value);
+          if (end_id != 90) {
+            if (isNaN(end_id) || end_id < 101 || end_id > 199) {
+            allValid = false;
+            break;
+            }
+          }
+          // additional validation for email input
+          break;
+
+        case 'distance':
+          const range = parseInt(input.value);
+          if (isNaN(range)) {
+            allValid = false;
+            break;
+          }
+          // additional validation for number input
+          break;
+
+    }
+  });
+
+    if (allDisabled && allValid) {
+      submit();
+    }
+    else if (!allDisabled && !allValid) {
+      alert('Please check your inputs');
+    }
+    else if (!allDisabled) {
+      alert('Please pin a location to each Checkpoint.');
+    }
+    else if (!allValid) {
+      alert('Some fields are missing input or have incorrect values');
+    }
+
+  });
 
   var i = 0
   function addRow() {
@@ -240,15 +317,29 @@
   
     row.remove();
   }
-  function DeleteSection(){
-  
-}
-  function submit() {
-    // Get all required input fields
-    var requiredFields = document.querySelectorAll('input[required]')
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+  (function () {
+    'use strict'
 
-    // Check if all required fields are filled in and valid
-    var allFieldsValid = Array.from(requiredFields).every(field => field.checkValidity());
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+      .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+
+          form.classList.add('was-validated')
+        }, false)
+      })
+  })()
+
+
+  function submit() {
 
     var rows = document.querySelectorAll('.track_form');
 
@@ -273,8 +364,8 @@
       var terrainDropdown = row.querySelector('button[name="Terrain"]');
       
       // Get the values of the input fields
-      var start_id = idInputStart.value;
-      var end_id = idInputEnd.value;
+      var start_id = idInputStart.value.toString();
+      var end_id = idInputEnd.value.toString();
       var distance = distanceInput.value;
       var terrain = terrainDropdown.textContent;
       
@@ -293,8 +384,7 @@
       }
 
       CreateCheckpoint(track_name, start_id, end_id, distance, terrain, marker_longitude, marker_latitude);
-      console.log(track_name, start_id, end_id, distance, terrain, marker_longitude, marker_latitude)
-
+    
       if (j == markers_list.length-2) {
         // Get the last station
         for (let i = 0; i < markers_list.length; i++) {
@@ -423,7 +513,6 @@
     input_field.disabled = true
     pin_button.style.backgroundColor = success
     for (let index = 0; index < markers_list.length; index++) {
-    let object_string = JSON.stringify(markers_list[index])
     //data base call
     }
   }

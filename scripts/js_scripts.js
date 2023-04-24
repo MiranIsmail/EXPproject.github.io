@@ -219,6 +219,12 @@ async function generate_user_results() {
   // create table rows
   for (let i = 0; i < (await data.results.results.length); i++) {
     let row = document.createElement("tr");
+
+    // create a link for the row
+    let link = document.createElement("a");
+    link.setAttribute("href", `../pages/timetable?event_id=${dadasd}&result_id=${asda}`);
+
+
     for (let key in await data.results.results[i]) {
       let cell = document.createElement("td");
       cell.textContent = await data.results.results[i][key];
@@ -509,12 +515,31 @@ async function generate_event_results(event_id) {
 
 function register_on_event(event_id) {
   var parameters = {};
-  parameters["chip_id"] = document.getElementById("send_chip").value;
   parameters["event_id"] = event_id;
+  parameters["token"] = get_cookie("auth_token")
+  //parameters["team8"] =
+  parameters["chip_id"] = document.getElementById("send_chip").value;
+
   const response = fetch(BASE_ULR + "Registration", {
     method: "POST",
     body: JSON.stringify(parameters),
   });
+
+  alert("Chip has been Registerd");
+}
+
+function register_on_event_my(event_id) {
+  var parameters = {};
+  parameters["event_id"] = event_id;
+  parameters["token"] = get_cookie("auth_token")
+  //parameters["team8"] =
+  parameters["chip_id"] = document.getElementById("chip_id_display").value;
+
+  const response = fetch(BASE_ULR + "Registration", {
+    method: "POST",
+    body: JSON.stringify(parameters),
+  });
+
   alert("Chip has been Registerd");
 }
 
@@ -532,7 +557,7 @@ async function email_to_forgot_password() {
   var email = document.getElementById("email").value;
   const response = await fetch(BASE_ULR + "Token", {
     method: "PATCH",
-    body: JSON.stringify({ email: email }),
+    body: JSON.stringify({ "email": email }),
     headers: { "Content-Type": "application/json" },
   })
 
@@ -543,10 +568,17 @@ async function email_to_forgot_password() {
     return response.json();
   })
   .catch((error) => {
-    console.error("There was an error sending the email:", error);
+    alert("There was an error sending the email:", error);
   });
 
   if (response.ok) {
     alert("Email was sent successfully!");
   }
+}
+
+async function update_user_password(token) {
+  user_token = 0;
+  if (user_token == token) {
+    
+  };
 }
