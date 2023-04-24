@@ -54,6 +54,7 @@ include '../assets/head.php';
                                 <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" data-bs-toggle="collapse" data-bs-target="#mychip" aria-expanded="false" aria-controls="collapseExample">
                                 <label class="btn btn-secondary w-100" for="option2">I Have My Own</label>
                             </div>
+
                         </div>
 
                         <div class="collapse show" id="thirechip">
@@ -62,6 +63,7 @@ include '../assets/head.php';
                                     <p>Chip ID:</p>
                                     <input type="text" class="form-control input_field_style w-100" placeholder="Input The ChipID on provided chip:" aria-describedby="emailHelp" id="send_chip">
                                 </div>
+                                <button class="btn w-100 padding_top" id="button_style_create" onclick="register_on_event(g_event_id)">Register</button>
                             </div>
                         </div>
                         <div class="collapse" id="mychip">
@@ -70,11 +72,9 @@ include '../assets/head.php';
                                     <p>Chip ID:</p>
                                     <input type="text" class="form-control input_field_style w-100" placeholder="You have no registerd chip!" aria-describedby="emailHelp" id="chip_id_display" disabled>
                                 </div>
+                                <button class="btn w-100 padding_top" id="button_style_create" onclick="register_on_event_my(g_event_id)">Register</button>
                             </div>
                         </div>
-
-                        <button class="btn w-100 padding_top" id="button_style_create" onclick="">Register</button>
-
                         <script>
                             const option1 = document.getElementById("option1");
                             const option2 = document.getElementById("option2");

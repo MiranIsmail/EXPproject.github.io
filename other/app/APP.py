@@ -260,7 +260,7 @@ label_f2.configure(anchor="center")
 
 ######################################################################################
 # This section handles the options in frame 1 
-options = ['Option 1', 'Option 2', 'Option 3']
+options = ['Options', 'Options', 'Options']
 var = tk.StringVar(f1)
 var.set(options[0])
 
@@ -273,7 +273,6 @@ def update_options(chip_id):
     url_id_event = 'https://rasts.se/api/Registration?chip_id='+chip_id
     new_options = []
     get_result:list = requests.get(url_id_event).json()
-    print(type(get_result))
     for ev_dict in get_result:
         new_options.append(ev_dict["event_name"])
     
@@ -318,10 +317,10 @@ for col in headings:
 ######################################################################################
 
 # function to update options
-def update_options_f2(chip_id):
+def update_options_f2(track_name):
     """this function is part of a chain that updates options in frame 2
     it needs a correct track name to work. !!! No error handling is done here"""
-    url_id_event_f2 = 'https://rasts.se/api/Registration?chip_id='+chip_id
+    url_id_event_f2 = 'https://rasts.se/api/Event?track_name='+track_name
     new_options_f2 = []
     get_result_f2:list = requests.get(url_id_event_f2).json()
     print(type(get_result_f2))
@@ -349,7 +348,7 @@ button_f2_1 = tk.Button(f2, text="Get events", command=button_clicked_f2)
 button_f2_1.place(relx=0.01,rely=0.57,relheight=0.05,relwidth=0.05)
 
 ##this is the options in frame 2 (settings)
-options_f2 = ['Option 1', 'Option 2', 'Option 3']
+options_f2 = ['Options', 'Options', 'Options']
 var_f2 = tk.StringVar(f2)
 var_f2.set(options_f2[0])
 menu_f2 = tk.OptionMenu(f2, var_f2, *options_f2)
@@ -358,23 +357,31 @@ menu_f2.place(relx=0.11,rely=0.57,relheight=0.05)
 def button_clicked_f2_2():
     """This function is connected to buhtton _f2_2 and sets the global variale(global global_track_name) to what is inside the 
     entry field"""
+    button_f2_2.config(bg='green')#set the button color to green for visual confirmation
     entry_value:str = entry.get()
     global global_track_name
     global_track_name = entry_value #####!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! maybe do a check so that the track exists
 
 def button_clicked_f2_3():
     """This function is connected to button_f2_3 and sets the global variable(global_event_id) to an selected event"""
+    button_f2_3.config(bg='green')#set the button color to green for visual confirmation
     global global_event_id
     selected_event = var_f2.get()
     global_event_id = selected_event#####!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! maybe do am error handling
 
 ###button named "set track" connected to the function(see command)
-button_f2_2 = tk.Button(f2, text="Set track", command=button_clicked_f2_2,bg='green')
+button_f2_2 = tk.Button(f2, text="Set track", command=button_clicked_f2_2,bg='red')
 button_f2_2.place(relx=0.01,rely=0.63,relheight=0.05,relwidth=0.05)
 
 ###button named "set event" connected to the function(see command)
-button_f2_3 = tk.Button(f2, text="Set event", command=button_clicked_f2_3,bg='green')
+button_f2_3 = tk.Button(f2, text="Set event", command=button_clicked_f2_3,bg='red')
 button_f2_3.place(relx=0.01,rely=0.69,relheight=0.05,relwidth=0.05)
+
+##Explanation label for the buttons
+font_size = int(f2.winfo_screenwidth()/90)
+lbf23="Track name: Here you need to feel in the name of the track you are on.\n\nPlease fill it in exactly as it is given on rasts.se website.\n\nGet_Events: Click this if you want to get all events that are registerd to this track.\n\nNote that you need to fill in track name first. \n\nOptions: Here you get the list of events after you have clicked Get_Events \n\nSet_Track: Sets the inputed track as Default.\n\nSet_Event: Sets the selected event(Options) as default."
+label_f2_3 = tk.Label(f2,text=lbf23,justify='left',font=('Times New roman',font_size))
+label_f2_3.place(relx=0.5,rely=0.51)
 
 #run the program
 root.mainloop()
