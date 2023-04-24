@@ -29,15 +29,54 @@ function is_logged_in(): bool
     return false;
   }
 }
+function get_user_info():stdClass
+{
+  if (!isset($_COOKIE["auth_token"])) {
+    return false;
+  }
+  $url = 'https://rasts.se/api/Account';
+  $curl = curl_init();
+
+  curl_setopt_array($curl, array(
+    CURLOPT_URL => $url,
+    CURLOPT_CUSTOMREQUEST => "GET",
+    CURLOPT_HTTPHEADER => array(
+
+      "Authorization: $_COOKIE[auth_token]",
+    ),
+    CURLOPT_RETURNTRANSFER => true,
+  ));
+
+  $response = json_decode(curl_exec($curl));
+  curl_close($curl);
+  return $response;
+}
 
 $blocked_site_logged_in = ["Login", "SignUp"];
+$blocked_site_logged_in_user = ["eventcreate", "track"];
 $blocked_site_logged_out = ["profile", "eventcreate", "track"];
 
+
 $is_logged_in = is_logged_in();
-$page_name_tile = ["index" => "Rasts",""=>"Rasts", "event_display" => "Rasts - Event", "event" => "Rasts - Events", "profile" => "Profile", "Login" => "Login", "SignUp" => "Register", "eventcreate" => "Create Event", "track" => "Track"];
-$title = $page_name_tile[explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0]];
-/*
+$is_organization = false;
 if ($is_logged_in) {
+  $user_data = get_user_info();
+  $is_organization = $user_data->org_name != null;
+}
+$page_name_tile = ["index" => "Rasts", "" => "Rasts", "event_display" => "Rasts - Event", "event" => "Rasts - Events", "profile" => "Profile", "Login" => "Login", "SignUp" => "Register", "eventcreate" => "Create Event", "track" => "Track"];
+$title = $page_name_tile[explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0]];
+
+if ($is_logged_in) {
+
+  if (in_array(explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0], $blocked_site_logged_in)) {
+    header("Location: ../pages/index.php");
+  }
+  if (!$is_organization) {
+    if (in_array(explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0], $blocked_site_logged_in_user)) {
+      header("Location: ../pages/index.php");
+    }
+  }
+
   if (in_array(explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0], $blocked_site_logged_in)) {
     header("Location: ../pages/index.php");
   }
@@ -45,7 +84,9 @@ if ($is_logged_in) {
   if (in_array(explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0], $blocked_site_logged_out)) {
     header("Location: ../pages/index.php");
   }
-}*/
+}
+
+$is_organization = true;
 
 ?>
 

@@ -557,7 +557,7 @@ async function email_to_forgot_password() {
   var email = document.getElementById("email").value;
   const response = await fetch(BASE_ULR + "Token", {
     method: "PATCH",
-    body: JSON.stringify({ "email": email }),
+    body: JSON.stringify({ email: email }),
     headers: { "Content-Type": "application/json" },
   })
 
@@ -568,7 +568,7 @@ async function email_to_forgot_password() {
     return response.json();
   })
   .catch((error) => {
-    alert("There was an error sending the email:", error);
+    console.error("There was an error sending the email:", error);
   });
 
   if (response.ok) {

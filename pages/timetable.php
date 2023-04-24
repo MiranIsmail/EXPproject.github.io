@@ -24,20 +24,20 @@
       headers: {'Accept': 'Application/json'}})
       result_data = await fetch("https://rasts.se/api/Results?token=" + token.toString(), {method:'GET',
       headers: {'Accept': 'Application/json'}})
-      event_data = await fetch("https://rasts.se/api/Event?event_id=" + event_id.toString(), {method:'GET',
+      event_data = await fetch("https://rasts.se/api/Results?event_id=" + event_id.toString(), {method:'GET',
       headers: {'Accept': 'Application/json'}})
       checkpoint_data = await fetch("https://rasts.se/api/Checkpoint?track_name=" + track_name.toString())
       data = await checkpoint_time.json();
       data1 = await result_data.json()
       data2 = await event_data.json()
+      //console.log(data2)
       data3 = await checkpoint_data.json()
-      for(let i = 0; i < data2.length; i++){
-        if(data2[i].event_id == event_id){
-          document.getElementById('event_title').innerHTML = "Event: " + data2[i].event_name
-          document.getElementById('track_title').innerHTML = "Track: " + data2[i].track_name
-          document.getElementById('date').innerHTML = "Date: " + data2[i].enddate
-        }
-      }
+      //for(let i = 0; i < data2.length; i++){
+        //if(data2[i].event_ids == event_id){
+        //document.getElementById('event_title').innerHTML = "Event: " + data2.event_name
+        document.getElementById('track_title').innerHTML = "Track: " + track_name
+        document.getElementById('date').innerHTML = "Date: " + data2.results[0].DATE
+      
       FillTable(data.result, data3, data2.event_name)
       console.log(data.result)
       console.log(data1)
@@ -118,12 +118,12 @@
           return h1+h2+"h"+m1+m2+"m"+s1+s2+s3+s4+"s"
         }
           //console.log(ConvertTime("23:35:52.3275"))
-          //GetChecks(95, 41, "d08aef9e7425571891d8s3db267256dbb7ee5260c4fb12f4b4d4d0ed930822345", "Adams bana")
+          GetChecks(95, 12, "c5bd7dec836ce331ce40a875a5406d3fa1f5942fd9e38d21a5ec2dbee7163d43", "Adams femte bana")
         </script>
       </tbody>
     </table>
   </div>
   <?php include '../assets/footer.php'; ?>
-  <script type="text/javascript" src="../scripts/timetable.js"></script>
+  <!-- <script type="text/javascript" src="../scripts/timetable.js"></script> -->
 
 </body>
