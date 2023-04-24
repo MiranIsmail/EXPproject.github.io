@@ -19,9 +19,15 @@
     overflow: hidden;
   }
 
+#image_box{
+    width: 100%;
+    height: auto;
+}
+
 .cropped img {
-    max-width: none;
-    max-height: none;
+    min-width: 100vh;
+    width: 100%;
+    height: auto;
 }
 
 #information_container{

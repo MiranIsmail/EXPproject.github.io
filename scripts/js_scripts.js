@@ -579,6 +579,6 @@ async function email_to_forgot_password() {
 async function update_user_password(token) {
   user_token = 0;
   if (user_token == token) {
-    
+
   };
 }
