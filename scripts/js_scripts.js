@@ -475,6 +475,14 @@ async function get_checkpoints(event_id) {
     method: "GET",
   });
   const data = await response.json();
+  const track = data['track_name']
+
+  response = await fetch(BASE_URL + "Track/" + track, {
+    method: "GET"
+  })
+  data = await response.json()
+  const 
+
 }
 
 function load_image_event(indata) {
