@@ -79,17 +79,20 @@
             let cell4 = row.insertCell(3)
             let cell5 = row.insertCell(4)
             let cell6 = row.insertCell(5)
+            let cell7 = row.insertCell(6)
             if (i == 0) {
               cell1.innerHTML = data[i].station_name + " (Start)"
               if(data[i+1]){
                 cell4.innerHTML = data[i+1].time_stamp
+                cell2.innerHTML = TimeDiff(data[i].time_stamp, data[i+1].time_stamp)
               }
             } else if (i == data.length - 1) {
               cell1.innerHTML = data[i].station_name + " (Finish)"
-              cell2.innerHTML = "--||--"
+              cell2.innerHTML = ConvertTime(data[i].time_stamp)
               cell4.innerHTML = "--||--"
             } else {
               cell1.innerHTML = data[i].station_name
+              cell2.innerHTML = TimeDiff(data[i].time_stamp, data[i+1].time_stamp)
               cell4.innerHTML = data[i+1].time_stamp
             }
             // cell2.innerHTML = data[i].time_stamp
@@ -100,11 +103,19 @@
             }
             if(data1[i]){
             cell6.innerHTML = data1[i].next_distance
+              if(data[i+1]){
+              cell7.innerHTML = AverageVel(data1[i].next_distance, TimeDiff(data[i].time_stamp, data[i+1].time_stamp))
+              }
             }
           }
         }
-        function AverageVel(distance, time){
-          return (distance/time)
+        function TimeDiff(time1, time2){
+            time1 = ConvertTime(time1)
+            time2 = ConvertTime(time2)
+            return time2 - time1
+        }
+        function AverageVel(distance, time_diff){
+          return (distance/time_diff)
         }
         function ConvertTime(time_string){
           h1 = time_string[0]
@@ -113,11 +124,16 @@
           m2 = time_string[4]
           s1 = time_string[6]
           s2 = time_string[7]
-          s3 = time_string[8]
-          s4 = time_string[9]
-          return h1+h2+"h"+m1+m2+"m"+s1+s2+s3+s4+"s"
+          seconds = s1 + s2
+          minutes = m1 + m2
+          hours = h1 + h2
+          seconds = parseInt(seconds)
+          minutes = parseInt(minutes) * 60
+          hours = parseInt(hours) * 60 * 60
+          return hours + minutes + seconds
         }
           //console.log(ConvertTime("23:35:52.3275"))
+          console.log(ConvertTime("00:00:30.0000"))
           GetChecks(95, 12, "c5bd7dec836ce331ce40a875a5406d3fa1f5942fd9e38d21a5ec2dbee7163d43", "Adams femte bana")
         </script>
       </tbody>
