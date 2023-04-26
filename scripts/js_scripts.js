@@ -573,18 +573,27 @@ function load_image_event(indata) {
   src.appendChild(img);
 }
 
-async function CreateTrack(track_input, start_station, end_station) {
-  //var track_name = document.getElementById("InputTrackName")
-  await fetch(BASE_ULR + "Track", {
-    method: "POST",
-    body: JSON.stringify({
-      track_name: track_input,
-      start_station: start_station,
-      end_station: end_station,
-    }),
-    headers: { "Content-Type": "application/json; charset=UTF-8" },
+function CreateTrack(track_input, start_station, end_station) {
+  // Create a new promise
+  return new Promise((resolve, reject) => {
+    fetch(BASE_ULR + "Track", {
+      method: "POST",
+      body: JSON.stringify({
+        track_name: track_input,
+        start_station: start_station,
+        end_station: end_station,
+      }),
+      headers: { "Content-Type": "application/json; charset=UTF-8" },
+    })
+      .then((response) => {
+        // Resolve the promise when the response is received
+        resolve(response);
+      })
+      .catch((error) => {
+        // Reject the promise if an error occurs
+        reject(error);
+      });
   });
-  console.log("Track created");
 }
 
 async function CreateCheckpoint(
