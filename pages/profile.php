@@ -1,4 +1,4 @@
-<?php include '../assets/head.php'; ?>
+<?php include '../assets/head.php'; var_dump($user_data)?>
 <body>
     <?php include '../assets/navbar.php'; ?>
     <a type="button" style="float:right; padding: 0.5rem;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"><img class="op30" src="../images/settings.svg" id="settings" alt=Gear"></a>
@@ -14,7 +14,7 @@
                     <h1 class="text-shift">
                         <span id="profileName">Profile name</span>
                     </h1>
-                    <h3 class="text-shift">Age: <span id="profile_age"></span> years</h3>
+                    <h3 class="text-shift">Age: <span id="profile_age"></span> <?=$user_data=>birth_date?></h3>
                     <h3 class="text-shift">Length: <span id="profile_length"></span> cm</h3>
                     <h3 class="text-shift">Weight: <span id="profile_weight"></span> kg</h3>
                     <h3 class="text-shift">Private Chip: <span id="profile_chip_id"></span></h3>
@@ -95,7 +95,7 @@
 
     <script type="text/javascript" src="../scripts/js_scripts.js"></script>
     <script>
-        get_user_info();
+        //get_user_info();
     </script>
 </body>
 
