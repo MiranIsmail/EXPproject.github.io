@@ -2,9 +2,8 @@ var BASE_ULR = "https://rasts.se/api/";
 
 window.onload = function () {};
 
-
-function image_compress_64(inputfile){
-  var return_variable = ""
+function image_compress_64(inputfile) {
+  var return_variable = "";
   const MAX_WIDTH = 320;
   const MAX_HEIGHT = 180;
   const MIME_TYPE = "image/jpeg";
@@ -30,21 +29,23 @@ function image_compress_64(inputfile){
     canvas.toBlob(
       (blob) => {
         // Handle the compressed image. es. upload or save in local state
-        blobToBase64(blob).then(function(result) {
-          console.log("base: "+result)
-          // return_variable = result // "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX"
-        }).catch(function(error) {
-          console.log(error);
-        });
+        blobToBase64(blob)
+          .then(function (result) {
+            console.log("base: " + result);
+            // return_variable = result // "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX"
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
       },
       MIME_TYPE,
       QUALITY
     );
     document.getElementById("root").append(canvas);
   };
-  console.log("asdadad: "+return_variable)
+  console.log("asdadad: " + return_variable);
   // return return_variable
-};
+}
 
 function calculateSize(img, maxWidth, maxHeight) {
   let width = img.width;
@@ -68,21 +69,17 @@ function calculateSize(img, maxWidth, maxHeight) {
 // Utility functions for demo purpose
 
 function displayInfo(label, file) {
-  const p = document.createElement('p');
+  const p = document.createElement("p");
   p.innerText = `${label} - ${readableBytes(file.size)}`;
-  document.getElementById('root').append(p);
+  document.getElementById("root").append(p);
 }
 
 function readableBytes(bytes) {
   const i = Math.floor(Math.log(bytes) / Math.log(1024)),
-    sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+    sizes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
 
-  return (bytes / Math.pow(1024, i)).toFixed(2) + ' ' + sizes[i];
+  return (bytes / Math.pow(1024, i)).toFixed(2) + " " + sizes[i];
 }
-
-
-
-
 
 const get_cookie = (name) =>
   document.cookie.match("(^|;)\\s*" + name + "\\s*=\\s*([^;]+)")?.pop() || "";
@@ -268,7 +265,9 @@ async function get_friend_info() {
   );
   document.getElementById("profile_length").innerHTML = await data["height"];
   document.getElementById("profile_weight").innerHTML = await data["weight"];
-  document.getElementById("profile_username").innerHTML = await data["username"];
+  document.getElementById("profile_username").innerHTML = await data[
+    "username"
+  ];
   load_image(data["pimage"]);
 
   let container = document.getElementById("myTableContainerResults");
@@ -288,8 +287,10 @@ async function edit_user_info() {
   if (document.getElementById("send_image").files.length != 0) {
     // var blob = await image_to_blob(document.getElementById("send_image"));
     // parameters["pimage"] = await blobToBase64(blob);
-    parameters["pimage"] = await image_compress_64(document.getElementById("send_image"))
-    console.log("test: "+parameters["pimage"])
+    parameters["pimage"] = await image_compress_64(
+      document.getElementById("send_image")
+    );
+    console.log("test: " + parameters["pimage"]);
   }
 
   for (const [key, value] of Object.entries(parameters)) {
@@ -574,14 +575,21 @@ function load_image_event(indata) {
 
 async function CreateTrack(track_input, start_station, end_station) {
   //var track_name = document.getElementById("InputTrackName")
-  await fetch(BASE_ULR + "Track", {
-    method: "POST",
-    body: JSON.stringify({
-      track_name: track_input,
-      start_station: start_station,
-      end_station: end_station,
-    }),
-    headers: { "Content-Type": "application/json; charset=UTF-8" },
+  result = await makePostReqest_track(track_input, start_station, end_station);
+  console.log(track_input, start_station, end_station);
+}
+
+function makePostReqest_track(track_input, start_station, end_station) {
+  return new Promise(function (resolve, reject) {
+    fetch(BASE_ULR + "Track", {
+      method: "POST",
+      body: JSON.stringify({
+        track_name: track_input,
+        start_station: start_station,
+        end_station: end_station,
+      }),
+      headers: { "Content-Type": "application/json; charset=UTF-8" },
+    });
   });
 }
 

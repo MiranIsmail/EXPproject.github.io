@@ -353,7 +353,8 @@
     
     console.log(track_name, start_station_id, end_station_id)
     CreateTrack(track_name, start_station_id, end_station_id)
-
+    
+    
     var idInputStart
     var idInputEnd
     var distanceInput
