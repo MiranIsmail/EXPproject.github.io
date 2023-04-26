@@ -1,4 +1,4 @@
-<?php include '../assets/head.php'; ?>
+<?php include '../assets/head.php'; var_dump($user_data)?>
 <body>
     <?php include '../assets/navbar.php'; ?>
     <a type="button" style="float:right; padding: 0.5rem;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"><img class="op30" src="../images/settings.svg" id="settings" alt=Gear"></a>
@@ -96,7 +96,7 @@
 
     <script type="text/javascript" src="../scripts/js_scripts.js"></script>
     <script>
-        get_user_info();
+        //get_user_info();
     </script>
 </body>
 

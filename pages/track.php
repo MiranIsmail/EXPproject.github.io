@@ -392,8 +392,7 @@
             current_marker = markers_list[i]
             marker_longitude = current_marker.getPosition().lng()
             marker_latitude = current_marker.getPosition().lat()
-            CreateCheckpoint(track_name, end_id, null, null, null, marker_longitude, marker_latitude)
-            console.log(track_name, end_id, null, null, null, marker_longitude, marker_latitude)
+            CreateCheckpoint(track_name, end_id, "null", "null", "null", marker_longitude, marker_latitude)
             }
           } 
 
@@ -404,7 +403,7 @@
       
       j++;
     })
-    
+    location.href= "../pages/confirmation_track.php";
   }
 
   let row
@@ -494,10 +493,7 @@
         }
         input_field.disabled = false
       }
-      console.log(markers_list)
-      btn.disabled = true;
     }
-    console.log(markers_list)
     btn.disabled = true;
   }
   //figure out how to confirm

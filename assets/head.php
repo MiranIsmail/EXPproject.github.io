@@ -66,27 +66,27 @@ if ($is_logged_in) {
 $page_name_tile = ["index" => "Rasts", "" => "Rasts", "event_display" => "Rasts - Event", "event" => "Rasts - Events", "profile" => "Profile", "Login" => "Login", "SignUp" => "Register", "eventcreate" => "Create Event", "track" => "Track"];
 $title = $page_name_tile[explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0]];
 
-if ($is_logged_in) {
-
-  if (in_array(explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0], $blocked_site_logged_in)) {
-    header("Location: ../pages/index.php");
-  }
-  if (!$is_organization) {
-    if (in_array(explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0], $blocked_site_logged_in_user)) {
-      header("Location: ../pages/index.php");
-    }
-  }
-
-  if (in_array(explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0], $blocked_site_logged_in)) {
-    header("Location: ../pages/index.php");
-  }
-} else {
-  if (in_array(explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0], $blocked_site_logged_out)) {
-    header("Location: ../pages/index.php");
-  }
-}
-
 $is_organization = true;
+// if ($is_logged_in) {
+
+//   if (in_array(explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0], $blocked_site_logged_in)) {
+//     header("Location: ../pages/index.php");
+//   }
+//   if (!$is_organization) {
+//     if (in_array(explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0], $blocked_site_logged_in_user)) {
+//       header("Location: ../pages/index.php");
+//     }
+//   }
+
+//   if (in_array(explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0], $blocked_site_logged_in)) {
+//     header("Location: ../pages/index.php");
+//   }
+// } else {
+//   if (in_array(explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0], $blocked_site_logged_out)) {
+//     header("Location: ../pages/index.php");
+//   }
+// }
+
 
 ?>
 
