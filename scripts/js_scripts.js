@@ -338,7 +338,7 @@ async function generate_friend_results() {
 
 function search_account() {
   // Retrieve all cards
-  let input = document.getElementById("searchQueryInput").value;
+  let input = document.getElementById("search_profile").value;
   location.href = `../pages/profile_display?username=${input}`
 }
 // async function generate_user_results() {
