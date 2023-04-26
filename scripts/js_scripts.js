@@ -163,11 +163,16 @@ async function get_user_info() {
   let myTable = await generate_user_results();
   container.appendChild(myTable);
 }
+async function get_user_results() {
+  let container = document.getElementById("myTableContainerResults");
+  let myTable = await generate_user_results();
+  container.appendChild(myTable);
+}
 
 async function get_friend_info() {
   const urlParams = new URLSearchParams(window.location.search);
   g_username = urlParams.get("username");
-  const response = await fetch(BASE_ULR + "Results/?username=" + g_username, {
+  const response = await fetch(BASE_ULR + "Account/" + g_username, {
     method: "GET",
   });
   const data = await response.json();
@@ -316,6 +321,11 @@ async function generate_friend_results() {
   return table;
 }
 
+function search_account() {
+  // Retrieve all cards
+  let input = document.getElementById("search_profile").value;
+  location.href = `../pages/profile_display?username=${input}`
+}
 // async function generate_user_results() {
 //   const response = await fetch(
 //     BASE_ULR + "Results/?token=" + get_cookie("auth_token"),
@@ -674,24 +684,32 @@ async function email_to_forgot_password() {
     method: "PATCH",
     body: JSON.stringify({ email: email }),
     headers: { "Content-Type": "application/json" },
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.json();
-    })
-    .catch((error) => {
-      console.error("There was an error sending the email:", error);
-    });
+  });
 
   if (response.ok) {
     alert("Email was sent successfully!");
+  } else {
+    alert("An error has occurred when sending an email. Check your email and try again!");
   }
 }
+  // .then((response) => {
+  //   if (!response.ok) {
+  //     throw new Error("Network response was not ok");
+  //   }
+  //   return response.json();
+  // })
+  // .catch((error) => {
+  //   console.error("There was an error sending the email:", error);
+  // });
 
-async function update_user_password(token) {
-  user_token = 0;
-  if (user_token == token) {
-  }
+async function update_user_password() {
+  const url = new URL(window.location.href);
+  const token = url.searchParams.get("token");
+  const response = await fetch(BASE_ULR + "Account", {
+    method: "GET",
+    headers: { Authorization: token},
+  });
+  const data = await response.json();
+  user_token = data["username"]
+
 }
