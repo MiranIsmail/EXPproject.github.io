@@ -203,6 +203,7 @@ def get_event_id(chip_id):
     return global_event_id_result
 
 def formater():
+    start_button.configure(text="Running")
     runner= True
     global global_event_id_result
     #s = stlp.comports()
