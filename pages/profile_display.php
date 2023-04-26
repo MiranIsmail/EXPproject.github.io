@@ -1,7 +1,6 @@
 <?php include '../assets/head.php'; ?>
 <body>
     <?php include '../assets/navbar.php'; ?>
-    <a type="button" style="float:right; padding: 0.5rem;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"><img class="op30" src="../images/settings.svg" id="settings" alt=Gear"></a>
     <div id="container-img">
         <div class="row">
             <div class="col-sm-6" id="profile_box">
@@ -18,7 +17,6 @@
                     <h3 class="text-shift">Age: <span id="profile_age"></span> years</h3>
                     <h3 class="text-shift">Length: <span id="profile_length"></span> cm</h3>
                     <h3 class="text-shift">Weight: <span id="profile_weight"></span> kg</h3>
-                    <h3 class="text-shift">Private Chip: <span id="profile_chip_id"></span></h3>
                 </div>
             </div>
         </div>
