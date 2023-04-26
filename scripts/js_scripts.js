@@ -204,28 +204,39 @@ async function generate_user_results() {
   );
   const data = await response.json();
 
-  const tableData = data.results.results.map((result) => {
-    return Object.values(result);
-  });
+  let table = document.createElement("table");
+  table.setAttribute("class", "table");
 
-  const tableColumns = Object.keys(data.results.results[0]).map((key) => {
-    return { title: key };
-  });
+  // create table header row
+  let headerRow = document.createElement("tr");
+  for (let key in await data.results.results[0]) {
+    let headerCell = document.createElement("th");
+    headerCell.textContent = key;
+    headerRow.appendChild(headerCell);
+  }
+  table.appendChild(headerRow);
 
-  const table = $("#myTable").DataTable({
-    data: tableData,
-    columns: tableColumns,
-  });
+  // create table rows
+  for (let i = 0; i < (await data.results.results.length); i++) {
+    let row = document.createElement("tr");
 
-  $("#myTable tbody").on("click", "tr", function () {
-    const rowIndex = table.row(this).index();
-    const eventId = data.results.event_ids[rowIndex]["event_id"];
-    const resultId = data.results.event_ids[rowIndex]["result_id"];
-    window.location.href = `../pages/timetable?event_id=${eventId}&result_id=${resultId}`;
-  });
+    // create a link for the row
+    let link = document.createElement("a");
+    console.log(`../pages/timetable?event_id=${data.results.event_ids[i]["event_id"]}&result_id=${data.results.event_ids[i]["result_id"]}`)
+    row.setAttribute("href", `../pages/timetable?event_id=${data.results.event_ids[i]["event_id"]}&result_id=${data.results.event_ids[i]["result_id"]}`);
 
-  return table.table().node();
+    for (let key in await data.results.results[i]) {
+      let cell = document.createElement("td");
+      cell.textContent = await data.results.results[i][key];
+      console.log(await data.results.results[i][key]);
+      row.appendChild(cell);
+    }
+    table.appendChild(row);
+  }
+
+  return table;
 }
+
 
 
 // async function generate_user_results() {
