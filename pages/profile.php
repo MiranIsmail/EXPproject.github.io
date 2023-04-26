@@ -151,6 +151,11 @@
 
             </div>
 
+            <div id="root">
+                <p>Upload an image and see the result</p>
+                <input id="img-input" type="file" accept="image/*" style="display:block" />
+                </div>
+
             <div id="success-alert" class="alert alert-success alert-dismissible fade show d-none" role="alert">
                 Form submitted successfully!
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
