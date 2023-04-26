@@ -1,4 +1,5 @@
 <?php include '../assets/head.php'; ?>
+
 <body>
     <?php include '../assets/navbar.php'; ?>
     <a type="button" style="float:right; padding: 0.5rem;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"><img class="op30" src="../images/settings.svg" id="settings" alt=Gear"></a>
@@ -14,10 +15,10 @@
                     <h1 class="text-shift">
                         <span id="profileName">Profile name</span>
                     </h1>
-                    <h3 class="text-shift">Age: <span id="profile_age"></span> years</h3>
-                    <h3 class="text-shift">Length: <span id="profile_length"></span> cm</h3>
-                    <h3 class="text-shift">Weight: <span id="profile_weight"></span> kg</h3>
-                    <h3 class="text-shift">Private Chip: <span id="profile_chip_id"></span></h3>
+                    <h3 class="text-shift">Age: <span id="profile_age"></span> <?= date('Y') - date('Y', strtotime($user_data->birthdate)) ?> year</h3>
+                    <h3 class="text-shift">Length: <span id="profile_length"></span> <?= $user_data->height ?> cm</h3>
+                    <h3 class="text-shift">Weight: <span id="profile_weight"></span><?= $user_data->weight ?> kg</h3>
+                    <h3 class="text-shift">Private Chip: <span id="profile_chip_id"></span><?= ($user_data->chip_id == null) ? 'dont have' : $user_data->chip_id ?></h3>
                 </div>
             </div>
         </div>
@@ -95,7 +96,7 @@
 
     <script type="text/javascript" src="../scripts/js_scripts.js"></script>
     <script>
-        get_user_info();
+        //get_user_info();
     </script>
 </body>
 
