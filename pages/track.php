@@ -364,8 +364,10 @@
     var distance
     var terrain
     // Loop through each row
+    let checkpoint_number = 0
     rows.forEach(row => {
       // Get the input fields in the row
+      checkpoint_number++ 
       console.log(rows)
       idInputStart = row.querySelector('input[name="StartID"]');
       idInputEnd = row.querySelector('input[name="EndID"]');
@@ -391,18 +393,19 @@
           marker_latitude = current_marker.getPosition().lat()
         }
       }
-      console.log(track_name, start_id, end_id, distance, terrain, marker_longitude, marker_latitude)
-      CreateCheckpoint(track_name, start_id, end_id, distance, terrain, marker_longitude, marker_latitude);
+      console.log(track_name, start_id, end_id, distance, terrain, marker_longitude, marker_latitude, checkpoint_number)
+      CreateCheckpoint(track_name, start_id, end_id, distance, terrain, marker_longitude, marker_latitude, checkpoint_number);
       
     })
+    checkpoint_number++
     for (let i = 0; i < markers_list.length; i++) {
       if (markers_list[i].getLabel() == end_id) {
         current_marker = markers_list[i]
         marker_longitude = current_marker.getPosition().lng()
         marker_latitude = current_marker.getPosition().lat()
 
-        console.log(track_name, end_id, "undef", "0", "undef", marker_longitude, marker_latitude)
-        CreateCheckpoint(track_name, end_id, "undef", "0", "undef", marker_longitude, marker_latitude)
+        console.log(track_name, end_id, "undef", "0", "undef", marker_longitude, marker_latitude, checkpoint_number)
+        CreateCheckpoint(track_name, end_id, "undef", "0", "undef", marker_longitude, marker_latitude, checkpoint_number)
         }
       } 
     // location.href= "../pages/confirmation_track.php";

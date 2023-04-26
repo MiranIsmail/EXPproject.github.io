@@ -47,6 +47,7 @@
                                         <div class="form-group form_group_style mx-auto"></div>
                                         <p>Organisation name</p>
 
+                                        <input type="hidden" name="user_name" value="<?= $user_data->username ?>">
                                         <input type="text" name="org_name" class="form-control input_field_style" placeholder="Name" id="org_name" required>
 
                                     </div>

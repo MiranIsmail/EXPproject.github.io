@@ -473,14 +473,15 @@ async function get_checkpoints(event_id) {
   const response = await fetch(BASE_ULR + "Event/" + event_id, {
     method: "GET",
   });
-  const data = await response.json();
-  const track = data["track_name"];
+  const data_event = await response.json();
+  const track = data_event["track_name"];
 
   response = await fetch(BASE_URL + "Track/" + track, {
-    method: "GET"
-  })
-  data = await response.json();
-
+    method: "GET",
+  });
+  data_track = await response.json();
+  const start_startion = data_track["start_station"];
+  const end_station = data_track["end_station"];
 }
 
 function load_image_event(indata) {
@@ -506,11 +507,28 @@ function CreateTrack(track_input, start_station, end_station) {
   });
 }
 
-function CreateCheckpoint(jsondict) {
-  console.log(jsondict);
+function CreateCheckpoint(
+  trackname,
+  startid,
+  endid,
+  dist,
+  terrain,
+  longitude,
+  latitude,
+  number
+) {
   fetch(BASE_ULR + "Checkpoint", {
     method: "POST",
-    body: JSON.stringify(jsondict),
+    body: JSON.stringify({
+      track_name: trackname,
+      station_id: startid,
+      next_id: endid,
+      next_distance: dist,
+      terrain: terrain,
+      longitude: longitude,
+      latitude: latitude,
+      checkpoint_number: number,
+    }),
     headers: { "Content-Type": "application/json; charset=UTF-8" },
   });
 }
@@ -688,25 +706,27 @@ async function email_to_forgot_password() {
   var email = document.getElementById("email").value;
   const response = await fetch(BASE_ULR + "Token", {
     method: "PATCH",
-    body: JSON.stringify({ "email": email }),
+    body: JSON.stringify({ email: email }),
     headers: { "Content-Type": "application/json" },
   });
 
   if (response.ok) {
     alert("Email was sent successfully!");
   } else {
-    alert("An error has occurred when sending an email. Check your email and try again!");
+    alert(
+      "An error has occurred when sending an email. Check your email and try again!"
+    );
   }
 }
-  // .then((response) => {
-  //   if (!response.ok) {
-  //     throw new Error("Network response was not ok");
-  //   }
-  //   return response.json();
-  // })
-  // .catch((error) => {
-  //   console.error("There was an error sending the email:", error);
-  // });
+// .then((response) => {
+//   if (!response.ok) {
+//     throw new Error("Network response was not ok");
+//   }
+//   return response.json();
+// })
+// .catch((error) => {
+//   console.error("There was an error sending the email:", error);
+// });
 
 async function update_user_password() {
   const url = new URL(window.location.href);
@@ -716,15 +736,15 @@ async function update_user_password() {
   if (pass == pass_confirm) {
     const response = await fetch(BASE_ULR + "Account", {
       method: "PATCH",
-      body: JSON.stringify({ "url": url }),
-      headers: { "Content-Type": "application/json" }
+      body: JSON.stringify({ url: url }),
+      headers: { "Content-Type": "application/json" },
     });
     const response_1 = await fetch(BASE_ULR + "Account", {
       method: "PATCH",
-      body: JSON.stringify({ "password": pass }),
-      headers: { "Content-Type": "application/json" }
+      body: JSON.stringify({ password: pass }),
+      headers: { "Content-Type": "application/json" },
     });
-  
+
     if (response.ok) {
       alert("url is being read in the gateway");
     } else {
@@ -738,7 +758,6 @@ async function update_user_password() {
   } else {
     alert("Passwords don't match");
   }
-
 }
 
 async function GetChecks(result_id, event_id, username, track_name) {
