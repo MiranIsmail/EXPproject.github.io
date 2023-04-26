@@ -473,14 +473,15 @@ async function get_checkpoints(event_id) {
   const response = await fetch(BASE_ULR + "Event/" + event_id, {
     method: "GET",
   });
-  const data = await response.json();
-  const track = data["track_name"];
+  const data_event = await response.json();
+  const track = data_event["track_name"];
 
   response = await fetch(BASE_URL + "Track/" + track, {
-    method: "GET"
-  })
-  data = await response.json();
-
+    method: "GET",
+  });
+  data_track = await response.json();
+  const start_startion = data_track["start_station"];
+  const end_station = data_track["end_station"];
 }
 
 function load_image_event(indata) {
@@ -506,11 +507,26 @@ function CreateTrack(track_input, start_station, end_station) {
   });
 }
 
-function CreateCheckpoint(jsondict) {
-  console.log(jsondict);
+function CreateCheckpoint(
+  trackname,
+  startid,
+  endid,
+  dist,
+  terrain,
+  longitude,
+  latitude
+) {
   fetch(BASE_ULR + "Checkpoint", {
     method: "POST",
-    body: JSON.stringify(jsondict),
+    body: JSON.stringify({
+      track_name: trackname,
+      station_id: startid,
+      next_id: endid,
+      next_distance: dist,
+      terrain: terrain,
+      longitude: longitude,
+      latitude: latitude,
+    }),
     headers: { "Content-Type": "application/json; charset=UTF-8" },
   });
 }
@@ -713,7 +729,7 @@ async function email_to_forgot_password() {
 async function update_user_password() {
   const url = new URL(window.location.href);
   // const token = url.searchParams.get("token");
-  var pass = document.getElementById("password").value; 
+  var pass = document.getElementById("password").value;
   const response = await fetch(BASE_ULR + "Account", {
     method: "PATCH",
     body: JSON.stringify({ url: url }),
@@ -721,8 +737,8 @@ async function update_user_password() {
   });
   const response_1 = await fetch(BASE_ULR + "Account", {
     method: "PATCH",
-    body: JSON.stringify({ "password": pass }),
-    headers: { "Content-Type": "application/json" }
+    body: JSON.stringify({ password: pass }),
+    headers: { "Content-Type": "application/json" },
   });
 
   if (response.ok) {
