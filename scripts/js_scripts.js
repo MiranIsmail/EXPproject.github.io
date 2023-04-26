@@ -494,9 +494,9 @@ function load_image_event(indata) {
   src.appendChild(img);
 }
 
-function CreateTrack(track_input, start_station, end_station) {
+async function CreateTrack(track_input, start_station, end_station) {
   //var track_name = document.getElementById("InputTrackName")
-  fetch(BASE_ULR + "Track", {
+  await fetch(BASE_ULR + "Track", {
     method: "POST",
     body: JSON.stringify({
       track_name: track_input,
@@ -507,7 +507,7 @@ function CreateTrack(track_input, start_station, end_station) {
   });
 }
 
-function CreateCheckpoint(
+async function CreateCheckpoint(
   trackname,
   startid,
   endid,
@@ -517,7 +517,7 @@ function CreateCheckpoint(
   latitude,
   number
 ) {
-  fetch(BASE_ULR + "Checkpoint", {
+  await fetch(BASE_ULR + "Checkpoint", {
     method: "POST",
     body: JSON.stringify({
       track_name: trackname,
