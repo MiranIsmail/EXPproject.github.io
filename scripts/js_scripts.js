@@ -137,6 +137,11 @@ function load_image(indata) {
   src.appendChild(img);
 }
 
+
+
+
+
+
 async function get_user_info() {
   const response = await fetch(BASE_ULR + "Account", {
     method: "GET",
@@ -154,7 +159,9 @@ async function get_user_info() {
   document.getElementById("profile_length").innerHTML = await data["height"];
   document.getElementById("profile_weight").innerHTML = await data["weight"];
   document.getElementById("profile_chip_id").innerHTML = await data["chip_id"];
-  document.getElementById("profile_username").innerHTML = await data["username"];
+  document.getElementById("profile_username").innerHTML = await data[
+    "username"
+  ];
   load_image(data["pimage"]);
 
   let container = document.getElementById("myTableContainerResults");
@@ -167,15 +174,17 @@ async function get_user_results() {
   container.appendChild(myTable);
 }
 
+
+
+
+
+
 async function get_friend_info() {
   const urlParams = new URLSearchParams(window.location.search);
-  g_username = urlParams.get('username');
-  const response = await fetch(
-    BASE_ULR + "Results/?username=" + g_username,
-    {
-      method: "GET",
-    }
-  );
+  g_username = urlParams.get("username");
+  const response = await fetch(BASE_ULR + "Results/?username=" + g_username, {
+    method: "GET",
+  });
   const data = await response.json();
 
   //Just getting the source from the span. It was messy in JS.
@@ -187,13 +196,20 @@ async function get_friend_info() {
   );
   document.getElementById("profile_length").innerHTML = await data["height"];
   document.getElementById("profile_weight").innerHTML = await data["weight"];
-  document.getElementById("profile_username").innerHTML = await data["username"];
+  document.getElementById("profile_username").innerHTML = await data[
+    "username"
+  ];
   load_image(data["pimage"]);
 
   let container = document.getElementById("myTableContainerResults");
   let myTable = await generate_friend_results();
   container.appendChild(myTable);
 }
+
+
+
+
+
 
 async function edit_user_info() {
   var parameters = {};
@@ -229,6 +245,11 @@ async function edit_user_info() {
   location.href = "../pages/profile.php";
 }
 
+
+
+
+
+
 async function generate_user_results() {
   const response = await fetch(
     BASE_ULR + "Results/?token=" + get_cookie("auth_token"),
@@ -255,7 +276,6 @@ async function generate_user_results() {
     let row = document.createElement("tr");
 
     // create a link for the row
-    let link = document.createElement("a");
     console.log(`../pages/timetable?event_id=${data.results.event_ids[i]["event_id"]}&result_id=${data.results.event_ids[i]["result_id"]}`)
     row.setAttribute("onclick", `window.location.href="../pages/timetable?event_id=${data.results.event_ids[i]["event_id"]}&result_id=${data.results.event_ids[i]["result_id"]}"`);
 
@@ -271,15 +291,17 @@ async function generate_user_results() {
   return table;
 }
 
+
+
+
+
+
 async function generate_friend_results() {
   const urlParams = new URLSearchParams(window.location.search);
-  g_username = urlParams.get('username');
-  const response = await fetch(
-    BASE_ULR + "Results/?username=" + g_username,
-    {
-      method: "GET",
-    }
-  );
+  g_username = urlParams.get("username");
+  const response = await fetch(BASE_ULR + "Results/?username=" + g_username, {
+    method: "GET",
+  });
   const data = await response.json();
 
   let table = document.createElement("table");
@@ -299,7 +321,6 @@ async function generate_friend_results() {
     let row = document.createElement("tr");
 
     // create a link for the row
-    let link = document.createElement("a");
     console.log(`../pages/timetable?event_id=${data.results.event_ids[i]["event_id"]}&result_id=${data.results.event_ids[i]["result_id"]}`)
     row.setAttribute("onclick", `window.location.href="../pages/timetable?event_id=${data.results.event_ids[i]["event_id"]}&result_id=${data.results.event_ids[i]["result_id"]}"`);
 
@@ -314,8 +335,6 @@ async function generate_friend_results() {
 
   return table;
 }
-
-
 
 // async function generate_user_results() {
 //   const response = await fetch(
@@ -442,7 +461,9 @@ async function get_event_info(event_id) {
   const data = await response.json();
   console.log(data);
   //Just getting the source from the span. It was messy in JS.
-  document.getElementById("event_name_colapse").innerHTML = await data["event_name"];
+  document.getElementById("event_name_colapse").innerHTML = await data[
+    "event_name"
+  ];
   document.getElementById("event_name").innerHTML = await data["event_name"];
   document.getElementById("event_sport").innerHTML = await data["sport"];
   document.getElementById("event_sdate").innerHTML = await data["startdate"];
@@ -455,8 +476,6 @@ async function get_event_info(event_id) {
   let container = document.getElementById("myTableContainer");
   let myTable = await generate_event_results(event_id);
   container.appendChild(myTable);
-
-
 }
 
 function load_image_event(indata) {
@@ -469,9 +488,9 @@ function load_image_event(indata) {
   src.appendChild(img);
 }
 
-async function CreateTrack(track_input, start_station, end_station) {
+function CreateTrack(track_input, start_station, end_station) {
   //var track_name = document.getElementById("InputTrackName")
-  await fetch(BASE_ULR + "Track", {
+  fetch(BASE_ULR + "Track", {
     method: "POST",
     body: JSON.stringify({
       track_name: track_input,
@@ -482,7 +501,7 @@ async function CreateTrack(track_input, start_station, end_station) {
   });
 }
 
-async function CreateCheckpoint(
+function CreateCheckpoint(
   track_name,
   station_id,
   next_id,
@@ -491,7 +510,7 @@ async function CreateCheckpoint(
   lng,
   lat
 ) {
-  await fetch(BASE_ULR + "Checkpoint", {
+  fetch(BASE_ULR + "Checkpoint", {
     method: "POST",
     body: JSON.stringify({
       track_name: track_name,
@@ -638,7 +657,7 @@ async function generate_event_results(event_id) {
 function register_on_event(event_id) {
   var parameters = {};
   parameters["event_id"] = event_id;
-  parameters["token"] = get_cookie("auth_token")
+  parameters["token"] = get_cookie("auth_token");
   //parameters["team8"] =
   parameters["chip_id"] = document.getElementById("send_chip").value;
 
@@ -653,7 +672,7 @@ function register_on_event(event_id) {
 function register_on_event_my(event_id) {
   var parameters = {};
   parameters["event_id"] = event_id;
-  parameters["token"] = get_cookie("auth_token")
+  parameters["token"] = get_cookie("auth_token");
   //parameters["team8"] =
   parameters["chip_id"] = document.getElementById("chip_id_display").value;
 
@@ -682,16 +701,15 @@ async function email_to_forgot_password() {
     body: JSON.stringify({ email: email }),
     headers: { "Content-Type": "application/json" },
   })
-
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-    return response.json();
-  })
-  .catch((error) => {
-    console.error("There was an error sending the email:", error);
-  });
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      console.error("There was an error sending the email:", error);
+    });
 
   if (response.ok) {
     alert("Email was sent successfully!");
@@ -701,6 +719,5 @@ async function email_to_forgot_password() {
 async function update_user_password(token) {
   user_token = 0;
   if (user_token == token) {
-
-  };
+  }
 }
