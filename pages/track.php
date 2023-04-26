@@ -397,8 +397,8 @@
         current_marker = markers_list[i]
         marker_longitude = current_marker.getPosition().lng()
         marker_latitude = current_marker.getPosition().lat()
-        console.log(track_name, end_id, "null", "null", "null", marker_longitude, marker_latitude)
-        CreateCheckpoint(track_name, end_id, "null", "null", "null", marker_longitude, marker_latitude)
+        console.log(track_name, end_id, "undef", "undef", "undef", marker_longitude, marker_latitude)
+        CreateCheckpoint(track_name, end_id, "undef", "undef", "undef", marker_longitude, marker_latitude)
         }
       } 
     // location.href= "../pages/confirmation_track.php";
