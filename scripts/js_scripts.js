@@ -154,10 +154,45 @@ async function get_user_info() {
   document.getElementById("profile_length").innerHTML = await data["height"];
   document.getElementById("profile_weight").innerHTML = await data["weight"];
   document.getElementById("profile_chip_id").innerHTML = await data["chip_id"];
+  document.getElementById("profile_username").innerHTML = await data[
+    "username"
+  ];
   load_image(data["pimage"]);
 
   let container = document.getElementById("myTableContainerResults");
   let myTable = await generate_user_results();
+  container.appendChild(myTable);
+}
+async function get_user_results() {
+  let container = document.getElementById("myTableContainerResults");
+  let myTable = await generate_user_results();
+  container.appendChild(myTable);
+}
+
+async function get_friend_info() {
+  const urlParams = new URLSearchParams(window.location.search);
+  g_username = urlParams.get("username");
+  const response = await fetch(BASE_ULR + "Account/" + g_username, {
+    method: "GET",
+  });
+  const data = await response.json();
+
+  //Just getting the source from the span. It was messy in JS.
+
+  document.getElementById("profileName").innerHTML =
+    (await data["first_name"]) + " " + (await data["last_name"]);
+  document.getElementById("profile_age").innerHTML = await calculate_age(
+    await data["birthdate"]
+  );
+  document.getElementById("profile_length").innerHTML = await data["height"];
+  document.getElementById("profile_weight").innerHTML = await data["weight"];
+  document.getElementById("profile_username").innerHTML = await data[
+    "username"
+  ];
+  load_image(data["pimage"]);
+
+  let container = document.getElementById("myTableContainerResults");
+  let myTable = await generate_friend_results();
   container.appendChild(myTable);
 }
 
@@ -221,9 +256,13 @@ async function generate_user_results() {
     let row = document.createElement("tr");
 
     // create a link for the row
-    let link = document.createElement("a");
-    link.setAttribute("href", `../pages/timetable?event_id=${dadasd}&result_id=${asda}`);
-
+    console.log(
+      `../pages/timetable?event_id=${data.results.event_ids[i]["event_id"]}&result_id=${data.results.event_ids[i]["result_id"]}`
+    );
+    row.setAttribute(
+      "onclick",
+      `window.location.href="../pages/timetable?event_id=${data.results.event_ids[i]["event_id"]}&result_id=${data.results.event_ids[i]["result_id"]}"`
+    );
 
     for (let key in await data.results.results[i]) {
       let cell = document.createElement("td");
@@ -236,6 +275,98 @@ async function generate_user_results() {
 
   return table;
 }
+
+async function generate_friend_results() {
+  const urlParams = new URLSearchParams(window.location.search);
+  g_username = urlParams.get("username");
+  const response = await fetch(BASE_ULR + "Results/?username=" + g_username, {
+    method: "GET",
+  });
+  const data = await response.json();
+
+  let table = document.createElement("table");
+  table.setAttribute("class", "table");
+
+  // create table header row
+  let headerRow = document.createElement("tr");
+  for (let key in await data.results.results[0]) {
+    let headerCell = document.createElement("th");
+    headerCell.textContent = key;
+    headerRow.appendChild(headerCell);
+  }
+  table.appendChild(headerRow);
+
+  // create table rows
+  for (let i = 0; i < (await data.results.results.length); i++) {
+    let row = document.createElement("tr");
+
+    // create a link for the row
+    console.log(
+      `../pages/timetable?event_id=${data.results.event_ids[i]["event_id"]}&result_id=${data.results.event_ids[i]["result_id"]}`
+    );
+    row.setAttribute(
+      "onclick",
+      `window.location.href="../pages/timetable?event_id=${data.results.event_ids[i]["event_id"]}&result_id=${data.results.event_ids[i]["result_id"]}"`
+    );
+
+    for (let key in await data.results.results[i]) {
+      let cell = document.createElement("td");
+      cell.textContent = await data.results.results[i][key];
+      console.log(await data.results.results[i][key]);
+      row.appendChild(cell);
+    }
+    table.appendChild(row);
+  }
+
+  return table;
+}
+
+function search_account() {
+  // Retrieve all cards
+  let input = document.getElementById("search_profile").value;
+  location.href = `../pages/profile_display?username=${input}`
+}
+// async function generate_user_results() {
+//   const response = await fetch(
+//     BASE_ULR + "Results/?token=" + get_cookie("auth_token"),
+//     {
+//       method: "GET",
+//     }
+//   );
+//   const data = await response.json();
+
+//   let table = document.createElement("table");
+//   table.setAttribute("class", "table");
+
+//   // create table header row
+//   let headerRow = document.createElement("tr");
+//   for (let key in await data.results.results[0]) {
+//     let headerCell = document.createElement("th");
+//     headerCell.textContent = key;
+//     headerRow.appendChild(headerCell);
+//   }
+//   table.appendChild(headerRow);
+
+//   // create table rows
+//   for (let i = 0; i < (await data.results.results.length); i++) {
+//     let row = document.createElement("tr");
+
+//     // create a link for the row
+//     let link = document.createElement("a");
+//     console.log(`../pages/timetable?event_id=${data.results.event_ids[i]["event_id"]}&result_id=${data.results.event_ids[i]["result_id"]}`)
+//     row.setAttribute("href", `../pages/timetable?event_id=${data.results.event_ids[i]["event_id"]}&result_id=${data.results.event_ids[i]["result_id"]}`);
+
+//     for (let key in await data.results.results[i]) {
+//       let cell = document.createElement("td");
+//       cell.textContent = await data.results.results[i][key];
+//       console.log(await data.results.results[i][key]);
+//       row.appendChild(cell);
+//     }
+//     table.appendChild(row);
+//   }
+
+//   return table;
+// }
 
 function search_event() {
   // Retrieve all cards
@@ -320,8 +451,11 @@ async function get_event_info(event_id) {
   const data = await response.json();
   console.log(data);
   //Just getting the source from the span. It was messy in JS.
-  document.getElementById("event_name_colapse").innerHTML = await data["event_name"];
+  document.getElementById("event_name_colapse").innerHTML = await data[
+    "event_name"
+  ];
   document.getElementById("event_name").innerHTML = await data["event_name"];
+  document.getElementById("event_track").innerHTML = await data["track_name"];
   document.getElementById("event_sport").innerHTML = await data["sport"];
   document.getElementById("event_sdate").innerHTML = await data["startdate"];
   document.getElementById("event_edate").innerHTML = await data["enddate"];
@@ -333,8 +467,6 @@ async function get_event_info(event_id) {
   let container = document.getElementById("myTableContainer");
   let myTable = await generate_event_results(event_id);
   container.appendChild(myTable);
-
-
 }
 
 function load_image_event(indata) {
@@ -347,9 +479,9 @@ function load_image_event(indata) {
   src.appendChild(img);
 }
 
-async function CreateTrack(track_input, start_station, end_station) {
+function CreateTrack(track_input, start_station, end_station) {
   //var track_name = document.getElementById("InputTrackName")
-  await fetch(BASE_ULR + "Track", {
+  fetch(BASE_ULR + "Track", {
     method: "POST",
     body: JSON.stringify({
       track_name: track_input,
@@ -360,26 +492,11 @@ async function CreateTrack(track_input, start_station, end_station) {
   });
 }
 
-async function CreateCheckpoint(
-  track_name,
-  station_id,
-  next_id,
-  distance,
-  terrain,
-  lng,
-  lat
-) {
-  await fetch(BASE_ULR + "Checkpoint", {
+function CreateCheckpoint(jsondict) {
+  console.log(jsondict);
+  fetch(BASE_ULR + "Checkpoint", {
     method: "POST",
-    body: JSON.stringify({
-      track_name: track_name,
-      station_id: station_id,
-      next_id: next_id,
-      next_distance: distance,
-      terrain: terrain,
-      longitude: lng,
-      latitude: lat,
-    }),
+    body: JSON.stringify(jsondict),
     headers: { "Content-Type": "application/json; charset=UTF-8" },
   });
 }
@@ -479,6 +596,14 @@ async function TrackDropdown() {
   }
 }
 
+async function get_track(trackname) {
+  const response = await fetch(BASE_ULR + "Track/" + trackname, {
+    method: "GET",
+  });
+  const data = await response.json();
+  console.log(data)
+
+}
 // Function to generate table
 async function generate_event_results(event_id) {
   const response = await fetch(BASE_ULR + "Results/?event_id=" + event_id, {
@@ -516,7 +641,7 @@ async function generate_event_results(event_id) {
 function register_on_event(event_id) {
   var parameters = {};
   parameters["event_id"] = event_id;
-  parameters["token"] = get_cookie("auth_token")
+  parameters["token"] = get_cookie("auth_token");
   //parameters["team8"] =
   parameters["chip_id"] = document.getElementById("send_chip").value;
 
@@ -531,7 +656,7 @@ function register_on_event(event_id) {
 function register_on_event_my(event_id) {
   var parameters = {};
   parameters["event_id"] = event_id;
-  parameters["token"] = get_cookie("auth_token")
+  parameters["token"] = get_cookie("auth_token");
   //parameters["team8"] =
   parameters["chip_id"] = document.getElementById("chip_id_display").value;
 
@@ -559,26 +684,115 @@ async function email_to_forgot_password() {
     method: "PATCH",
     body: JSON.stringify({ "email": email }),
     headers: { "Content-Type": "application/json" },
-  })
-
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-    return response.json();
-  })
-  .catch((error) => {
-    alert("There was an error sending the email:", error);
   });
 
   if (response.ok) {
     alert("Email was sent successfully!");
+  } else {
+    alert("An error has occurred when sending an email. Check your email and try again!");
+  }
+}
+  // .then((response) => {
+  //   if (!response.ok) {
+  //     throw new Error("Network response was not ok");
+  //   }
+  //   return response.json();
+  // })
+  // .catch((error) => {
+  //   console.error("There was an error sending the email:", error);
+  // });
+
+async function update_user_password() {
+  const url = new URL(window.location.href);
+  const token = url.searchParams.get("token");
+  const response = await fetch(BASE_ULR + "Account", {
+    method: "PATCH",
+    body: JSON.stringify({ "url": url }),
+    headers: { "Content-Type": "application/json" }
+  });
+  
+}
+
+async function GetChecks(result_id, event_id, username, track_name){
+  if(result_id && event_id && username && track_name){
+  //calls the api and fills the html table with data
+
+  checkpoint_time = await fetch("https://rasts.se/api/Results/" + result_id.toString(), {method:'GET',
+  headers: {'Accept': 'Application/json'}})
+  result_data = await fetch("https://rasts.se/api/Results?username=" + username.toString(), {method:'GET',
+  headers: {'Accept': 'Application/json'}})
+  event_data = await fetch("https://rasts.se/api/Results?event_id=" + event_id.toString(), {method:'GET',
+  headers: {'Accept': 'Application/json'}})
+  checkpoint_data = await fetch("https://rasts.se/api/Checkpoint?track_name=" + track_name.toString())
+  data = await checkpoint_time.json();
+  data1 = await result_data.json()  
+  data2 = await event_data.json()
+  data3 = await checkpoint_data.json()
+    document.getElementById('track_title').innerHTML = "Track: " + track_name
+    document.getElementById('date').innerHTML = "Date: " + data2.results[0].DATE
+    document.getElementById('event_title').innerHTML = "Event: " + event_id
+  FillTable(data.result, data3, data2.event_name)
   }
 }
 
-async function update_user_password(token) {
-  user_token = 0;
-  if (user_token == token) {
-    
-  };
+function FillTable(data, data1, data2, data3){
+
+  for (let i = 0; i < data.length; i++) {
+    let row = timetable.insertRow(i + 1)
+    let cell1 = row.insertCell(0) //station name
+    let cell2 = row.insertCell(1) //time in seconds
+    let cell3 = row.insertCell(2) //start time
+    let cell4 = row.insertCell(3) //end time
+    let cell5 = row.insertCell(4) //terrain
+    let cell6 = row.insertCell(5) //distance
+    let cell7 = row.insertCell(6) //average time
+    if (i == 0) {
+      cell1.innerHTML = data[i].station_name + " (Start)"
+      if(data[i+1]){
+        cell4.innerHTML = data[i+1].time_stamp
+        cell2.innerHTML = TimeDiff(data[i].time_stamp, data[i+1].time_stamp) + "s"
+      }
+    } else if (i == data.length - 1) {
+      cell1.innerHTML = data[i].station_name + " (Finish)"
+      cell2.innerHTML = ConvertTime(data[i].time_stamp) + "s"
+      cell4.innerHTML = "--||--"
+    } else {
+      cell1.innerHTML = data[i].station_name
+      cell2.innerHTML = TimeDiff(data[i].time_stamp, data[i+1].time_stamp) + "s"
+      cell4.innerHTML = data[i+1].time_stamp
+    }
+    cell3.innerHTML = data[i].time_stamp
+    if(data1[i]){
+    cell5.innerHTML = data1[i].terrain
+    }
+    if(data1[i]){
+    cell6.innerHTML = data1[i].next_distance + "m"
+      if(data[i+1]){
+      cell7.innerHTML = AverageVel(data1[i].next_distance, TimeDiff(data[i].time_stamp, data[i+1].time_stamp)) + "m/s"
+      }
+    }
+  }
+}
+function TimeDiff(time1, time2){//difference between two times in seconds
+    time1 = ConvertTime(time1)
+    time2 = ConvertTime(time2)
+    return time2 - time1
+}
+function AverageVel(distance, time_diff){//average velocity
+  return (distance/time_diff)
+}
+function ConvertTime(time_string){
+  h1 = time_string[0]//super advanced constant runtime hours/minute/seconds to seconds convertation algorithm
+  h2 = time_string[1]
+  m1 = time_string[3]
+  m2 = time_string[4]
+  s1 = time_string[6]
+  s2 = time_string[7]
+  seconds = s1 + s2
+  minutes = m1 + m2
+  hours = h1 + h2
+  seconds = parseInt(seconds)
+  minutes = parseInt(minutes) * 60
+  hours = parseInt(hours) * 60 * 60
+  return hours + minutes + seconds
 }

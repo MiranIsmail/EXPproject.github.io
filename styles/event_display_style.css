@@ -19,9 +19,15 @@
     overflow: hidden;
   }
 
+#image_box{
+    width: 100%;
+    height: auto;
+}
+
 .cropped img {
-    max-width: none;
-    max-height: none;
+    max-height: 100vh;
+    width: 100%;
+    height: auto;
 }
 
 #information_container{
@@ -59,6 +65,7 @@
 
 #event_image_display{
     width:100%;
+    height:auto;
 }
 
 #button_style_create{

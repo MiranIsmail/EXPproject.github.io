@@ -24,11 +24,13 @@
                 <li class="nav-item">
                     <a class="nav-link navtext" href="../pages/event.php">EVENT</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link navtext" href="../pages/track.php">TRACK</a>
-                </li>
+                <?php if ($is_organization) { ?>
+                    <li class="nav-item">
+                        <a class="nav-link navtext" href="../pages/track.php">TRACK</a>
+                    </li>
 
                 <?php
+                }
                 if ($is_logged_in) {
                 ?>
                     <li class="nav-item">

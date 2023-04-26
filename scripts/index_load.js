@@ -22,7 +22,7 @@ function generate_card_wide(input_name,input_date,input_text,input_image,input_i
   // Create an img element for the image
   var img = document.createElement('img');
   img.src = event_image;
-  img.classList.add('img-fluid', 'rounded_style');
+  img.classList.add('img-fluid', 'rounded_style',"card_image_events");
   img.alt = 'one of our events';
 
   // Append the image element to the image column
@@ -151,6 +151,16 @@ async function data_load_index(){
   const response = await fetch("https://rasts.se/api/Event")
   const data = await response.json()
 
+
+  data.forEach((i) => {
+    generate_card_wide(i["event_name"], 'Date: '+i["startdate"]+'\n - '+i["enddate"], i["description"], i["eimage"],i["event_id"])
+  })
+}
+
+async function data_load_index_topten(){
+
+  const response = await fetch("https://rasts.se/api/Event?setting=topten")
+  const data = await response.json()
 
   data.forEach((i) => {
     generate_card_wide(i["event_name"], 'Date: '+i["startdate"]+'\n - '+i["enddate"], i["description"], i["eimage"],i["event_id"])
