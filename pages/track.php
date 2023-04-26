@@ -115,7 +115,7 @@
   <?php include '../assets/footer.php'; ?>
 
 <script type="text/javascript" src="../scripts/js_scripts.js"></script>    
-<script>
+<script sync>
   // Create template row 
   const template_row = document.getElementById("0")
   const info = template_row.innerHTML
@@ -352,9 +352,8 @@
     var track_name = document.getElementById('InputTrackName').value
     
     console.log(track_name, start_station_id, end_station_id)
+    CreateTrack(track_name, start_station_id, end_station_id)
     
-    callCreateTrack(track_name, start_station_id, end_station_id)
-
     var idInputStart
     var idInputEnd
     var distanceInput
@@ -364,7 +363,6 @@
     var end_id
     var distance
     var terrain
-
     // Loop through each row
     let checkpoint_number = 0
     rows.forEach(row => {
@@ -413,16 +411,7 @@
     // location.href= "../pages/confirmation_track.php";
   }
 
-  async function callCreateTrack(track, start, end) {
-      // Call the CreateTrack function and wait for it to complete
-      const response = await CreateTrack(track, start, end);
-
-      // The following code will only be executed after the CreateTrack function has completed
-      console.log("CreateTrack function completed with response:", response);
-
-      // Continue with the rest of your code here
-    }
-
+  
   let row
   let next_row
   let input_field
