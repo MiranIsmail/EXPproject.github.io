@@ -115,7 +115,7 @@
   <?php include '../assets/footer.php'; ?>
 
 <script type="text/javascript" src="../scripts/js_scripts.js"></script>    
-<script>
+<script sync>
   // Create template row 
   const template_row = document.getElementById("0")
   const info = template_row.innerHTML
@@ -353,7 +353,7 @@
     
     console.log(track_name, start_station_id, end_station_id)
     CreateTrack(track_name, start_station_id, end_station_id)
-
+    
     var idInputStart
     var idInputEnd
     var distanceInput
@@ -411,6 +411,7 @@
     // location.href= "../pages/confirmation_track.php";
   }
 
+  
   let row
   let next_row
   let input_field

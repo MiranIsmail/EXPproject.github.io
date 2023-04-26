@@ -11,45 +11,40 @@ function image_compress_64(inputfile) {
     const MIME_TYPE = "image/jpeg";
     const QUALITY = 0.7;
 
-    const file = inputfile.files[0]; // get the file
-    const blobURL = URL.createObjectURL(file);
-    const img = new Image();
-    img.src = blobURL;
-
-    img.onerror = function () {
-      URL.revokeObjectURL(this.src);
-      // Handle the failure properly
-      console.log("Cannot load image");
-    };
-    img.onload = function () {
-      URL.revokeObjectURL(this.src);
-      const [newWidth, newHeight] = calculateSize(img, MAX_WIDTH, MAX_HEIGHT);
-      console.log("newWidth: " + newWidth + " newHeight: " + newHeight)
-      const canvas = document.createElement("canvas");
-      canvas.width = newWidth;
-      canvas.height = newHeight;
-      const ctx = canvas.getContext("2d");
-      ctx.drawImage(img, 0, 0, newWidth, newHeight);
-      a = canvas.toBlob(
-        (blob) => {
-          // Handle the compressed image. es. upload or save in local state
-          resolve(blob)
-          // blobToBase64(blob).then(function (result) {
-
-          //   console.log(result) 
-          // }).catch(function (error) {
-          //   console.log(error);
-          // });
-        },
-        MIME_TYPE,
-        QUALITY
-      );
-
-      document.getElementById("root").append(canvas);
-    };
-  })
-
-  //return return_variable
+  const file = inputfile.files[0]; // get the file
+  const blobURL = URL.createObjectURL(file);
+  const img = new Image();
+  img.src = blobURL;
+  img.onerror = function () {
+    URL.revokeObjectURL(this.src);
+    // Handle the failure properly
+    console.log("Cannot load image");
+  };
+  img.onload = function () {
+    URL.revokeObjectURL(this.src);
+    const [newWidth, newHeight] = calculateSize(img, MAX_WIDTH, MAX_HEIGHT);
+    const canvas = document.createElement("canvas");
+    canvas.width = newWidth;
+    canvas.height = newHeight;
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0, newWidth, newHeight);
+    canvas.toBlob(
+      (blob) => {
+        // Handle the compressed image. es. upload or save in local state
+        blobToBase64(blob).then(function(result) {
+          console.log("base: "+result)
+          // return_variable = result // "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX"
+        }).catch(function(error) {
+          console.log(error);
+        });
+      },
+      MIME_TYPE,
+      QUALITY
+    );
+    document.getElementById("root").append(canvas);
+  };
+  console.log("asdadad: "+return_variable)
+  // return return_variable
 };
 
 function calculateSize(img, maxWidth, maxHeight) {
@@ -74,21 +69,17 @@ function calculateSize(img, maxWidth, maxHeight) {
 // Utility functions for demo purpose
 
 function displayInfo(label, file) {
-  const p = document.createElement('p');
+  const p = document.createElement("p");
   p.innerText = `${label} - ${readableBytes(file.size)}`;
-  document.getElementById('root').append(p);
+  document.getElementById("root").append(p);
 }
 
 function readableBytes(bytes) {
   const i = Math.floor(Math.log(bytes) / Math.log(1024)),
-    sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+    sizes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
 
-  return (bytes / Math.pow(1024, i)).toFixed(2) + ' ' + sizes[i];
+  return (bytes / Math.pow(1024, i)).toFixed(2) + " " + sizes[i];
 }
-
-
-
-
 
 const get_cookie = (name) =>
   document.cookie.match("(^|;)\\s*" + name + "\\s*=\\s*([^;]+)")?.pop() || "";
@@ -274,7 +265,9 @@ async function get_friend_info() {
   );
   document.getElementById("profile_length").innerHTML = await data["height"];
   document.getElementById("profile_weight").innerHTML = await data["weight"];
-  document.getElementById("profile_username").innerHTML = await data["username"];
+  document.getElementById("profile_username").innerHTML = await data[
+    "username"
+  ];
   load_image(data["pimage"]);
 
   let container = document.getElementById("myTableContainerResults");
@@ -294,8 +287,10 @@ async function edit_user_info() {
   if (document.getElementById("send_image").files.length != 0) {
     // var blob = await image_to_blob(document.getElementById("send_image"));
     // parameters["pimage"] = await blobToBase64(blob);
-    parameters["pimage"] = await image_compress_64(document.getElementById("send_image"))
-    console.log("test: " + parameters["pimage"])
+    parameters["pimage"] = await image_compress_64(
+      document.getElementById("send_image")
+    );
+    console.log("test: " + parameters["pimage"]);
   }
 
   for (const [key, value] of Object.entries(parameters)) {
@@ -579,19 +574,20 @@ function load_image_event(indata) {
 }
 
 function CreateTrack(track_input, start_station, end_station) {
-  //var track_name = document.getElementById("InputTrackName")
-  fetch(BASE_ULR + "Track", {
-    method: "POST",
-    body: JSON.stringify({
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", BASE_ULR + "Track", false); // false makes the request synchronous
+  xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  xhr.send(
+    JSON.stringify({
       track_name: track_input,
       start_station: start_station,
       end_station: end_station,
-    }),
-    headers: { "Content-Type": "application/json; charset=UTF-8" },
-  });
+    })
+  );
+  console.log("Track created");
 }
 
-function CreateCheckpoint(
+async function CreateCheckpoint(
   trackname,
   startid,
   endid,
@@ -601,7 +597,7 @@ function CreateCheckpoint(
   latitude,
   number
 ) {
-  fetch(BASE_ULR + "Checkpoint", {
+  await fetch(BASE_ULR + "Checkpoint", {
     method: "POST",
     body: JSON.stringify({
       track_name: trackname,
@@ -615,6 +611,7 @@ function CreateCheckpoint(
     }),
     headers: { "Content-Type": "application/json; charset=UTF-8" },
   });
+  console.log("Checkpoint created");
 }
 
 async function create_event() {
