@@ -70,7 +70,11 @@ body {
 }
 
 /*AUTO GENERADEDD EVENT CARDS*/
+#underline_text{
+  text-decoration: underline;
+  text-align: center;
 
+}
 /*searchbar*/
 .wrapper {
   width: 100%;
