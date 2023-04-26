@@ -688,53 +688,57 @@ async function email_to_forgot_password() {
   var email = document.getElementById("email").value;
   const response = await fetch(BASE_ULR + "Token", {
     method: "PATCH",
-    body: JSON.stringify({ email: email }),
+    body: JSON.stringify({ "email": email }),
     headers: { "Content-Type": "application/json" },
   });
 
   if (response.ok) {
     alert("Email was sent successfully!");
   } else {
-    alert(
-      "An error has occurred when sending an email. Check your email and try again!"
-    );
+    alert("An error has occurred when sending an email. Check your email and try again!");
   }
 }
-// .then((response) => {
-//   if (!response.ok) {
-//     throw new Error("Network response was not ok");
-//   }
-//   return response.json();
-// })
-// .catch((error) => {
-//   console.error("There was an error sending the email:", error);
-// });
+  // .then((response) => {
+  //   if (!response.ok) {
+  //     throw new Error("Network response was not ok");
+  //   }
+  //   return response.json();
+  // })
+  // .catch((error) => {
+  //   console.error("There was an error sending the email:", error);
+  // });
 
 async function update_user_password() {
   const url = new URL(window.location.href);
   // const token = url.searchParams.get("token");
-  var pass = document.getElementById("password").value; 
-  const response = await fetch(BASE_ULR + "Account", {
-    method: "PATCH",
-    body: JSON.stringify({ url: url }),
-    headers: { "Content-Type": "application/json" },
-  });
-  const response_1 = await fetch(BASE_ULR + "Account", {
-    method: "PATCH",
-    body: JSON.stringify({ "password": pass }),
-    headers: { "Content-Type": "application/json" }
-  });
+  var pass = document.getElementById("password_reseted").value;
+  var pass_confirm = document.getElementById("confirm_password_reseted").value;
+  if (pass == pass_confirm) {
+    const response = await fetch(BASE_ULR + "Account", {
+      method: "PATCH",
+      body: JSON.stringify({ "url": url }),
+      headers: { "Content-Type": "application/json" }
+    });
+    const response_1 = await fetch(BASE_ULR + "Account", {
+      method: "PATCH",
+      body: JSON.stringify({ "password": pass }),
+      headers: { "Content-Type": "application/json" }
+    });
+  
+    if (response.ok) {
+      alert("url is being read in the gateway");
+    } else {
+      alert("An error has occurred with response!");
+    }
+    if (response_1.ok) {
+      alert("password is sent to gateway!");
+    } else {
+      alert("An error has occurred with response_1!");
+    }
+  } else {
+    alert("Passwords don't match");
+  }
 
-  if (response.ok) {
-    alert("url is being read in the gateway");
-  } else {
-    alert("An error has occurred with response!");
-  }
-  if (response_1.ok) {
-    alert("password is sent to gateway!");
-  } else {
-    alert("An error has occurred with response_1!");
-  }
 }
 
 async function GetChecks(result_id, event_id, username, track_name) {
