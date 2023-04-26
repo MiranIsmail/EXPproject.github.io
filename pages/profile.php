@@ -33,7 +33,6 @@
 
                     <?php } ?>
                     <form action="../assets/organization_request.php" class="orgform" method="GET">
-                        <input type="hidden" name="user_name" value="<?= $user_data->username ?>">
                         <div class=" form-group form_group_style mx-auto">
                             <button class="button-modular" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Want to register your organisation?</button>
 
@@ -48,6 +47,7 @@
                                         <div class="form-group form_group_style mx-auto"></div>
                                         <p>Organisation name</p>
 
+                                        <input type="hidden" name="user_name" value="<?= $user_data->username ?>">
                                         <input type="text" name="org_name" class="form-control input_field_style" placeholder="Name" id="org_name" required>
 
                                     </div>
