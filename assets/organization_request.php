@@ -13,4 +13,4 @@ $msg = "Thank you for your request to register your organization. We will get ba
 
 mail("info@rasts.se", "Organization request", $msg_rast);
 mail($_GET["contact_email"], "Organization request", $msg);
-header('Location: ' . "https://www.rasts.se/");
+//header('Location: ' . "https://www.rasts.se/");
