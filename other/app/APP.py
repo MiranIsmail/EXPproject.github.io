@@ -150,9 +150,21 @@ def time_format_parse(time_log: str):
 
 def get_event_id(chip_id):
     # create a new window
-    window = tk.Toplevel(f1)
-    window.geometry("200x200")
-    l_1= tk.Label(window,text="Please choose an event!")
+    window = tk.Toplevel(f1,)
+    window.iconbitmap(r"C:\Users\miran\Desktop\EXPproject\other\logo.ico")
+    window.geometry("300x200")
+
+    # get the screen width and height
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+
+    # calculate the x and y coordinates for the window
+    x = int((screen_width / 2) - (300 / 2))
+    y = int((screen_height / 2) - (200 / 2))
+
+    # set the position of the window
+    window.geometry("+{}+{}".format(x, y))
+    l_1= tk.Label(window,text="Please choose an event!",pady= 10)
     l_1.pack()
     url_id_event = 'https://rasts.se/api/Registration?chip_id='+chip_id
     new_options = []
@@ -181,8 +193,8 @@ def get_event_id(chip_id):
         global_event_id_result= new_options_id[index]
         window.destroy()
         
-    button = tk.Button(window, text="OK", command=set_result,height=3,width=5)
-    button.pack()
+    button = tk.Button(window, text="Choose and close!", command=set_result,pady=10,bg="lightgray")
+    button.pack(ipady=1,ipadx=1)
     
     # wait for the window to be closed
     window.wait_window()
