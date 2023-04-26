@@ -727,27 +727,6 @@ async function email_to_forgot_password() {
 async function update_user_password() {
   const url = new URL(window.location.href);
   // const token = url.searchParams.get("token");
-<<<<<<< HEAD
-  var pass = document.getElementById("password").value;
-  const response = await fetch(BASE_ULR + "Account", {
-    method: "PATCH",
-    body: JSON.stringify({ url: url }),
-    headers: { "Content-Type": "application/json" },
-  });
-  const response_1 = await fetch(BASE_ULR + "Account", {
-    method: "PATCH",
-    body: JSON.stringify({ password: pass }),
-    headers: { "Content-Type": "application/json" },
-  });
-
-  if (response.ok) {
-    alert("url is being read in the gateway");
-  } else {
-    alert("An error has occurred with response!");
-  }
-  if (response_1.ok) {
-    alert("password is sent to gateway!");
-=======
   var pass = document.getElementById("password_reseted").value;
   var pass_confirm = document.getElementById("confirm_password_reseted").value;
   if (pass == pass_confirm) {
@@ -772,7 +751,6 @@ async function update_user_password() {
     } else {
       alert("An error has occurred with response_1!");
     }
->>>>>>> 9179ac141f96b0329fc9b111f88c36a1bbc4b40a
   } else {
     alert("Passwords don't match");
   }
