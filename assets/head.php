@@ -20,7 +20,7 @@ if ($is_organization){
 }
 
 
-
+$is_organization = true;
 
 // if ($is_logged_in) {
 
