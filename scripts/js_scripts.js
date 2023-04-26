@@ -11,41 +11,43 @@ function image_compress_64(inputfile) {
     const MIME_TYPE = "image/jpeg";
     const QUALITY = 0.7;
 
-  const file = inputfile.files[0]; // get the file
-  const blobURL = URL.createObjectURL(file);
-  const img = new Image();
-  img.src = blobURL;
-  img.onerror = function () {
-    URL.revokeObjectURL(this.src);
-    // Handle the failure properly
-    console.log("Cannot load image");
-  };
-  img.onload = function () {
-    URL.revokeObjectURL(this.src);
-    const [newWidth, newHeight] = calculateSize(img, MAX_WIDTH, MAX_HEIGHT);
-    const canvas = document.createElement("canvas");
-    canvas.width = newWidth;
-    canvas.height = newHeight;
-    const ctx = canvas.getContext("2d");
-    ctx.drawImage(img, 0, 0, newWidth, newHeight);
-    canvas.toBlob(
-      (blob) => {
-        // Handle the compressed image. es. upload or save in local state
-        blobToBase64(blob).then(function(result) {
-          console.log("base: "+result)
-          // return_variable = result // "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX"
-        }).catch(function(error) {
-          console.log(error);
-        });
-      },
-      MIME_TYPE,
-      QUALITY
-    );
-    document.getElementById("root").append(canvas);
-  };
-  console.log("asdadad: "+return_variable)
-  // return return_variable
-};
+    const file = inputfile.files[0]; // get the file
+    const blobURL = URL.createObjectURL(file);
+    const img = new Image();
+    img.src = blobURL;
+    img.onerror = function () {
+      URL.revokeObjectURL(this.src);
+      // Handle the failure properly
+      console.log("Cannot load image");
+    };
+    img.onload = function () {
+      URL.revokeObjectURL(this.src);
+      const [newWidth, newHeight] = calculateSize(img, MAX_WIDTH, MAX_HEIGHT);
+      const canvas = document.createElement("canvas");
+      canvas.width = newWidth;
+      canvas.height = newHeight;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0, newWidth, newHeight);
+      canvas.toBlob(
+        (blob) => {
+          // Handle the compressed image. es. upload or save in local state
+          resolve(blob)
+          // blobToBase64(blob).then(function (result) {
+          //   console.log("base: " + result)
+          //   // return_variable = result // "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX"
+          // }).catch(function (error) {
+          //   console.log(error);
+          // });
+        },
+        MIME_TYPE,
+        QUALITY
+      );
+      document.getElementById("root").append(canvas);
+    };
+    console.log("asdadad: " + return_variable)
+    // return return_variable
+  });
+}
 
 function calculateSize(img, maxWidth, maxHeight) {
   let width = img.width;
