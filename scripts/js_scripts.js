@@ -154,10 +154,39 @@ async function get_user_info() {
   document.getElementById("profile_length").innerHTML = await data["height"];
   document.getElementById("profile_weight").innerHTML = await data["weight"];
   document.getElementById("profile_chip_id").innerHTML = await data["chip_id"];
+  document.getElementById("profile_username").innerHTML = await data["username"];
   load_image(data["pimage"]);
 
   let container = document.getElementById("myTableContainerResults");
   let myTable = await generate_user_results();
+  container.appendChild(myTable);
+}
+
+async function get_friend_info() {
+  const urlParams = new URLSearchParams(window.location.search);
+  g_username = urlParams.get('username');
+  const response = await fetch(
+    BASE_ULR + "Results/?username=" + g_username,
+    {
+      method: "GET",
+    }
+  );
+  const data = await response.json();
+
+  //Just getting the source from the span. It was messy in JS.
+
+  document.getElementById("profileName").innerHTML =
+    (await data["first_name"]) + " " + (await data["last_name"]);
+  document.getElementById("profile_age").innerHTML = await calculate_age(
+    await data["birthdate"]
+  );
+  document.getElementById("profile_length").innerHTML = await data["height"];
+  document.getElementById("profile_weight").innerHTML = await data["weight"];
+  document.getElementById("profile_username").innerHTML = await data["username"];
+  load_image(data["pimage"]);
+
+  let container = document.getElementById("myTableContainerResults");
+  let myTable = await generate_friend_results();
   container.appendChild(myTable);
 }
 
@@ -198,6 +227,50 @@ async function edit_user_info() {
 async function generate_user_results() {
   const response = await fetch(
     BASE_ULR + "Results/?token=" + get_cookie("auth_token"),
+    {
+      method: "GET",
+    }
+  );
+  const data = await response.json();
+
+  let table = document.createElement("table");
+  table.setAttribute("class", "table");
+
+  // create table header row
+  let headerRow = document.createElement("tr");
+  for (let key in await data.results.results[0]) {
+    let headerCell = document.createElement("th");
+    headerCell.textContent = key;
+    headerRow.appendChild(headerCell);
+  }
+  table.appendChild(headerRow);
+
+  // create table rows
+  for (let i = 0; i < (await data.results.results.length); i++) {
+    let row = document.createElement("tr");
+
+    // create a link for the row
+    let link = document.createElement("a");
+    console.log(`../pages/timetable?event_id=${data.results.event_ids[i]["event_id"]}&result_id=${data.results.event_ids[i]["result_id"]}`)
+    row.setAttribute("onclick", `window.location.href="../pages/timetable?event_id=${data.results.event_ids[i]["event_id"]}&result_id=${data.results.event_ids[i]["result_id"]}"`);
+
+    for (let key in await data.results.results[i]) {
+      let cell = document.createElement("td");
+      cell.textContent = await data.results.results[i][key];
+      console.log(await data.results.results[i][key]);
+      row.appendChild(cell);
+    }
+    table.appendChild(row);
+  }
+
+  return table;
+}
+
+async function generate_friend_results() {
+  const urlParams = new URLSearchParams(window.location.search);
+  g_username = urlParams.get('username');
+  const response = await fetch(
+    BASE_ULR + "Results/?username=" + g_username,
     {
       method: "GET",
     }
