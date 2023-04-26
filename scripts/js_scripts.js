@@ -222,8 +222,8 @@ async function generate_user_results() {
 
     // create a link for the row
     let link = document.createElement("a");
-    console.log(`../pages/timetable?event_id=${data.result.event_ids[i]["event_id"]}&result_id=${data.result.event_ids[i]["result_id"]}`)
-    link.setAttribute("href", `../pages/timetable?event_id=${data.result.event_ids[i]["event_id"]}&result_id=${data.result.event_ids[i]["result_id"]}`);
+    console.log(`../pages/timetable?event_id=${data.results.event_ids[i]["event_id"]}&result_id=${data.results.event_ids[i]["result_id"]}`)
+    link.setAttribute("href", `../pages/timetable?event_id=${data.results.event_ids[i]["event_id"]}&result_id=${data.results.event_ids[i]["result_id"]}`);
 
     for (let key in await data.results.results[i]) {
       let cell = document.createElement("td");
