@@ -182,7 +182,7 @@ async function get_user_results() {
 async function get_friend_info() {
   const urlParams = new URLSearchParams(window.location.search);
   g_username = urlParams.get("username");
-  const response = await fetch(BASE_ULR + "Results/?username=" + g_username, {
+  const response = await fetch(BASE_ULR + "Results/" + g_username, {
     method: "GET",
   });
   const data = await response.json();
@@ -732,5 +732,5 @@ async function update_user_password() {
   });
   const data = await response.json();
   user_token = data["username"]
-  
+
 }
