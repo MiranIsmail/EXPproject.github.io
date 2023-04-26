@@ -415,10 +415,11 @@
 
   async function callCreateTrack(track, start, end) {
       // Call the CreateTrack function and wait for it to complete
-      await CreateTrack(track, start, end);
+      const response = await CreateTrack(track, start, end);
 
       // The following code will only be executed after the CreateTrack function has completed
-      console.log("CreateTrack function completed");
+      console.log("CreateTrack function completed with response:", response);
+
       // Continue with the rest of your code here
     }
 
