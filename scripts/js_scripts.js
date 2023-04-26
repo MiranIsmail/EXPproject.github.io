@@ -480,8 +480,7 @@ async function get_checkpoints(event_id) {
   response = await fetch(BASE_URL + "Track/" + track, {
     method: "GET"
   })
-  data = await response.json()
-  const 
+  data = await response.json();
 
 }
 
