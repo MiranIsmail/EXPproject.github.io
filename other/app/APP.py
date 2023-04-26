@@ -15,6 +15,9 @@ import serial.tools.list_ports as stlp
 
 global_event_id = ""
 global_track_name = ""
+global_event_id_result ="0"
+default_checker_event_id = False
+
 
 def split_time(time: str):
     time_split = time.split(":")
@@ -100,9 +103,10 @@ def time_format_parse(time_log: str):
             station_id = int(str_part[1])
             timestamp_id = str_part[2]
             timestamp = str_part[3]
-            
+            prev_station_timestamp = None
+
             if station_id == 0:
-                station_name = "Start"
+                station_name = "0"
             elif station_id > 100 and station_id < 201:
                 station_name = str_part[1]
                 try:  # Since all new entries appear last in list we can index it in the last possition to get previous.
@@ -111,7 +115,7 @@ def time_format_parse(time_log: str):
                     prev_station_timestamp = None
                     print("You have not passed the start station")
             elif station_id == 90:
-                station_name = "Finish"
+                station_name = "90"
                 prev_station_timestamp = time_list[-1][1]
             else:
                 # If nothing applices, you are not a station, e.g. the USB.
@@ -119,7 +123,7 @@ def time_format_parse(time_log: str):
                 
 
             # if the station has had a previous
-            if (station_name == "Finish" or station_name == str_part[1]) and prev_station_timestamp != None:
+            if  prev_station_timestamp != None:
                 timestamp, diff_format, seconds_diff = time_formater(prev_station_timestamp, timestamp, off_set)
 
                 # Check if this time stamp was set as the new start.
@@ -144,9 +148,64 @@ def time_format_parse(time_log: str):
                    "total_time": total_time, "track_time": time_list}
     return result_card
 
+def get_event_id(chip_id):
+    # create a new window
+    window = tk.Toplevel(f1,)
+    window.iconbitmap(r"C:\Users\miran\Desktop\EXPproject\other\logo.ico")
+    window.geometry("300x200")
+
+    # get the screen width and height
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+
+    # calculate the x and y coordinates for the window
+    x = int((screen_width / 2) - (300 / 2))
+    y = int((screen_height / 2) - (200 / 2))
+
+    # set the position of the window
+    window.geometry("+{}+{}".format(x, y))
+    l_1= tk.Label(window,text="Please choose an event!",pady= 10)
+    l_1.pack()
+    url_id_event = 'https://rasts.se/api/Registration?chip_id='+chip_id
+    new_options = []
+    new_options_id = []
+    get_result:list = requests.get(url_id_event).json()
+    for ev_dict in get_result:
+        new_options.append(ev_dict["event_name"])
+        new_options_id.append(ev_dict["event_id"])
+    selected_option = tk.StringVar(window)
+    selected_option.set(new_options[0]) # set default value
+    
+    # menu['menu'].delete(0, 'end') # delete old options
+    # for option in new_options:
+    #     menu['menu'].add_command(label=option, command=tk._setit(selected_option, option)) # add new options
+    # create a variable to store the selected option
+    #selected_option.set(new_options[0]) # set default value
+    
+    # create the option menu
+    option_menu = tk.OptionMenu(window, selected_option, *new_options)
+    option_menu.pack()
+    
+    # add a button to set the result and close the window
+    def set_result():
+        index = new_options.index(selected_option.get())
+        global global_event_id_result 
+        global_event_id_result= new_options_id[index]
+        window.destroy()
+        
+    button = tk.Button(window, text="Choose and close!", command=set_result,pady=10,bg="lightgray")
+    button.pack(ipady=1,ipadx=1)
+    
+    # wait for the window to be closed
+    window.wait_window()
+
+    # return the selected option
+    return global_event_id_result
 
 def formater():
+    start_button.configure(text="Running")
     runner= True
+    global global_event_id_result
     #s = stlp.comports()
     #for port in sorted(s):
         #print(port.product)
@@ -159,9 +218,11 @@ def formater():
             if response[1] != 80:
                 res:dict=time_format_parse(str(response))
                 chip_id:str = res.get("chip_id")
-                update_options(chip_id)
-                #json_string = json.dumps(res)
-                #requests.post(url, data= json_string)
+                if default_checker_event_id != True:
+                    res["event_id"]=get_event_id(chip_id)
+                #update_options(chip_id)
+                json_string = json.dumps(res)
+                requests.post(url, data= json_string)
                 time.sleep(0.1)
                 runner = False
     return res
@@ -259,27 +320,27 @@ label_f2.configure(anchor="center")
 
 
 ######################################################################################
-# This section handles the options in frame 1 
-options = ['Options', 'Options', 'Options']
-var = tk.StringVar(f1)
-var.set(options[0])
+# # This section handles the options in frame 1 
+# options = ['Options', 'Options', 'Options']
+# var = tk.StringVar(f1)
+# var.set(options[0])
 
-menu = tk.OptionMenu(f1, var, *options)
-menu.pack()
+# menu = tk.OptionMenu(f1, var, *options)
+# menu.pack()
 
-# function to update options
-def update_options(chip_id):
-    """This function is a part of a chain that handles options in frame 1"""
-    url_id_event = 'https://rasts.se/api/Registration?chip_id='+chip_id
-    new_options = []
-    get_result:list = requests.get(url_id_event).json()
-    for ev_dict in get_result:
-        new_options.append(ev_dict["event_name"])
+# # function to update options
+# def update_options(chip_id):
+#     """This function is a part of a chain that handles options in frame 1"""
+#     url_id_event = 'https://rasts.se/api/Registration?chip_id='+chip_id
+#     new_options = []
+#     get_result:list = requests.get(url_id_event).json()
+#     for ev_dict in get_result:
+#         new_options.append(ev_dict["event_name"])
     
-    menu['menu'].delete(0, 'end') # delete old options
-    for option in new_options:
-        menu['menu'].add_command(label=option, command=tk._setit(var, option)) # add new options
-    var.set(new_options[0]) # set default value
+#     menu['menu'].delete(0, 'end') # delete old options
+#     for option in new_options:
+#         menu['menu'].add_command(label=option, command=tk._setit(var, option)) # add new options
+#     var.set(new_options[0]) # set default value
 
 ######################################################################################
 
@@ -322,15 +383,17 @@ def update_options_f2(track_name):
     it needs a correct track name to work. !!! No error handling is done here"""
     url_id_event_f2 = 'https://rasts.se/api/Event?track_name='+track_name
     new_options_f2 = []
+    new_options_f2_id = []
     get_result_f2:list = requests.get(url_id_event_f2).json()
-    print(type(get_result_f2))
     for ev_dict_2 in get_result_f2:
         new_options_f2.append(ev_dict_2["event_name"])
+        new_options_f2_id.append(ev_dict_2["event_id"])
     
     menu_f2['menu'].delete(0, 'end') # delete old options
     for option_f2 in new_options_f2:
         menu_f2['menu'].add_command(label=option_f2, command=tk._setit(var_f2, option_f2)) # add new options
     var_f2.set(new_options_f2[0]) # set default value
+
 
 def button_clicked_f2():
     """This function updates(!!!triggers another function) the (options) in frame 2 (settings) and uses entry in the same frame"""
@@ -366,7 +429,20 @@ def button_clicked_f2_3():
     """This function is connected to button_f2_3 and sets the global variable(global_event_id) to an selected event"""
     button_f2_3.config(bg='green')#set the button color to green for visual confirmation
     global global_event_id
+    global global_event_id_result
+    global default_checker_event_id
+    track_name = entry.get()
+    url_id_event_f2 = 'https://rasts.se/api/Event?track_name='+track_name
+    new_options_f2 = []
+    new_options_f2_id = []
+    get_result_f2:list = requests.get(url_id_event_f2).json()
+    for ev_dict_2 in get_result_f2:
+        new_options_f2.append(ev_dict_2["event_name"])
+        new_options_f2_id.append(ev_dict_2["event_id"])
+    default_checker_event_id = True
     selected_event = var_f2.get()
+    index= new_options_f2.index(selected_event)
+    global_event_id_result = new_options_f2_id[index]
     global_event_id = selected_event#####!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! maybe do am error handling
 
 ###button named "set track" connected to the function(see command)
