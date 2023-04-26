@@ -705,24 +705,32 @@ async function email_to_forgot_password() {
     method: "PATCH",
     body: JSON.stringify({ email: email }),
     headers: { "Content-Type": "application/json" },
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.json();
-    })
-    .catch((error) => {
-      console.error("There was an error sending the email:", error);
-    });
+  });
 
   if (response.ok) {
     alert("Email was sent successfully!");
+  } else {
+    alert("An error has occurred when sending an email. Check your email and try again!");
   }
 }
+  // .then((response) => {
+  //   if (!response.ok) {
+  //     throw new Error("Network response was not ok");
+  //   }
+  //   return response.json();
+  // })
+  // .catch((error) => {
+  //   console.error("There was an error sending the email:", error);
+  // });
 
-async function update_user_password(token) {
-  user_token = 0;
-  if (user_token == token) {
-  }
+async function update_user_password() {
+  const url = new URL(window.location.href);
+  const token = url.searchParams.get("token");
+  const response = await fetch(BASE_ULR + "Account", {
+    method: "GET",
+    headers: { Authorization: token},
+  });
+  const data = await response.json();
+  user_token = data["username"]
+  
 }
