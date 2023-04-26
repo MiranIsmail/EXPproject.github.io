@@ -31,20 +31,20 @@ function image_compress_64(inputfile) {
       canvas.toBlob(
         (blob) => {
           // Handle the compressed image. es. upload or save in local state
-          resolve(blob)
-          // blobToBase64(blob).then(function (result) {
-          //   console.log("base: " + result)
-          //   // return_variable = result // "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX"
-          // }).catch(function (error) {
-          //   console.log(error);
-          // });
+
+          blobToBase64(blob).then(function (result) {
+            resolve(result)
+            // return_variable = result // "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX"
+          }).catch(function (error) {
+            console.log(error);
+          });
         },
         MIME_TYPE,
         QUALITY
       );
       document.getElementById("root").append(canvas);
     };
-    console.log("asdadad: " + return_variable)
+
     // return return_variable
   });
 }
@@ -292,7 +292,6 @@ async function edit_user_info() {
     parameters["pimage"] = await image_compress_64(
       document.getElementById("send_image")
     );
-    console.log("test: " + parameters["pimage"]);
   }
 
   for (const [key, value] of Object.entries(parameters)) {
@@ -303,7 +302,7 @@ async function edit_user_info() {
   }
   console.log(parameters);
 
-  const response = await fetch(BASE_ULR + "Account", {
+  await fetch(BASE_ULR + "Account", {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
