@@ -66,6 +66,7 @@ if ($is_logged_in) {
 $page_name_tile = ["index" => "Rasts", "" => "Rasts", "event_display" => "Rasts - Event", "event" => "Rasts - Events", "profile" => "Profile", "Login" => "Login", "SignUp" => "Register", "eventcreate" => "Create Event", "track" => "Track"];
 $title = $page_name_tile[explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0]];
 
+$is_organization = true;
 if ($is_logged_in) {
 
   if (in_array(explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0], $blocked_site_logged_in)) {
@@ -86,7 +87,6 @@ if ($is_logged_in) {
   }
 }
 
-$is_organization = true;
 
 ?>
 
