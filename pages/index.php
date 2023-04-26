@@ -22,7 +22,15 @@
     </div>
   </div>
 
-
+  <script>
+  const searchInput = document.getElementById("search_profile");
+  searchInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault(); // prevent form submission
+      search_account();
+    }
+  });
+</script>
 
 
   <!--Temporary events-->

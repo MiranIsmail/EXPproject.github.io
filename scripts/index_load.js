@@ -162,7 +162,6 @@ async function data_load_index_topten(){
   const response = await fetch("https://rasts.se/api/Event?setting=topten")
   const data = await response.json()
 
-
   data.forEach((i) => {
     generate_card_wide(i["event_name"], 'Date: '+i["startdate"]+'\n - '+i["enddate"], i["description"], i["eimage"],i["event_id"])
   })
