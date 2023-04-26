@@ -52,18 +52,6 @@
     <script type="text/javascript" src="../scripts/js_scripts.js"></script>
 
 
-    <script>
-        // Add event listener for form submission
-        document.getElementsByClassName("orgform").addEventListener("submit", function(event) {
-            // Prevent default form submission behavior
-            event.preventDefault();
-            // Show success alert
-            document.getElementById("success-alert").classList.remove("d-none");
-
-            submit_button = document.getElementById("submit_org_form");
-            submit_button.setAttribute('disabled', '')
-        });
-    </script>
     <!--footer-->
 
 </body>

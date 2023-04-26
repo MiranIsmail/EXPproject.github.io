@@ -2,7 +2,7 @@
 
 <body>
     <?php include '../assets/navbar.php'; ?>
-    <a type="button" style="float:right; padding: 0.5rem;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"><img class="op30" src="../images/settings.svg" id="settings" alt="Gear"></a>
+    <a type="button" style="float:right; padding: 0.5rem;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRightSetting"><img class="op30" src="../images/settings.svg" id="settings" alt="Gear"></a>
     <div id="container-img">
         <div class="row">
 
@@ -34,9 +34,9 @@
                     <?php } ?>
                     <form action="../assets/organization_request.php" class="orgform" method="GET">
                         <div class=" form-group form_group_style mx-auto">
-                            <button class="button-modular" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Want to register your organisation?</button>
+                            <button class="button-modular" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRightOrg" aria-controls="offcanvasRight">Want to register your organisation?</button>
 
-                            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRightOrg" aria-labelledby="offcanvasRightLabel">
                                 <div class="offcanvas-header">
                                     <h5 id="offcanvasRightLabel">Register your organisation</h5>
                                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -104,7 +104,7 @@
     </div>
 
     <!--Edit profile popup-->
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRightSetting" aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header">
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
@@ -151,10 +151,10 @@
 
             </div>
 
-            <div id="root">
+             <div id="root">
                 <p>Upload an image and see the result</p>
-                <input id="img-input" type="file" accept="image/*" style="display:block" />
-                </div>
+                <!-- <input id="img-input" type="file" accept="image/*" style="display:block" /> -->
+                </div> 
 
             <div id="success-alert" class="alert alert-success alert-dismissible fade show d-none" role="alert">
                 Form submitted successfully!
@@ -168,6 +168,18 @@
 
     <script type="text/javascript" src="../scripts/js_scripts.js"></script>
     <script>
+        
+        
+        // Add event listener for form submission
+        document.getElementsByClassName("orgform").addEventListener("submit", function(event) {
+            // Prevent default form submission behavior
+            event.preventDefault();
+            // Show success alert
+            document.getElementById("success-alert").classList.remove("d-none");
+            
+            submit_button = document.getElementById("submit_org_form");
+            submit_button.setAttribute('disabled', '')
+        });
         get_user_results();
     </script>
 </body>
