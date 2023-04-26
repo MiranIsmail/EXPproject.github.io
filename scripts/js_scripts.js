@@ -575,22 +575,16 @@ function load_image_event(indata) {
 
 async function CreateTrack(track_input, start_station, end_station) {
   //var track_name = document.getElementById("InputTrackName")
-  result = await makePostReqest_track(track_input, start_station, end_station);
-  console.log(track_input, start_station, end_station);
-}
-
-function makePostReqest_track(track_input, start_station, end_station) {
-  return new Promise(function (resolve, reject) {
-    fetch(BASE_ULR + "Track", {
-      method: "POST",
-      body: JSON.stringify({
-        track_name: track_input,
-        start_station: start_station,
-        end_station: end_station,
-      }),
-      headers: { "Content-Type": "application/json; charset=UTF-8" },
-    });
+  await fetch(BASE_ULR + "Track", {
+    method: "POST",
+    body: JSON.stringify({
+      track_name: track_input,
+      start_station: start_station,
+      end_station: end_station,
+    }),
+    headers: { "Content-Type": "application/json; charset=UTF-8" },
   });
+  console.log("Track created");
 }
 
 async function CreateCheckpoint(
@@ -617,6 +611,7 @@ async function CreateCheckpoint(
     }),
     headers: { "Content-Type": "application/json; charset=UTF-8" },
   });
+  console.log("Checkpoint created");
 }
 
 async function create_event() {
@@ -792,25 +787,27 @@ async function email_to_forgot_password() {
   var email = document.getElementById("email").value;
   const response = await fetch(BASE_ULR + "Token", {
     method: "PATCH",
-    body: JSON.stringify({ "email": email }),
+    body: JSON.stringify({ email: email }),
     headers: { "Content-Type": "application/json" },
   });
 
   if (response.ok) {
     alert("Email was sent successfully!");
   } else {
-    alert("An error has occurred when sending an email. Check your email and try again!");
+    alert(
+      "An error has occurred when sending an email. Check your email and try again!"
+    );
   }
 }
-  // .then((response) => {
-  //   if (!response.ok) {
-  //     throw new Error("Network response was not ok");
-  //   }
-  //   return response.json();
-  // })
-  // .catch((error) => {
-  //   console.error("There was an error sending the email:", error);
-  // });
+// .then((response) => {
+//   if (!response.ok) {
+//     throw new Error("Network response was not ok");
+//   }
+//   return response.json();
+// })
+// .catch((error) => {
+//   console.error("There was an error sending the email:", error);
+// });
 
 async function update_user_password() {
   const url = new URL(window.location.href);
@@ -820,101 +817,126 @@ async function update_user_password() {
   if (pass == pass_confirm) {
     const response = await fetch(BASE_ULR + "Account", {
       method: "PATCH",
-      body: JSON.stringify({ "url": url,
-                             "password": pass}),
-      headers: { "Content-Type": "application/json" }
+      body: JSON.stringify({ url: url }),
+      headers: { "Content-Type": "application/json" },
     });
-    
+    const response_1 = await fetch(BASE_ULR + "Account", {
+      method: "PATCH",
+      body: JSON.stringify({ password: pass }),
+      headers: { "Content-Type": "application/json" },
+    });
+
     if (response.ok) {
-      alert("url, password is being read in the gateway");
+      alert("url is being read in the gateway");
     } else {
       alert("An error has occurred with response!");
+    }
+    if (response_1.ok) {
+      alert("password is sent to gateway!");
+    } else {
+      alert("An error has occurred with response_1!");
     }
   } else {
     alert("Passwords don't match");
   }
-
 }
 
+async function GetChecks(result_id, event_id, username, track_name) {
+  if (result_id && event_id && username && track_name) {
+    //calls the api and fills the html table with data
 
-async function GetChecks(result_id, event_id){
-  if(result_id && event_id){
-  //calls the api and fills the html table with data
-
-  checkpoint_time = await fetch("https://rasts.se/api/Results/" + result_id.toString(), {method:'GET',
-  headers: {'Accept': 'Application/json'}})
-  event_data = await fetch("https://rasts.se/api/Event/" + event_id.toString(), {method:'GET',
-  headers: {'Accept': 'Application/json'}})
-  data = await checkpoint_time.json(); 
-  data2 = await event_data.json()
-  checkpoint_data = await fetch("https://rasts.se/api/Checkpoint?track_name=" + data2.track_name, {method:'GET',
-  headers: {'Accept': 'Application/json'}})
-  data3 = await checkpoint_data.json()
-    document.getElementById('track_title').innerHTML = "Track: " + data2.track_name
-    document.getElementById('date').innerHTML = "Date: From " + data2.startdate + " to " + data2.enddate
-    document.getElementById('event_title').innerHTML = "Event: " + data2.event_name
-  FillTable(data.result, data3)
+    checkpoint_time = await fetch(
+      "https://rasts.se/api/Results/" + result_id.toString(),
+      { method: "GET", headers: { Accept: "Application/json" } }
+    );
+    result_data = await fetch(
+      "https://rasts.se/api/Results?username=" + username.toString(),
+      { method: "GET", headers: { Accept: "Application/json" } }
+    );
+    event_data = await fetch(
+      "https://rasts.se/api/Results?event_id=" + event_id.toString(),
+      { method: "GET", headers: { Accept: "Application/json" } }
+    );
+    checkpoint_data = await fetch(
+      "https://rasts.se/api/Checkpoint?track_name=" + track_name.toString()
+    );
+    data = await checkpoint_time.json();
+    data1 = await result_data.json();
+    data2 = await event_data.json();
+    data3 = await checkpoint_data.json();
+    document.getElementById("track_title").innerHTML = "Track: " + track_name;
+    document.getElementById("date").innerHTML =
+      "Date: " + data2.results[0].DATE;
+    document.getElementById("event_title").innerHTML = "Event: " + event_id;
+    FillTable(data.result, data3, data2.event_name);
   }
 }
 
-function FillTable(data, data1){
-
+function FillTable(data, data1, data2, data3) {
   for (let i = 0; i < data.length; i++) {
-    let row = timetable.insertRow(i + 1)
-    let cell1 = row.insertCell(0) //station name
-    let cell2 = row.insertCell(1) //time in seconds
-    let cell3 = row.insertCell(2) //start time
-    let cell4 = row.insertCell(3) //end time
-    let cell5 = row.insertCell(4) //terrain
-    let cell6 = row.insertCell(5) //distance
-    let cell7 = row.insertCell(6) //average time
+    let row = timetable.insertRow(i + 1);
+    let cell1 = row.insertCell(0); //station name
+    let cell2 = row.insertCell(1); //time in seconds
+    let cell3 = row.insertCell(2); //start time
+    let cell4 = row.insertCell(3); //end time
+    let cell5 = row.insertCell(4); //terrain
+    let cell6 = row.insertCell(5); //distance
+    let cell7 = row.insertCell(6); //average time
     if (i == 0) {
-      cell1.innerHTML = data[i].station_name + " (Start)"
-      if(data[i+1]){
-        cell4.innerHTML = data[i+1].time_stamp
-        cell2.innerHTML = TimeDiff(data[i].time_stamp, data[i+1].time_stamp) + "s"
+      cell1.innerHTML = data[i].station_name + " (Start)";
+      if (data[i + 1]) {
+        cell4.innerHTML = data[i + 1].time_stamp;
+        cell2.innerHTML =
+          TimeDiff(data[i].time_stamp, data[i + 1].time_stamp) + "s";
       }
     } else if (i == data.length - 1) {
-      cell1.innerHTML = data[i].station_name + " (Finish)"
-      cell2.innerHTML = ConvertTime(data[i].time_stamp) + "s"
-      cell4.innerHTML = "--||--"
+      cell1.innerHTML = data[i].station_name + " (Finish)";
+      cell2.innerHTML = ConvertTime(data[i].time_stamp) + "s";
+      cell4.innerHTML = "--||--";
     } else {
-      cell1.innerHTML = data[i].station_name
-      cell2.innerHTML = TimeDiff(data[i].time_stamp, data[i+1].time_stamp) + "s"
-      cell4.innerHTML = data[i+1].time_stamp
+      cell1.innerHTML = data[i].station_name;
+      cell2.innerHTML =
+        TimeDiff(data[i].time_stamp, data[i + 1].time_stamp) + "s";
+      cell4.innerHTML = data[i + 1].time_stamp;
     }
-    cell3.innerHTML = data[i].time_stamp
-    if(data1[i]){
-    cell5.innerHTML = data1[i].terrain
+    cell3.innerHTML = data[i].time_stamp;
+    if (data1[i]) {
+      cell5.innerHTML = data1[i].terrain;
     }
-    if(data1[i]){
-    cell6.innerHTML = data1[i].next_distance + "m"
-      if(data[i+1]){
-      cell7.innerHTML = AverageVel(data1[i].next_distance, TimeDiff(data[i].time_stamp, data[i+1].time_stamp)) + "m/s"
+    if (data1[i]) {
+      cell6.innerHTML = data1[i].next_distance + "m";
+      if (data[i + 1]) {
+        cell7.innerHTML =
+          AverageVel(
+            data1[i].next_distance,
+            TimeDiff(data[i].time_stamp, data[i + 1].time_stamp)
+          ) + "m/s";
       }
     }
   }
 }
-function TimeDiff(time1, time2){//difference between two times in seconds
-    time1 = ConvertTime(time1)
-    time2 = ConvertTime(time2)
-    return time2 - time1
+function TimeDiff(time1, time2) {
+  //difference between two times in seconds
+  time1 = ConvertTime(time1);
+  time2 = ConvertTime(time2);
+  return time2 - time1;
 }
-function AverageVel(distance, time_diff){//average velocity
-  return (distance/time_diff)
+function AverageVel(distance, time_diff) {
+  //average velocity
+  return distance / time_diff;
 }
-function ConvertTime(time_string){
-  h1 = time_string[0]//super advanced constant runtime hours/minute/seconds to seconds convertation algorithm
-  h2 = time_string[1]
-  m1 = time_string[3]
-  m2 = time_string[4]
-  s1 = time_string[6]
-  s2 = time_string[7]
-  seconds = s1 + s2
-  minutes = m1 + m2
-  hours = h1 + h2
-  seconds = parseInt(seconds)
-  minutes = parseInt(minutes) * 60
-  hours = parseInt(hours) * 60 * 60
-  return hours + minutes + seconds
+function ConvertTime(time_string) {
+  h1 = time_string[0]; //super advanced constant runtime hours/minute/seconds to seconds convertation algorithm
+  h2 = time_string[1];
+  m1 = time_string[3];
+  m2 = time_string[4];
+  s1 = time_string[6];
+  s2 = time_string[7];
+  seconds = s1 + s2;
+  minutes = m1 + m2;
+  hours = h1 + h2;
+  seconds = parseInt(seconds);
+  minutes = parseInt(minutes) * 60;
+  hours = parseInt(hours) * 60 * 60;
+  return hours + minutes + seconds;
 }
