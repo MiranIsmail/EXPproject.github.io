@@ -682,7 +682,7 @@ async function email_to_forgot_password() {
   var email = document.getElementById("email").value;
   const response = await fetch(BASE_ULR + "Token", {
     method: "PATCH",
-    body: JSON.stringify({ email: email }),
+    body: JSON.stringify({ "email": email }),
     headers: { "Content-Type": "application/json" },
   });
 
@@ -706,12 +706,11 @@ async function update_user_password() {
   const url = new URL(window.location.href);
   const token = url.searchParams.get("token");
   const response = await fetch(BASE_ULR + "Account", {
-    method: "GET",
-    headers: { Authorization: token},
+    method: "PATCH",
+    body: JSON.stringify({ "url": url }),
+    headers: { "Content-Type": "application/json" }
   });
-  const data = await response.json();
-  user_token = data["username"]
-
+  
 }
 
 async function GetChecks(result_id, event_id, username, track_name){
