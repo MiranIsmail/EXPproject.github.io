@@ -126,7 +126,7 @@
   submit_btn.addEventListener('click', function(e) {
     e.preventDefault();
 
-    const trackname = document.getElementByID('InputTrackName')
+    const trackname = document.getElementById('InputTrackName')
     const inputs = document.querySelectorAll('input');
     const dropdowns = document.querySelectorAll('dropdown')
     let allDisabled = true;
