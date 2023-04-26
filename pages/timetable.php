@@ -5,6 +5,7 @@
 
   <script>
     async function GetChecks(result_id, event_id, token, track_name){
+      if(result_id && event_id && token && track_name){
       //calls the api and fills the html table with data
 
       checkpoint_time = await fetch("https://rasts.se/api/Results/" + result_id.toString(), {method:'GET',
@@ -27,6 +28,7 @@
       console.log(data2)
       console.log(data3)
       console.log(event)
+      }
     }
   </script>
 
@@ -65,15 +67,15 @@
               cell1.innerHTML = data[i].station_name + " (Start)"
               if(data[i+1]){
                 cell4.innerHTML = data[i+1].time_stamp
-                cell2.innerHTML = TimeDiff(data[i].time_stamp, data[i+1].time_stamp)
+                cell2.innerHTML = TimeDiff(data[i].time_stamp, data[i+1].time_stamp) + "s"
               }
             } else if (i == data.length - 1) {
               cell1.innerHTML = data[i].station_name + " (Finish)"
-              cell2.innerHTML = ConvertTime(data[i].time_stamp)
+              cell2.innerHTML = ConvertTime(data[i].time_stamp) + "s"
               cell4.innerHTML = "--||--"
             } else {
               cell1.innerHTML = data[i].station_name
-              cell2.innerHTML = TimeDiff(data[i].time_stamp, data[i+1].time_stamp)
+              cell2.innerHTML = TimeDiff(data[i].time_stamp, data[i+1].time_stamp) + "s"
               cell4.innerHTML = data[i+1].time_stamp
             }
             cell3.innerHTML = data[i].time_stamp
@@ -81,9 +83,9 @@
             cell5.innerHTML = data1[i].terrain
             }
             if(data1[i]){
-            cell6.innerHTML = data1[i].next_distance
+            cell6.innerHTML = data1[i].next_distance + "m"
               if(data[i+1]){
-              cell7.innerHTML = AverageVel(data1[i].next_distance, TimeDiff(data[i].time_stamp, data[i+1].time_stamp))
+              cell7.innerHTML = AverageVel(data1[i].next_distance, TimeDiff(data[i].time_stamp, data[i+1].time_stamp)) + "m/s"
               }
             }
           }
@@ -111,6 +113,8 @@
           hours = parseInt(hours) * 60 * 60
           return hours + minutes + seconds
         }
+        GetChecks(95, 12, "c5bd7dec836ce331ce40a875a5406d3fa1f5942fd9e38d21a5ec2dbee7163d43", "Adams femte bana")
+
         </script>
       </tbody>
     </table>
