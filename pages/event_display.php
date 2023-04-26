@@ -21,13 +21,15 @@ include '../assets/head.php';
                         <h5>StartDate: <span id="event_sdate"></span></h5>
                         <h5>EndDate: <span id="event_edate"></span></h5>
                         <h5>Host Username: <span id="event_org"></span></h5>
+                        <h5>Track: <span id="event_track"></span></h5>
                     </div>
-                </div>
-                <div class="col-md-8" id="info_grid">
                     <div class="padding_border">
                         <h3>Description</h3>
                         <h5 class="mx-auto"><span id="event_desc"></span></h5>
                     </div>
+                </div>
+                <div class="col-md-8" id="map_grid">
+                    <div id="map"></div>
                 </div>
             </div>
 
@@ -121,9 +123,26 @@ include '../assets/head.php';
 <script>
     const urlParams = new URLSearchParams(window.location.search);
     g_event_id = urlParams.get('event_id');
+    g_track_name = urlParams.get('track_name')
     console.log(g_event_id)
     get_event_info(g_event_id);
+    get_track()
     get_chip()
+    
+    function init_map() {
+        const bth_coords = {
+            lat: 56.179475,
+            lng: 15.595062
+        };
+
+        map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 14,
+            center: bth_coords,
+            mapTypeId: "terrain",
+        });
+        }
+</script>
+<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkY5KKVjLNfTPCAX17XbClpOpfTQd0cFM&callback=init_map">
 </script>
 
 </html>

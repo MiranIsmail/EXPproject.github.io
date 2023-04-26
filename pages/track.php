@@ -360,6 +360,9 @@
     var end_id
     var distance
     var terrain
+
+    let checkpoint_json = {"checkpoints": []}
+
     // Loop through each row
     rows.forEach(row => {
       // Get the input fields in the row
@@ -388,8 +391,9 @@
           marker_latitude = current_marker.getPosition().lat()
         }
       }
-      console.log(track_name, start_id, end_id, distance, terrain, marker_longitude, marker_latitude)
-      CreateCheckpoint(track_name, start_id, end_id, distance, terrain, marker_longitude, marker_latitude);
+      let arr = [track_name, start_id, end_id, distance, terrain, marker_longitude, marker_latitude]
+      
+      checkpoint_json["checkpoints"].push(arr);
       
     })
     for (let i = 0; i < markers_list.length; i++) {
@@ -397,10 +401,12 @@
         current_marker = markers_list[i]
         marker_longitude = current_marker.getPosition().lng()
         marker_latitude = current_marker.getPosition().lat()
-        console.log(track_name, end_id, "undef", "undef", "undef", marker_longitude, marker_latitude)
-        CreateCheckpoint(track_name, end_id, "undef", "undef", "undef", marker_longitude, marker_latitude)
+
+        arr = [track_name, end_id, "undef", "0", "undef", marker_longitude, marker_latitude]
+        checkpoint_json["checkpoints"].push(arr);
         }
       } 
+    CreateCheckpoint(checkpoint_json)
     // location.href= "../pages/confirmation_track.php";
   }
 

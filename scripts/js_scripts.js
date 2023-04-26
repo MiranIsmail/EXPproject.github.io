@@ -137,11 +137,6 @@ function load_image(indata) {
   src.appendChild(img);
 }
 
-
-
-
-
-
 async function get_user_info() {
   const response = await fetch(BASE_ULR + "Account", {
     method: "GET",
@@ -174,11 +169,6 @@ async function get_user_results() {
   container.appendChild(myTable);
 }
 
-
-
-
-
-
 async function get_friend_info() {
   const urlParams = new URLSearchParams(window.location.search);
   g_username = urlParams.get("username");
@@ -205,11 +195,6 @@ async function get_friend_info() {
   let myTable = await generate_friend_results();
   container.appendChild(myTable);
 }
-
-
-
-
-
 
 async function edit_user_info() {
   var parameters = {};
@@ -245,11 +230,6 @@ async function edit_user_info() {
   location.href = "../pages/profile.php";
 }
 
-
-
-
-
-
 async function generate_user_results() {
   const response = await fetch(
     BASE_ULR + "Results/?token=" + get_cookie("auth_token"),
@@ -276,8 +256,13 @@ async function generate_user_results() {
     let row = document.createElement("tr");
 
     // create a link for the row
-    console.log(`../pages/timetable?event_id=${data.results.event_ids[i]["event_id"]}&result_id=${data.results.event_ids[i]["result_id"]}`)
-    row.setAttribute("onclick", `window.location.href="../pages/timetable?event_id=${data.results.event_ids[i]["event_id"]}&result_id=${data.results.event_ids[i]["result_id"]}"`);
+    console.log(
+      `../pages/timetable?event_id=${data.results.event_ids[i]["event_id"]}&result_id=${data.results.event_ids[i]["result_id"]}`
+    );
+    row.setAttribute(
+      "onclick",
+      `window.location.href="../pages/timetable?event_id=${data.results.event_ids[i]["event_id"]}&result_id=${data.results.event_ids[i]["result_id"]}"`
+    );
 
     for (let key in await data.results.results[i]) {
       let cell = document.createElement("td");
@@ -290,11 +275,6 @@ async function generate_user_results() {
 
   return table;
 }
-
-
-
-
-
 
 async function generate_friend_results() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -321,8 +301,13 @@ async function generate_friend_results() {
     let row = document.createElement("tr");
 
     // create a link for the row
-    console.log(`../pages/timetable?event_id=${data.results.event_ids[i]["event_id"]}&result_id=${data.results.event_ids[i]["result_id"]}`)
-    row.setAttribute("onclick", `window.location.href="../pages/timetable?event_id=${data.results.event_ids[i]["event_id"]}&result_id=${data.results.event_ids[i]["result_id"]}"`);
+    console.log(
+      `../pages/timetable?event_id=${data.results.event_ids[i]["event_id"]}&result_id=${data.results.event_ids[i]["result_id"]}`
+    );
+    row.setAttribute(
+      "onclick",
+      `window.location.href="../pages/timetable?event_id=${data.results.event_ids[i]["event_id"]}&result_id=${data.results.event_ids[i]["result_id"]}"`
+    );
 
     for (let key in await data.results.results[i]) {
       let cell = document.createElement("td");
@@ -470,6 +455,7 @@ async function get_event_info(event_id) {
     "event_name"
   ];
   document.getElementById("event_name").innerHTML = await data["event_name"];
+  document.getElementById("event_track").innerHTML = await data["track_name"];
   document.getElementById("event_sport").innerHTML = await data["sport"];
   document.getElementById("event_sdate").innerHTML = await data["startdate"];
   document.getElementById("event_edate").innerHTML = await data["enddate"];
@@ -506,26 +492,11 @@ function CreateTrack(track_input, start_station, end_station) {
   });
 }
 
-function CreateCheckpoint(
-  track_name,
-  station_id,
-  next_id,
-  distance,
-  terrain,
-  lng,
-  lat
-) {
+function CreateCheckpoint(jsondict) {
+  console.log(jsondict);
   fetch(BASE_ULR + "Checkpoint", {
     method: "POST",
-    body: JSON.stringify({
-      track_name: track_name,
-      station_id: station_id,
-      next_id: next_id,
-      next_distance: distance,
-      terrain: terrain,
-      longitude: lng,
-      latitude: lat,
-    }),
+    body: JSON.stringify(jsondict),
     headers: { "Content-Type": "application/json; charset=UTF-8" },
   });
 }
@@ -625,6 +596,14 @@ async function TrackDropdown() {
   }
 }
 
+async function get_track(trackname) {
+  const response = await fetch(BASE_ULR + "Track/" + trackname, {
+    method: "GET",
+  });
+  const data = await response.json();
+  console.log(data)
+
+}
 // Function to generate table
 async function generate_event_results(event_id) {
   const response = await fetch(BASE_ULR + "Results/?event_id=" + event_id, {
