@@ -161,6 +161,11 @@ async function get_user_info() {
   let myTable = await generate_user_results();
   container.appendChild(myTable);
 }
+async function get_user_results() {
+  let container = document.getElementById("myTableContainerResults");
+  let myTable = await generate_user_results();
+  container.appendChild(myTable);
+}
 
 async function get_friend_info() {
   const urlParams = new URLSearchParams(window.location.search);

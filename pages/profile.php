@@ -5,15 +5,18 @@
     <a type="button" style="float:right; padding: 0.5rem;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"><img class="op30" src="../images/settings.svg" id="settings" alt=Gear"></a>
     <div id="container-img">
         <div class="row">
+
             <div class="col-sm-6" id="profile_box">
+                <img class="img-fluid d-block" alt="profile image" id="profile_image" src="<?= $user_data->pimage ?>">
             </div>
             <div class="col-sm-6" style="vertical-align: middle;">
                 <div class="accout-piture">
                     <div class="reslut"></div>
                 </div>
+
                 <div>
                     <h1 class="text-shift">
-                        <span id="profileName">Profile name</span>
+                        <span id="profileName"><?= $user_data->username ?></span>
                     </h1>
                     <h3 class="text-shift">Age: <span id="profile_age"></span> <?= date('Y') - date('Y', strtotime($user_data->birthdate)) ?> year</h3>
                     <h3 class="text-shift">Length: <span id="profile_length"></span> <?= $user_data->height ?> cm</h3>
@@ -96,7 +99,7 @@
 
     <script type="text/javascript" src="../scripts/js_scripts.js"></script>
     <script>
-        //get_user_info();
+        get_user_results();
     </script>
 </body>
 
