@@ -324,7 +324,7 @@ async function generate_friend_results() {
 function search_account() {
   // Retrieve all cards
   let input = document.getElementById("search_profile").value;
-  location.href = `../pages/profile_display?username=${input}`
+  location.href = `../pages/profile_display?username=${input}`;
 }
 // async function generate_user_results() {
 //   const response = await fetch(
@@ -470,19 +470,16 @@ async function get_event_info(event_id) {
 }
 
 async function get_checkpoints(event_id) {
-  
   const response = await fetch(BASE_ULR + "Event/" + event_id, {
     method: "GET",
   });
   const data = await response.json();
-  const track = data['track_name']
+  const track = data["track_name"];
 
   response = await fetch(BASE_URL + "Track/" + track, {
-    method: "GET"
-  })
-  data = await response.json()
-  const 
-
+    method: "GET",
+  });
+  data = await response.json();
 }
 
 function load_image_event(indata) {
@@ -690,117 +687,134 @@ async function email_to_forgot_password() {
   var email = document.getElementById("email").value;
   const response = await fetch(BASE_ULR + "Token", {
     method: "PATCH",
-    body: JSON.stringify({ "email": email }),
+    body: JSON.stringify({ email: email }),
     headers: { "Content-Type": "application/json" },
   });
 
   if (response.ok) {
     alert("Email was sent successfully!");
   } else {
-    alert("An error has occurred when sending an email. Check your email and try again!");
+    alert(
+      "An error has occurred when sending an email. Check your email and try again!"
+    );
   }
 }
-  // .then((response) => {
-  //   if (!response.ok) {
-  //     throw new Error("Network response was not ok");
-  //   }
-  //   return response.json();
-  // })
-  // .catch((error) => {
-  //   console.error("There was an error sending the email:", error);
-  // });
+// .then((response) => {
+//   if (!response.ok) {
+//     throw new Error("Network response was not ok");
+//   }
+//   return response.json();
+// })
+// .catch((error) => {
+//   console.error("There was an error sending the email:", error);
+// });
 
 async function update_user_password() {
   const url = new URL(window.location.href);
   const token = url.searchParams.get("token");
   const response = await fetch(BASE_ULR + "Account", {
     method: "PATCH",
-    body: JSON.stringify({ "url": url }),
-    headers: { "Content-Type": "application/json" }
+    body: JSON.stringify({ url: url }),
+    headers: { "Content-Type": "application/json" },
   });
-  
 }
 
-async function GetChecks(result_id, event_id, username, track_name){
-  if(result_id && event_id && username && track_name){
-  //calls the api and fills the html table with data
+async function GetChecks(result_id, event_id, username, track_name) {
+  if (result_id && event_id && username && track_name) {
+    //calls the api and fills the html table with data
 
-  checkpoint_time = await fetch("https://rasts.se/api/Results/" + result_id.toString(), {method:'GET',
-  headers: {'Accept': 'Application/json'}})
-  result_data = await fetch("https://rasts.se/api/Results?username=" + username.toString(), {method:'GET',
-  headers: {'Accept': 'Application/json'}})
-  event_data = await fetch("https://rasts.se/api/Results?event_id=" + event_id.toString(), {method:'GET',
-  headers: {'Accept': 'Application/json'}})
-  checkpoint_data = await fetch("https://rasts.se/api/Checkpoint?track_name=" + track_name.toString())
-  data = await checkpoint_time.json();
-  data1 = await result_data.json()  
-  data2 = await event_data.json()
-  data3 = await checkpoint_data.json()
-    document.getElementById('track_title').innerHTML = "Track: " + track_name
-    document.getElementById('date').innerHTML = "Date: " + data2.results[0].DATE
-    document.getElementById('event_title').innerHTML = "Event: " + event_id
-  FillTable(data.result, data3, data2.event_name)
+    checkpoint_time = await fetch(
+      "https://rasts.se/api/Results/" + result_id.toString(),
+      { method: "GET", headers: { Accept: "Application/json" } }
+    );
+    result_data = await fetch(
+      "https://rasts.se/api/Results?username=" + username.toString(),
+      { method: "GET", headers: { Accept: "Application/json" } }
+    );
+    event_data = await fetch(
+      "https://rasts.se/api/Results?event_id=" + event_id.toString(),
+      { method: "GET", headers: { Accept: "Application/json" } }
+    );
+    checkpoint_data = await fetch(
+      "https://rasts.se/api/Checkpoint?track_name=" + track_name.toString()
+    );
+    data = await checkpoint_time.json();
+    data1 = await result_data.json();
+    data2 = await event_data.json();
+    data3 = await checkpoint_data.json();
+    document.getElementById("track_title").innerHTML = "Track: " + track_name;
+    document.getElementById("date").innerHTML =
+      "Date: " + data2.results[0].DATE;
+    document.getElementById("event_title").innerHTML = "Event: " + event_id;
+    FillTable(data.result, data3, data2.event_name);
   }
 }
 
-function FillTable(data, data1, data2, data3){
-
+function FillTable(data, data1, data2, data3) {
   for (let i = 0; i < data.length; i++) {
-    let row = timetable.insertRow(i + 1)
-    let cell1 = row.insertCell(0) //station name
-    let cell2 = row.insertCell(1) //time in seconds
-    let cell3 = row.insertCell(2) //start time
-    let cell4 = row.insertCell(3) //end time
-    let cell5 = row.insertCell(4) //terrain
-    let cell6 = row.insertCell(5) //distance
-    let cell7 = row.insertCell(6) //average time
+    let row = timetable.insertRow(i + 1);
+    let cell1 = row.insertCell(0); //station name
+    let cell2 = row.insertCell(1); //time in seconds
+    let cell3 = row.insertCell(2); //start time
+    let cell4 = row.insertCell(3); //end time
+    let cell5 = row.insertCell(4); //terrain
+    let cell6 = row.insertCell(5); //distance
+    let cell7 = row.insertCell(6); //average time
     if (i == 0) {
-      cell1.innerHTML = data[i].station_name + " (Start)"
-      if(data[i+1]){
-        cell4.innerHTML = data[i+1].time_stamp
-        cell2.innerHTML = TimeDiff(data[i].time_stamp, data[i+1].time_stamp) + "s"
+      cell1.innerHTML = data[i].station_name + " (Start)";
+      if (data[i + 1]) {
+        cell4.innerHTML = data[i + 1].time_stamp;
+        cell2.innerHTML =
+          TimeDiff(data[i].time_stamp, data[i + 1].time_stamp) + "s";
       }
     } else if (i == data.length - 1) {
-      cell1.innerHTML = data[i].station_name + " (Finish)"
-      cell2.innerHTML = ConvertTime(data[i].time_stamp) + "s"
-      cell4.innerHTML = "--||--"
+      cell1.innerHTML = data[i].station_name + " (Finish)";
+      cell2.innerHTML = ConvertTime(data[i].time_stamp) + "s";
+      cell4.innerHTML = "--||--";
     } else {
-      cell1.innerHTML = data[i].station_name
-      cell2.innerHTML = TimeDiff(data[i].time_stamp, data[i+1].time_stamp) + "s"
-      cell4.innerHTML = data[i+1].time_stamp
+      cell1.innerHTML = data[i].station_name;
+      cell2.innerHTML =
+        TimeDiff(data[i].time_stamp, data[i + 1].time_stamp) + "s";
+      cell4.innerHTML = data[i + 1].time_stamp;
     }
-    cell3.innerHTML = data[i].time_stamp
-    if(data1[i]){
-    cell5.innerHTML = data1[i].terrain
+    cell3.innerHTML = data[i].time_stamp;
+    if (data1[i]) {
+      cell5.innerHTML = data1[i].terrain;
     }
-    if(data1[i]){
-    cell6.innerHTML = data1[i].next_distance + "m"
-      if(data[i+1]){
-      cell7.innerHTML = AverageVel(data1[i].next_distance, TimeDiff(data[i].time_stamp, data[i+1].time_stamp)) + "m/s"
+    if (data1[i]) {
+      cell6.innerHTML = data1[i].next_distance + "m";
+      if (data[i + 1]) {
+        cell7.innerHTML =
+          AverageVel(
+            data1[i].next_distance,
+            TimeDiff(data[i].time_stamp, data[i + 1].time_stamp)
+          ) + "m/s";
       }
     }
   }
 }
-function TimeDiff(time1, time2){//difference between two times in seconds
-    time1 = ConvertTime(time1)
-    time2 = ConvertTime(time2)
-    return time2 - time1
+function TimeDiff(time1, time2) {
+  //difference between two times in seconds
+  time1 = ConvertTime(time1);
+  time2 = ConvertTime(time2);
+  return time2 - time1;
 }
-function AverageVel(distance, time_diff){//average velocity
-  return (distance/time_diff)
+function AverageVel(distance, time_diff) {
+  //average velocity
+  return distance / time_diff;
 }
-function ConvertTime(time_string){
-  h1 = time_string[0]//super advanced constant runtime hours/minute/seconds to seconds convertation algorithm
-  h2 = time_string[1]
-  m1 = time_string[3]
-  m2 = time_string[4]
-  s1 = time_string[6]
-  s2 = time_string[7]
-  seconds = s1 + s2
-  minutes = m1 + m2
-  hours = h1 + h2
-  seconds = parseInt(seconds)
-  minutes = parseInt(minutes) * 60
-  hours = parseInt(hours) * 60 * 60
-  return hours + minutes + seconds
+function ConvertTime(time_string) {
+  h1 = time_string[0]; //super advanced constant runtime hours/minute/seconds to seconds convertation algorithm
+  h2 = time_string[1];
+  m1 = time_string[3];
+  m2 = time_string[4];
+  s1 = time_string[6];
+  s2 = time_string[7];
+  seconds = s1 + s2;
+  minutes = m1 + m2;
+  hours = h1 + h2;
+  seconds = parseInt(seconds);
+  minutes = parseInt(minutes) * 60;
+  hours = parseInt(hours) * 60 * 60;
+  return hours + minutes + seconds;
 }
