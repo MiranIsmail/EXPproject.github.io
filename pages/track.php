@@ -345,29 +345,35 @@
 
     var last_row = document.getElementById("track_input").lastElementChild
     var first_row = document.getElementById("track_input").firstElementChild
-
     var start_station_id = first_row.querySelector('input[name="StartID"]').value
     var end_station_id = last_row.querySelector('input[name="EndID"]').value
     var track_name = document.getElementById('InputTrackName').value
     
     CreateTrack(track_name, start_station_id, end_station_id)
-    
+
+    var idInputStart
+    var idInputEnd
+    var distanceInput
+    var terrainDropdown
+
+    var start_id
+    var end_id
+    var distance
+    var terrain
     // Loop through each row
-    let j = 0;
     rows.forEach(row => {
       // Get the input fields in the row
       console.log(rows)
-      console.log(j)
-      var idInputStart = row.querySelector('input[name="StartID"]');
-      var idInputEnd = row.querySelector('input[name="EndID"]');
-      var distanceInput = row.querySelector('input[name="distance"]');
-      var terrainDropdown = row.querySelector('button[name="Terrain"]');
+      idInputStart = row.querySelector('input[name="StartID"]');
+      idInputEnd = row.querySelector('input[name="EndID"]');
+      distanceInput = row.querySelector('input[name="distance"]');
+      terrainDropdown = row.querySelector('button[name="Terrain"]');
       
       // Get the values of the input fields
-      var start_id = idInputStart.value.toString();
-      var end_id = idInputEnd.value.toString();
-      var distance = distanceInput.value;
-      var terrain = terrainDropdown.textContent;
+      start_id = idInputStart.value.toString();
+      end_id = idInputEnd.value.toString();
+      distance = distanceInput.value;
+      terrain = terrainDropdown.textContent;
       
       //console.log(i)
 
@@ -382,28 +388,20 @@
           marker_latitude = current_marker.getPosition().lat()
         }
       }
-
+      console.log(track_name, start_id, end_id, distance, terrain, marker_longitude, marker_latitude)
       CreateCheckpoint(track_name, start_id, end_id, distance, terrain, marker_longitude, marker_latitude);
-    
-      if (j == markers_list.length-2) {
-        // Get the last station
-        for (let i = 0; i < markers_list.length; i++) {
-          if (markers_list[i].getLabel() == end_id) {
-            current_marker = markers_list[i]
-            marker_longitude = current_marker.getPosition().lng()
-            marker_latitude = current_marker.getPosition().lat()
-            CreateCheckpoint(track_name, end_id, "null", "null", "null", marker_longitude, marker_latitude)
-            }
-          } 
-
-          
-        }
       
-
-      
-      j++;
     })
-    location.href= "../pages/confirmation_track.php";
+    for (let i = 0; i < markers_list.length; i++) {
+      if (markers_list[i].getLabel() == end_id) {
+        current_marker = markers_list[i]
+        marker_longitude = current_marker.getPosition().lng()
+        marker_latitude = current_marker.getPosition().lat()
+        console.log(track_name, end_id, "null", "null", "null", marker_longitude, marker_latitude)
+        CreateCheckpoint(track_name, end_id, "null", "null", "null", marker_longitude, marker_latitude)
+        }
+      } 
+    // location.href= "../pages/confirmation_track.php";
   }
 
   let row
