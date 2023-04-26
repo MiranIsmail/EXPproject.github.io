@@ -333,8 +333,11 @@ async function generate_friend_results() {
   return table;
 }
 
-
-
+function search_account() {
+  // Retrieve all cards
+  let input = document.getElementById("searchQueryInput").value;
+  location.href = `../pages/profile_display?username=${input}`
+}
 // async function generate_user_results() {
 //   const response = await fetch(
 //     BASE_ULR + "Results/?token=" + get_cookie("auth_token"),
