@@ -4,13 +4,13 @@
   <?php include '../assets/navbar.php'; ?>
 
   <script>
-    async function GetChecks(result_id, event_id, token, track_name){
-      if(result_id && event_id && token && track_name){
+    async function GetChecks(result_id, event_id, username, track_name){
+      if(result_id && event_id && username && track_name){
       //calls the api and fills the html table with data
 
       checkpoint_time = await fetch("https://rasts.se/api/Results/" + result_id.toString(), {method:'GET',
       headers: {'Accept': 'Application/json'}})
-      result_data = await fetch("https://rasts.se/api/Results?token=" + token.toString(), {method:'GET',
+      result_data = await fetch("https://rasts.se/api/Results?username=" + username.toString(), {method:'GET',
       headers: {'Accept': 'Application/json'}})
       event_data = await fetch("https://rasts.se/api/Results?event_id=" + event_id.toString(), {method:'GET',
       headers: {'Accept': 'Application/json'}})
@@ -21,13 +21,8 @@
       data3 = await checkpoint_data.json()
         document.getElementById('track_title').innerHTML = "Track: " + track_name
         document.getElementById('date').innerHTML = "Date: " + data2.results[0].DATE
-      
+        document.getElementById('event_title').innerHTML = "Event: " + event_id
       FillTable(data.result, data3, data2.event_name)
-      console.log(data.result)
-      console.log(data1)
-      console.log(data2)
-      console.log(data3)
-      console.log(event)
       }
     }
   </script>
@@ -113,7 +108,6 @@
           hours = parseInt(hours) * 60 * 60
           return hours + minutes + seconds
         }
-        GetChecks(95, 12, "c5bd7dec836ce331ce40a875a5406d3fa1f5942fd9e38d21a5ec2dbee7163d43", "Adams femte bana")
 
         </script>
       </tbody>
