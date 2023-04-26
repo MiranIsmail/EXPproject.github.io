@@ -122,12 +122,14 @@ include '../assets/head.php';
 
 <script>
     const urlParams = new URLSearchParams(window.location.search);
-    g_event_id = urlParams.get('event_id');
-    g_track_name = urlParams.get('track_name')
+    const g_event_id = urlParams.get('event_id');
+    const g_track_name = document.getElementById('event_track').innerHTML
+
     console.log(g_event_id)
     get_event_info(g_event_id);
-    get_track()
+    get_track(g_track_name)
     get_chip()
+    console.log(g_track_name)
     
     function init_map() {
         const bth_coords = {

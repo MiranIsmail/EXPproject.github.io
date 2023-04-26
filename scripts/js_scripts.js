@@ -469,6 +469,14 @@ async function get_event_info(event_id) {
   container.appendChild(myTable);
 }
 
+async function get_checkpoints(event_id) {
+  
+  const response = await fetch(BASE_ULR + "Event/" + event_id, {
+    method: "GET",
+  });
+  const data = await response.json();
+}
+
 function load_image_event(indata) {
   var img = document.createElement("img");
   img.setAttribute("id", "event_image_display");
@@ -596,14 +604,6 @@ async function TrackDropdown() {
   }
 }
 
-async function get_track(trackname) {
-  const response = await fetch(BASE_ULR + "Track/" + trackname, {
-    method: "GET",
-  });
-  const data = await response.json();
-  console.log(data)
-
-}
 // Function to generate table
 async function generate_event_results(event_id) {
   const response = await fetch(BASE_ULR + "Results/?event_id=" + event_id, {
