@@ -1,3 +1,4 @@
+
 <?php include '../assets/head.php'; ?>
 <body>
   <?php include '../assets/navbar.php'; ?>
@@ -125,6 +126,7 @@
   submit_btn.addEventListener('click', function(e) {
     e.preventDefault();
 
+    const trackname = document.getElementById('InputTrackName')
     const inputs = document.querySelectorAll('input');
     const dropdowns = document.querySelectorAll('dropdown')
     let allDisabled = true;
@@ -349,6 +351,7 @@
     var end_station_id = last_row.querySelector('input[name="EndID"]').value
     var track_name = document.getElementById('InputTrackName').value
     
+    console.log(track_name, start_station_id, end_station_id)
     CreateTrack(track_name, start_station_id, end_station_id)
 
     var idInputStart
@@ -360,9 +363,6 @@
     var end_id
     var distance
     var terrain
-
-    let checkpoint_json = {"checkpoints": []}
-
     // Loop through each row
     rows.forEach(row => {
       // Get the input fields in the row
@@ -391,9 +391,8 @@
           marker_latitude = current_marker.getPosition().lat()
         }
       }
-      let arr = [track_name, start_id, end_id, distance, terrain, marker_longitude, marker_latitude]
-      
-      checkpoint_json["checkpoints"].push(arr);
+      console.log(track_name, start_id, end_id, distance, terrain, marker_longitude, marker_latitude)
+      CreateCheckpoint(track_name, start_id, end_id, distance, terrain, marker_longitude, marker_latitude);
       
     })
     for (let i = 0; i < markers_list.length; i++) {
@@ -402,11 +401,10 @@
         marker_longitude = current_marker.getPosition().lng()
         marker_latitude = current_marker.getPosition().lat()
 
-        arr = [track_name, end_id, "undef", "0", "undef", marker_longitude, marker_latitude]
-        checkpoint_json["checkpoints"].push(arr);
+        console.log(track_name, end_id, "undef", "0", "undef", marker_longitude, marker_latitude)
+        CreateCheckpoint(track_name, end_id, "undef", "0", "undef", marker_longitude, marker_latitude)
         }
       } 
-    CreateCheckpoint(checkpoint_json)
     // location.href= "../pages/confirmation_track.php";
   }
 
