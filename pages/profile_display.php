@@ -18,7 +18,6 @@
                     <h3 class="text-shift">Age: <span id="profile_age"></span> years</h3>
                     <h3 class="text-shift">Length: <span id="profile_length"></span> cm</h3>
                     <h3 class="text-shift">Weight: <span id="profile_weight"></span> kg</h3>
-                    <h3 class="text-shift">Private Chip: <span id="profile_chip_id"></span></h3>
                 </div>
             </div>
         </div>

@@ -137,6 +137,11 @@ function load_image(indata) {
   src.appendChild(img);
 }
 
+
+
+
+
+
 async function get_user_info() {
   const response = await fetch(BASE_ULR + "Account", {
     method: "GET",
@@ -161,6 +166,11 @@ async function get_user_info() {
   let myTable = await generate_user_results();
   container.appendChild(myTable);
 }
+
+
+
+
+
 
 async function get_friend_info() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -189,6 +199,11 @@ async function get_friend_info() {
   let myTable = await generate_friend_results();
   container.appendChild(myTable);
 }
+
+
+
+
+
 
 async function edit_user_info() {
   var parameters = {};
@@ -224,6 +239,11 @@ async function edit_user_info() {
   location.href = "../pages/profile.php";
 }
 
+
+
+
+
+
 async function generate_user_results() {
   const response = await fetch(
     BASE_ULR + "Results/?token=" + get_cookie("auth_token"),
@@ -250,7 +270,6 @@ async function generate_user_results() {
     let row = document.createElement("tr");
 
     // create a link for the row
-    let link = document.createElement("a");
     console.log(`../pages/timetable?event_id=${data.results.event_ids[i]["event_id"]}&result_id=${data.results.event_ids[i]["result_id"]}`)
     row.setAttribute("onclick", `window.location.href="../pages/timetable?event_id=${data.results.event_ids[i]["event_id"]}&result_id=${data.results.event_ids[i]["result_id"]}"`);
 
@@ -265,6 +284,11 @@ async function generate_user_results() {
 
   return table;
 }
+
+
+
+
+
 
 async function generate_friend_results() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -294,7 +318,6 @@ async function generate_friend_results() {
     let row = document.createElement("tr");
 
     // create a link for the row
-    let link = document.createElement("a");
     console.log(`../pages/timetable?event_id=${data.results.event_ids[i]["event_id"]}&result_id=${data.results.event_ids[i]["result_id"]}`)
     row.setAttribute("onclick", `window.location.href="../pages/timetable?event_id=${data.results.event_ids[i]["event_id"]}&result_id=${data.results.event_ids[i]["result_id"]}"`);
 
