@@ -1,7 +1,6 @@
 <?php include '../assets/head.php'; ?>
 <body>
     <?php include '../assets/navbar.php'; ?>
-    <a type="button" style="float:right; padding: 0.5rem;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"><img class="op30" src="../images/settings.svg" id="settings" alt=Gear"></a>
     <div id="container-img">
         <div class="row">
             <div class="col-sm-6" id="profile_box">
