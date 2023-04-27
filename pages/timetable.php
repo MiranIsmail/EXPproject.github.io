@@ -4,9 +4,8 @@
   <?php include '../assets/navbar.php'; ?>
 
   <script>
+    timetable_link_func()
   </script>
-
-
   <div class="mb-3 mx-auto w-50">
     <h1 id="event_title">Event:</h1>
     <h2 id="track_title">Track:</h2>
@@ -21,15 +20,13 @@
           <th scope="col">Terrain:</th>
           <th scope="col">Distance:</th>
           <th scope="col">Avg. Velocity:</th>
-
         </tr>
       </thead>
       <tbody>
-        <script src="../scripts/js_scripts.js">
-        </script>
       </tbody>
     </table>
   </div>
   <?php include '../assets/footer.php'; ?>
-
+  <script src="../scripts/js_scripts.js"></script>
+  <script>timetable_link_func()</script>
 </body>
