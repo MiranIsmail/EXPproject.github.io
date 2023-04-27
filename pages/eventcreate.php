@@ -36,7 +36,7 @@ include '../assets/head.php';
     </div>
     <div class="mb-3 mx-auto w-50">
       <label for="InputTrackName" class="form-label">Upload Event Image</label>
-      <input type="file" name="filename" id="send_image" accept=".jpg, .jpeg, .png" multiple="false">
+      <input type="file" name="filename" id="send_image" accept=".jpg, .jpeg, .png .heif" multiple="false">
     </div>
     <div class="form-check form-switch mb-3 mx-auto w-50">
       <input class="form-check-input" type="checkbox" id="send_open" aria-describedby="publicHelpBlock">
