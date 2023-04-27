@@ -49,6 +49,52 @@ function image_compress_64(inputfile) {
   });
 }
 
+function image_compress_64_large(inputfile) {
+  return new Promise((resolve, reject) => {
+    var return_variable = ""
+    const MAX_WIDTH = 1920;
+    const MAX_HEIGHT = 1080;
+    const MIME_TYPE = "image/jpeg";
+    const QUALITY = 1;
+
+    const file = inputfile.files[0]; // get the file
+    const blobURL = URL.createObjectURL(file);
+    const img = new Image();
+    img.src = blobURL;
+    img.onerror = function () {
+      URL.revokeObjectURL(this.src);
+      // Handle the failure properly
+      console.log("Cannot load image");
+    };
+    img.onload = function () {
+      URL.revokeObjectURL(this.src);
+      const [newWidth, newHeight] = calculateSize(img, MAX_WIDTH, MAX_HEIGHT);
+      const canvas = document.createElement("canvas");
+      canvas.width = newWidth;
+      canvas.height = newHeight;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0, newWidth, newHeight);
+      canvas.toBlob(
+        (blob) => {
+          // Handle the compressed image. es. upload or save in local state
+
+          blobToBase64(blob).then(function (result) {
+            resolve(result)
+            // return_variable = result // "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX"
+          }).catch(function (error) {
+            console.log(error);
+          });
+        },
+        MIME_TYPE,
+        QUALITY
+      );
+      document.getElementById("root").append(canvas);
+    };
+
+    // return return_variable
+  });
+}
+
 function calculateSize(img, maxWidth, maxHeight) {
   let width = img.width;
   let height = img.height;
@@ -653,8 +699,11 @@ async function create_event() {
   }
 
   if (document.getElementById("send_image").files.length != 0) {
-    var blob = await image_to_blob(document.getElementById("send_image"));
-    parameters["eimage"] = await blobToBase64(blob);
+    // var blob = await image_to_blob(document.getElementById("send_image"));
+    // parameters["eimage"] = await blobToBase64(blob);
+    parameters["eimage"] = await image_compress_64_large(
+      document.getElementById("send_image")
+    );
   }
 
   for (const [key, value] of Object.entries(parameters)) {
