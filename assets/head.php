@@ -18,31 +18,25 @@ if ($is_logged_in) {
 if ($is_organization){
   $organization_data = get_organization_info($user_data->org_name);
 }
+if ($is_logged_in) {
 
+  if (in_array(explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0], $blocked_site_logged_in)) {
+    header("Location: ../pages/index.php");
+  }
+  if (!$is_organization) {
+    if (in_array(explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0], $blocked_site_logged_in_user)) {
+      header("Location: ../pages/index.php");
+    }
+  }
 
-$is_organization = true;
-
-// if ($is_logged_in) {
-
-//   if (in_array(explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0], $blocked_site_logged_in)) {
-//     header("Location: ../pages/index.php");
-//   }
-//   if (!$is_organization) {
-//     if (in_array(explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0], $blocked_site_logged_in_user)) {
-//       header("Location: ../pages/index.php");
-//     }
-//   }
-
-//   if (in_array(explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0], $blocked_site_logged_in)) {
-//     header("Location: ../pages/index.php");
-//   }
-// } else {
-//   if (in_array(explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0], $blocked_site_logged_out)) {
-//     header("Location: ../pages/index.php");
-//   }
-// }
-
-
+  if (in_array(explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0], $blocked_site_logged_in)) {
+    header("Location: ../pages/index.php");
+  }
+} else {
+  if (in_array(explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0], $blocked_site_logged_out)) {
+    header("Location: ../pages/index.php");
+  }
+}
 ?>
 
 <!DOCTYPE html>

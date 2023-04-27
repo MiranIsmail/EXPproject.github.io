@@ -1,125 +1,131 @@
 @media (max-width: 899px) {
-    .content_display{
-        width: 100%;
-    }
+  .content_display {
+    width: 100%;
   }
+}
 
 @media (min-width: 900px) {
-    .content_display{
-        width: 70%;
-    }
+  .content_display {
+    width: 70%;
+  }
 }
 
 .cropped {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    max-width: 150vh;
-    max-height: 60vh;
-    overflow: hidden;
-    border-bottom: solid;
-    filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.25));
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 150vh;
+  max-height: 60vh;
+  overflow: hidden;
+  border-bottom: solid;
+  filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.25));
+}
 
-#image_box{
-    width: 100%;
-    height: auto;
+#image_box {
+  width: 100%;
+  height: auto;
 }
 
 .cropped img {
-    max-height: 100vh;
-    width: 100%;
-    height: auto;
+  max-height: 100vh;
+  width: 100%;
+  height: auto;
 }
 
-#information_container{
-    background: linear-gradient(#00000080 0%, #00000099 97%, #000000cc 100%);
+#information_container {
+  background: linear-gradient(#00000080 0%, #00000099 97%, #000000cc 100%);
 }
 
-.information{
-    padding-bottom: 5vh;
+.information {
+  padding-bottom: 5vh;
 }
 
-.information h1{
-    padding-top: 1vh;
-    text-decoration: underline;
-    text-align: center;
-    padding-bottom: 1rem;
+.information h1 {
+  padding-top: 1vh;
+  text-decoration: underline;
+  text-align: center;
+  padding-bottom: 1rem;
 }
 
-.information h3{
-    text-decoration: underline;
+.information h3 {
+  text-decoration: underline;
 }
 
-.information h5{
-    align-content: left;
-    margin-bottom: 0;
+.information h5 {
+  align-content: left;
+  margin-bottom: 0;
 }
 
-#info_grid{
-    margin-right: auto!important;
-    margin-left: auto!important;
-    filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.25));
+#info_grid {
+  margin-right: auto !important;
+  margin-left: auto !important;
+  filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.25));
 }
 
-#padding_border{
-    padding-top: 0.5rem;
-    padding-bottom: 1rem;
+#padding_border {
+  padding-top: 0.5rem;
+  padding-bottom: 1rem;
 }
 
-#event_image_display{
-    width:100%;
-    height:auto;
+#event_image_display {
+  width: 100%;
+  height: auto;
 }
 
-#button_style_create{
-    width: 100%;
-    height: 50px;
-    border-radius: 10px;
-    background-color: rgb(30, 30, 30);
-    color: white;
-    border-color: rgb(30, 30, 30);
-    margin-bottom: 1rem;
+#button_style_create {
+  width: 100%;
+  height: 50px;
+  border-radius: 10px;
+  background-color: rgb(30, 30, 30);
+  color: white;
+  border-color: rgb(30, 30, 30);
+  margin-bottom: 1rem;
 }
 
 @media (max-width: 991px) {
-    #wrapper_button {
-      max-width: 75%;
-      padding-bottom: 3vh;
-      padding-top: 3vh;
-    }
-    #chip_input_witdh {
-        max-width: 75%;
-    }
-    #info_grid{
-        padding-left: 2rem;
-        padding-right: 2rem;
-    }
+  #wrapper_button {
+    max-width: 75%;
+    padding-bottom: 3vh;
+    padding-top: 3vh;
   }
-  @media (min-width: 992px) {
-    #wrapper_button {
-      max-width: 50%;
-      padding-bottom: 3vh;
-    }
-    #chip_input_witdh {
-        max-width: 50%;
-    }
-    #info_grid{
-        border: solid;
-        padding-left: 1rem;
-        padding-right: 1rem;
-    }
+  #chip_input_witdh {
+    max-width: 75%;
   }
-
-.underline_text{
-    text-decoration: underline;
-    text-align: center;
+  #info_grid {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+@media (min-width: 992px) {
+  #wrapper_button {
+    max-width: 50%;
+    padding-bottom: 3vh;
+  }
+  #chip_input_witdh {
+    max-width: 50%;
+  }
+  #info_grid {
+    border: solid;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
 
-#register_card{
-    background-color:#b7e3ff;
+.underline_text {
+  text-decoration: underline;
+  text-align: center;
 }
 
-#inputfield_padding{
-    padding-bottom: 1rem;
+#register_card {
+  background-color: #b7e3ff;
+}
+
+#inputfield_padding {
+  padding-bottom: 1rem;
+}
+
+.result_table {
+  border-color: black;
+  border-style: groove;
+  background-color: #f1f4f692;
 }

@@ -1,5 +1,5 @@
 var BASE_ULR = "https://rasts.se/api/";
-
+//import * as endpoint from "endpoint_functions.js";
 window.onload = function () { };
 
 
@@ -52,8 +52,8 @@ function image_compress_64(inputfile) {
 function image_compress_64_large(inputfile) {
   return new Promise((resolve, reject) => {
     var return_variable = ""
-    const MAX_WIDTH = 1080;
-    const MAX_HEIGHT = 720;
+    const MAX_WIDTH = 1920;
+    const MAX_HEIGHT = 1080;
     const MIME_TYPE = "image/jpeg";
     const QUALITY = 0.7;
 
@@ -587,8 +587,8 @@ async function get_event_info(event_id) {
   document.getElementById("event_sdate").innerHTML = await data["startdate"];
   document.getElementById("event_edate").innerHTML = await data["enddate"];
 
-  document.getElementById("username_link").setAttribute("onclick",`location.href="../pages/profile_display?username=${data["username"]}"`);
-  document.getElementById("event_org").innerHTML =  await data["username"];
+  document.getElementById("username_link").setAttribute("onclick", `location.href="../pages/profile_display?username=${data["username"]}"`);
+  document.getElementById("event_org").innerHTML = await data["username"];
   document.getElementById("event_desc").innerHTML = await data["description"];
   document.getElementById("event_track").innerHTML = await data["track_name"];
   console.log(await data["description"]);
@@ -994,4 +994,57 @@ function ConvertTime(time_string) {
   minutes = parseInt(minutes) * 60;
   hours = parseInt(hours) * 60 * 60;
   return hours + minutes + seconds;
+}
+
+async function event_display_peeps(){
+
+  const urlParams = new URLSearchParams(window.location.search);
+  event_id = urlParams.get("event_id");
+
+  event_data = await fetch("https://rasts.se/api/Results?event_id=" + event_id, {method:'GET',
+  headers: {'Accept': 'Application/json'}})
+
+  data = await event_data.json();
+  console.log(data)
+
+  //console.log(data)
+
+  // for(let i = 0; i < data.results.length; i++)
+  // {
+  //   console.log(data.results[i])
+  // }
+  if (data.results){
+  for (let i = 0; i < data.results.length; i++) {
+    let row = event_user_results.insertRow(i + 1)
+    let cell1 = row.insertCell(0) //user1
+    let cell2 = row.insertCell(1) //user2
+    let cell3 = row.insertCell(2) //date
+    let cell4 = row.insertCell(3) //time
+    let cell5 = row.insertCell(4) //result id
+    let cell6 = row.insertCell(5) //button
+    cell1.innerHTML = data.results[i].user1
+    cell2.innerHTML = data.results[i].user2
+    cell3.innerHTML = data.results[i].DATE
+    cell4.innerHTML = data.results[i].Time
+    cell5.innerHTML = data.results[i].result_id
+    let greeting = '<a href="https://rasts.se/pages/timetable.php?greeting='
+    + data.results[i].result_id + ',' + event_id + '"' + '>' + 'See detailed results</a>'
+    console.log(greeting)
+    cell6.innerHTML = greeting
+  }}
+  //GetChecks(result_id, event_id)
+}
+
+event_display_peeps()
+
+async function timetable_link_func(){
+
+  const urlParams = new URLSearchParams(window.location.search);
+  greeting = urlParams.get("greeting");
+  console.log(greeting)
+  result_event = greeting.split(',')
+  result_id = result_event[0]
+  event_id = result_event[1]
+  console.log(result_id, event_id)
+  GetChecks(result_id, event_id)
 }
