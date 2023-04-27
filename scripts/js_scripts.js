@@ -1027,8 +1027,8 @@ async function event_display_peeps(){
     cell3.innerHTML = data.results[i].DATE
     cell4.innerHTML = data.results[i].Time
     cell5.innerHTML = data.results[i].result_id
-    let greeting = '<a href="file:///C:/Users/ZAX/Documents/GitHub/EXPproject.github.io/pages/timetable.html?greeting='
-    + data.results[i].result_id + ',' + '49"' + '>' + 'See detailed results</a>'
+    let greeting = '<a href="https://rasts.se/pages/timetable.php?greeting='
+    + data.results[i].result_id + ',' + event_id + '"' + '>' + 'See detailed results</a>'
     console.log(greeting)
     cell6.innerHTML = greeting
   }}
