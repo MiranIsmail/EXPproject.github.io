@@ -285,16 +285,16 @@ async function get_user_info() {
     "username"
   ];
   load_image(data["pimage"]);
-
-  let container = document.getElementById("myTableContainerResults");
-  let myTable = await generate_user_results();
-  container.appendChild(myTable);
+  generate_user_results()
+  // let container = document.getElementById("myTableContainerResults");
+  // let myTable = await generate_user_results();
+  // container.appendChild(myTable);
 }
-async function get_user_results() {
-  let container = document.getElementById("myTableContainerResults");
-  let myTable = await generate_user_results();
-  container.appendChild(myTable);
-}
+// async function get_user_results() {
+//   let container = document.getElementById("myTableContainerResults");
+//   let myTable = await generate_user_results();
+//   container.appendChild(myTable);
+// }
 
 async function get_friend_info() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -410,7 +410,7 @@ async function generate_user_results() {
         }
       );
       const data = await response.json();
-
+        console.log(data)
       if (data.results){
         for (let i = 0; i < data.results.results.length; i++) {
           let row = event_user_results.insertRow(i + 1)
