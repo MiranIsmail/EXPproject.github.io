@@ -496,7 +496,8 @@
         
         markers_list[i].setMap(null);
         markers_list.splice(i, 1);
-        
+        delete marker_connections_with_rows[checkpoint_id];
+
         pin_button.style.backgroundColor = fail
         
         if (row !== last_row && input_field.name == "EndID") {
