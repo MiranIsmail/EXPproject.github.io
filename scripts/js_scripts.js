@@ -915,17 +915,7 @@ async function update_user_password() {
       body: JSON.stringify({ "password": pass }),
       headers: { "Content-Type": "application/json" },
     });
-
-    if (response.ok) {
-      alert("url is being read in the gateway");
-    } else {
-      alert("An error has occurred with response!");
-    }
-    if (response_1.ok) {
-      alert("password is sent to gateway!");
-    } else {
-      alert("An error has occurred with response_1!");
-    }
+    alert("Done!");
   } else {
     alert("Passwords don't match");
   }
