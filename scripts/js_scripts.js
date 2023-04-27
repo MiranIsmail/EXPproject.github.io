@@ -427,6 +427,7 @@ async function generate_user_results() {
           console.log("2"+data.results.results[i].user2)
           console.log("3"+data.results.results[i].DATE)
           console.log("4"+data.results.results[i].Time)
+          console.log("5"+data.results.results.length)
           const link_button = document.createElement('button')
           link_button.innerText = 'More Info →'
           link_button.setAttribute("class", "more_info_button");
