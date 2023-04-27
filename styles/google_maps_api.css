@@ -2,3 +2,20 @@
     height: 350px;
     width: 100%;
 }
+
+@media (max-width: 991px) {
+    .map_box {
+        width: 100%;
+      }
+}
+@media (min-width: 992px) {
+  .map_box {
+    width: 50%;
+    margin-right: 2rem;
+  }
+}
+
+.map_border{
+    border-style: solid;
+    filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.25));
+}

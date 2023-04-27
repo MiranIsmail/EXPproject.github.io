@@ -15,21 +15,21 @@ include '../assets/head.php';
             <div class="row information">
                 <h1><span id="event_name"></span></h1>
                 <div class="col-lg-4" id="info_grid">
-                    <div class="padding_border">
+                    <div>
                         <h3>Information</h3>
                         <h5>Sport: <span id="event_sport"></span></h5>
                         <h5>StartDate: <span id="event_sdate"></span></h5>
                         <h5>EndDate: <span id="event_edate"></span></h5>
-                        <h5>Host Username: <span id="event_org"></span></h5>
+                        <a id="username_link"><h5>Host Username: <span id="event_org"></span></h5></a>
                         <h5>Track: <span id="event_track"></span></h5>
                     </div>
-                    <div class="padding_border">
+                    <div id="padding_border">
                         <h3>Description</h3>
                         <h5 class="mx-auto"><span id="event_desc"></span></h5>
                     </div>
                 </div>
-                <div class="col-md-8" id="map_grid">
-                    <div id="map"></div>
+                <div class="col-md-8 map_box" id="map_grid">
+                    <div class="map_border" id="map"></div>
                 </div>
             </div>
 
@@ -43,9 +43,9 @@ include '../assets/head.php';
                     <div class="card card-body" id="register_card">
                         <h3 class="underline_text">Register on <span id="event_name_colapse"><span></h3>
 
-                        <div class="form-group mx-auto w-100" id="inputfield_padding">
-                            <p>Team member:</p>
-                            <input type="text" class="form-control input_field_style w-100" placeholder="Team members username: (optional)" aria-describedby="emailHelp" id="email">
+                        <div class="mx-auto w-100" id="inputfield_padding">
+                            <label for="InputMate" class="form-label">Team mate</label>
+                            <input type="text" class="form-control" id="send_team8" placeholder="Input Event Name">
                         </div>
                         <div class="row">
                             <div class="col-sm-6 padding_bottom_half">
@@ -61,7 +61,7 @@ include '../assets/head.php';
 
                         <div class="collapse show" id="thirechip">
                             <div class="card card-body" id="register_card">
-                                <div class="form-group mx-auto w-100" id="inputfield_padding">
+                                <div class=" mx-auto w-100" id="inputfield_padding">
                                     <p>Chip ID:</p>
                                     <input type="text" class="form-control input_field_style w-100" placeholder="Input The ChipID on provided chip:" aria-describedby="emailHelp" id="send_chip">
                                 </div>
@@ -127,10 +127,9 @@ include '../assets/head.php';
 
     console.log(g_event_id)
     get_event_info(g_event_id);
-    get_track(g_track_name)
     get_chip()
     console.log(g_track_name)
-    
+
     function init_map() {
         const bth_coords = {
             lat: 56.179475,
