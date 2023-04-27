@@ -761,7 +761,7 @@ function register_on_event(event_id) {
     body: JSON.stringify(parameters),
   });
 
-  alert("Chip has been Registerd");
+  alert("You have been Registerd");
 }
 
 function register_on_event_my(event_id) {
@@ -776,7 +776,7 @@ function register_on_event_my(event_id) {
     body: JSON.stringify(parameters),
   });
 
-  alert("Chip has been Registerd");
+  alert("You have been Registerd");
 }
 
 async function get_chip() {
