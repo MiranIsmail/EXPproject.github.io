@@ -848,7 +848,12 @@ async function update_user_password() {
     alert("Passwords don't match");
   }
 }
-
+async function get_checkpoints_track_name(track_name) {
+    checkpoint_data = await fetch(
+      BASE_URL+"Checkpoint?track_name=" + track_name.toString()
+  );
+  return checkpoint_data;
+}
 async function GetChecks(result_id, event_id, username, track_name) {
   if (result_id && event_id && username && track_name) {
     //calls the api and fills the html table with data
@@ -865,9 +870,8 @@ async function GetChecks(result_id, event_id, username, track_name) {
       "https://rasts.se/api/Results?event_id=" + event_id.toString(),
       { method: "GET", headers: { Accept: "Application/json" } }
     );
-    checkpoint_data = await fetch(
-      "https://rasts.se/api/Checkpoint?track_name=" + track_name.toString()
-    );
+    checkpoint_data = await get_checkpoints_track_name(track_name)
+
     data = await checkpoint_time.json();
     data1 = await result_data.json();
     data2 = await event_data.json();

@@ -125,6 +125,7 @@ include '../assets/head.php';
     const g_event_id = urlParams.get('event_id');
     const g_track_name = document.getElementById('event_track').innerHTML
 
+    console.log(await get_checkpoints_track_name(g_track_name))
     console.log(g_event_id)
     get_event_info(g_event_id);
     get_track(g_track_name)
@@ -142,7 +143,7 @@ include '../assets/head.php';
             center: bth_coords,
             mapTypeId: "terrain",
         });
-        }
+    }
 </script>
 <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkY5KKVjLNfTPCAX17XbClpOpfTQd0cFM&callback=init_map">
 </script>
