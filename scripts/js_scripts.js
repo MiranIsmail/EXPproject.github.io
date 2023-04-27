@@ -848,11 +848,7 @@ async function update_user_password() {
     alert("Passwords don't match");
   }
 }
-async function get_checkpoints_track_name(track_name) {
-      checkpoint_data = await fetch(
-      "https://rasts.se/api/Checkpoint?track_name=" + track_name.toString()
-    );
-}
+
 async function GetChecks(result_id, event_id, username, track_name) {
   if (result_id && event_id && username && track_name) {
     //calls the api and fills the html table with data
