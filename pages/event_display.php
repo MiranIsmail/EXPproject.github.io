@@ -45,7 +45,7 @@ include '../assets/head.php';
 
                         <div class="form-group mx-auto w-100" id="inputfield_padding">
                             <p>Team member:</p>
-                            <input type="text" class="form-control input_field_style w-100" placeholder="Team members username: (optional)" aria-describedby="emailHelp" id="email">
+                            <input type="text" class="form-control input_field_style w-100" placeholder="Team members username: (optional)" aria-describedby="emailHelp" id="team_mate">
                         </div>
                         <div class="row">
                             <div class="col-sm-6 padding_bottom_half">
