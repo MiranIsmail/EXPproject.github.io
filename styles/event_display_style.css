@@ -35,7 +35,6 @@
 }
 
 .information{
-    text-align: center;
     padding-bottom: 5vh;
 }
 
@@ -43,6 +42,7 @@
     padding-top: 1vh;
     text-decoration: underline;
     color: white;
+    text-align: center;
 }
 
 .information h3{
@@ -50,18 +50,20 @@
 }
 
 .information h5{
-    align-content: center;
+    align-content: left;
     margin-bottom: 0;
 }
 
 #info_grid{
     margin-right: auto!important;
     margin-left: auto!important;
+    filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.25));
 }
 
-/* .padding_border{
-    padding: 2vh;
-} */
+#padding_border{
+    padding-top: 0.5rem;
+    padding-bottom: 1rem;
+}
 
 #event_image_display{
     width:100%;
@@ -78,7 +80,7 @@
     margin-bottom: 1rem;
 }
 
-@media (max-width: 992px) {
+@media (max-width: 991px) {
     #wrapper_button {
       max-width: 75%;
       padding-bottom: 3vh;
@@ -87,14 +89,23 @@
     #chip_input_witdh {
         max-width: 75%;
     }
+    #info_grid{
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
   }
-  @media (min-width: 993px) {
+  @media (min-width: 992px) {
     #wrapper_button {
       max-width: 50%;
       padding-bottom: 3vh;
     }
     #chip_input_witdh {
         max-width: 50%;
+    }
+    #info_grid{
+        border: solid;
+        padding-left: 1rem;
+        padding-right: 1rem;
     }
   }
 

@@ -15,7 +15,7 @@ include '../assets/head.php';
             <div class="row information">
                 <h1><span id="event_name"></span></h1>
                 <div class="col-lg-4" id="info_grid">
-                    <div class="padding_border">
+                    <div>
                         <h3>Information</h3>
                         <h5>Sport: <span id="event_sport"></span></h5>
                         <h5>StartDate: <span id="event_sdate"></span></h5>
@@ -23,13 +23,13 @@ include '../assets/head.php';
                         <a id="username_link"><h5>Host Username: <span id="event_org"></span></h5></a>
                         <h5>Track: <span id="event_track"></span></h5>
                     </div>
-                    <div class="padding_border">
+                    <div id="padding_border">
                         <h3>Description</h3>
                         <h5 class="mx-auto"><span id="event_desc"></span></h5>
                     </div>
                 </div>
-                <div class="col-md-8" id="map_grid">
-                    <div id="map"></div>
+                <div class="col-md-8 map_box" id="map_grid">
+                    <div class="map_border" id="map"></div>
                 </div>
             </div>
 
