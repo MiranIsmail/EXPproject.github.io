@@ -983,7 +983,23 @@ async function GetChecks(result_id, event_id) {
 
 function FillTable(check_time, check_terrain) {
 
-  for (let i = 0; i < check_time.result.length; i++) {
+  check_terrain.sort((a,b)=>(a.checkpoint_number > b.checkpoint_number) ? 1 : -1)//sorts the api/Checkpoint objects positions from smallest to largest
+
+  for (let i = 0; i < check_terrain.length; i++) {
+    corresponding_index = 0
+    successing_index = 0
+    for(let p = 0; p < check_time.result.length; p++){
+      if(check_time.result[p].station_name == check_terrain[i].station_id){ //finds the checkpoint_time with the same name, janky but it works for now
+        corresponding_index = p
+    }
+    for(let o = 0; o < check_time.result.length; o++){
+      if(check_terrain[i+1]){
+      if(check_time.result[o].station_name == check_terrain[i+1].station_id){ //here so that we can grab the next objects start time without going stray
+        successing_index = o
+      }
+    }}
+  }
+    console.log(check_time.result[corresponding_index].station_name, check_terrain[i].station_id)
     let row = timetable.insertRow(i + 1);
     let cell1 = row.insertCell(0); //station name
     let cell2 = row.insertCell(1); //time in seconds
@@ -993,15 +1009,15 @@ function FillTable(check_time, check_terrain) {
     let cell6 = row.insertCell(5); //distance
     let cell7 = row.insertCell(6); //average velocity
 
-    cell1.innerHTML = check_time.result[i]["station_name"]
-    cell2.innerHTML = check_time.result[i]["diff_sec"]
-    cell3.innerHTML = check_time.result[i]["time_stamp"]
+    cell1.innerHTML = check_time.result[corresponding_index].station_name
+    cell2.innerHTML = check_time.result[corresponding_index].diff_sec + "(s)"
+    cell3.innerHTML = check_time.result[corresponding_index].time_stamp
     if(check_time.result[i+1]){
-      cell4.innerHTML = check_time.result[i+1]["time_stamp"]
+      cell4.innerHTML = check_time.result[successing_index].time_stamp
     }
-    cell5.innerHTML = check_terrain[i]["terrain"]
-    cell6.innerHTML = check_terrain[i]["next_distance"]
-    cell7.innerHTML = AverageVel(parseInt(check_terrain[i]["next_distance"]), parseInt(check_time.result[i]["diff_sec"]))
+    cell5.innerHTML = check_terrain[i].terrain
+    cell6.innerHTML = check_terrain[i].next_distance
+    cell7.innerHTML = AverageVel(parseInt(check_terrain[corresponding_index].next_distance), parseInt(check_time.result[i].diff_sec)).toFixed(2) + "m/s"
   }
 }
 function TimeDiff(time1, time2) {
