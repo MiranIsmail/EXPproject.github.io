@@ -105,7 +105,7 @@
     </div>
 
     <h2 class="underline_text"> Results </h2>
-         <table class="table table-bordered result_table" id="event_user_results">
+    <table class="table table-bordered result_table" id="event_user_results">
       <thead>
         <tr>
           <th scope="col">User1</th>
