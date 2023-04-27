@@ -55,7 +55,7 @@ function image_compress_64_large(inputfile) {
     const MAX_WIDTH = 1080;
     const MAX_HEIGHT = 720;
     const MIME_TYPE = "image/jpeg";
-    const QUALITY = 1;
+    const QUALITY = 0.4;
 
     const file = inputfile.files[0]; // get the file
     const blobURL = URL.createObjectURL(file);
