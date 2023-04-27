@@ -317,10 +317,6 @@ async function get_friend_info() {
     "username"
   ];
   load_image(data["pimage"]);
-
-  let container = document.getElementById("myTableContainerResults");
-  let myTable = await generate_friend_results();
-  container.appendChild(myTable);
 }
 
 async function edit_user_info() {
