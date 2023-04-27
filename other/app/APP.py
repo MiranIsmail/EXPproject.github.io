@@ -211,8 +211,8 @@ def formater():
         if port.vid == 0x0403 and port.pid == 0x6001:
             return_var = port.device
     port= return_var
-    print(port)
-    ser = serial.Serial(port="COM3", baudrate=115200)
+    #print(port)
+    ser = serial.Serial(port, baudrate=115200)
     url = 'https://rasts.se/api/Results'
     while runner:
         response = ser.readline()
@@ -222,6 +222,9 @@ def formater():
                 chip_id:str = res.get("chip_id")
                 if default_checker_event_id != True:
                     res["event_id"]=get_event_id(chip_id)
+                else:
+                    res["event_id"]=global_event_id_result
+                #print(res)
                 #update_options(chip_id)
                 json_string = json.dumps(res)
                 requests.post(url, data= json_string)
