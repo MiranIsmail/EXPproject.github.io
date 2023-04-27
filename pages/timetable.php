@@ -3,9 +3,6 @@
 <body>
   <?php include '../assets/navbar.php'; ?>
 
-  <script>
-    timetable_link_func()
-  </script>
   <div class="mb-3 mx-auto w-50">
     <h1 id="event_title">Event:</h1>
     <h2 id="track_title">Track:</h2>
