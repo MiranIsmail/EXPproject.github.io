@@ -921,12 +921,12 @@ async function email_to_forgot_password() {
     body: JSON.stringify({ "email": email }),
     headers: { "Content-Type": "application/json" },
   });
-  alert("something have happend!");
+  // alert("something have happend!");
   console.log(response);
   if (response.ok) {
-    alert("Email was sent successfully!");
+    document.write("Email was sent successfully!");
   } else {
-    alert("An error has occurred when sending an email. Check your email and try again!");
+    document.write("An error has occurred when sending an email. Check your email and try again!");
   }
 }
 // .then((response) => {
@@ -951,9 +951,9 @@ async function update_user_password() {
                              "password": pass }),
       headers: { "Content-Type": "application/json" },
     });
-    alert("Done!");
+    document.write("Done!");
   } else {
-    alert("Passwords don't match");
+    document.write("Passwords don't match");
   }
 }
 
