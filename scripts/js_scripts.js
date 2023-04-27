@@ -924,9 +924,10 @@ async function email_to_forgot_password() {
   // alert("something have happend!");
   console.log(response);
   if (response.ok) {
-    document.write("Email was sent successfully!");
+    var outputElement = document.getElementById("responde");
+    outputElement.innerHTML = "Email was sent successfully!";
   } else {
-    document.write("An error has occurred when sending an email. Check your email and try again!");
+    outputElement.innerHTML = "An error have happend!";
   }
 }
 // .then((response) => {
@@ -951,9 +952,10 @@ async function update_user_password() {
                              "password": pass }),
       headers: { "Content-Type": "application/json" },
     });
-    document.write("Done!");
+    var outputElement = document.getElementById("responde");
+    outputElement.innerHTML = "Done!";
   } else {
-    document.write("Passwords don't match");
+    outputElement.innerHTML = "An error happend!, try again"
   }
 }
 
