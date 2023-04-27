@@ -535,18 +535,13 @@ async function get_event_info(event_id) {
     "event_name"
   ];
 
-  row.setAttribute(
-    "onclick",
-    `window.location.href="../pages/timetable?event_id=${data.results.event_ids[i]["event_id"]}&result_id=${data.results.event_ids[i]["result_id"]}"`
-  );
-
   document.getElementById("event_name").innerHTML = await data["event_name"];
   document.getElementById("event_track").innerHTML = await data["track_name"];
   document.getElementById("event_sport").innerHTML = await data["sport"];
   document.getElementById("event_sdate").innerHTML = await data["startdate"];
   document.getElementById("event_edate").innerHTML = await data["enddate"];
-
-  document.getElementById("event_org").innerHTML = await data["username"];
+  document.getElementById("username_link").setAttribute("onclick",`location.href="../pages/profile_display?username=${data["username"]}"`);
+  document.getElementById("event_org").innerHTML =  await data["username"];
   document.getElementById("event_desc").innerHTML = await data["description"];
   console.log(await data["description"]);
   load_image_event(data["eimage"]);
