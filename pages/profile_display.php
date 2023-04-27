@@ -30,6 +30,20 @@
 
     <div class="events" id="event">
         <div id="myTableContainerResults"></div>
+        <h2 class="underline_text">Results</h2>
+        <table class="table table-bordered result_table" id="event_user_results">
+        <thead>
+            <tr>
+            <th scope="col">User1</th>
+            <th scope="col">User2</th>
+            <th scope="col">Date</th>
+            <th scope="col">Time</th>
+            <th scope="col">Details</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        </table>
     </div>
 
     <script type="text/javascript" src="../scripts/js_scripts.js"></script>
