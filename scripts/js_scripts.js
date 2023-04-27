@@ -877,7 +877,7 @@ async function email_to_forgot_password() {
   var email = document.getElementById("email").value;
   const response = await fetch(BASE_ULR + "Token", {
     method: "PATCH",
-    body: JSON.stringify({ "email": email }),
+    body: JSON.stringify({ email: email }),
     headers: { "Content-Type": "application/json" },
   });
 
@@ -907,12 +907,12 @@ async function update_user_password() {
   if (pass == pass_confirm) {
     const response = await fetch(BASE_ULR + "Account", {
       method: "PATCH",
-      body: JSON.stringify({ "url": url }),
+      body: JSON.stringify({ url: url }),
       headers: { "Content-Type": "application/json" },
     });
     const response_1 = await fetch(BASE_ULR + "Account", {
       method: "PATCH",
-      body: JSON.stringify({ "password": pass }),
+      body: JSON.stringify({ password: pass }),
       headers: { "Content-Type": "application/json" },
     });
     alert("Done!");
