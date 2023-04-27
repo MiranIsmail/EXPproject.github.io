@@ -19,7 +19,8 @@
                         <span id="profileName"><?= $user_data->first_name . " " . $user_data->last_name ?></span>
                     </h1>
                     <h3 class="text-shift">Username: <span id="profile_length"></span> <?= $user_data->username ?></h3>
-                    <h3 class="text-shift">Age: <span id="profile_age"></span> <?= date('Y') - date('Y', strtotime($user_data->birthdate)) ?> year</h3>
+                    <h3 class="text-shift">Age: <span id="profile_age"></span> <?= date_diff(date_create($user_data->birthdate), date_create('today'))->y; ?> years old</h3>
+
                     <h3 class="text-shift">Length: <span id="profile_length"></span> <?= $user_data->height ?> cm</h3>
                     <h3 class="text-shift">Weight: <span id="profile_weight"></span><?= $user_data->weight ?> kg</h3>
                     <h3 class="text-shift">Private Chip: <span id="profile_chip_id"></span><?= ($user_data->chip_id == null) ? 'dont have' : $user_data->chip_id ?></h3>
@@ -151,10 +152,10 @@
 
             </div>
 
-             <div id="root">
+            <div id="root">
                 <p>Upload an image and see the result</p>
                 <!-- <input id="img-input" type="file" accept="image/*" style="display:block" /> -->
-                </div> 
+            </div>
 
             <div id="success-alert" class="alert alert-success alert-dismissible fade show d-none" role="alert">
                 Form submitted successfully!
@@ -168,19 +169,17 @@
 
     <script type="text/javascript" src="../scripts/js_scripts.js"></script>
     <script>
-        
-        
         // Add event listener for form submission
+        get_user_results();
         document.getElementsByClassName("orgform").addEventListener("submit", function(event) {
             // Prevent default form submission behavior
             event.preventDefault();
             // Show success alert
             document.getElementById("success-alert").classList.remove("d-none");
-            
+
             submit_button = document.getElementById("submit_org_form");
             submit_button.setAttribute('disabled', '')
         });
-        get_user_results();
     </script>
 </body>
 
