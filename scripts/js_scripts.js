@@ -423,11 +423,10 @@ async function generate_user_results() {
           cell2.innerHTML = data.results.results[i].user2
           cell3.innerHTML = data.results.results[i].DATE
           cell4.innerHTML = data.results.results[i].Time
-          console.log("1"+data.results.results[i].user1)
-          console.log("2"+data.results.results[i].user2)
-          console.log("3"+data.results.results[i].DATE)
-          console.log("4"+data.results.results[i].Time)
-          console.log("5"+data.results.results.length)
+          console.log("1"+data.results.results[i]["Competitor 1"])
+          console.log("2"+data.results.results[i]["Competitor 2"])
+          console.log("3"+data.results.results[i]["Total time"])
+          console.log("4"+data.results.results[i]["Demo Event"])
           const link_button = document.createElement('button')
           link_button.innerText = 'More Info →'
           link_button.setAttribute("class", "more_info_button");
