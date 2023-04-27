@@ -52,10 +52,10 @@ function image_compress_64(inputfile) {
 function image_compress_64_large(inputfile) {
   return new Promise((resolve, reject) => {
     var return_variable = ""
-    const MAX_WIDTH = 1920;
-    const MAX_HEIGHT = 1080;
+    const MAX_WIDTH = 1080;
+    const MAX_HEIGHT = 720;
     const MIME_TYPE = "image/jpeg";
-    const QUALITY = 1;
+    const QUALITY = 0.4;
 
     const file = inputfile.files[0]; // get the file
     const blobURL = URL.createObjectURL(file);
