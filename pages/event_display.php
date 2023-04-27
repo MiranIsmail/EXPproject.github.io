@@ -127,7 +127,6 @@ include '../assets/head.php';
 
     console.log(g_event_id)
     get_event_info(g_event_id);
-    get_track(g_track_name)
     get_chip()
     console.log(g_track_name)
 

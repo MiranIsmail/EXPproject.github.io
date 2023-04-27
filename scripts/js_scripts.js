@@ -544,8 +544,10 @@ async function get_event_info(event_id) {
   document.getElementById("username_link").setAttribute("onclick",`location.href="../pages/profile_display?username=${data["username"]}"`);
   document.getElementById("event_org").innerHTML =  await data["username"];
   document.getElementById("event_desc").innerHTML = await data["description"];
+  document.getElementById("event_track").innerHTML = await data["track_name"];
   console.log(await data["description"]);
   load_image_event(data["eimage"]);
+
 
   let container = document.getElementById("myTableContainer");
   let myTable = await generate_event_results(event_id);
