@@ -119,14 +119,13 @@ include '../assets/head.php';
           <th scope="col">User2</th>
           <th scope="col">Date:</th>
           <th scope="col">Time:</th>
-          <th scope="col">Result ID:</th>
           <th scope="col">Details:</th>
         </tr>
-      </thead> 
+      </thead>
       <tbody>
-        <script src="../scripts/js_scripts.js">
+        <!-- <script src="../scripts/js_scripts.js">
             event_display_peeps()
-        </script>
+        </script> -->
       </tbody>
     </table>
             <div id="myTableContainer"></div>
