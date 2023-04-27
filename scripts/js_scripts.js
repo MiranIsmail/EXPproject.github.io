@@ -787,7 +787,7 @@ async function get_chip() {
     headers: { Authorization: get_cookie("auth_token") },
   });
   const data = await response.json();
-
+  console.log(data["chip_id"])
   document.getElementById("chip_id_display").value = await data["chip_id"];
 }
 
