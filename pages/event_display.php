@@ -115,11 +115,11 @@ include '../assets/head.php';
          <table class="table table-bordered result_table" id="event_user_results">
       <thead>
         <tr>
-          <th scope="col">User1:</th>
+          <th scope="col">User1</th>
           <th scope="col">User2</th>
-          <th scope="col">Date:</th>
-          <th scope="col">Time:</th>
-          <th scope="col">Details:</th>
+          <th scope="col">Date</th>
+          <th scope="col">Time</th>
+          <th scope="col">Details</th>
         </tr>
       </thead>
       <tbody>

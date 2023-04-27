@@ -129,3 +129,18 @@
   border-style: groove;
   background-color: #f1f4f692;
 }
+
+.more_info_button{
+  width: 100%;
+  height: auto;
+  padding: 0px;
+}
+
+.no_padding{
+  padding:0px!important;
+}
+
+.no_padding_vert{
+  padding-top:0px!important;
+  padding-bottom:0px!important;
+}
