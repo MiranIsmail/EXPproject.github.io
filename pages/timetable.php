@@ -7,7 +7,7 @@
     <h1 id="event_title">Event:</h1>
     <h2 id="track_title">Track:</h2>
     <h2 id="date">Date:</h2>
-    <table style="border-color: black; table-layout: fixed; word-wrap: break-word;" class="table table-bordered" id="timetable">
+    <table style="border-color: black; table-layout: fixed;" class="table table-bordered" id="timetable">
       <thead>
         <tr>
           <th scope="col">Station Name:</th>
