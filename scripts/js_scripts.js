@@ -967,39 +967,28 @@ async function update_user_password() {
   }
 }
 
-async function GetChecks(result_id, event_id, username, track_name) {
-  if (result_id && event_id && username && track_name) {
+async function GetChecks(result_id, event_id) {
     //calls the api and fills the html table with data
 
-    checkpoint_time = await fetch(
+    check_time = await fetch(
       "https://rasts.se/api/Results/" + result_id.toString(),
       { method: "GET", headers: { Accept: "Application/json" } }
     );
-    result_data = await fetch(
-      "https://rasts.se/api/Results?username=" + username.toString(),
-      { method: "GET", headers: { Accept: "Application/json" } }
-    );
-    event_data = await fetch(
-      "https://rasts.se/api/Results?event_id=" + event_id.toString(),
-      { method: "GET", headers: { Accept: "Application/json" } }
-    );
-    checkpoint_data = await fetch(
-      "https://rasts.se/api/Checkpoint?track_name=" + track_name.toString()
-    );
-    data = await checkpoint_time.json();
-    data1 = await result_data.json();
-    data2 = await event_data.json();
-    data3 = await checkpoint_data.json();
-    document.getElementById("track_title").innerHTML = "Track: " + track_name;
-    document.getElementById("date").innerHTML =
-      "Date: " + data2.results[0].DATE;
-    document.getElementById("event_title").innerHTML = "Event: " + event_id;
-    FillTable(data.result, data3, data2.event_name);
-  }
-}
 
-function FillTable(data, data1, data2, data3) {
-  for (let i = 0; i < data.length; i++) {
+    check_time = await check_time.json()
+
+    check_terrain = await fetch(
+      "https://rasts.se/api/Checkpoint?event_id=" + event_id.toString(),
+      { method: "GET", headers: { Accept: "Application/json" } }
+    );
+
+    check_terrain = await check_terrain.json()
+    FillTable(check_time, check_terrain)
+  }
+
+function FillTable(check_time, check_terrain) {
+
+  for (let i = 0; i < check_time.result.length; i++) {
     let row = timetable.insertRow(i + 1);
     let cell1 = row.insertCell(0); //station name
     let cell2 = row.insertCell(1); //time in seconds
@@ -1007,38 +996,17 @@ function FillTable(data, data1, data2, data3) {
     let cell4 = row.insertCell(3); //end time
     let cell5 = row.insertCell(4); //terrain
     let cell6 = row.insertCell(5); //distance
-    let cell7 = row.insertCell(6); //average time
-    if (i == 0) {
-      cell1.innerHTML = data[i].station_name + " (Start)";
-      if (data[i + 1]) {
-        cell4.innerHTML = data[i + 1].time_stamp;
-        cell2.innerHTML =
-          TimeDiff(data[i].time_stamp, data[i + 1].time_stamp) + "s";
-      }
-    } else if (i == data.length - 1) {
-      cell1.innerHTML = data[i].station_name + " (Finish)";
-      cell2.innerHTML = ConvertTime(data[i].time_stamp) + "s";
-      cell4.innerHTML = "--||--";
-    } else {
-      cell1.innerHTML = data[i].station_name;
-      cell2.innerHTML =
-        TimeDiff(data[i].time_stamp, data[i + 1].time_stamp) + "s";
-      cell4.innerHTML = data[i + 1].time_stamp;
+    let cell7 = row.insertCell(6); //average velocity
+
+    cell1.innerHTML = check_time.result[i].station_name
+    cell2.innerHTML = check_time.result[i].diff_sec + "(s)"
+    cell3.innerHTML = check_time.result[i].time_stamp
+    if(check_time.result[i+1]){
+      cell4.innerHTML = check_time.result[i+1].time_stamp
     }
-    cell3.innerHTML = data[i].time_stamp;
-    if (data1[i]) {
-      cell5.innerHTML = data1[i].terrain;
-    }
-    if (data1[i]) {
-      cell6.innerHTML = data1[i].next_distance + "m";
-      if (data[i + 1]) {
-        cell7.innerHTML =
-          AverageVel(
-            data1[i].next_distance,
-            TimeDiff(data[i].time_stamp, data[i + 1].time_stamp)
-          ) + "m/s";
-      }
-    }
+    cell5.innerHTML = check_terrain[i].terrain
+    cell6.innerHTML = check_terrain[i].next_distance
+    cell7.innerHTML = AverageVel(parseInt(check_terrain[i].next_distance), parseInt(check_time.result[i].diff_sec))
   }
 }
 function TimeDiff(time1, time2) {
@@ -1105,13 +1073,8 @@ function ConvertTime(time_string) {
 // }
 
 async function timetable_link_func(){
-
   const urlParams = new URLSearchParams(window.location.search);
-  greeting = urlParams.get("greeting");
-  console.log(greeting)
-  result_event = greeting.split(',')
-  result_id = result_event[0]
-  event_id = result_event[1]
-  console.log(result_id, event_id)
+  event_id = urlParams.get("event_id");
+  result_id = urlParams.get("result_id")
   GetChecks(result_id, event_id)
 }
