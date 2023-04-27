@@ -43,9 +43,9 @@ include '../assets/head.php';
                     <div class="card card-body" id="register_card">
                         <h3 class="underline_text">Register on <span id="event_name_colapse"><span></h3>
 
-                        <div class="form-group mx-auto w-100" id="inputfield_padding">
-                            <p>Team member:</p>
-                            <input type="text" class="form-control input_field_style w-100" placeholder="Team members username: (optional)" aria-describedby="emailHelp" id="team_mate">
+                        <div class="mx-auto w-100" id="inputfield_padding">
+                            <label for="InputMate" class="form-label">Team mate</label>
+                            <input type="text" class="form-control" id="send_team8" placeholder="Input Event Name">
                         </div>
                         <div class="row">
                             <div class="col-sm-6 padding_bottom_half">
@@ -61,7 +61,7 @@ include '../assets/head.php';
 
                         <div class="collapse show" id="thirechip">
                             <div class="card card-body" id="register_card">
-                                <div class="form-group mx-auto w-100" id="inputfield_padding">
+                                <div class=" mx-auto w-100" id="inputfield_padding">
                                     <p>Chip ID:</p>
                                     <input type="text" class="form-control input_field_style w-100" placeholder="Input The ChipID on provided chip:" aria-describedby="emailHelp" id="send_chip">
                                 </div>
