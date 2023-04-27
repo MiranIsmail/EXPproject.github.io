@@ -921,13 +921,12 @@ async function email_to_forgot_password() {
     body: JSON.stringify({ email: email }),
     headers: { "Content-Type": "application/json" },
   });
-
+  alert("something have happend!");
+  console.log(response);
   if (response.ok) {
     alert("Email was sent successfully!");
   } else {
-    alert(
-      "An error has occurred when sending an email. Check your email and try again!"
-    );
+    alert("An error has occurred when sending an email. Check your email and try again!");
   }
 }
 // .then((response) => {
