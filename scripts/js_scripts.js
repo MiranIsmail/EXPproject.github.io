@@ -6,10 +6,10 @@ window.onload = function () { };
 function image_compress_64(inputfile) {
   return new Promise((resolve, reject) => {
     var return_variable = ""
-    const MAX_WIDTH = 506;
-    const MAX_HEIGHT = 240;
+    const MAX_WIDTH = 760;
+    const MAX_HEIGHT = 360;
     const MIME_TYPE = "image/jpeg";
-    const QUALITY = 0.7;
+    const QUALITY = 0.8;
 
     const file = inputfile.files[0]; // get the file
     const blobURL = URL.createObjectURL(file);
