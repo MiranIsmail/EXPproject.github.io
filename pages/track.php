@@ -71,13 +71,6 @@
             </div>
           </div>
         </div>
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-          
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        <div class="alert alert-warning" role="alert" id="submit_alert" style="display:none;">
-          
-        </div>
         <div class="container">
           <div class="option_background">
             <button id="add_button" button type="button" class="btn btn-secondary" onclick="addRow()">Add another section <i class="fa-regular fa-plus"></i></button>
