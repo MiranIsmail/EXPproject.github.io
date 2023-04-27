@@ -206,10 +206,12 @@ def formater():
     start_button.configure(text="Running")
     runner= True
     global global_event_id_result
-    #s = stlp.comports()
-    #for port in sorted(s):
-        #print(port.product)
-        #print("{}: {} [{}]".format(port, desc, manufacturer))
+    all_ports = stlp.comports()
+    for port in sorted(all_ports):
+        if port.vid == 0x0403 and port.pid == 0x6001:
+            return_var = port.device
+    port= return_var
+    print(port)
     ser = serial.Serial(port="COM3", baudrate=115200)
     url = 'https://rasts.se/api/Results'
     while runner:
