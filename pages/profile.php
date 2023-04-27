@@ -189,7 +189,7 @@
 
 
         // Add event listener for form submission
-        //generate_user_results();
+        generate_user_results();
         // document.getElementsByClassName("orgform").addEventListener("submit", function(event) {
         //     // Prevent default form submission behavior
         //     event.preventDefault();
