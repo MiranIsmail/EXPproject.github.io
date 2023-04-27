@@ -753,7 +753,7 @@ function register_on_event(event_id) {
   var parameters = {};
   parameters["event_id"] = event_id;
   parameters["token"] = get_cookie("auth_token");
-  parameters["user2"] = document.getElementById("team8").value;
+  parameters["user2"] = document.getElementById("send_team8").value;
   parameters["chip_id"] = document.getElementById("send_chip").value;
 
   const response = fetch(BASE_ULR + "Registration", {
@@ -768,7 +768,7 @@ function register_on_event_my(event_id) {
   var parameters = {};
   parameters["event_id"] = event_id;
   parameters["token"] = get_cookie("auth_token");
-  parameters["user2"] = document.getElementById("team8").value;
+  parameters["user2"] = document.getElementById("send_team8").value;
   parameters["chip_id"] = document.getElementById("chip_id_display").value;
 
   const response = fetch(BASE_ULR + "Registration", {
