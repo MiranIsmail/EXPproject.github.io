@@ -993,15 +993,15 @@ function FillTable(check_time, check_terrain) {
     let cell6 = row.insertCell(5); //distance
     let cell7 = row.insertCell(6); //average velocity
 
-    cell1.innerHTML = check_time.result[i].station_name
-    cell2.innerHTML = check_time.result[i].diff_sec + "(s)"
-    cell3.innerHTML = check_time.result[i].time_stamp
+    cell1.innerHTML = check_time.result[i]["station_name"]
+    cell2.innerHTML = check_time.result[i]["diff_sec"]
+    cell3.innerHTML = check_time.result[i]["time_stamp"]
     if(check_time.result[i+1]){
-      cell4.innerHTML = check_time.result[i+1].time_stamp
+      cell4.innerHTML = check_time.result[i+1]["time_stamp]
     }
-    cell5.innerHTML = check_terrain[i].terrain
-    cell6.innerHTML = check_terrain[i].next_distance
-    cell7.innerHTML = AverageVel(parseInt(check_terrain[i].next_distance), parseInt(check_time.result[i].diff_sec))
+    cell5.innerHTML = check_terrain[i]["terrain"]
+    cell6.innerHTML = check_terrain[i]["next_distance"]
+    cell7.innerHTML = AverageVel(parseInt(check_terrain[i]["next_distance"]), parseInt(check_time.result[i]["diff_sec"]))
   }
 }
 function TimeDiff(time1, time2) {
