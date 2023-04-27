@@ -120,7 +120,7 @@
             event_display_peeps()
         </script> -->
       </tbody>
-
+    </table>
     <!--Edit profile popup-->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRightSetting" aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header">
