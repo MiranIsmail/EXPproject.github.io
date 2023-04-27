@@ -1001,7 +1001,7 @@ async function event_display_peeps(){
   const urlParams = new URLSearchParams(window.location.search);
   event_id = urlParams.get("event_id");
 
-  event_data = await fetch("https://rasts.se/api/Results?event_id=49", {method:'GET',
+  event_data = await fetch("https://rasts.se/api/Results?event_id=" + event_id, {method:'GET',
   headers: {'Accept': 'Application/json'}})
 
   data = await event_data.json();
