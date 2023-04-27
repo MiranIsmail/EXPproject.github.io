@@ -997,7 +997,7 @@ function FillTable(check_time, check_terrain) {
     cell2.innerHTML = check_time.result[i]["diff_sec"]
     cell3.innerHTML = check_time.result[i]["time_stamp"]
     if(check_time.result[i+1]){
-      cell4.innerHTML = check_time.result[i+1]["time_stamp]
+      cell4.innerHTML = check_time.result[i+1]["time_stamp"]
     }
     cell5.innerHTML = check_terrain[i]["terrain"]
     cell6.innerHTML = check_terrain[i]["next_distance"]
