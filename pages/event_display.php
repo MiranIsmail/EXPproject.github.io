@@ -20,7 +20,7 @@ include '../assets/head.php';
                         <h5>Sport: <span id="event_sport"></span></h5>
                         <h5>StartDate: <span id="event_sdate"></span></h5>
                         <h5>EndDate: <span id="event_edate"></span></h5>
-                        <h5>Host Username: <span id="event_org"></span></h5>
+                        <a id="username_link"><h5>Host Username: <span id="event_org"></span></h5></a>
                         <h5>Track: <span id="event_track"></span></h5>
                     </div>
                     <div class="padding_border">
@@ -130,7 +130,7 @@ include '../assets/head.php';
     get_track(g_track_name)
     get_chip()
     console.log(g_track_name)
-    
+
     function init_map() {
         const bth_coords = {
             lat: 56.179475,

@@ -534,12 +534,15 @@ async function get_event_info(event_id) {
   document.getElementById("event_name_colapse").innerHTML = await data[
     "event_name"
   ];
+
   document.getElementById("event_name").innerHTML = await data["event_name"];
   document.getElementById("event_track").innerHTML = await data["track_name"];
   document.getElementById("event_sport").innerHTML = await data["sport"];
   document.getElementById("event_sdate").innerHTML = await data["startdate"];
   document.getElementById("event_edate").innerHTML = await data["enddate"];
-  document.getElementById("event_org").innerHTML = await data["username"];
+
+  document.getElementById("username_link").setAttribute("onclick",`location.href="../pages/profile_display?username=${data["username"]}"`);
+  document.getElementById("event_org").innerHTML =  await data["username"];
   document.getElementById("event_desc").innerHTML = await data["description"];
   console.log(await data["description"]);
   load_image_event(data["eimage"]);
@@ -780,7 +783,7 @@ async function get_chip() {
     headers: { Authorization: get_cookie("auth_token") },
   });
   const data = await response.json();
-
+  console.log(data["chip_id"])
   document.getElementById("chip_id_display").value = await data["chip_id"];
 }
 
