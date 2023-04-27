@@ -155,7 +155,7 @@
             <div id="root">
                 <p>Upload an image and see the result</p>
                 <!-- <input id="img-input" type="file" accept="image/*" style="display:block" /> -->
-            </div>
+                </div>
 
             <div id="success-alert" class="alert alert-success alert-dismissible fade show d-none" role="alert">
                 Form submitted successfully!
@@ -169,6 +169,8 @@
 
     <script type="text/javascript" src="../scripts/js_scripts.js"></script>
     <script>
+
+
         // Add event listener for form submission
         get_user_results();
         document.getElementsByClassName("orgform").addEventListener("submit", function(event) {
@@ -181,6 +183,7 @@
             submit_button.setAttribute('disabled', '')
         });
     </script>
+    <?php include '../assets/footer.php'; ?>
 </body>
 
 </html>
