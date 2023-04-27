@@ -130,7 +130,7 @@ include '../assets/head.php';
     get_track(g_track_name)
     get_chip()
     console.log(g_track_name)
-    
+
     function init_map() {
         const bth_coords = {
             lat: 56.179475,
