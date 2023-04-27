@@ -35,7 +35,6 @@
                     <?php } ?>
                     <form action="../assets/organization_request.php" class="orgform" method="GET">
                         <div class=" form-group form_group_style mx-auto">
-                            <button class="button-modular" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRightOrg" aria-controls="offcanvasRight">Want to register your organisation?</button>
 
                             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRightOrg" aria-labelledby="offcanvasRightLabel">
                                 <div class="offcanvas-header">
@@ -181,6 +180,7 @@
             <div class="form-group form_group_style mx-auto">
                 <button class="btn btn-primary" button id="submit_org_form" type="submit" onclick="edit_user_info()">Save changes</button>
             </div>
+            <button class="button-modular" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRightOrg" aria-controls="offcanvasRight">Want to register your organisation?</button>
         </div>
     </div>
 
