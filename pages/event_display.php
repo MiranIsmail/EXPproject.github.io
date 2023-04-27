@@ -20,7 +20,7 @@ include '../assets/head.php';
                         <h5>Sport: <span id="event_sport"></span></h5>
                         <h5>StartDate: <span id="event_sdate"></span></h5>
                         <h5>EndDate: <span id="event_edate"></span></h5>
-                        <a id="username_link"><h5>Host Username: <span id="event_org"></span></h5></a>
+                        <h5>Host Username: <span id="event_org"></span></h5>
                         <h5>Track: <span id="event_track"></span></h5>
                     </div>
                     <div class="padding_border">
@@ -125,7 +125,6 @@ include '../assets/head.php';
     const g_event_id = urlParams.get('event_id');
     const g_track_name = document.getElementById('event_track').innerHTML
 
-    console.log(await get_checkpoints_track_name(g_track_name))
     console.log(g_event_id)
     get_event_info(g_event_id);
     get_track(g_track_name)
@@ -143,7 +142,7 @@ include '../assets/head.php';
             center: bth_coords,
             mapTypeId: "terrain",
         });
-    }
+        }
 </script>
 <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkY5KKVjLNfTPCAX17XbClpOpfTQd0cFM&callback=init_map">
 </script>
