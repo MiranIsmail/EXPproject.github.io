@@ -189,16 +189,16 @@
 
 
         // Add event listener for form submission
-        generate_user_results();
-        document.getElementsByClassName("orgform").addEventListener("submit", function(event) {
-            // Prevent default form submission behavior
-            event.preventDefault();
-            // Show success alert
-            document.getElementById("success-alert").classList.remove("d-none");
+        //generate_user_results();
+        // document.getElementsByClassName("orgform").addEventListener("submit", function(event) {
+        //     // Prevent default form submission behavior
+        //     event.preventDefault();
+        //     // Show success alert
+        //     document.getElementById("success-alert").classList.remove("d-none");
 
-            submit_button = document.getElementById("submit_org_form");
-            submit_button.setAttribute('disabled', '')
-        });
+        //     submit_button = document.getElementById("submit_org_form");
+        //     submit_button.setAttribute('disabled', '')
+        // });
     </script>
     <?php include '../assets/footer.php'; ?>
 </body>
