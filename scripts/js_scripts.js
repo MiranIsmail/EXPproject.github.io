@@ -317,6 +317,7 @@ async function get_friend_info() {
     "username"
   ];
   load_image(data["pimage"]);
+  generate_friend_results()
 }
 
 async function edit_user_info() {
