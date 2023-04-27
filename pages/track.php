@@ -12,7 +12,6 @@
         <p>Here you can create tracks that can then be chosen when creating events.</p>
         <p>Make sure that all your checkpoints are functional and that their ID is visable.</p>
         <p>The sections are automatically connected. Following sections always start where the last one ended.</p>
-  
         <label for="InputTrackName" class="clear_text">Track name</label>
         <input type="text" class="form-control" id="InputTrackName" placeholder="My Track">
       </div>
@@ -409,26 +408,26 @@
   let marker_connections_with_rows = {};
   const save_btn = document.getElementById('save_btn');
   const del_btn = document.getElementById('del_btn');
-  const alert = document.getElementById("mult_id_alert");
+  const pin_alert = document.getElementById("mult_id_alert");
 
   function find_pin_id(button, type) { 
     row = button.parentNode.parentNode;
     input_field = row.querySelector(`input[name=${type+"ID"}]`)
     checkpoint_id = input_field.value
     pin_button = row.querySelector(`button[name=${type+"pin"}]`)
-    console.log(alert)
+    
     if (marker_connections_with_rows[checkpoint_id] !== undefined && marker_connections_with_rows[checkpoint_id] !== input_field.id) {
       save_btn.disabled = true
       del_btn.disabled = true
       placement_ready = false
       console.log("Checkpoint already saved")
-      alert.style.display = "block";
+      pin_alert.style.display = "block";
     }
     else {
       save_btn.disabled = false
       del_btn.disabled = false
       placement_ready = true
-      alert.style.display = "none";
+      pin_alert.style.display = "none";
     }
     
   }
