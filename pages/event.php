@@ -9,7 +9,7 @@ include '../assets/head.php';
   <div style="padding-bottom: 2rem;" id="searchFade">
     <!--Create event button--------------------------------------------------------------------------------------------------->
 
-    <?php if ($is_organization) { ?>
+    <?php if ($is_logged_in) { ?>
       <div id="wrapper_button" class="mx-auto">
         <button type="button" id="button_style_create" onclick="location.href='eventcreate.php'">Create your own event!</button>
       </div>

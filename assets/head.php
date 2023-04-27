@@ -2,7 +2,7 @@
 include '../functions.php';
 
 $blocked_site_logged_in = ["Login", "SignUp"];
-$blocked_site_logged_in_user = ["eventcreate", "track"];
+$blocked_site_logged_in_user = ["track"];
 $blocked_site_logged_out = ["profile", "eventcreate", "track"];
 $page_name_tile = ["index" => "Rasts", "" => "Rasts", "event_display" => "Rasts - Event", "event" => "Rasts - Events", "profile" => "Profile", "Login" => "Login", "SignUp" => "Register", "eventcreate" => "Create Event", "track" => "Track"];
 $title = $page_name_tile[explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0]];
@@ -15,7 +15,7 @@ if ($is_logged_in) {
   $is_organization = $user_data->org_name != null;
 }
 
-if ($is_organization){
+if ($is_organization) {
   $organization_data = get_organization_info($user_data->org_name);
 }
 if ($is_logged_in) {
