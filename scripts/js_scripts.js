@@ -921,13 +921,12 @@ async function email_to_forgot_password() {
     body: JSON.stringify({ "email": email }),
     headers: { "Content-Type": "application/json" },
   });
-  // alert("something have happend!");
+  window.alert("something have happend!");
   console.log(response);
   if (response.ok) {
-    var outputElement = document.getElementById("responde");
-    outputElement.innerHTML = "Email was sent successfully!";
+    window.alert("Email was sent successfully!")
   } else {
-    outputElement.innerHTML = "An error have happend!";
+    window.alert("Email was not sent, try again!");
   }
 }
 // .then((response) => {
@@ -952,10 +951,9 @@ async function update_user_password() {
                              "password": pass }),
       headers: { "Content-Type": "application/json" },
     });
-    var outputElement = document.getElementById("responde");
-    outputElement.innerHTML = "Done!";
+    window.alert("Done")
   } else {
-    outputElement.innerHTML = "An error happend!, try again"
+    window.alert("An error happend, try again!")
   }
 }
 
