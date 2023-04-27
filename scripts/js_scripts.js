@@ -387,13 +387,59 @@ async function generate_event_results(){
     cell4.innerHTML = data.results.results[i].Time
 
     const link_button = document.createElement('button')
-    link_button.innerText = 'More Info'
-    link_button.setAttribute(
-            "onclick",
-            `window.location.href="../pages/timetable?event_id=${data.results.ids[i]["event_id"]}&result_id=${data.results.ids[i]["result_id"]}"`
-          );
-    cell5.innerHTML = link_button
+    link_button.innerText = 'More Info →'
+    link_button.setAttribute("class", "more_info_button");
+    link_button.onclick = function() {
+    window.location.href = `../pages/timetable?event_id=${data.results.ids[i]["event_id"]}&result_id=${data.results.ids[i]["result_id"]}`
+  }
+  cell1.setAttribute("class", "no_padding_vert")
+  cell2.setAttribute("class", "no_padding_vert")
+  cell3.setAttribute("class", "no_padding_vert")
+  cell4.setAttribute("class", "no_padding_vert")
+  cell5.setAttribute("class", "no_padding");
+  cell5.appendChild(link_button)
+
   }}
+}
+
+async function generate_user_results() {
+  const response = await fetch(
+        BASE_ULR + "Results/?token=" + get_cookie("auth_token"),
+        {
+          method: "GET",
+        }
+      );
+      const data = await response.json();
+
+      if (data.results){
+        for (let i = 0; i < data.results.results.length; i++) {
+          let row = event_user_results.insertRow(i + 1)
+          let cell1 = row.insertCell(0) //user1
+          let cell2 = row.insertCell(1) //user2
+          let cell3 = row.insertCell(2) //date
+          let cell4 = row.insertCell(3) //time
+          let cell5 = row.insertCell(4) //button
+          cell1.innerHTML = data.results.results[i].user1
+          cell2.innerHTML = data.results.results[i].user2
+          cell3.innerHTML = data.results.results[i].DATE
+          cell4.innerHTML = data.results.results[i].Time
+      
+          const link_button = document.createElement('button')
+          link_button.innerText = 'More Info →'
+          link_button.setAttribute("class", "more_info_button");
+          link_button.onclick = function() {
+          window.location.href = `../pages/timetable?event_id=${data.results.ids[i]["event_id"]}&result_id=${data.results.ids[i]["result_id"]}`
+        }
+        cell1.setAttribute("class", "no_padding_vert")
+        cell2.setAttribute("class", "no_padding_vert")
+        cell3.setAttribute("class", "no_padding_vert")
+        cell4.setAttribute("class", "no_padding_vert")
+        cell5.setAttribute("class", "no_padding");
+        cell5.appendChild(link_button)
+      
+        }}
+
+
 }
 // async function generate_user_results() {
 //   const response = await fetch(
