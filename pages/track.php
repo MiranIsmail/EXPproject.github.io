@@ -21,7 +21,7 @@
       <div class="form-group col-md-12 form_group_style mx-auto">
         <p>Start by adding the first section!</p>
         <div class="container needs-validation" id="track_input" novalidate>
-          <div class="row track_form" id="0">
+          <div class="row track_form" id="row0">
             <p>Section<p>
             <div class="col-3 input-group mb-3">
               <div class="input-group-prepend" required>
@@ -30,7 +30,7 @@
               <div class="invalid-feedback">
                 Please enter in an ID number between 101 and 199
               </div>
-              <input type="number" class="form-control" name="StartID" min="100" max="200" placeholder="Start Station ID" required>
+              <input type="number" class="form-control" id="start0" name="StartID" min="100" max="200" placeholder="Start Station ID">
               <button type="button" class="btn btn-secondary" name="Startpin" onclick="find_pin_id(this, 'Start')" data-bs-toggle="modal" data-bs-target="#myModal">
                 <i class="fa-solid fa-map-location-dot"></i>
               </button>
@@ -39,7 +39,7 @@
               <div class="input-group-prepend">
                 <label class="input-group-text" for="inputGroupSelect01"> End </label>
               </div>
-              <input type="number" class="form-control" name="EndID" min="100" max="200" placeholder="End Station ID" required>
+              <input type="number" class="form-control" id="end0" name="EndID" min="100" max="200" placeholder="End Station ID" required>
               <button type="button" class="btn btn-secondary" name="Endpin" onclick="find_pin_id(this, 'End')" data-bs-toggle="modal" data-bs-target="#myModal">
                 <i class="fa-solid fa-map-location-dot"></i>
               </button>
@@ -60,7 +60,7 @@
                 </button>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButtonTerrain1">
                   <li><a class="dropdown-item" onclick='select("Swim", event)'><i class="fa-solid fa-person-swimming"></i> Swim</a></li>
-                  <li><a class="dropdown-item" onclick='select("Run", event)'><i class="fa-solid fa-person-running"></i> Land</a></li>
+                  <li><a class="dropdown-item" onclick='select("Run", event)'><i class="fa-solid fa-person-running"></i> Run</a></li>
                   <li><a class="dropdown-item" onclick='select("Mixed", event)'><i class="fa-solid fa-frog"></i> Mixed</a></li>
                 </ul>
               </div>
@@ -82,7 +82,9 @@
         <div class="modal" id="myModal">
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
-
+            <div class="alert alert-danger" role="alert" id="mult_id_alert" style="display:none;">
+              You have inputed a Station ID that has already been saved 
+            </div>
               <!-- Modal Header -->
               <div class="modal-header text-center">
                 <h4 class="modal-title w-100">Map</h4>
@@ -99,7 +101,7 @@
               <!-- Modal footer -->
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger" onclick="deleteMarkers()">Delete</button>
+                <button type="button" class="btn btn-danger" disabled id ="del_btn" onclick="deleteMarkers()">Delete</button>
                 <button type="button" class="btn btn-success" disabled id="save_btn" onclick="send_coords()" data-bs-toggle="modal">Save</button>
               </div>
 
@@ -117,7 +119,7 @@
 <script type="text/javascript" src="../scripts/js_scripts.js"></script>    
 <script sync>
   // Create template row 
-  const template_row = document.getElementById("0")
+  const template_row = document.getElementById("row0")
   const info = template_row.innerHTML
   const success = 'green'
   const fail = 'maroon'
@@ -198,7 +200,7 @@
     const newRow = document.createElement("div");
     newRow.classList.add('row');
     newRow.classList.add('track_form')
-    newRow.id = i
+    newRow.id = "row"+i
     newRow.innerHTML = info
 
     var myGrid = document.getElementById("track_input");
@@ -207,10 +209,14 @@
     // Add row to grid
   
     // Change row
-    const container = document.getElementById(i)
+    const container = document.getElementById("row"+i)
     const fieldInput = container.querySelector('input[name="StartID"]')
+    const fieldInput2 = container.querySelector('input[name="EndID"]')
     const pinButton = container.querySelector('button[name="Startpin"]')
     
+    fieldInput.id = "start"+i
+    fieldInput2.id = "end"+i
+
     const previous_row = newRow.previousElementSibling;
     const previous_rowFieldInput = previous_row.querySelector('input[name="EndID"]')
     const previous_rowPinButton = previous_row.querySelector('button[name="Endpin"]')
@@ -315,30 +321,8 @@
 
     }
 
-
-  
     row.remove();
   }
-// Example starter JavaScript for disabling form submissions if there are invalid fields
-  (function () {
-    'use strict'
-
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    var forms = document.querySelectorAll('.needs-validation')
-
-    // Loop over them and prevent submission
-    Array.prototype.slice.call(forms)
-      .forEach(function (form) {
-        form.addEventListener('submit', function (event) {
-          if (!form.checkValidity()) {
-            event.preventDefault()
-            event.stopPropagation()
-          }
-
-          form.classList.add('was-validated')
-        }, false)
-      })
-  })()
 
 
   function submit() {
@@ -408,26 +392,45 @@
         CreateCheckpoint(track_name, end_id, "undef", "0", "undef", marker_longitude, marker_latitude, checkpoint_number)
         }
       } 
-    // location.href= "../pages/confirmation_track.php";
+    location.href= "../pages/confirmation_track.php";
   }
 
   
-  let row
-  let next_row
-  let input_field
+  let row;
+  let next_row;
+  let input_field;
   let checkpoint_id;
   let pin_button;
   let next_pin_button;
   let map;
+  let marker; 
   let markers_list = [];
-  const btn = document.getElementById('save_btn')
+  let placement_ready = true; 
+  let marker_connections_with_rows = {};
+  const save_btn = document.getElementById('save_btn');
+  const del_btn = document.getElementById('del_btn');
+  const alert = document.getElementById("mult_id_alert");
 
-  function find_pin_id(button, type) {
+  function find_pin_id(button, type) { 
     row = button.parentNode.parentNode;
     input_field = row.querySelector(`input[name=${type+"ID"}]`)
     checkpoint_id = input_field.value
     pin_button = row.querySelector(`button[name=${type+"pin"}]`)
-
+    console.log(alert)
+    if (marker_connections_with_rows[checkpoint_id] !== undefined && marker_connections_with_rows[checkpoint_id] !== input_field.id) {
+      save_btn.disabled = true
+      del_btn.disabled = true
+      placement_ready = false
+      console.log("Checkpoint already saved")
+      alert.style.display = "block";
+    }
+    else {
+      save_btn.disabled = false
+      del_btn.disabled = false
+      placement_ready = true
+      alert.style.display = "none";
+    }
+    
   }
   
   function init_map() {
@@ -444,14 +447,16 @@
     
     // This event listener will call add_marker() when the map is clicked.
     map.addListener("click", (event) => {
-      deleteMarkers();
-      add_marker(event.latLng, checkpoint_id);
+      if (placement_ready == true) {
+        deleteMarkers();
+        add_marker(event.latLng, checkpoint_id);
+      }
     });
   }
 
   // Adds a marker to the map and push to the array.
   function add_marker(position, checkpoint_id) {
-    const marker = new google.maps.Marker({
+    marker = new google.maps.Marker({
       position: position,
       map: map,
       draggable: true,
@@ -460,8 +465,9 @@
     });
 
     markers_list.push(marker);
-    btn.disabled = false;
-
+    save_btn.disabled = false;
+    del_btn.disabled = false; 
+    
   }
 
   // Sets the map on all markers in the array.
@@ -477,6 +483,7 @@
       if (markers_list[i].getLabel() == CheckID) {
         markers_list[i].setMap(null);
         markers_list.splice(i, 1);
+        
       }
     }
   }
@@ -490,8 +497,9 @@
         
         markers_list[i].setMap(null);
         markers_list.splice(i, 1);
+        
         pin_button.style.backgroundColor = fail
-  
+        
         if (row !== last_row && input_field.name == "EndID") {
           next_row = row.nextElementSibling;
           var next_pin_button = next_row.querySelector('button[name="Startpin"]')
@@ -500,11 +508,12 @@
         input_field.disabled = false
       }
     }
-    btn.disabled = true;
+    save_btn.disabled = true;
+    del_btn.disabled = true;
   }
-  //figure out how to confirm
+ 
   function send_coords() { 
-    console.log(next_pin_button)
+    
     let last_row = document.getElementById("track_input").lastElementChild
 
     if (row !== last_row && input_field.name == "EndID") {
@@ -514,11 +523,12 @@
     }
     input_field.disabled = true
     pin_button.style.backgroundColor = success
-    for (let index = 0; index < markers_list.length; index++) {
-    //data base call
-    }
+    marker_connections_with_rows[marker.getLabel()] = input_field.id
+    console.log("connections,", marker_connections_with_rows)
+
   }
   function open_map(event) {
+    
     window.init_map = init_map;
     console.log(checkpoint_id)
   }
