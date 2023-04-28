@@ -923,7 +923,7 @@ async function email_to_forgot_password() {
   });
 
   if (!(response.ok)) {
-    window.alert("Email was not sent, try again!")
+    window.alert("Email was not sent, try again!");
   }
 
   if ((response.ok)){
@@ -954,9 +954,10 @@ async function update_user_password() {
       headers: { "Content-Type": "application/json" },
     });
 
-    window.alert("Done")
+    window.alert("Done");
   } else {
-    window.alert("An error happend, try matching the passwords and try again!")
+    window.alert("An error happend, try matching the passwords and try again!");
+    location.reload();
   }
 }
 
