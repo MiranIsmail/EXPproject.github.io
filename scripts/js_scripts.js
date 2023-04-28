@@ -943,7 +943,7 @@ async function email_to_forgot_password() {
 
 async function update_user_password() {
   const url = new URL(window.location.href);
-  // const token = url.searchParams.get("token");
+  const token = url.searchParams.get("token");
   var pass = document.getElementById("password_reseted").value;
   var pass_confirm = document.getElementById("confirm_password_reseted").value;
   if (pass == pass_confirm) {
@@ -957,7 +957,7 @@ async function update_user_password() {
     window.alert("Done");
   } else {
     window.alert("An error happend, try matching the passwords and try again!");
-    location.reload();
+    location.href = " https://rasts.se/pages/create_new_password.php?token=" ,token;
   }
 }
 
