@@ -3,7 +3,7 @@
 <body>
   <?php include '../assets/navbar.php'; ?>
 
-  <div class="mb-3 mx-auto w-50">
+  <div class="mx-auto">
     <h1 id="event_title">Event:</h1>
     <h2 id="track_title">Track:</h2>
     <h2 id="date">Date:</h2>
