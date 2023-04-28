@@ -922,11 +922,11 @@ async function email_to_forgot_password() {
     headers: { "Content-Type": "application/json" },
   });
 
-  if (!(response.ok)) {
+  if (response.status > 300) {
     window.alert("Email was not sent, try again!");
   }
 
-  if ((response.ok)){
+  if (response.status < 300){
     window.alert("Email was sent successfully!");
   }
 
@@ -952,8 +952,8 @@ async function update_user_password() {
       body: JSON.stringify({ "url": url,
                              "password": pass }),
       headers: { "Content-Type": "application/json" },
+      
     });
-
     window.alert("Done");
   } else {
     window.alert("An error happend, try matching the passwords and try again!");
