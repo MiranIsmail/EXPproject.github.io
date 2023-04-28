@@ -929,7 +929,7 @@ async function email_to_forgot_password() {
     window.alert("Email was not sent, try again!");
   }
 
-  if (response.status < 300){
+  if (response){
     window.alert("Email was sent successfully!");
   }
 
@@ -957,7 +957,11 @@ async function update_user_password() {
       headers: { "Content-Type": "application/json" },
       
     });
-    window.alert("Done");
+    if(response) {
+      window.alert("Done");
+    } else {
+      window.alert("Password not changed, try again!");
+    }
   } else {
     window.alert("An error happend, try matching the passwords and try again!");
     location.href = " https://rasts.se/pages/create_new_password.php?token=" ,token;
