@@ -928,9 +928,10 @@ async function email_to_forgot_password() {
 
   if (response.status > 300) {
     window.alert("Email was not sent, check you email and try again!");
-  } else {
-    window.alert("Email was sent successfully!");
   }
+  
+  window.alert("Email was sent successfully!");
+  
 
 }
 // .then((response) => {
