@@ -947,6 +947,11 @@ async function update_user_password() {
   const url = new URL(window.location.href);
   const token = url.searchParams.get("token");
   var pass = document.getElementById("password_reseted").value;
+  if (!pass) {
+    alert("Enter a password before continuing");
+    location.href = "https://rasts.se/pages/create_new_password.php?token=" + token;
+    return false;
+  }
   var pass_confirm = document.getElementById("confirm_password_reseted").value;
   if (pass == pass_confirm) {
     const response = await fetch(BASE_ULR + "Account", {
@@ -957,13 +962,15 @@ async function update_user_password() {
       
     });
     if (response.status > 300) {
-      window.alert("An error occured while resetting password, try again!")
+      window.alert("An error occured while resetting password, try again!");
+      location.href = "https://rasts.se/pages/create_new_password.php?token=" + token;
     } else {
       window.alert("Done, Password is reseted");
+      location.href = "https://rasts.se/pages/Login.php";
     }
   } else {
     window.alert("An error happend, try matching the passwords and try again!");
-    location.href = " https://rasts.se/pages/create_new_password.php?token=" ,token;
+    location.href = "https://rasts.se/pages/create_new_password.php?token=" + token;
   }
 }
 
