@@ -949,29 +949,30 @@ async function update_user_password() {
   var pass = document.getElementById("password_reseted").value;
   if (!pass) {
     alert("Enter a password before continuing");
-    location.href = "https://rasts.se/pages/create_new_password.php?token=" + token;
-    return false;
-  }
-  var pass_confirm = document.getElementById("confirm_password_reseted").value;
-  if (pass == pass_confirm) {
-    const response = await fetch(BASE_ULR + "Account", {
-      method: "PATCH",
-      body: JSON.stringify({ "url": url,
-                             "password": pass }),
-      headers: { "Content-Type": "application/json" },
-      
-    });
-    if (response.status > 300) {
-      window.alert("An error occured while resetting password, try again!");
-      location.href = "https://rasts.se/pages/create_new_password.php?token=" + token;
-    } else {
-      window.alert("Done, Password is reseted");
-      location.href = "https://rasts.se/pages/Login.php";
-    }
+    window.location.href = "https://rasts.se/pages/create_new_password.php?token=" + token;
   } else {
-    window.alert("An error happend, try matching the passwords and try again!");
-    location.href = "https://rasts.se/pages/create_new_password.php?token=" + token;
+    var pass_confirm = document.getElementById("confirm_password_reseted").value;
+    if (pass == pass_confirm) {
+      const response = await fetch(BASE_ULR + "Account", {
+        method: "PATCH",
+        body: JSON.stringify({ "url": url,
+                              "password": pass }),
+        headers: { "Content-Type": "application/json" },
+        
+      });
+      if (response.status > 300) {
+        window.alert("An error occured while resetting password, try again!");
+        window.location.href = "https://rasts.se/pages/create_new_password.php?token=" + token;
+      } else {
+        window.alert("Done, Password is reseted");
+        location.href = "https://rasts.se/pages/Login.php";
+      }
+    } else {
+      window.alert("An error happend, try matching the passwords and try again!");
+      window.location.href = "https://rasts.se/pages/create_new_password.php?token=" + token;
+    }
   }
+  
 }
 
 async function GetChecks(result_id, event_id) {
