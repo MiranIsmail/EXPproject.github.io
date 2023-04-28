@@ -914,28 +914,6 @@ async function get_chip() {
   document.getElementById("chip_id_display").value = await data["chip_id"];
 }
 
-function checkEmail(email) {
-  fetch(`${BASE_URL}/emails`)
-    .then((response) => response.json())
-    .then((data) => {
-      const emails = data.emails;
-      console.log(emails);
-      let found = false;
-      for (let i = 0; i < emails.length; i++) {
-        const emailInDatabase = emails[i];
-        console.log(emailInDatabase);
-        if (email === emailInDatabase) {
-          found = true;
-          alert("Email found");
-          break;
-        }
-      }
-      if (!found) {
-        alert("Email not found");
-      }
-    });
-}
-
 async function email_to_forgot_password() {
   var email = document.getElementById("email").value;
   if (!email) {
@@ -946,8 +924,7 @@ async function email_to_forgot_password() {
     body: JSON.stringify({ "email": email }),
     headers: { "Content-Type": "application/json" },
   });
-
-  checkEmail(email);
+  console.log(response)
 
   if (response.status > 300) {
     window.alert("Email was not sent, try again!");
