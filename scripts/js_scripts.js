@@ -956,7 +956,11 @@ async function update_user_password() {
       headers: { "Content-Type": "application/json" },
       
     });
-    window.alert("Done");
+    if (response.status > 300) {
+      window.alert("An error occured while resetting password, try again!")
+    } else {
+      window.alert("Done, Password is reseted");
+    }
   } else {
     window.alert("An error happend, try matching the passwords and try again!");
     location.href = " https://rasts.se/pages/create_new_password.php?token=" ,token;
