@@ -918,7 +918,6 @@ async function email_to_forgot_password() {
   var email = document.getElementById("email").value;
   if (!email) {
     alert('Please enter a value for all fields!');
-  } 
   const response = await fetch(BASE_ULR + "Token", {
     method: "PATCH",
     body: JSON.stringify({ "email": email }),
@@ -929,10 +928,11 @@ async function email_to_forgot_password() {
     window.alert("Email was not sent, try again!");
   }
 
-  if (response){
+  if (response.status < 300){
     window.alert("Email was sent successfully!");
   }
 
+}
 }
 // .then((response) => {
 //   if (!response.ok) {
@@ -957,11 +957,7 @@ async function update_user_password() {
       headers: { "Content-Type": "application/json" },
       
     });
-    if(response) {
-      window.alert("Done");
-    } else {
-      window.alert("Password not changed, try again!");
-    }
+    window.alert("Done");
   } else {
     window.alert("An error happend, try matching the passwords and try again!");
     location.href = " https://rasts.se/pages/create_new_password.php?token=" ,token;
