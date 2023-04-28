@@ -927,10 +927,8 @@ async function email_to_forgot_password() {
   console.log(response)
 
   if (response.status > 300) {
-    window.alert("Email was not sent, try again!");
-  }
-
-  if (response.status < 300){
+    window.alert("Email was not sent, check you email and try again!");
+  } else {
     window.alert("Email was sent successfully!");
   }
 
