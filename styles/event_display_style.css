@@ -60,6 +60,7 @@
   margin-right: auto !important;
   margin-left: auto !important;
   filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.25));
+  background-color: #f1f4f692;
 }
 
 #padding_border {
