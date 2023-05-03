@@ -34,9 +34,6 @@ include '../assets/head.php';
   </div>
 
   <?php include '../assets/footer.php'; ?>
-
-  <script type="text/javascript" src="../scripts/js_scripts.js"></script>
-  <script type="text/javascript" src="../scripts/index_load.js"></script>
   <script>
     data_load_index()
   </script>

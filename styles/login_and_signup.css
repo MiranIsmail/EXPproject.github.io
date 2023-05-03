@@ -102,8 +102,6 @@
 .button-modular:hover {
     filter: saturate(2);
   }
-  
-
 
 .canvas_container{
     background: linear-gradient(#FFFFFF4D 0%, #2db7d6 97%, #000000cc 100%);

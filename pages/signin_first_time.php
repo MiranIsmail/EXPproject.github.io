@@ -41,7 +41,6 @@
             </div>
         </form>
     </div>
-    <script type="text/javascript" src="../scripts/js_scripts.js"></script>
     <?php include '../assets/footer.php'; ?>
 </body>
 

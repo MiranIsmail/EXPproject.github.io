@@ -61,9 +61,6 @@ include '../assets/head.php';
     </div>
   </div>
   <?php include '../assets/footer.php'; ?>
-
-  <script type="text/javascript" src="../scripts/js_scripts.js"></script>
-  <script type="text/javascript" src="../scripts/index_load.js"></script>
   <script>
     dropdown = document.getElementById("dropdown_track");
     dropdown.add(new Option("Select a Track"));

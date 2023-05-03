@@ -28,7 +28,6 @@ include '../assets/head.php';
         </form>
     </div>
     <?php include '../assets/footer.php'; ?>
-    <script type="text/javascript" src="../scripts/js_scripts.js"></script>
 </body>
 
 </html>

@@ -135,10 +135,7 @@ body {
 
 /*Events_atm*/
 .events {
-  /*background-color: #0000004D;*/
   background: linear-gradient(#00000080 0%, #00000099 97%, #000000cc 100%);
-  /* background: linear-gradient(#0033ff 0%, #00000099 97%, #000000cc 100%); */
-
   width: 100%;
   padding-bottom: 4rem;
 }

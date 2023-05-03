@@ -1,5 +1,3 @@
-import {load_image, image_compress_64, image_compress_64_large, calculate_age, get_cookie, image_to_blob} from "./tools.js"
-
 function generate_card_wide(input_name,input_date,input_text,input_image,input_id){
 
     let event_text = input_text

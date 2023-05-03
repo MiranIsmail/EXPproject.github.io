@@ -26,48 +26,49 @@ function image_to_blob(inputElement) {
     });
     }
 
-    function image_compress_64(inputfile) {
-        return new Promise((resolve, reject) => {
-          var return_variable = ""
-          const MAX_WIDTH = 320;
-          const MAX_HEIGHT = 180;
-          const MIME_TYPE = "image/jpeg";
-          const QUALITY = 0.7;
 
-          const file = inputfile.files[0]; // get the file
-          const blobURL = URL.createObjectURL(file);
-          const img = new Image();
-          img.src = blobURL;
-          img.onerror = function () {
-            URL.revokeObjectURL(this.src);
-            // Handle the failure properly
-            console.log("Cannot load image");
-          };
-          img.onload = function () {
-            URL.revokeObjectURL(this.src);
-            const [newWidth, newHeight] = calculateSize(img, MAX_WIDTH, MAX_HEIGHT);
-            const canvas = document.createElement("canvas");
-            canvas.width = newWidth;
-            canvas.height = newHeight;
-            const ctx = canvas.getContext("2d");
-            ctx.drawImage(img, 0, 0, newWidth, newHeight);
-            canvas.toBlob(
-              (blob) => {
-                // Handle the compressed image. es. upload or save in local state
+function image_compress_64(inputfile) {
+    return new Promise((resolve, reject) => {
+        var return_variable = ""
+        const MAX_WIDTH = 320;
+        const MAX_HEIGHT = 180;
+        const MIME_TYPE = "image/jpeg";
+        const QUALITY = 0.7;
 
-                blobToBase64(blob).then(function (result) {
-                  resolve(result)
-                }).catch(function (error) {
-                  console.log(error);
-                });
-              },
-              MIME_TYPE,
-              QUALITY
-            );
-            document.getElementById("root").append(canvas);
-          };
-        });
-        }
+        const file = inputfile.files[0]; // get the file
+        const blobURL = URL.createObjectURL(file);
+        const img = new Image();
+        img.src = blobURL;
+        img.onerror = function () {
+        URL.revokeObjectURL(this.src);
+        // Handle the failure properly
+        console.log("Cannot load image");
+        };
+        img.onload = function () {
+        URL.revokeObjectURL(this.src);
+        const [newWidth, newHeight] = calculateSize(img, MAX_WIDTH, MAX_HEIGHT);
+        const canvas = document.createElement("canvas");
+        canvas.width = newWidth;
+        canvas.height = newHeight;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, newWidth, newHeight);
+        canvas.toBlob(
+            (blob) => {
+            // Handle the compressed image. es. upload or save in local state
+
+            blobToBase64(blob).then(function (result) {
+                resolve(result)
+            }).catch(function (error) {
+                console.log(error);
+            });
+            },
+            MIME_TYPE,
+            QUALITY
+        );
+        document.getElementById("root").append(canvas);
+        };
+    });
+}
 
 function image_compress_64_large(inputfile) {
   return new Promise((resolve, reject) => {
@@ -134,11 +135,13 @@ function calculateSize(img, maxWidth, maxHeight) {
     return [width, height];
   }
 
-  function displayInfo(label, file) {
+
+
+function displayInfo(label, file) {
     const p = document.createElement("p");
     p.innerText = `${label} - ${readableBytes(file.size)}`;
     document.getElementById("root").append(p);
-  }
+}
 
 function readableBytes(bytes) {
     const i = Math.floor(Math.log(bytes) / Math.log(1024)),
@@ -173,23 +176,20 @@ async function calculate_age(date) {
     return "missing";
   }
 
-  function image_to_blob(inputElement) {
+function image_to_blob(inputElement) {
     const file = inputElement.files[0];
     if (!file) {
-      return Promise.reject(new Error("No file selected"));
+        return Promise.reject(new Error("No file selected"));
     }
     const reader = new FileReader();
     reader.readAsArrayBuffer(file);
     return new Promise((resolve, reject) => {
-      reader.onload = () => {
+        reader.onload = () => {
         const blob = new Blob([reader.result], { type: file.type });
         resolve(blob);
-      };
-      reader.onerror = () => {
+        };
+        reader.onerror = () => {
         reject(new Error("Error reading file"));
-      };
+        };
     });
-  }
-
-
-export {load_image, image_compress_64, image_compress_64_large, calculate_age, get_cookie, image_to_blob}
+}

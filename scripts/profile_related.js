@@ -1,4 +1,4 @@
-import {load_image, image_compress_64, image_compress_64_large, calculate_age, get_cookie, image_to_blob} from "./tools.js"
+
 async function generate_friend_results() {
     const urlParams = new URLSearchParams(window.location.search);
     g_username = urlParams.get("username");

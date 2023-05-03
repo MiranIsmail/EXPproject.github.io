@@ -1,4 +1,5 @@
-import {load_image, image_compress_64, image_compress_64_large, calculate_age, get_cookie, image_to_blob} from "./tools.js"
+const BASE_ULR = "https://rasts.se/api/";
+console.log("Is it imported?")
 
 async function get_chip() {
   const response = await fetch(BASE_ULR + "Account", {
