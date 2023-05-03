@@ -133,9 +133,8 @@ include '../assets/head.php';
     </div>
     </div>
     <?php include '../assets/footer.php'; ?>
-    <script type="text/javascript" src="../scripts/js_scripts.js"></script>
-</body>
 
+</body>
 <script>
     const urlParams = new URLSearchParams(window.location.search);
     const g_event_id = urlParams.get('event_id');

@@ -39,10 +39,7 @@
   </div>
 
   <!--Footer-->
-  <!--<div include-html='../assets/footer.html'></div>-->
   <?php include '../assets/footer.php'; ?>
-  <script src="../scripts/js_scripts.js"></script>
-  <script src="../scripts/index_load.js"></script>
 </body>
 <script>
   data_load_index_topten()

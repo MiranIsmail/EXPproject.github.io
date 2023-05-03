@@ -102,11 +102,11 @@ function create_track(track_name, start_station, end_station) {
             start_station: start_station,
             end_station: end_station,
         })
-    );
-}
+        );
+    }
 
-async function create_checkpoint(
-    trackname,
+    async function create_checkpoint(
+        trackname,
     startid,
     endid,
     dist,
@@ -142,9 +142,9 @@ async function create_event(
     sport,
     open_for_entry,
     public_view
-) {
-    parameters = { "event_name": event_name, "track_name": track_name, "username": username, "start_time": startdate, "end_time": enddate, "image": eimage, "description": description, "sport": sport, "open_for_entry": open_for_entry, "public_view": public_view }
-    for (const [key, value] of Object.entries(parameters)) {
+    ) {
+        parameters = { "event_name": event_name, "track_name": track_name, "username": username, "start_time": startdate, "end_time": enddate, "image": eimage, "description": description, "sport": sport, "open_for_entry": open_for_entry, "public_view": public_view }
+        for (const [key, value] of Object.entries(parameters)) {
         if (!value) {
             delete parameters[key];
         }
@@ -175,6 +175,3 @@ async function register_event(event_id, token, chip_id) {
     });
     return await response.json();
 }
-
-
-

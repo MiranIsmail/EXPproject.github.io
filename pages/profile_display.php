@@ -46,7 +46,6 @@
         </table>
     </div>
 
-    <script type="text/javascript" src="../scripts/js_scripts.js"></script>
     <script>
         get_friend_info();
     </script>
