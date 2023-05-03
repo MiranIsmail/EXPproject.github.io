@@ -1,4 +1,4 @@
-const BASE_ULR = "https://rasts.se/api/";
+
 
 async function create_account(email, first_name, last_name, password, username) {
     response = await fetch(BASE_ULR + "Account", {
