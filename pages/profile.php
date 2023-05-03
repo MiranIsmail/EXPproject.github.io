@@ -6,8 +6,10 @@
     <div id="container-img">
         <div class="row">
 
-            <div class="col-sm-6" id="profile_box">
-                <img class="img-fluid d-block" alt="profile image" id="profile_image" src="<?= $user_data->pimage ?>">
+            <div class="col-sm-6">
+                <div id="profile_box">
+                    <img class="img-fluid d-block" alt="profile image" id="profile_image" src="<?= $user_data->pimage ?>">
+                </div>
             </div>
             <div class="col-sm-6" style="vertical-align: middle;">
                 <div class="accout-piture">

@@ -10,10 +10,8 @@
     <table style="border-color: black;" class="table table-bordered" id="timetable">
       <thead>
         <tr>
-          <th scope="col">Station Name:</th>
+          <th scope="col">Station:</th>
           <th scope="col">Time:</th>
-          <th scope="col">Start Time:</th>
-          <th scope="col">End Time:</th>
           <th scope="col">Terrain:</th>
           <th scope="col">Distance:</th>
           <th scope="col">Avg. Velocity:</th>
