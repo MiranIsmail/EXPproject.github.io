@@ -143,7 +143,6 @@ include '../assets/head.php';
     get_event_info(g_event_id);
 
     get_checkpoints(g_event_id);
-    console.log(map)
     get_chip()
 </script>
 <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkY5KKVjLNfTPCAX17XbClpOpfTQd0cFM&callback=init_map">
