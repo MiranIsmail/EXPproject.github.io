@@ -463,6 +463,11 @@ function FillTable(check_time, check_terrain) {//check_terrain = Checkpoint data
     }
   }
 }
+
+function pretty_print_time(ts){
+  return ts[0]+ts[1]+"h " + ts[3] + ts[4] + "m " + ts[6] + ts[7] + "s"
+}
+
 function TimeDiff(time1, time2) {
   //difference between two times in seconds
   time1 = ConvertTime(time1);
