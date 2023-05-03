@@ -1,11 +1,10 @@
-var BASE_ULR = "https://rasts.se/api/";
+var BASE_URL = "https://rasts.se/api/";
 //import * as endpoint from "endpoint_functions.js";
-window.onload = function () { };
-
+window.onload = function () {};
 
 function image_compress_64(inputfile) {
   return new Promise((resolve, reject) => {
-    var return_variable = ""
+    var return_variable = "";
     const MAX_WIDTH = 320;
     const MAX_HEIGHT = 180;
     const MIME_TYPE = "image/jpeg";
@@ -32,11 +31,13 @@ function image_compress_64(inputfile) {
         (blob) => {
           // Handle the compressed image. es. upload or save in local state
 
-          blobToBase64(blob).then(function (result) {
-            resolve(result)
-          }).catch(function (error) {
-            console.log(error);
-          });
+          blobToBase64(blob)
+            .then(function (result) {
+              resolve(result);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
         },
         MIME_TYPE,
         QUALITY
@@ -50,7 +51,7 @@ function image_compress_64(inputfile) {
 
 function image_compress_64_large(inputfile) {
   return new Promise((resolve, reject) => {
-    var return_variable = ""
+    var return_variable = "";
     const MAX_WIDTH = 1920;
     const MAX_HEIGHT = 1080;
     const MIME_TYPE = "image/jpeg";
@@ -77,12 +78,14 @@ function image_compress_64_large(inputfile) {
         (blob) => {
           // Handle the compressed image. es. upload or save in local state
 
-          blobToBase64(blob).then(function (result) {
-            resolve(result)
-            // return_variable = result // "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX"
-          }).catch(function (error) {
-            console.log(error);
-          });
+          blobToBase64(blob)
+            .then(function (result) {
+              resolve(result);
+              // return_variable = result // "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX"
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
         },
         MIME_TYPE,
         QUALITY
@@ -179,7 +182,7 @@ function createAccount() {
   let xpassword = document.getElementById("pword").value;
   let xusername = document.getElementById("fuser").value;
 
-  fetch(BASE_ULR + "Account", {
+  fetch(BASE_URL + "Account", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -233,7 +236,7 @@ function fill_org_form() {
 async function log_in() {
   let femail = document.getElementById("fetchEmail").value;
   let fpword = document.getElementById("fetchPword").value;
-  const response = await fetch(BASE_ULR + "Token", {
+  const response = await fetch(BASE_URL + "Token", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email: femail, password: fpword }),
@@ -244,7 +247,7 @@ async function log_in() {
 }
 
 async function log_out() {
-  const response = await fetch(BASE_ULR + "Token", {
+  const response = await fetch(BASE_URL + "Token", {
     method: "DELETE",
     headers: { Authorization: get_cookie("auth_token") },
   });
@@ -264,7 +267,7 @@ function load_image(indata) {
 }
 
 async function get_user_info() {
-  const response = await fetch(BASE_ULR + "Account", {
+  const response = await fetch(BASE_URL + "Account", {
     method: "GET",
     headers: { Authorization: get_cookie("auth_token") },
   });
@@ -284,13 +287,13 @@ async function get_user_info() {
     "username"
   ];
   load_image(data["pimage"]);
-  generate_user_results()
+  generate_user_results();
 }
 
 async function get_friend_info() {
   const urlParams = new URLSearchParams(window.location.search);
   g_username = urlParams.get("username");
-  const response = await fetch(BASE_ULR + "Account/" + g_username, {
+  const response = await fetch(BASE_URL + "Account/" + g_username, {
     method: "GET",
   });
   const data = await response.json();
@@ -308,7 +311,7 @@ async function get_friend_info() {
     "username"
   ];
   load_image(data["pimage"]);
-  generate_friend_results()
+  generate_friend_results();
 }
 
 async function edit_user_info() {
@@ -334,7 +337,7 @@ async function edit_user_info() {
   }
   console.log(parameters);
 
-  await fetch(BASE_ULR + "Account", {
+  await fetch(BASE_URL + "Account", {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -346,125 +349,124 @@ async function edit_user_info() {
   location.href = "../pages/profile.php";
 }
 
-
-async function generate_event_results(){
+async function generate_event_results() {
   const urlParams = new URLSearchParams(window.location.search);
   event_id = urlParams.get("event_id");
 
-  const response = await fetch(BASE_ULR + "Results/?event_id=" + event_id, {
+  const response = await fetch(BASE_URL + "Results/?event_id=" + event_id, {
     method: "GET",
   });
   const data = await response.json();
-  console.log(data)
+  console.log(data);
 
-  if (data.results){
-  for (let i = 0; i < data.results.results.length; i++) {
-    let row = event_user_results.insertRow(i + 1)
-    let cell1 = row.insertCell(0) //user1
-    let cell2 = row.insertCell(1) //user2
-    let cell3 = row.insertCell(2) //date
-    let cell4 = row.insertCell(3) //time
-    let cell5 = row.insertCell(4) //button
-    cell1.innerHTML = data.results.results[i].user1
-    cell2.innerHTML = data.results.results[i].user2
-    cell3.innerHTML = data.results.results[i].DATE
-    cell4.innerHTML = data.results.results[i].Time
+  if (data.results) {
+    for (let i = 0; i < data.results.results.length; i++) {
+      let row = event_user_results.insertRow(i + 1);
+      let cell1 = row.insertCell(0); //user1
+      let cell2 = row.insertCell(1); //user2
+      let cell3 = row.insertCell(2); //date
+      let cell4 = row.insertCell(3); //time
+      let cell5 = row.insertCell(4); //button
+      cell1.innerHTML = data.results.results[i].user1;
+      cell2.innerHTML = data.results.results[i].user2;
+      cell3.innerHTML = data.results.results[i].DATE;
+      cell4.innerHTML = data.results.results[i].Time;
 
-    const link_button = document.createElement('button')
-    link_button.innerText = 'More Info →'
-    link_button.setAttribute("class", "more_info_button");
-    link_button.onclick = function() {
-    window.location.href = `../pages/timetable?event_id=${data.results.ids[i]["event_id"]}&result_id=${data.results.ids[i]["result_id"]}`
+      const link_button = document.createElement("button");
+      link_button.innerText = "More Info →";
+      link_button.setAttribute("class", "more_info_button");
+      link_button.onclick = function () {
+        window.location.href = `../pages/timetable?event_id=${data.results.ids[i]["event_id"]}&result_id=${data.results.ids[i]["result_id"]}`;
+      };
+      cell1.setAttribute("class", "no_padding_vert");
+      cell2.setAttribute("class", "no_padding_vert");
+      cell3.setAttribute("class", "no_padding_vert");
+      cell4.setAttribute("class", "no_padding_vert");
+      cell5.setAttribute("class", "no_padding");
+      cell5.appendChild(link_button);
+    }
   }
-  cell1.setAttribute("class", "no_padding_vert")
-  cell2.setAttribute("class", "no_padding_vert")
-  cell3.setAttribute("class", "no_padding_vert")
-  cell4.setAttribute("class", "no_padding_vert")
-  cell5.setAttribute("class", "no_padding");
-  cell5.appendChild(link_button)
-
-  }}
 }
 
 async function generate_user_results() {
   const response = await fetch(
-        BASE_ULR + "Results/?token=" + get_cookie("auth_token"),
-        {
-          method: "GET",
-        }
-      );
-      const data = await response.json();
-        console.log(data)
-      if (data.results){
-        for (let i = 0; i < data.results.results.length; i++) {
-          let row = event_user_results.insertRow(i + 1)
-          let cell1 = row.insertCell(0) //user1
-          let cell2 = row.insertCell(1) //user2
-          let cell3 = row.insertCell(2) //date
-          let cell4 = row.insertCell(3) //time
-          let cell5 = row.insertCell(4) //button
-          cell1.innerHTML = data.results.results[i]["Competitor 1"]
-          cell2.innerHTML = data.results.results[i]["Competitor 2"]
-          cell3.innerHTML = data.results.results[i]["Total time"]
-          cell4.innerHTML = data.results.results[i]["Event"]
-          console.log("1"+data.results.results[i]["Competitor 1"])
-          console.log("2"+data.results.results[i]["Competitor 2"])
-          console.log("3"+data.results.results[i]["Total time"])
-          console.log("4"+data.results.results[i]["Event"])
-          const link_button = document.createElement('button')
-          link_button.innerText = 'More Info →'
-          link_button.setAttribute("class", "more_info_button");
-          link_button.onclick = function() {
-          window.location.href = `../pages/timetable?event_id=${data.results.ids[i]["event_id"]}&result_id=${data.results.ids[i]["result_id"]}`
-        }
-        cell1.setAttribute("class", "no_padding_vert")
-        cell2.setAttribute("class", "no_padding_vert")
-        cell3.setAttribute("class", "no_padding_vert")
-        cell4.setAttribute("class", "no_padding_vert")
-        cell5.setAttribute("class", "no_padding");
-        cell5.appendChild(link_button)
-
-        }}
+    BASE_URL + "Results/?token=" + get_cookie("auth_token"),
+    {
+      method: "GET",
+    }
+  );
+  const data = await response.json();
+  console.log(data);
+  if (data.results) {
+    for (let i = 0; i < data.results.results.length; i++) {
+      let row = event_user_results.insertRow(i + 1);
+      let cell1 = row.insertCell(0); //user1
+      let cell2 = row.insertCell(1); //user2
+      let cell3 = row.insertCell(2); //date
+      let cell4 = row.insertCell(3); //time
+      let cell5 = row.insertCell(4); //button
+      cell1.innerHTML = data.results.results[i]["Competitor 1"];
+      cell2.innerHTML = data.results.results[i]["Competitor 2"];
+      cell3.innerHTML = data.results.results[i]["Total time"];
+      cell4.innerHTML = data.results.results[i]["Event"];
+      console.log("1" + data.results.results[i]["Competitor 1"]);
+      console.log("2" + data.results.results[i]["Competitor 2"]);
+      console.log("3" + data.results.results[i]["Total time"]);
+      console.log("4" + data.results.results[i]["Event"]);
+      const link_button = document.createElement("button");
+      link_button.innerText = "More Info →";
+      link_button.setAttribute("class", "more_info_button");
+      link_button.onclick = function () {
+        window.location.href = `../pages/timetable?event_id=${data.results.ids[i]["event_id"]}&result_id=${data.results.ids[i]["result_id"]}`;
+      };
+      cell1.setAttribute("class", "no_padding_vert");
+      cell2.setAttribute("class", "no_padding_vert");
+      cell3.setAttribute("class", "no_padding_vert");
+      cell4.setAttribute("class", "no_padding_vert");
+      cell5.setAttribute("class", "no_padding");
+      cell5.appendChild(link_button);
+    }
+  }
 }
 
 async function generate_friend_results() {
   const urlParams = new URLSearchParams(window.location.search);
   g_username = urlParams.get("username");
-  const response = await fetch(BASE_ULR + "Results/?username=" + g_username, {
+  const response = await fetch(BASE_URL + "Results/?username=" + g_username, {
     method: "GET",
   });
   const data = await response.json();
 
-  if (data.results){
+  if (data.results) {
     for (let i = 0; i < data.results.results.length; i++) {
-      let row = event_user_results.insertRow(i + 1)
-      let cell1 = row.insertCell(0) //user1
-      let cell2 = row.insertCell(1) //user2
-      let cell3 = row.insertCell(2) //date
-      let cell4 = row.insertCell(3) //time
-      let cell5 = row.insertCell(4) //button
-      cell1.innerHTML = data.results.results[i]["Competitor 1"]
-      cell2.innerHTML = data.results.results[i]["Competitor 2"]
-      cell3.innerHTML = data.results.results[i]["Total time"]
-      cell4.innerHTML = data.results.results[i]["Event"]
-      console.log("1"+data.results.results[i]["Competitor 1"])
-      console.log("2"+data.results.results[i]["Competitor 2"])
-      console.log("3"+data.results.results[i]["Total time"])
-      console.log("4"+data.results.results[i]["Event"])
-      const link_button = document.createElement('button')
-      link_button.innerText = 'More Info →'
+      let row = event_user_results.insertRow(i + 1);
+      let cell1 = row.insertCell(0); //user1
+      let cell2 = row.insertCell(1); //user2
+      let cell3 = row.insertCell(2); //date
+      let cell4 = row.insertCell(3); //time
+      let cell5 = row.insertCell(4); //button
+      cell1.innerHTML = data.results.results[i]["Competitor 1"];
+      cell2.innerHTML = data.results.results[i]["Competitor 2"];
+      cell3.innerHTML = data.results.results[i]["Total time"];
+      cell4.innerHTML = data.results.results[i]["Event"];
+      console.log("1" + data.results.results[i]["Competitor 1"]);
+      console.log("2" + data.results.results[i]["Competitor 2"]);
+      console.log("3" + data.results.results[i]["Total time"]);
+      console.log("4" + data.results.results[i]["Event"]);
+      const link_button = document.createElement("button");
+      link_button.innerText = "More Info →";
       link_button.setAttribute("class", "more_info_button");
-      link_button.onclick = function() {
-      window.location.href = `../pages/timetable?event_id=${data.results.ids[i]["event_id"]}&result_id=${data.results.ids[i]["result_id"]}`
+      link_button.onclick = function () {
+        window.location.href = `../pages/timetable?event_id=${data.results.ids[i]["event_id"]}&result_id=${data.results.ids[i]["result_id"]}`;
+      };
+      cell1.setAttribute("class", "no_padding_vert");
+      cell2.setAttribute("class", "no_padding_vert");
+      cell3.setAttribute("class", "no_padding_vert");
+      cell4.setAttribute("class", "no_padding_vert");
+      cell5.setAttribute("class", "no_padding");
+      cell5.appendChild(link_button);
     }
-    cell1.setAttribute("class", "no_padding_vert")
-    cell2.setAttribute("class", "no_padding_vert")
-    cell3.setAttribute("class", "no_padding_vert")
-    cell4.setAttribute("class", "no_padding_vert")
-    cell5.setAttribute("class", "no_padding");
-    cell5.appendChild(link_button)
-
-    }}
+  }
 }
 
 function search_account() {
@@ -472,7 +474,6 @@ function search_account() {
   let input = document.getElementById("search_profile").value;
   location.href = `../pages/profile_display?username=${input}`;
 }
-
 
 function search_event() {
   // Retrieve all cards
@@ -531,7 +532,7 @@ function include_HTML() {
 async function update_navbar() {
   status_code = 401;
   if (get_cookie("auth_token")) {
-    const response = await fetch(BASE_ULR + "Token", {
+    const response = await fetch(BASE_URL + "Token", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -551,7 +552,7 @@ async function update_navbar() {
 
 /* EVENT PAGE*/
 async function get_event_info(event_id) {
-  const response = await fetch(BASE_ULR + "Event/" + event_id, {
+  const response = await fetch(BASE_URL + "Event/" + event_id, {
     method: "GET",
   });
   const data = await response.json();
@@ -567,29 +568,65 @@ async function get_event_info(event_id) {
   document.getElementById("event_sdate").innerHTML = await data["startdate"];
   document.getElementById("event_edate").innerHTML = await data["enddate"];
 
-  document.getElementById("username_link").setAttribute("onclick", `location.href="../pages/profile_display?username=${data["username"]}"`);
+  document
+    .getElementById("username_link")
+    .setAttribute(
+      "onclick",
+      `location.href="../pages/profile_display?username=${data["username"]}"`
+    );
   document.getElementById("event_org").innerHTML = await data["username"];
   document.getElementById("event_desc").innerHTML = await data["description"];
   document.getElementById("event_track").innerHTML = await data["track_name"];
   console.log(await data["description"]);
   load_image_event(data["eimage"]);
 
-  generate_event_results()
+  generate_event_results();
 }
 
 async function get_checkpoints(event_id) {
-  const response = await fetch(BASE_ULR + "Event/" + event_id, {
+  const event_response = await fetch(BASE_URL + "Event/" + event_id, {
     method: "GET",
   });
-  const data_event = await response.json();
-  const track = data_event["track_name"];
+  const event_data = await event_response.json();
+  const track_name = await event_data["track_name"];
 
-  response = await fetch(BASE_URL + "Track/" + track, {
-    method: "GET",
+  const response = await fetch(
+    BASE_URL + "Checkpoint?track_name=" + track_name,
+    {
+      method: "GET",
+    }
+  );
+  const data = await response.json();
+
+  const start_placement = {
+    lat: parseFloat(data[0].latitude),
+    lng: parseFloat(data[0].longitude),
+  };
+
+  init_map(start_placement);
+
+  for (let i = 0; i < data.length; i++) {
+    let checkpoint = data[i];
+    let position = {
+      lat: parseFloat(checkpoint.latitude),
+      lng: parseFloat(checkpoint.longitude),
+    };
+
+    new google.maps.Marker({
+      position: position,
+      map: map,
+      label: checkpoint.checkpoint_number,
+    });
+  }
+}
+
+function init_map(placement) {
+  map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 14,
+    center: placement,
+    mapTypeId: "terrain",
   });
-  data_track = await response.json();
-  const start_startion = data_track["start_station"];
-  const end_station = data_track["end_station"];
+  console.log(map);
 }
 
 function load_image_event(indata) {
@@ -604,7 +641,7 @@ function load_image_event(indata) {
 
 function CreateTrack(track_input, start_station, end_station) {
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", BASE_ULR + "Track", false); // false makes the request synchronous
+  xhr.open("POST", BASE_URL + "Track", false); // false makes the request synchronous
   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   xhr.send(
     JSON.stringify({
@@ -626,7 +663,7 @@ async function CreateCheckpoint(
   latitude,
   number
 ) {
-  await fetch(BASE_ULR + "Checkpoint", {
+  await fetch(BASE_URL + "Checkpoint", {
     method: "POST",
     body: JSON.stringify({
       track_name: trackname,
@@ -644,7 +681,7 @@ async function CreateCheckpoint(
 }
 
 async function create_event() {
-  const response_incoming = await fetch(BASE_ULR + "Account", {
+  const response_incoming = await fetch(BASE_URL + "Account", {
     method: "GET",
     headers: { Authorization: get_cookie("auth_token") },
   });
@@ -688,7 +725,7 @@ async function create_event() {
     }
   }
 
-  const response = await fetch(BASE_ULR + "Event", {
+  const response = await fetch(BASE_URL + "Event", {
     method: "POST",
     body: JSON.stringify(parameters),
   });
@@ -746,7 +783,7 @@ function register_on_event(event_id) {
   parameters["user2"] = document.getElementById("send_team8").value;
   parameters["chip_id"] = document.getElementById("send_chip").value;
 
-  const response = fetch(BASE_ULR + "Registration", {
+  const response = fetch(BASE_URL + "Registration", {
     method: "POST",
     body: JSON.stringify(parameters),
   });
@@ -761,7 +798,7 @@ function register_on_event_my(event_id) {
   parameters["user2"] = document.getElementById("send_team8").value;
   parameters["chip_id"] = document.getElementById("chip_id_display").value;
 
-  const response = fetch(BASE_ULR + "Registration", {
+  const response = fetch(BASE_URL + "Registration", {
     method: "POST",
     body: JSON.stringify(parameters),
   });
@@ -770,35 +807,33 @@ function register_on_event_my(event_id) {
 }
 
 async function get_chip() {
-  const response = await fetch(BASE_ULR + "Account", {
+  const response = await fetch(BASE_URL + "Account", {
     method: "GET",
     headers: { Authorization: get_cookie("auth_token") },
   });
   const data = await response.json();
-  console.log(data["chip_id"])
+  console.log(data["chip_id"]);
   document.getElementById("chip_id_display").value = await data["chip_id"];
 }
 
 async function email_to_forgot_password() {
   var email = document.getElementById("email").value;
   if (!email) {
-    alert('Please enter a value for all fields!');
+    alert("Please enter a value for all fields!");
   }
-  const response = await fetch(BASE_ULR + "Token", {
+  const response = await fetch(BASE_URL + "Token", {
     method: "PATCH",
-    body: JSON.stringify({ "email": email }),
+    body: JSON.stringify({ email: email }),
     headers: { "Content-Type": "application/json" },
   });
-  console.log(response)
+  console.log(response);
 
   if (response.status > 300) {
     window.alert("Email was not sent, check you email and try again!");
   } else {
     window.alert("Email was sent successfully!");
   }
-
 }
-
 
 async function update_user_password() {
   const url = new URL(window.location.href);
@@ -806,80 +841,96 @@ async function update_user_password() {
   var pass = document.getElementById("password_reseted").value;
   if (!pass) {
     alert("Enter a password before continuing");
-    window.location.href = "https://rasts.se/pages/create_new_password.php?token=" + token;
+    window.location.href =
+      "https://rasts.se/pages/create_new_password.php?token=" + token;
   } else {
-    var pass_confirm = document.getElementById("confirm_password_reseted").value;
+    var pass_confirm = document.getElementById(
+      "confirm_password_reseted"
+    ).value;
     if (pass == pass_confirm) {
-      const response = await fetch(BASE_ULR + "Account", {
+      const response = await fetch(BASE_URL + "Account", {
         method: "PATCH",
-        body: JSON.stringify({ "url": url,
-                              "password": pass }),
+        body: JSON.stringify({ url: url, password: pass }),
         headers: { "Content-Type": "application/json" },
-
       });
       if (response.status > 300) {
         window.alert("An error occured while resetting password, try again!");
-        window.location.href = "https://rasts.se/pages/create_new_password.php?token=" + token;
+        window.location.href =
+          "https://rasts.se/pages/create_new_password.php?token=" + token;
       } else {
         window.alert("Done, Password is reseted");
         location.href = "https://rasts.se/pages/Login.php";
       }
     } else {
-      window.alert("An error happend, try matching the passwords and try again!");
-      window.location.href = "https://rasts.se/pages/create_new_password.php?token=" + token;
+      window.alert(
+        "An error happend, try matching the passwords and try again!"
+      );
+      window.location.href =
+        "https://rasts.se/pages/create_new_password.php?token=" + token;
     }
   }
-
 }
 
 async function GetChecks(result_id, event_id) {
-    //calls the api and fills the html table with data
+  //calls the api and fills the html table with data
 
-    check_time = await fetch(
-      "https://rasts.se/api/Results/" + result_id.toString(),
-      { method: "GET", headers: { Accept: "Application/json" } }
-    );
+  check_time = await fetch(
+    "https://rasts.se/api/Results/" + result_id.toString(),
+    { method: "GET", headers: { Accept: "Application/json" } }
+  );
 
-    check_time = await check_time.json()
+  check_time = await check_time.json();
 
-    check_terrain = await fetch(
-      "https://rasts.se/api/Checkpoint?event_id=" + event_id.toString(),
-      { method: "GET", headers: { Accept: "Application/json" } }
-    );
+  check_terrain = await fetch(
+    "https://rasts.se/api/Checkpoint?event_id=" + event_id.toString(),
+    { method: "GET", headers: { Accept: "Application/json" } }
+  );
 
-    check_terrain = await check_terrain.json()
+  check_terrain = await check_terrain.json();
 
-    event_info = await fetch(
-      "https://rasts.se/api/Event/" + event_id.toString(),
-      { method: "GET", headers: { Accept: "Application/json" } }
-    );
-    event_info = await event_info.json()
+  event_info = await fetch(
+    "https://rasts.se/api/Event/" + event_id.toString(),
+    { method: "GET", headers: { Accept: "Application/json" } }
+  );
+  event_info = await event_info.json();
 
-    document.getElementById('event_title').innerHTML = "Event: " + event_info.event_name
-    document.getElementById('track_title').innerHTML = "Track: " + check_terrain[0].track_name
-    document.getElementById('date').innerHTML = "Date: From " + event_info.startdate + " to " + event_info.enddate
-    FillTable(check_time, check_terrain)
-  }
+  document.getElementById("event_title").innerHTML =
+    "Event: " + event_info.event_name;
+  document.getElementById("track_title").innerHTML =
+    "Track: " + check_terrain[0].track_name;
+  document.getElementById("date").innerHTML =
+    "Date: From " + event_info.startdate + " to " + event_info.enddate;
+  FillTable(check_time, check_terrain);
+}
 
 function FillTable(check_time, check_terrain) {
-
-  check_terrain.sort((a,b)=>(a.checkpoint_number > b.checkpoint_number) ? 1 : -1)//sorts the api/Checkpoint objects positions from smallest to largest
+  check_terrain.sort((a, b) =>
+    a.checkpoint_number > b.checkpoint_number ? 1 : -1
+  ); //sorts the api/Checkpoint objects positions from smallest to largest
 
   for (let i = 0; i < check_terrain.length; i++) {
-    corresponding_index = 0
-    successing_index = 0
-    for(let p = 0; p < check_time.result.length; p++){
-      if(check_time.result[p].station_name == check_terrain[i].station_id){ //finds the checkpoint_time with the same name, janky but it works for now
-        corresponding_index = p
-    }
-    for(let o = 0; o < check_time.result.length; o++){
-      if(check_terrain[i+1]){
-      if(check_time.result[o].station_name == check_terrain[i+1].station_id){ //here so that we can grab the next objects start time without going stray
-        successing_index = o
+    corresponding_index = 0;
+    successing_index = 0;
+    for (let p = 0; p < check_time.result.length; p++) {
+      if (check_time.result[p].station_name == check_terrain[i].station_id) {
+        //finds the checkpoint_time with the same name, janky but it works for now
+        corresponding_index = p;
       }
-    }}
-  }
-    console.log(check_time.result[corresponding_index].station_name, check_terrain[i].station_id)
+      for (let o = 0; o < check_time.result.length; o++) {
+        if (check_terrain[i + 1]) {
+          if (
+            check_time.result[o].station_name == check_terrain[i + 1].station_id
+          ) {
+            //here so that we can grab the next objects start time without going stray
+            successing_index = o;
+          }
+        }
+      }
+    }
+    console.log(
+      check_time.result[corresponding_index].station_name,
+      check_terrain[i].station_id
+    );
     let row = timetable.insertRow(i + 1);
     let cell1 = row.insertCell(0); //station name
     let cell2 = row.insertCell(1); //time in seconds
@@ -889,15 +940,19 @@ function FillTable(check_time, check_terrain) {
     let cell6 = row.insertCell(5); //distance
     let cell7 = row.insertCell(6); //average velocity
 
-    cell1.innerHTML = check_time.result[corresponding_index].station_name
-    cell2.innerHTML = check_time.result[corresponding_index].diff_sec + "(s)"
-    cell3.innerHTML = check_time.result[corresponding_index].time_stamp
-    if(check_time.result[i+1]){
-      cell4.innerHTML = check_time.result[successing_index].time_stamp
+    cell1.innerHTML = check_time.result[corresponding_index].station_name;
+    cell2.innerHTML = check_time.result[corresponding_index].diff_sec + "(s)";
+    cell3.innerHTML = check_time.result[corresponding_index].time_stamp;
+    if (check_time.result[i + 1]) {
+      cell4.innerHTML = check_time.result[successing_index].time_stamp;
     }
-    cell5.innerHTML = check_terrain[i].terrain
-    cell6.innerHTML = check_terrain[i].next_distance
-    cell7.innerHTML = AverageVel(parseInt(check_terrain[corresponding_index].next_distance), parseInt(check_time.result[i].diff_sec)).toFixed(2) + "m/s"
+    cell5.innerHTML = check_terrain[i].terrain;
+    cell6.innerHTML = check_terrain[i].next_distance;
+    cell7.innerHTML =
+      AverageVel(
+        parseInt(check_terrain[corresponding_index].next_distance),
+        parseInt(check_time.result[i].diff_sec)
+      ).toFixed(2) + "m/s";
   }
 }
 function TimeDiff(time1, time2) {
@@ -926,9 +981,9 @@ function ConvertTime(time_string) {
   return hours + minutes + seconds;
 }
 
-async function timetable_link_func(){
+async function timetable_link_func() {
   const urlParams = new URLSearchParams(window.location.search);
   event_id = urlParams.get("event_id");
-  result_id = urlParams.get("result_id")
-  GetChecks(result_id, event_id)
+  result_id = urlParams.get("result_id");
+  GetChecks(result_id, event_id);
 }
