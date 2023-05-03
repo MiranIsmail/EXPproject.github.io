@@ -34,7 +34,6 @@ function image_compress_64(inputfile) {
 
           blobToBase64(blob).then(function (result) {
             resolve(result)
-            // return_variable = result // "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX"
           }).catch(function (error) {
             console.log(error);
           });
@@ -286,15 +285,7 @@ async function get_user_info() {
   ];
   load_image(data["pimage"]);
   generate_user_results()
-  // let container = document.getElementById("myTableContainerResults");
-  // let myTable = await generate_user_results();
-  // container.appendChild(myTable);
 }
-// async function get_user_results() {
-//   let container = document.getElementById("myTableContainerResults");
-//   let myTable = await generate_user_results();
-//   container.appendChild(myTable);
-// }
 
 async function get_friend_info() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -330,8 +321,6 @@ async function edit_user_info() {
   parameters["chip_id"] = document.getElementById("send_chip").value;
 
   if (document.getElementById("send_image").files.length != 0) {
-    // var blob = await image_to_blob(document.getElementById("send_image"));
-    // parameters["pimage"] = await blobToBase64(blob);
     parameters["pimage"] = await image_compress_64(
       document.getElementById("send_image")
     );
@@ -356,8 +345,6 @@ async function edit_user_info() {
 
   location.href = "../pages/profile.php";
 }
-
-
 
 
 async function generate_event_results(){
@@ -436,52 +423,9 @@ async function generate_user_results() {
         cell4.setAttribute("class", "no_padding_vert")
         cell5.setAttribute("class", "no_padding");
         cell5.appendChild(link_button)
-      
+
         }}
-
-
 }
-// async function generate_user_results() {
-//   const response = await fetch(
-//     BASE_ULR + "Results/?token=" + get_cookie("auth_token"),
-//     {
-//       method: "GET",
-//     }
-//   );
-//   const data = await response.json();
-
-//   let table = document.createElement("table");
-//   table.setAttribute("class", "table");
-
-//   // create table header row
-//   let headerRow = document.createElement("tr");
-//   for (let key in await data.results.results[0]) {
-//     let headerCell = document.createElement("th");
-//     headerCell.textContent = key;
-//     headerRow.appendChild(headerCell);
-//   }
-//   table.appendChild(headerRow);
-
-//   // create table rows
-//   for (let i = 0; i < (await data.results.results.length); i++) {
-//     let row = document.createElement("tr");
-
-//     // create a link for the row
-//     row.setAttribute(
-//       "onclick",
-//       `window.location.href="../pages/timetable?event_id=${data.results.event_ids[i]["event_id"]}&result_id=${data.results.event_ids[i]["result_id"]}"`
-//     );
-
-//     for (let key in await data.results.results[i]) {
-//       let cell = document.createElement("td");
-//       cell.textContent = await data.results.results[i][key];
-//       row.appendChild(cell);
-//     }
-//     table.appendChild(row);
-//   }
-
-//   return table;
-// }
 
 async function generate_friend_results() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -519,7 +463,7 @@ async function generate_friend_results() {
     cell4.setAttribute("class", "no_padding_vert")
     cell5.setAttribute("class", "no_padding");
     cell5.appendChild(link_button)
-  
+
     }}
 }
 
@@ -528,47 +472,7 @@ function search_account() {
   let input = document.getElementById("search_profile").value;
   location.href = `../pages/profile_display?username=${input}`;
 }
-// async function generate_user_results() {
-//   const response = await fetch(
-//     BASE_ULR + "Results/?token=" + get_cookie("auth_token"),
-//     {
-//       method: "GET",
-//     }
-//   );
-//   const data = await response.json();
 
-//   let table = document.createElement("table");
-//   table.setAttribute("class", "table");
-
-//   // create table header row
-//   let headerRow = document.createElement("tr");
-//   for (let key in await data.results.results[0]) {
-//     let headerCell = document.createElement("th");
-//     headerCell.textContent = key;
-//     headerRow.appendChild(headerCell);
-//   }
-//   table.appendChild(headerRow);
-
-//   // create table rows
-//   for (let i = 0; i < (await data.results.results.length); i++) {
-//     let row = document.createElement("tr");
-
-//     // create a link for the row
-//     let link = document.createElement("a");
-//     console.log(`../pages/timetable?event_id=${data.results.event_ids[i]["event_id"]}&result_id=${data.results.event_ids[i]["result_id"]}`)
-//     row.setAttribute("href", `../pages/timetable?event_id=${data.results.event_ids[i]["event_id"]}&result_id=${data.results.event_ids[i]["result_id"]}`);
-
-//     for (let key in await data.results.results[i]) {
-//       let cell = document.createElement("td");
-//       cell.textContent = await data.results.results[i][key];
-//       console.log(await data.results.results[i][key]);
-//       row.appendChild(cell);
-//     }
-//     table.appendChild(row);
-//   }
-
-//   return table;
-// }
 
 function search_event() {
   // Retrieve all cards
@@ -671,9 +575,6 @@ async function get_event_info(event_id) {
   load_image_event(data["eimage"]);
 
   generate_event_results()
-  // let container = document.getElementById("myTableContainer");
-  // let myTable = await generate_event_results(event_id);
-  // container.appendChild(myTable);
 }
 
 async function get_checkpoints(event_id) {
@@ -775,8 +676,6 @@ async function create_event() {
   }
 
   if (document.getElementById("send_image").files.length != 0) {
-    // var blob = await image_to_blob(document.getElementById("send_image"));
-    // parameters["eimage"] = await blobToBase64(blob);
     parameters["eimage"] = await image_compress_64_large(
       document.getElementById("send_image")
     );
@@ -840,40 +739,6 @@ async function TrackDropdown() {
   }
 }
 
-// // Function to generate table
-// async function generate_event_results(event_id) {
-//   const response = await fetch(BASE_ULR + "Results/?event_id=" + event_id, {
-//     method: "GET",
-//   });
-//   const data = await response.json();
-
-//   let table = document.createElement("table");
-//   table.setAttribute("class", "table");
-
-//   // create table header row
-//   let headerRow = document.createElement("tr");
-//   for (let key in await data.results[0]) {
-//     let headerCell = document.createElement("th");
-//     headerCell.textContent = key;
-//     headerRow.appendChild(headerCell);
-//   }
-//   table.appendChild(headerRow);
-
-//   // create table rows
-//   for (let i = 0; i < (await data.results.length); i++) {
-//     let row = document.createElement("tr");
-//     for (let key in await data.results[i]) {
-//       let cell = document.createElement("td");
-//       cell.textContent = await data.results[i][key];
-//       console.log(await data.results[i][key]);
-//       row.appendChild(cell);
-//     }
-//     table.appendChild(row);
-//   }
-
-//   return table;
-// }
-
 function register_on_event(event_id) {
   var parameters = {};
   parameters["event_id"] = event_id;
@@ -933,15 +798,7 @@ async function email_to_forgot_password() {
   }
 
 }
-// .then((response) => {
-//   if (!response.ok) {
-//     throw new Error("Network response was not ok");
-//   }
-//   return response.json();
-// })
-// .catch((error) => {
-//   console.error("There was an error sending the email:", error);
-// });
+
 
 async function update_user_password() {
   const url = new URL(window.location.href);
@@ -958,7 +815,7 @@ async function update_user_password() {
         body: JSON.stringify({ "url": url,
                               "password": pass }),
         headers: { "Content-Type": "application/json" },
-        
+
       });
       if (response.status > 300) {
         window.alert("An error occured while resetting password, try again!");
@@ -972,7 +829,7 @@ async function update_user_password() {
       window.location.href = "https://rasts.se/pages/create_new_password.php?token=" + token;
     }
   }
-  
+
 }
 
 async function GetChecks(result_id, event_id) {
@@ -999,8 +856,8 @@ async function GetChecks(result_id, event_id) {
     event_info = await event_info.json()
 
     document.getElementById('event_title').innerHTML = "Event: " + event_info.event_name
-    document.getElementById('track_title').innerHTML = "Track: " + check_terrain[0].track_name 
-    document.getElementById('date').innerHTML = "Date: From " + event_info.startdate + " to " + event_info.enddate 
+    document.getElementById('track_title').innerHTML = "Track: " + check_terrain[0].track_name
+    document.getElementById('date').innerHTML = "Date: From " + event_info.startdate + " to " + event_info.enddate
     FillTable(check_time, check_terrain)
   }
 
@@ -1068,43 +925,6 @@ function ConvertTime(time_string) {
   hours = parseInt(hours) * 60 * 60;
   return hours + minutes + seconds;
 }
-
-// async function event_display_peeps(){
-
-//   const urlParams = new URLSearchParams(window.location.search);
-//   event_id = urlParams.get("event_id");
-
-//   event_data = await fetch("https://rasts.se/api/Results?event_id=" + event_id, {method:'GET',
-//   headers: {'Accept': 'Application/json'}})
-
-//   data = await event_data.json();
-//   console.log(data)
-
-//   //console.log(data)
-
-//   // for(let i = 0; i < data.results.length; i++)
-//   // {
-//   //   console.log(data.results[i])
-//   // }
-//   if (data.results){
-//   for (let i = 0; i < data.results.length; i++) {
-//     let row = event_user_results.insertRow(i + 1)
-//     let cell1 = row.insertCell(0) //user1
-//     let cell2 = row.insertCell(1) //user2
-//     let cell3 = row.insertCell(2) //date
-//     let cell4 = row.insertCell(3) //time
-//     let cell5 = row.insertCell(4) //button
-//     cell1.innerHTML = data.results.results[i].user1
-//     cell2.innerHTML = data.results.results[i].user2
-//     cell3.innerHTML = data.results.results[i].DATE
-//     cell4.innerHTML = data.results.results[i].Time
-//     let greeting = '<a href="https://rasts.se/pages/timetable.php?greeting='
-//     + data.results[i].result_id + ',' + event_id + '"' + '>' + 'See detailed results</a>'
-//     console.log(greeting)
-//     cell5.innerHTML = greeting
-//   }}
-//   //GetChecks(result_id, event_id)
-// }
 
 async function timetable_link_func(){
   const urlParams = new URLSearchParams(window.location.search);
