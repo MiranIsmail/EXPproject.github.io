@@ -1,3 +1,4 @@
+
 function generate_card_wide(input_name,input_date,input_text,input_image,input_id){
 
     let event_text = input_text

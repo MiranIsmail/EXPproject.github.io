@@ -1,3 +1,4 @@
+const BASE_ULR = "https://rasts.se/api/";
 function load_image(indata) {
     var img = document.createElement("img");
     img.setAttribute("id", "profile_image");

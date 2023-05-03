@@ -1,4 +1,3 @@
-const BASE_ULR = "https://rasts.se/api/";
 console.log("Is it imported?")
 
 async function get_chip() {
