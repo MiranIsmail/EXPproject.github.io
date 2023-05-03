@@ -779,11 +779,13 @@ async function get_chip() {
   document.getElementById("chip_id_display").value = await data["chip_id"];
 }
 
-async function email_to_forgot_password() {
+async function email_to_forgot_password(event) {
+  event.preventDefault();
   var email = document.getElementById("email").value;
   var responde = document.getElementById("responde");
   if (!email) {
     responde.innerHTML = "Please enter a valid Email!";
+
   } else {
     const response = await fetch(BASE_ULR + "Token", {
       method: "PATCH",
