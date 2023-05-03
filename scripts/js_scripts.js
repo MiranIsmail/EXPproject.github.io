@@ -176,6 +176,8 @@ async function update_navbar() {
 }
 
 async function get_checkpoints(event_id) {
+  const marker_dict = {};
+
   const event_response = await fetch(BASE_ULR + "Event/" + event_id, {
     method: "GET",
   });
@@ -209,7 +211,30 @@ async function get_checkpoints(event_id) {
       map: map,
       label: checkpoint.checkpoint_number,
     });
-    console.log(map);
+    marker_dict[checkpoint.checkpoint_number] = position;
+  }
+  console.log(marker_dict);
+
+  const lineSymbol = {
+    path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+  };
+
+  for (let i = 1; i < Object.keys(marker_dict).length; i++) {
+    let start = marker_dict[i];
+    let end = marker_dict[i + 1];
+    console.log("start", start);
+    console.log("end", end);
+
+    new google.maps.Polyline({
+      path: [start, end],
+      icons: [
+        {
+          icon: lineSymbol,
+          offset: "100%",
+        },
+      ],
+      map: map,
+    });
   }
 }
 
