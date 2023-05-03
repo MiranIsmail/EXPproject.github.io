@@ -1,7 +1,5 @@
-
 //import * as endpoint from "endpoint_functions.js";
 window.onload = function () {};
-
 
 // Utility functions for demo purpose
 
@@ -12,7 +10,7 @@ function createAccount() {
   let xpassword = document.getElementById("pword").value;
   let xusername = document.getElementById("fuser").value;
 
-  fetch(BASE_URL + "Account", {
+  fetch(BASE_ULR + "Account", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -66,7 +64,7 @@ function fill_org_form() {
 async function log_in() {
   let femail = document.getElementById("fetchEmail").value;
   let fpword = document.getElementById("fetchPword").value;
-  const response = await fetch(BASE_URL + "Token", {
+  const response = await fetch(BASE_ULR + "Token", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email: femail, password: fpword }),
@@ -77,7 +75,7 @@ async function log_in() {
 }
 
 async function log_out() {
-  const response = await fetch(BASE_URL + "Token", {
+  const response = await fetch(BASE_ULR + "Token", {
     method: "DELETE",
     headers: { Authorization: get_cookie("auth_token") },
   });
@@ -109,7 +107,7 @@ async function edit_user_info() {
   }
   console.log(parameters);
 
-  await fetch(BASE_URL + "Account", {
+  await fetch(BASE_ULR + "Account", {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -159,7 +157,7 @@ function include_HTML() {
 async function update_navbar() {
   status_code = 401;
   if (get_cookie("auth_token")) {
-    const response = await fetch(BASE_URL + "Token", {
+    const response = await fetch(BASE_ULR + "Token", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -177,16 +175,15 @@ async function update_navbar() {
   }
 }
 
-
 async function get_checkpoints(event_id) {
-  const event_response = await fetch(BASE_URL + "Event/" + event_id, {
+  const event_response = await fetch(BASE_ULR + "Event/" + event_id, {
     method: "GET",
   });
   const event_data = await event_response.json();
   const track_name = await event_data["track_name"];
 
   const response = await fetch(
-    BASE_URL + "Checkpoint?track_name=" + track_name,
+    BASE_ULR + "Checkpoint?track_name=" + track_name,
     {
       method: "GET",
     }
@@ -212,6 +209,7 @@ async function get_checkpoints(event_id) {
       map: map,
       label: checkpoint.checkpoint_number,
     });
+    console.log(map);
   }
 }
 
@@ -226,7 +224,7 @@ function init_map(placement) {
 
 function CreateTrack(track_input, start_station, end_station) {
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", BASE_URL + "Track", false); // false makes the request synchronous
+  xhr.open("POST", BASE_ULR + "Track", false); // false makes the request synchronous
   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   xhr.send(
     JSON.stringify({
@@ -248,7 +246,7 @@ async function CreateCheckpoint(
   latitude,
   number
 ) {
-  await fetch(BASE_URL + "Checkpoint", {
+  await fetch(BASE_ULR + "Checkpoint", {
     method: "POST",
     body: JSON.stringify({
       track_name: trackname,
@@ -266,7 +264,7 @@ async function CreateCheckpoint(
 }
 
 async function create_event() {
-  const response_incoming = await fetch(BASE_URL + "Account", {
+  const response_incoming = await fetch(BASE_ULR + "Account", {
     method: "GET",
     headers: { Authorization: get_cookie("auth_token") },
   });
@@ -310,7 +308,7 @@ async function create_event() {
     }
   }
 
-  const response = await fetch(BASE_URL + "Event", {
+  const response = await fetch(BASE_ULR + "Event", {
     method: "POST",
     body: JSON.stringify(parameters),
   });
@@ -330,30 +328,27 @@ async function TrackDropdown() {
   }
 }
 
-
 async function email_to_forgot_password(event) {
   event.preventDefault();
   var email = document.getElementById("email").value;
   var responde = document.getElementById("responde");
   if (!email) {
     responde.innerHTML = "Please enter a valid Email!";
-
   } else {
     const response = await fetch(BASE_ULR + "Token", {
       method: "PATCH",
-      body: JSON.stringify({ "email": email }),
+      body: JSON.stringify({ email: email }),
       headers: { "Content-Type": "application/json" },
     });
-  
+
     if (response.status > 300) {
       responde.innerHTML = "Email dosn't exict!";
     } else {
-      responde.innerHTML = "Email was sent successfully, it may take a couple minute to receive the email!";
+      responde.innerHTML =
+        "Email was sent successfully, it may take a couple minute to receive the email!";
     }
     console.log(response);
-  
   }
-  
 }
 
 async function update_user_password(event) {
@@ -369,15 +364,17 @@ async function update_user_password(event) {
       "confirm_password_reseted"
     ).value;
     if (pass == pass_confirm) {
-      const response = await fetch(BASE_URL + "Account", {
+      const response = await fetch(BASE_ULR + "Account", {
         method: "PATCH",
         body: JSON.stringify({ url: url, password: pass }),
         headers: { "Content-Type": "application/json" },
       });
       if (response.status > 300) {
-        responde.innerHTML = "an error occured when reseting the password, try clicking on the link again and resetting!";
+        responde.innerHTML =
+          "an error occured when reseting the password, try clicking on the link again and resetting!";
       } else {
-        responde.innerHTML = "Password is reseted, you can log in with your new password";
+        responde.innerHTML =
+          "Password is reseted, you can log in with your new password";
       }
     } else {
       responde.innerHTML = "Passwords don't match!";
