@@ -431,7 +431,7 @@ async function GetChecks(result_id, event_id) {
     event_info = await event_info.json()
 
     document.getElementById('event_title').innerHTML = "Event: " + event_info.event_name
-    document.getElementById('track_title').innerHTML = "Track: " + "ahhh"//check_terrain[0].track_name
+    document.getElementById('track_title').innerHTML = "Track: " + check_terrain[0].track_name
     document.getElementById('date').innerHTML = "Date: From " + event_info.startdate + " to " + event_info.enddate
     FillTable(check_time, check_terrain)
   }
