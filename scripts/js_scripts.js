@@ -781,22 +781,25 @@ async function get_chip() {
 
 async function email_to_forgot_password() {
   var email = document.getElementById("email").value;
+  var responde = document.getElementById("responde");
   if (!email) {
-    alert('Please enter a value for all fields!');
-  }
-  const response = await fetch(BASE_ULR + "Token", {
-    method: "PATCH",
-    body: JSON.stringify({ "email": email }),
-    headers: { "Content-Type": "application/json" },
-  });
-  console.log(response)
-
-  if (response.status > 300) {
-    window.alert("Email was not sent, check you email and try again!");
+    responde.innerHTML = "Please enter a valid Email!";
   } else {
-    window.alert("Email was sent successfully!");
+    const response = await fetch(BASE_ULR + "Token", {
+      method: "PATCH",
+      body: JSON.stringify({ "email": email }),
+      headers: { "Content-Type": "application/json" },
+    });
+  
+    if (response.status > 300) {
+      responde.innerHTML = "Email dosn't exict!";
+    } else {
+      responde.innerHTML = "Email was sent successfully!";
+    }
+    console.log(response);
+  
   }
-
+  
 }
 
 
