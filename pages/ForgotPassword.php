@@ -30,10 +30,8 @@
                 <input type="email" id="email" placeholder="Enter Email" name="email">
             </div>
             <div class="form-group form_group_style mx-auto">
-            <input type="submit" value="Send a Reset Password Link to Email" onclick="email_to_forgot_password()">
-            </div>
-            <div>
-                <p id="responde"> </p>
+            <input type="submit" value="Send a Reset Password Link to Email" onclick="email_to_forgot_password(event)">
+            <p id="responde">*** </p>
             </div>
         </form>
     </div>
