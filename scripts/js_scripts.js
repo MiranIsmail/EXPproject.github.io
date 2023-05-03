@@ -796,7 +796,7 @@ async function email_to_forgot_password(event) {
     if (response.status > 300) {
       responde.innerHTML = "Email dosn't exict!";
     } else {
-      responde.innerHTML = "Email was sent successfully!";
+      responde.innerHTML = "Email was sent successfully, it may take a couple minute to receive the email!";
     }
     console.log(response);
   
