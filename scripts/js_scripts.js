@@ -383,36 +383,33 @@ async function update_user_password(event) {
 }
 
 async function GetChecks(result_id, event_id) {
-  //calls the api and fills the html table with data
+    //calls the api and fills the html table with data
 
-  check_time = await fetch(
-    "https://rasts.se/api/Results/" + result_id.toString(),
-    { method: "GET", headers: { Accept: "Application/json" } }
-  );
+    check_time = await fetch(
+      "https://rasts.se/api/Results/" + result_id.toString(),
+      { method: "GET", headers: { Accept: "Application/json" } }
+    );
 
-  check_time = await check_time.json();
+    check_time = await check_time.json()
 
-  check_terrain = await fetch(
-    "https://rasts.se/api/Checkpoint?event_id=" + event_id.toString(),
-    { method: "GET", headers: { Accept: "Application/json" } }
-  );
+    check_terrain = await fetch(
+      "https://rasts.se/api/Checkpoint?event_id=" + event_id.toString(),
+      { method: "GET", headers: { Accept: "Application/json" } }
+    );
 
-  check_terrain = await check_terrain.json();
+    check_terrain = await check_terrain.json()
 
-  event_info = await fetch(
-    "https://rasts.se/api/Event/" + event_id.toString(),
-    { method: "GET", headers: { Accept: "Application/json" } }
-  );
-  event_info = await event_info.json();
+    event_info = await fetch(
+      "https://rasts.se/api/Event/" + event_id.toString(),
+      { method: "GET", headers: { Accept: "Application/json" } }
+    );
+    event_info = await event_info.json()
 
-  document.getElementById("event_title").innerHTML =
-    "Event: " + event_info.event_name;
-  document.getElementById("track_title").innerHTML =
-    "Track: " + check_terrain[0].track_name;
-  document.getElementById("date").innerHTML =
-    "Date: From " + event_info.startdate + " to " + event_info.enddate;
-  FillTable(check_time, check_terrain);
-}
+    document.getElementById('event_title').innerHTML = "Event: " + event_info.event_name
+    document.getElementById('track_title').innerHTML = "Track: " + "ahhh"//check_terrain[0].track_name
+    document.getElementById('date').innerHTML = "Date: From " + event_info.startdate + " to " + event_info.enddate
+    FillTable(check_time, check_terrain)
+  }
 
 function FillTable(check_time, check_terrain) {//check_terrain = Checkpoint data, check_time = checkpoint_time data
   //#############################################################################
@@ -463,11 +460,6 @@ function FillTable(check_time, check_terrain) {//check_terrain = Checkpoint data
     }
   }
 }
-
-function pretty_print_time(ts){
-  return ts[0]+ts[1]+"h " + ts[3] + ts[4] + "m " + ts[6] + ts[7] + "s"
-}
-
 function TimeDiff(time1, time2) {
   //difference between two times in seconds
   time1 = ConvertTime(time1);
@@ -494,9 +486,13 @@ function ConvertTime(time_string) {
   return hours + minutes + seconds;
 }
 
-async function timetable_link_func() {
+function pretty_print_time(ts){
+  return ts[0]+ts[1]+"h " + ts[3] + ts[4] + "m " + ts[6] + ts[7] + "s"
+}
+
+async function timetable_link_func(){
   const urlParams = new URLSearchParams(window.location.search);
   event_id = urlParams.get("event_id");
-  result_id = urlParams.get("result_id");
-  GetChecks(result_id, event_id);
+  result_id = urlParams.get("result_id")
+  GetChecks(result_id, event_id)
 }
