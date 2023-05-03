@@ -4,7 +4,7 @@ include '../functions.php';
 $blocked_site_logged_in = ["Login", "SignUp"];
 $blocked_site_logged_in_user = ["track"];
 $blocked_site_logged_out = ["profile", "eventcreate", "track"];
-$page_name_tile = ["index" => "Rasts", "" => "Rasts", "event_display" => "Rasts - Event", "event" => "Rasts - Events", "profile" => "Profile", "Login" => "Login", "SignUp" => "Register", "eventcreate" => "Create Event", "track" => "Track"];
+$page_name_tile = ["index" => "Rasts", "" => "Rasts", "event_display" => "Rasts - Event", "event" => "Rasts - Events", "profile" => "Profile", "Login" => "Login", "SignUp" => "Register", "eventcreate" => "Create Event", "track" => "Track","terms_of_service"=>"terms of service","privacy_policy"=>"privacy policy"];
 $title = $page_name_tile[explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0]];
 $is_organization = false;
 
