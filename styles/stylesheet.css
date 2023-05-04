@@ -236,19 +236,34 @@ body {
   }
 
   #profile_image {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 20vh;
-    padding-bottom: 1rem;
+    width: 100%;
+    height: auto;
+  }
+
+  #profile_box{
+    display: flex;
+    margin-right: auto!important;
+    margin-left: auto!important;
+    width: 25vh;
+    height: 25vh;
+    overflow: hidden;
     border-radius: 10%;
   }
+
 }
 
 @media (min-width: 575px) {
   #profile_image {
-    float: right;
-    max-width: 30vh;
-    padding-bottom: 1rem;
+    width: 100%;
+    height: auto;
+  }
+
+  #profile_box{
+    display: flex;
+    float:right;
+    width: 30vh;
+    height: 30vh;
+    overflow: hidden;
     border-radius: 10%;
   }
 }
