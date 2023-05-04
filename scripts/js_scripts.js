@@ -480,7 +480,7 @@ function FillTable(check_time, check_terrain) {//check_terrain = Checkpoint data
     cell3.innerHTML = check_terrain[i].terrain
     cell4.innerHTML = check_terrain[i].next_distance + " (m)"
     if(i!= 0){
-    cell5.innerHTML = AverageVel(parseInt(check_terrain[dict[check_terrain[i].station_id][0]].next_distance), parseInt(check_time.result[dict[check_terrain[i].station_id][0]].diff_sec)).toFixed(1) + " (m/s)"
+    cell5.innerHTML = AverageVel(parseInt(check_terrain[dict[check_terrain[i].station_id][0]].next_distance), parseInt(check_time.result[dict[check_terrain[i+1].station_id][0]].diff_sec)).toFixed(1) + " (m/s)"
     }
     }
   }
