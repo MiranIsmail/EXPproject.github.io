@@ -1,4 +1,4 @@
-
+console.log("Is it imported? 2")
 async function generate_friend_results() {
     const urlParams = new URLSearchParams(window.location.search);
     g_username = urlParams.get("username");
@@ -128,3 +128,5 @@ async function generate_friend_results() {
 
           }}
   }
+
+  

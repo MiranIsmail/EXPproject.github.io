@@ -1,5 +1,3 @@
-console.log("Is it imported?")
-
 async function get_chip() {
   const response = await fetch(BASE_ULR + "Account", {
     method: "GET",
