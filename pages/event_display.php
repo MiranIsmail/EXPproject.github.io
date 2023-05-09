@@ -111,7 +111,7 @@ include '../assets/head.php';
 
 
 
-            <h2 class="underline_text"> Results </h2>
+            <h2 class="underline_text blue_text"> Results </h2>
          <table class="table table-bordered result_table" id="event_user_results">
       <thead>
         <tr>
