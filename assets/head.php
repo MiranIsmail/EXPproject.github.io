@@ -51,6 +51,10 @@ if ($is_logged_in) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="keywords" content="Swimrun, Endurance, Challenge, Triathlon, Trail running, Open water swimming, Adventure, Racing, Fitness, Competition, Multisport, Athletic, Stamina, Intensity, Training, Performance, Running, Swimming, Outdoors, Nature, Extreme, Tough, Grit, Strength, Teamwork, Navigation, Fast-paced, Exciting, Ambitious, Adventure racing, Pushing limits, Athlete, Intense, Stamina building, Cardio, Mental toughness, Endurance sports, Water sports, Extreme sports, Trail racing, Open water, Ocean swimming, Swim training, Run training, Performance training, Challenging, Personal achievement, Fun, Motivation, Persistence,Competition, Timing, Sports events, Finish line, Results, Athletes, Race, Stopwatch, Clock, Podium, Medals, Champion, Records, Split times, Personal best, Spectators, Fans, Official, Timing system, Start line, Finisher, Winning, Losing, Scoreboard, Trophy, Prize money, Ranking, Registration, Warm-up, Cool down, Award ceremony, National team, International competition, Track and field, Speed, Endurance, Training plan, Performance analysis, Personal record, Event management, Participant, Timing accuracy, Event planning, Race course, Event marketing, Sports technology, Timing equipment, Photo finish, Judging, Race day, Starting gun, Finish chute">
   <meta name="description" content="Swimrunn Timing and competition">
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="../styles/stylesheet.css">

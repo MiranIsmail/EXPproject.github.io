@@ -1,7 +1,5 @@
-
 //import * as endpoint from "endpoint_functions.js";
-window.onload = function () { };
-
+window.onload = function () {};
 
 // Utility functions for demo purpose
 
@@ -103,14 +101,73 @@ async function edit_user_info() {
 }
 
 async function get_checkpoints(event_id) {
-  const response = await get_event_endpoint(event_id);
-  const data_event = await response.json();
-  const track = data_event["track_name"];
+  const marker_dict = {};
 
-  response = await get_track_checkpoints_endpoint(track);
-  data_track = await response.json();
-  const start_startion = data_track["start_station"];
-  const end_station = data_track["end_station"];
+  const event_response = await get_event_endpoint(event_id);
+  const event_data = await event_response.json();
+  const track_name = await event_data["track_name"];
+
+  const response = await fetch(
+    BASE_ULR + "Checkpoint?track_name=" + track_name,
+    {
+      method: "GET",
+    }
+  );
+  const data = await response.json();
+
+  const start_placement = {
+    lat: parseFloat(data[0].latitude),
+    lng: parseFloat(data[0].longitude),
+  };
+
+  init_map(start_placement);
+
+  for (let i = 0; i < data.length; i++) {
+    let checkpoint = data[i];
+    let position = {
+      lat: parseFloat(checkpoint.latitude),
+      lng: parseFloat(checkpoint.longitude),
+    };
+
+    new google.maps.Marker({
+      position: position,
+      map: map,
+      label: checkpoint.checkpoint_number,
+    });
+    marker_dict[checkpoint.checkpoint_number] = position;
+  }
+  console.log(marker_dict);
+
+  const lineSymbol = {
+    path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+  };
+
+  for (let i = 1; i < Object.keys(marker_dict).length; i++) {
+    let start = marker_dict[i];
+    let end = marker_dict[i + 1];
+    console.log("start", start);
+    console.log("end", end);
+
+    new google.maps.Polyline({
+      path: [start, end],
+      icons: [
+        {
+          icon: lineSymbol,
+          offset: "100%",
+        },
+      ],
+      map: map,
+    });
+  }
+}
+
+function init_map(placement) {
+  map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 14,
+    center: placement,
+    mapTypeId: "terrain",
+  });
+  console.log(map);
 }
 
 function CreateTrack(track_input, start_station, end_station) {
@@ -189,32 +246,28 @@ async function TrackDropdown() {
   }
 }
 
-
 async function email_to_forgot_password(event) {
   event.preventDefault();
   var email = document.getElementById("email").value;
   var responde = document.getElementById("responde");
   if (!email) {
     responde.innerHTML = "Please enter a valid Email!";
-
   } else {
     const response = await fetch(BASE_ULR + "Token", {
       method: "PATCH",
-      body: JSON.stringify({ "email": email }),
+      body: JSON.stringify({ email: email }),
       headers: { "Content-Type": "application/json" },
     });
 
     if (response.status > 300) {
       responde.innerHTML = "Email dosn't exict!";
     } else {
-      responde.innerHTML = "Email was sent successfully, it may take a couple minute to receive the email!";
+      responde.innerHTML =
+        "Email was sent successfully, it may take a couple minute to receive the email!";
     }
     console.log(response);
-
   }
-
 }
-
 
 async function update_user_password(event) {
   event.preventDefault();
@@ -225,7 +278,9 @@ async function update_user_password(event) {
   if (!pass) {
     responde.innerHTML = "Please enter a valid password!";
   } else {
-    var pass_confirm = document.getElementById("confirm_password_reseted").value;
+    var pass_confirm = document.getElementById(
+      "confirm_password_reseted"
+    ).value;
     if (pass == pass_confirm) {
       const response = await fetch(BASE_ULR + "Account", {
         method: "PATCH",
@@ -234,18 +289,18 @@ async function update_user_password(event) {
           "password": pass
         }),
         headers: { "Content-Type": "application/json" },
-
       });
       if (response.status > 300) {
-        responde.innerHTML = "an error occured when reseting the password, try clicking on the link again and resetting!";
+        responde.innerHTML =
+          "an error occured when reseting the password, try clicking on the link again and resetting!";
       } else {
-        responde.innerHTML = "Password is reseted, you can log in with your new password";
+        responde.innerHTML =
+          "Password is reseted, you can log in with your new password";
       }
     } else {
       responde.innerHTML = "Passwords don't match!";
     }
   }
-
 }
 
 async function GetChecks(result_id, event_id) {
@@ -268,44 +323,53 @@ async function GetChecks(result_id, event_id) {
   FillTable(check_time, check_terrain)
 }
 
-function FillTable(check_time, check_terrain) {
+function FillTable(check_time, check_terrain) {//check_terrain = Checkpoint data, check_time = checkpoint_time data
+  //#############################################################################
+  check_terrain.sort((a,b)=>(a.checkpoint_number > b.checkpoint_number) ? 1 : -1)//sorts the api/Checkpoint objects positions from smallest to largest by checkpoint_number
 
-  check_terrain.sort((a, b) => (a.checkpoint_number > b.checkpoint_number) ? 1 : -1)//sorts the api/Checkpoint objects positions from smallest to largest
+  const dict = {} //this dictionary will first be fille up with the Checkpoint data in order as the keys, then the corresponding object in checkpoint_time with the same station_name will have its index used as a value
+
+  check_terrain.forEach((item)=>{
+    const station_id = item.station_id
+    if(!dict[station_id]){
+      dict[station_id] = []
+    } 
+  })
+
+  check_time.result.forEach((item, index)=>{
+    const station_name = item.station_name
+    if(dict[station_name]){
+      dict[station_name].push(index)
+    }
+  })
+  //#############################################################################
 
   for (let i = 0; i < check_terrain.length; i++) {
-    corresponding_index = 0
-    successing_index = 0
-    for (let p = 0; p < check_time.result.length; p++) {
-      if (check_time.result[p].station_name == check_terrain[i].station_id) { //finds the checkpoint_time with the same name, janky but it works for now
-        corresponding_index = p
-      }
-      for (let o = 0; o < check_time.result.length; o++) {
-        if (check_terrain[i + 1]) {
-          if (check_time.result[o].station_name == check_terrain[i + 1].station_id) { //here so that we can grab the next objects start time without going stray
-            successing_index = o
-          }
-        }
-      }
-    }
-    console.log(check_time.result[corresponding_index].station_name, check_terrain[i].station_id)
+  
     let row = timetable.insertRow(i + 1);
     let cell1 = row.insertCell(0); //station name
     let cell2 = row.insertCell(1); //time in seconds
-    let cell3 = row.insertCell(2); //start time
-    let cell4 = row.insertCell(3); //end time
-    let cell5 = row.insertCell(4); //terrain
-    let cell6 = row.insertCell(5); //distance
-    let cell7 = row.insertCell(6); //average velocity
-
-    cell1.innerHTML = check_time.result[corresponding_index].station_name
-    cell2.innerHTML = check_time.result[corresponding_index].diff_sec + "(s)"
-    cell3.innerHTML = check_time.result[corresponding_index].time_stamp
-    if (check_time.result[i + 1]) {
-      cell4.innerHTML = check_time.result[successing_index].time_stamp
+    let cell3 = row.insertCell(2); //terrain
+    let cell4 = row.insertCell(3); //distance
+    let cell5 = row.insertCell(4); //average velocity
+    if(check_terrain[i+1]){
+      if(i==0){
+        cell1.innerHTML = check_time.result[dict[check_terrain[i].station_id][0]].station_name + " (Start) to " + check_time.result[dict[check_terrain[i+1].station_id][0]].station_name
+        cell5.innerHTML = AverageVel(parseInt(check_terrain[dict[check_terrain[i].station_id][0]].next_distance), parseInt(check_time.result[dict[check_terrain[i+1].station_id][0]].diff_sec)).toFixed(1) + " (m/s)"
+      }
+      else if(i==check_terrain.length - 2){
+        cell1.innerHTML = check_time.result[dict[check_terrain[i].station_id][0]].station_name + " to " + check_time.result[dict[check_terrain[i+1].station_id][0]].station_name + " (End)"
+      }
+      else{
+    cell1.innerHTML = check_time.result[dict[check_terrain[i].station_id][0]].station_name + " to " + check_time.result[dict[check_terrain[i+1].station_id][0]].station_name
+      }
+    cell2.innerHTML = pretty_print_time(check_time.result[dict[check_terrain[i+1].station_id][0]].time_stamp)
+    cell3.innerHTML = check_terrain[i].terrain
+    cell4.innerHTML = check_terrain[i].next_distance + " (m)"
+    if(i!= 0){
+    cell5.innerHTML = AverageVel(parseInt(check_terrain[dict[check_terrain[i].station_id][0]].next_distance), parseInt(check_time.result[dict[check_terrain[i+1].station_id][0]].diff_sec)).toFixed(1) + " (m/s)"
     }
-    cell5.innerHTML = check_terrain[i].terrain
-    cell6.innerHTML = check_terrain[i].next_distance
-    cell7.innerHTML = AverageVel(parseInt(check_terrain[corresponding_index].next_distance), parseInt(check_time.result[i].diff_sec)).toFixed(2) + "m/s"
+    }
   }
 }
 function TimeDiff(time1, time2) {
@@ -334,7 +398,11 @@ function ConvertTime(time_string) {
   return hours + minutes + seconds;
 }
 
-async function timetable_link_func() {
+function pretty_print_time(ts){
+  return ts[0]+ts[1]+"h " + ts[3] + ts[4] + "m " + ts[6] + ts[7] + "s"
+}
+
+async function timetable_link_func(){
   const urlParams = new URLSearchParams(window.location.search);
   event_id = urlParams.get("event_id");
   result_id = urlParams.get("result_id")

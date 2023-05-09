@@ -5,3 +5,4 @@
     <!--add content here-->
     <?php include '../assets/footer.php'; ?>
 </body>
+</html>

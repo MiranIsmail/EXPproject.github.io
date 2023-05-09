@@ -88,9 +88,24 @@
   </div>
   <!-- Copyright -->
 </footer>
-<script type="text/javascript"  src="../scripts/endpoint_functions.js"></script>
-<script type="text/javascript"  src="../scripts/tools.js"></script>
-    <script type="text/javascript"  src="../scripts/js_scripts.js"></script>
-    <script type="text/javascript"  src="../scripts/index_related.js"></script>
-    <script type="text/javascript"  src="../scripts/event_related.js"></script>
-    <script type="text/javascript"  src="../scripts/profile_related.js"></script>
+<script>
+  $(document).ready(function() {
+    if (localStorage.getItem("cookieConsent") != "true") {
+      $("#cookieModal").modal("show");
+    }
+    else{
+      $("#cookieModal").modal("hide");
+    }
+  });
+
+  $(".btn-primary").click(function() {
+    localStorage.setItem("cookieConsent", true);
+    $("#cookieModal").modal("hide");
+  });
+  </script>
+  <script type="text/javascript"  src="../scripts/endpoint_functions.js"></script>
+  <script type="text/javascript"  src="../scripts/tools.js"></script>
+  <script type="text/javascript"  src="../scripts/js_scripts.js"></script>
+  <script type="text/javascript"  src="../scripts/index_related.js"></script>
+  <script type="text/javascript"  src="../scripts/event_related.js"></script>
+  <script type="text/javascript"  src="../scripts/profile_related.js"></script>

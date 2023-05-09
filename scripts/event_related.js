@@ -1,4 +1,3 @@
-
 async function get_chip() {
   const response = await get_user_details_endpoint(get_cookie("auth_token"));
   const data = await response.json();

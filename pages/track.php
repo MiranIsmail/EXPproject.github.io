@@ -530,7 +530,6 @@
   function open_map(event) {
     
     window.init_map = init_map;
-    console.log(checkpoint_id)
   }
   
 </script>

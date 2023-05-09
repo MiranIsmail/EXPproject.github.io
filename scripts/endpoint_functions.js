@@ -1,4 +1,4 @@
-const BASE_ULR = "https://rasts.se/api/";
+
 
 /**
  * endpoint for creating an account

@@ -6,8 +6,10 @@
     <div id="container-img">
         <div class="row">
 
-            <div class="col-sm-6" id="profile_box">
-                <img class="img-fluid d-block" alt="profile image" id="profile_image" src="<?= $user_data->pimage ?>">
+            <div class="col-sm-6">
+                <div id="profile_box">
+                    <img class="img-fluid d-block" alt="profile image" id="profile_image" src="<?= $user_data->pimage ?>">
+                </div>
             </div>
             <div class="col-sm-6" style="vertical-align: middle;">
                 <div class="accout-piture">
@@ -178,11 +180,10 @@
             <button class="button-modular" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRightOrg" aria-controls="offcanvasRight">Want to register your organisation?</button>
         </div>
     </div>
+    <?php include '../assets/footer.php'; ?>
     <script>
         generate_user_results();
-
     </script>
-    <?php include '../assets/footer.php'; ?>
 </body>
 
 </html>
