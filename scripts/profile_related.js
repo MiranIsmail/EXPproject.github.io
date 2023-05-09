@@ -2,9 +2,7 @@
 async function generate_friend_results() {
     const urlParams = new URLSearchParams(window.location.search);
     g_username = urlParams.get("username");
-    const response = await fetch(BASE_ULR + "Results/?username=" + g_username, {
-      method: "GET",
-    });
+    const response = await get_account_result_endpoint(g_username)
     const data = await response.json();
 
     if (data.results){
@@ -42,9 +40,7 @@ async function generate_friend_results() {
   async function get_friend_info() {
     const urlParams = new URLSearchParams(window.location.search);
     g_username = urlParams.get("username");
-    const response = await fetch(BASE_ULR + "Account/" + g_username, {
-      method: "GET",
-    });
+    const response = await get_account_result_endpoint(g_username)
     const data = await response.json();
 
     //Just getting the source from the span. It was messy in JS.
@@ -64,10 +60,7 @@ async function generate_friend_results() {
   }
 
   async function get_user_info() {
-    const response = await fetch(BASE_ULR + "Account", {
-      method: "GET",
-      headers: { Authorization: get_cookie("auth_token") },
-    });
+    const response = await get_user_details_endpoint(get_cookie("auth_token"))
     const data = await response.json();
 
     //Just getting the source from the span. It was messy in JS.
@@ -89,12 +82,7 @@ async function generate_friend_results() {
 
 
   async function generate_user_results() {
-    const response = await fetch(
-          BASE_ULR + "Results/?token=" + get_cookie("auth_token"),
-          {
-            method: "GET",
-          }
-        );
+    const response = await get_user_result_endpoint(get_cookie("auth_token"))
         const data = await response.json();
           console.log(data)
         if (data.results){
