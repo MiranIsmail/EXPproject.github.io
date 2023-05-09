@@ -4,32 +4,23 @@ window.onload = function () {};
 // Utility functions for demo purpose
 
 function createAccount() {
+  let is_allowed = document.getElementById("gdprCheckbox").checked;
   let xemail = document.getElementById("email").value;
   let xfirst_name = document.getElementById("fname").value;
   let xlast_name = document.getElementById("lname").value;
   let xpassword = document.getElementById("pword").value;
   let xusername = document.getElementById("fuser").value;
 
-  fetch(BASE_ULR + "Account", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      email: xemail,
-      first_name: xfirst_name,
-      last_name: xlast_name,
-      password: xpassword,
-      username: xusername,
-    }),
-  })
-    .then((response) => {
-      var test = response.json();
-      console.log(test);
-    })
-    .then((data) => {
-      console.log(data);
-    })
-    .catch((error) => console.error(error));
-  location.href = "../pages/confirmation_account.php";
+  if (is_allowed) {
+    const response = create_account_endpoint(xemail, xfirst_name, xlast_name, xpassword, xusername);
+    if (response.status < 300) {
+      location.href = "../pages/confirmation_account.php";
+    } else {
+      alert("Something went wrong");
+    }
+  } else {
+    alert("Please accept the terms and conditions");
+  }
 }
 
 function fill_org_form() {
@@ -64,24 +55,20 @@ function fill_org_form() {
 async function log_in() {
   let femail = document.getElementById("fetchEmail").value;
   let fpword = document.getElementById("fetchPword").value;
-  const response = await fetch(BASE_ULR + "Token", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email: femail, password: fpword }),
-  });
+  const response = await get_token_endpoint(femail, fpword);
   const data = await response.json();
   document.cookie = `auth_token=${await data["auth_token"]}`;
   location.href = "../pages/profile.php";
 }
 
 async function log_out() {
-  const response = await fetch(BASE_ULR + "Token", {
-    method: "DELETE",
-    headers: { Authorization: get_cookie("auth_token") },
-  });
-  const data = await response.json();
-  console.log(await data);
-  location.href = "../pages/";
+  const response = await delete_token_endpoint();
+  if (response.status < 300) {
+    console.log("Logged out");
+    location.href = "../pages/";
+  } else {
+    console.log("Something went wrong with our logout");
+  }
 }
 
 async function edit_user_info() {
@@ -105,82 +92,18 @@ async function edit_user_info() {
       delete parameters[key];
     }
   }
-  console.log(parameters);
-
-  await fetch(BASE_ULR + "Account", {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: get_cookie("auth_token"),
-    },
-    body: JSON.stringify(parameters),
-  });
-
-  location.href = "../pages/profile.php";
-}
-
-function include_HTML() {
-  var z, i, element, file, xhttp;
-  /* Loop through a collection of all HTML elements: */
-  z = document.getElementsByTagName("div");
-
-  for (i = 0; i < z.length; i++) {
-    element = z[i];
-    /*search for elements with a certain atrribute:*/
-    file = element.getAttribute("include-html");
-
-    if (file) {
-      /* Make an HTTP request using the attribute value as the file name: */
-      xhttp = new XMLHttpRequest();
-      console.log(file);
-      xhttp.onreadystatechange = function () {
-        if (this.readyState == 4) {
-          if (this.status == 200) {
-            element.innerHTML = this.responseText;
-          }
-          if (this.status == 404) {
-            element.innerHTML = "Page not found.";
-          }
-          /* Remove the attribute, and call this function once more: */
-          element.removeAttribute("include-html");
-          include_HTML();
-        }
-      };
-      xhttp.open("GET", file, true);
-      xhttp.send();
-      /* Exit the function: */
-      return;
-    }
-  }
-}
-
-async function update_navbar() {
-  status_code = 401;
-  if (get_cookie("auth_token")) {
-    const response = await fetch(BASE_ULR + "Token", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: get_cookie("auth_token"),
-      },
-    });
-    status_code = await response.status;
-  }
-
-  if (status_code == 200) {
-    document.getElementById("navbar-log-out").classList.remove("d-none");
-    document.getElementById("navbar-profile").classList.remove("d-none");
+  const response = edit_user_details_endpoint(parameters);
+  if (response.status < 300) {
+    location.href = "../pages/profile.php";
   } else {
-    document.getElementById("navbar-log-in").classList.remove("d-none");
+    alert("Something went wrong in edit user details");
   }
 }
 
 async function get_checkpoints(event_id) {
   const marker_dict = {};
 
-  const event_response = await fetch(BASE_ULR + "Event/" + event_id, {
-    method: "GET",
-  });
+  const event_response = await get_event_endpoint(event_id);
   const event_data = await event_response.json();
   const track_name = await event_data["track_name"];
 
@@ -261,33 +184,6 @@ function CreateTrack(track_input, start_station, end_station) {
   console.log("Track created");
 }
 
-async function CreateCheckpoint(
-  trackname,
-  startid,
-  endid,
-  dist,
-  terrain,
-  longitude,
-  latitude,
-  number
-) {
-  await fetch(BASE_ULR + "Checkpoint", {
-    method: "POST",
-    body: JSON.stringify({
-      track_name: trackname,
-      station_id: startid,
-      next_id: endid,
-      next_distance: dist,
-      terrain: terrain,
-      longitude: longitude,
-      latitude: latitude,
-      checkpoint_number: number,
-    }),
-    headers: { "Content-Type": "application/json; charset=UTF-8" },
-  });
-  console.log("Checkpoint created");
-}
-
 async function create_event() {
   const response_incoming = await fetch(BASE_ULR + "Account", {
     method: "GET",
@@ -333,19 +229,16 @@ async function create_event() {
     }
   }
 
-  const response = await fetch(BASE_ULR + "Event", {
-    method: "POST",
-    body: JSON.stringify(parameters),
-  });
-  console.log(JSON.stringify(parameters));
-  location.href = "../pages/confirmation_event.php";
+  const response = await create_event_endpoint(parameters);
+  if (response.status < 300) {
+    location.href = "../pages/confirmation_event.php";
+  } else {
+    console.log("Something went wrong in create event");
+  }
 }
 
 async function TrackDropdown() {
-  response = await fetch("https://rasts.se/api/Track", {
-    method: "GET",
-    headers: { Accept: "Application/json" },
-  });
+  const response = await get_all_tracks_endpoint();
   let dropdown = document.getElementById("dropdown_track");
   data = await response.json();
   for (let i = 0; i < data.length; i++) {
@@ -391,7 +284,10 @@ async function update_user_password(event) {
     if (pass == pass_confirm) {
       const response = await fetch(BASE_ULR + "Account", {
         method: "PATCH",
-        body: JSON.stringify({ url: url, password: pass }),
+        body: JSON.stringify({
+          "url": url,
+          "password": pass
+        }),
         headers: { "Content-Type": "application/json" },
       });
       if (response.status > 300) {
@@ -408,33 +304,24 @@ async function update_user_password(event) {
 }
 
 async function GetChecks(result_id, event_id) {
-    //calls the api and fills the html table with data
+  //calls the api and fills the html table with data
 
-    check_time = await fetch(
-      "https://rasts.se/api/Results/" + result_id.toString(),
-      { method: "GET", headers: { Accept: "Application/json" } }
-    );
+  check_time = await get_result_endpoint(result_id.toString());
 
-    check_time = await check_time.json()
+  check_time = await check_time.json()
 
-    check_terrain = await fetch(
-      "https://rasts.se/api/Checkpoint?event_id=" + event_id.toString(),
-      { method: "GET", headers: { Accept: "Application/json" } }
-    );
+  check_terrain = await get_checkpoints(event_id.toString());
 
-    check_terrain = await check_terrain.json()
+  check_terrain = await check_terrain.json()
 
-    event_info = await fetch(
-      "https://rasts.se/api/Event/" + event_id.toString(),
-      { method: "GET", headers: { Accept: "Application/json" } }
-    );
-    event_info = await event_info.json()
+  event_info = await get_event_endpoint(event_id.toString());
+  event_info = await event_info.json()
 
-    document.getElementById('event_title').innerHTML = "Event: " + event_info.event_name
-    document.getElementById('track_title').innerHTML = "Track: " + check_terrain[0].track_name
-    document.getElementById('date').innerHTML = "Date: From " + event_info.startdate + " to " + event_info.enddate
-    FillTable(check_time, check_terrain)
-  }
+  document.getElementById('event_title').innerHTML = "Event: " + event_info.event_name
+  document.getElementById('track_title').innerHTML = "Track: " + check_terrain[0].track_name
+  document.getElementById('date').innerHTML = "Date: From " + event_info.startdate + " to " + event_info.enddate
+  FillTable(check_time, check_terrain)
+}
 
 function FillTable(check_time, check_terrain) {//check_terrain = Checkpoint data, check_time = checkpoint_time data
   //#############################################################################
@@ -480,7 +367,7 @@ function FillTable(check_time, check_terrain) {//check_terrain = Checkpoint data
     cell3.innerHTML = check_terrain[i].terrain
     cell4.innerHTML = check_terrain[i].next_distance + " (m)"
     if(i!= 0){
-    cell5.innerHTML = AverageVel(parseInt(check_terrain[dict[check_terrain[i].station_id][0]].next_distance), parseInt(check_time.result[dict[check_terrain[i].station_id][0]].diff_sec)).toFixed(1) + " (m/s)"
+    cell5.innerHTML = AverageVel(parseInt(check_terrain[dict[check_terrain[i].station_id][0]].next_distance), parseInt(check_time.result[dict[check_terrain[i+1].station_id][0]].diff_sec)).toFixed(1) + " (m/s)"
     }
     }
   }

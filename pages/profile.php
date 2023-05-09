@@ -180,11 +180,10 @@
             <button class="button-modular" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRightOrg" aria-controls="offcanvasRight">Want to register your organisation?</button>
         </div>
     </div>
+    <?php include '../assets/footer.php'; ?>
     <script>
         generate_user_results();
-
     </script>
-    <?php include '../assets/footer.php'; ?>
 </body>
 
 </html>

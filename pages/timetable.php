@@ -2,12 +2,15 @@
 
 <body>
   <?php include '../assets/navbar.php'; ?>
-
+  <div class="padding_all" style="text-align:center; padding-top:3rem;">
+      <h1 id="event_title">Event:</h1>
+      <h2 id="track_title">Track:</h2>
+      <h2 id="date">Date:</h2>
+    </div>
+  <div>
+    <img class="w-100 op30" src="../images/indeximage_thinner.png" alt="Running figures" id="image_run">
   <div class="mx-auto">
-    <h1 id="event_title">Event:</h1>
-    <h2 id="track_title">Track:</h2>
-    <h2 id="date">Date:</h2>
-    <table style="border-color: black;" class="table table-bordered" id="timetable">
+    <table class="table table-bordered result_table" id="timetable" style="margin-bottom:0px;">
       <thead>
         <tr>
           <th scope="col">Station:</th>

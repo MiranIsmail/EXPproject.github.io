@@ -377,7 +377,7 @@
         }
       }
       console.log(track_name, start_id, end_id, distance, terrain, marker_longitude, marker_latitude, checkpoint_number)
-      CreateCheckpoint(track_name, start_id, end_id, distance, terrain, marker_longitude, marker_latitude, checkpoint_number);
+      create_checkpoint_endpoint(track_name, start_id, end_id, distance, terrain, marker_longitude, marker_latitude, checkpoint_number);
       
     })
     checkpoint_number++
@@ -388,7 +388,7 @@
         marker_latitude = current_marker.getPosition().lat()
 
         console.log(track_name, end_id, "undef", "0", "undef", marker_longitude, marker_latitude, checkpoint_number)
-        CreateCheckpoint(track_name, end_id, "undef", "0", "undef", marker_longitude, marker_latitude, checkpoint_number)
+        create_checkpoint_endpoint(track_name, end_id, "undef", "0", "undef", marker_longitude, marker_latitude, checkpoint_number)
         }
       } 
     location.href= "../pages/confirmation_track.php";

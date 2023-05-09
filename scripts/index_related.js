@@ -149,7 +149,7 @@ async function readCSVAndSplitData(filename) {
 /*----------------------------------------------------------------------------------------------------------------LOADING FUNCTION*/
 async function data_load_index(){
 
-  const response = await fetch("https://rasts.se/api/Event")
+  const response = await get_all_event_endpoint()
   const data = await response.json()
 
 
@@ -160,7 +160,7 @@ async function data_load_index(){
 
 async function data_load_index_topten(){
 
-  const response = await fetch("https://rasts.se/api/Event?setting=topten")
+  const response = await get_top_event_endpoint()
   const data = await response.json()
 
   data.forEach((i) => {
