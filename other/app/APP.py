@@ -151,7 +151,7 @@ def time_format_parse(time_log: str):
 def get_event_id(chip_id):
     # create a new window
     window = tk.Toplevel(f1,)
-    window.iconbitmap(r"C:\Users\miran\Desktop\EXPproject\other\logo.ico")
+    window.iconbitmap(r"logo.ico")
     window.geometry("300x200")
 
     # get the screen width and height
@@ -290,7 +290,7 @@ def close():
 
 root = tk.Tk()
 root.title("RASTS")
-root.iconbitmap(r"C:\Users\miran\Desktop\EXPproject\other\logo.ico")
+root.iconbitmap(r"other\app\logo.ico")
 root.attributes('-fullscreen',True)
 my_note = ttk.Notebook(root)
 my_note.pack(fill="both",expand=True)
@@ -308,7 +308,7 @@ my_note.add(f2,text="Settings")
 ### This section handles the images that are used in both frame 1 and 2
 label_text = "Hello from RASTS.se"
 label_font = ('helvetica', 62)
-image = Image.open(r"C:\Users\miran\Desktop\EXPproject\other\app\RASTS.png")
+image = Image.open(r"other\app\RASTS.png")
 w,h=GetSystemMetrics(0),GetSystemMetrics(1)
 resize_image = image.resize((w//3, h//3))
 img = ImageTk.PhotoImage(resize_image)
