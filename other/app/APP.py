@@ -12,7 +12,7 @@ from PIL import Image, ImageTk
 from win32api import GetSystemMetrics
 import serial.tools.list_ports as stlp
 
-
+global_fullscreen = False
 global_event_id = ""
 global_track_name = ""
 global_event_id_result ="0"
@@ -291,7 +291,7 @@ def close():
 root = tk.Tk()
 root.title("RASTS")
 root.iconbitmap(r"other\app\logo.ico")
-root.attributes('-fullscreen',True)
+root.attributes('-fullscreen',global_fullscreen)
 my_note = ttk.Notebook(root)
 my_note.pack(fill="both",expand=True)
 
@@ -450,6 +450,19 @@ def button_clicked_f2_3():
     global_event_id_result = new_options_f2_id[index]
     global_event_id = selected_event#####!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! maybe do am error handling
 
+def button_clicked_f2_4():
+    """This function is connected to button_f2_4 and sets the global variable(global_fullscreen) to True"""
+    global global_fullscreen
+    if global_fullscreen == True:
+        global_fullscreen = False
+        button_f2_4.config(bg='red')
+        root.attributes('-fullscreen', False)
+    else:
+        global_fullscreen = True
+        button_f2_4.config(bg='green')
+        root.attributes('-fullscreen', True)
+
+    
 ###button named "set track" connected to the function(see command)
 button_f2_2 = tk.Button(f2, text="Set track", command=button_clicked_f2_2,bg='red')
 button_f2_2.place(relx=0.01,rely=0.63,relheight=0.05,relwidth=0.05)
@@ -457,6 +470,11 @@ button_f2_2.place(relx=0.01,rely=0.63,relheight=0.05,relwidth=0.05)
 ###button named "set event" connected to the function(see command)
 button_f2_3 = tk.Button(f2, text="Set event", command=button_clicked_f2_3,bg='red')
 button_f2_3.place(relx=0.01,rely=0.69,relheight=0.05,relwidth=0.05)
+
+###button named "set event" connected to the function(see command)
+button_f2_4 = tk.Button(f2, text="Fullscreen mode", command=button_clicked_f2_4,bg='red')
+button_f2_4.place(relx=0.01,rely=0.75,relheight=0.05,relwidth=0.05)
+
 
 ##Explanation label for the buttons
 font_size = int(f2.winfo_screenwidth()/90)
