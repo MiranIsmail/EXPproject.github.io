@@ -190,12 +190,12 @@ async function create_event_endpoint(parameters
 
 async function get_all_tracks_endpoint() {
     const response = await fetch(BASE_ULR + "Track");
-    return await response.json();
+    return await response
 }
 
 async function generate_event_results_endpoint(event_id) {
     const response = await fetch(BASE_ULR + "Results?event_id=" + event_id);
-    return await response.json();
+    return await response
 }
 
 async function register_event_endpoint(parameters) {
@@ -203,5 +203,5 @@ async function register_event_endpoint(parameters) {
         method: "POST",
         body: JSON.stringify(parameters),
     });
-    return await response.json();
+    return await response
 }
