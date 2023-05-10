@@ -18,7 +18,7 @@ include '../assets/head.php';
             </div>
             <div class="col-sm-6 padding_bottom_half">
                 <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" data-bs-toggle="collapse" data-bs-target="#org" aria-expanded="false" aria-controls="collapseExample">
-                <label class="btn btn-secondary w-100" for="option2">Log in as organisation</label>
+                <label class="btn btn-secondary w-100" for="option2">Log in as organization</label>
             </div>
 
         </div>
@@ -43,15 +43,15 @@ include '../assets/head.php';
             </div>
 
             <div class="collapse log_in_organisation drop_shadow mx-auto" id="org">
-                <h2>Organisation</h2>
+                <h2>Organization</h2>
                 <form>
                     <div class="form-group form_group_style mx-auto">
                         <p>Email address</p>
-                        <input type="email" class="form-control input_field_style" aria-describedby="emailHelp" placeholder="Enter email" id="fetchEmail">
+                        <input type="email" class="form-control input_field_style" aria-describedby="emailHelp" placeholder="Enter email" id="fetchEmailOrg">
                     </div>
                     <div class="form-group form_group_style mx-auto">
                         <p>Password</p>
-                        <input type="password" class="form-control input_field_style" placeholder="Password" id="fetchPword">
+                        <input type="password" class="form-control input_field_style" placeholder="Password" id="fetchPwordOrg">
                     </div>
                     <div class="form-group form_group_style mx-auto">
                         <button type="button" id="button_style" onclick="log_in_org()">Sign in</button>

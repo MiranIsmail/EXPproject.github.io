@@ -67,6 +67,15 @@ async function log_in() {
   location.href = "../pages/profile.php";
 }
 
+async function log_in_org() {
+  let femail = document.getElementById("fetchEmailOrg").value;
+  let fpword = document.getElementById("fetchPwordOrg").value;
+  const response = await get_token_endpoint(femail, fpword, "Organization");
+  const data = await response.json();
+  document.cookie = `auth_token=${await data["auth_token"]}`;
+  location.href = "../pages/profile.php";
+}
+
 async function log_out() {
   const response = await delete_token_endpoint();
   if (response.status < 300) {
@@ -75,15 +84,6 @@ async function log_out() {
   } else {
     console.log("Something went wrong with our logout");
   }
-}
-
-async function log_in_org() {
-  let femail = document.getElementById("fetchEmail").value;
-  let fpword = document.getElementById("fetchPword").value;
-  const response = await get_token_endpoint(femail, fpword);
-  const data = await response.json();
-  document.cookie = `auth_token=${await data["auth_token"]}`;
-  location.href = "../pages/profile.php";
 }
 
 async function edit_user_info() {
