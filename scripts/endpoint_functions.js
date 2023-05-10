@@ -9,6 +9,7 @@
  * @param {string} username username of the user
  * @returns a fetch response with data about the user in json format. The data includes first_name, last_name, email, username, birthdata, profile image, chip_id, height and weight.
  */
+
 async function create_account_endpoint(email, first_name, last_name, password, username) {
     return await fetch(BASE_ULR + "Account", {
         method: 'POST',
@@ -133,7 +134,7 @@ async function get_top_event_endpoint() {
 }
 
 async function get_track_checkpoints_endpoint(track_name) {
-    return await fetch(BASE_ULR + "Checkpoints?track_name=" + track_name);
+    return await fetch(BASE_ULR + "Checkpoint?track_name=" + track_name);
 
 }
 

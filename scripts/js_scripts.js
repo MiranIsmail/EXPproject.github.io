@@ -328,17 +328,18 @@ async function update_user_password(event) {
 async function GetChecks(result_id, event_id) {
   //calls the api and fills the html table with data
 
-  check_time = await get_result_endpoint(result_id.toString());
-
+  check_time = await get_result_endpoint(result_id)
   check_time = await check_time.json()
-
-  check_terrain = await get_checkpoints(event_id.toString());
-
-  check_terrain = await check_terrain.json()
+  console.log(check_time)
 
   event_info = await get_event_endpoint(event_id.toString());
   event_info = await event_info.json()
+  console.log(event_info)
 
+  check_terrain = await get_track_checkpoints_endpoint(event_info.track_name);
+  check_terrain = await check_terrain.json()
+  console.log(check_terrain)
+  
   document.getElementById('event_title').innerHTML = "Event: " + event_info.event_name
   document.getElementById('track_title').innerHTML = "Track: " + check_terrain[0].track_name
   document.getElementById('date').innerHTML = "Date: From " + event_info.startdate + " to " + event_info.enddate
@@ -385,7 +386,7 @@ function FillTable(check_time, check_terrain) {//check_terrain = Checkpoint data
       else{
     cell1.innerHTML = check_time.result[dict[check_terrain[i].station_id][0]].station_name + " to " + check_time.result[dict[check_terrain[i+1].station_id][0]].station_name
       }
-    cell2.innerHTML = pretty_print_time(check_time.result[dict[check_terrain[i+1].station_id][0]].time_stamp)
+    cell2.innerHTML = pretty_print_time(check_time.result[dict[check_terrain[i+1].station_id][0]].diff_time_stamp)
     cell3.innerHTML = check_terrain[i].terrain
     cell4.innerHTML = check_terrain[i].next_distance + " (m)"
     if(i!= 0){

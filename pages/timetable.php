@@ -25,6 +25,7 @@
     </table>
   </div>
   <?php include '../assets/footer.php'; ?>
+  <script src="../scripts/endpoint_functions.js"></script>
   <script src="../scripts/js_scripts.js"></script>
   <script>timetable_link_func()</script>
 </body>
