@@ -83,7 +83,6 @@ async function get_user_info() {
 async function generate_user_results() {
   const response = await get_user_result_endpoint(get_cookie("auth_token"))
       const data = await response.json();
-        console.log(data["username"])
       if (data.results){
         for (let i = 0; i < data.results.results.length; i++) {
           let row = event_user_results.insertRow(i + 1)
@@ -115,7 +114,7 @@ async function generate_user_results() {
 async function generate_user_upcoming() {
   const response = await get_user_details_endpoint(get_cookie("auth_token"))
     const data = await response.json();
-
+    console.log(data["username"])
   const response2 = await get_user_upcoming_endpoint("tobbelobbe")
     const data2 = await response2.json();
       console.log("long: "+data2[0]["event_name"])
