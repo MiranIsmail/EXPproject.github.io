@@ -12,7 +12,13 @@ function createAccount() {
   let xusername = document.getElementById("fuser").value;
 
   if (is_allowed) {
-    const response = create_account_endpoint(xemail, xfirst_name, xlast_name, xpassword, xusername);
+    const response = create_account_endpoint(
+      xemail,
+      xfirst_name,
+      xlast_name,
+      xpassword,
+      xusername
+    );
     if (response.status < 300) {
       location.href = "../pages/confirmation_account.php";
     } else {
@@ -69,6 +75,15 @@ async function log_out() {
   } else {
     console.log("Something went wrong with our logout");
   }
+}
+
+async function log_in_org() {
+  let femail = document.getElementById("fetchEmail").value;
+  let fpword = document.getElementById("fetchPword").value;
+  const response = await get_token_endpoint(femail, fpword);
+  const data = await response.json();
+  document.cookie = `auth_token=${await data["auth_token"]}`;
+  location.href = "../pages/profile.php";
 }
 
 async function edit_user_info() {
@@ -285,8 +300,8 @@ async function update_user_password(event) {
       const response = await fetch(BASE_ULR + "Account", {
         method: "PATCH",
         body: JSON.stringify({
-          "url": url,
-          "password": pass
+          url: url,
+          password: pass,
         }),
         headers: { "Content-Type": "application/json" },
       });
@@ -308,67 +323,103 @@ async function GetChecks(result_id, event_id) {
 
   check_time = await get_result_endpoint(result_id.toString());
 
-  check_time = await check_time.json()
+  check_time = await check_time.json();
 
   check_terrain = await get_checkpoints(event_id.toString());
 
-  check_terrain = await check_terrain.json()
+  check_terrain = await check_terrain.json();
 
   event_info = await get_event_endpoint(event_id.toString());
-  event_info = await event_info.json()
+  event_info = await event_info.json();
 
-  document.getElementById('event_title').innerHTML = "Event: " + event_info.event_name
-  document.getElementById('track_title').innerHTML = "Track: " + check_terrain[0].track_name
-  document.getElementById('date').innerHTML = "Date: From " + event_info.startdate + " to " + event_info.enddate
-  FillTable(check_time, check_terrain)
+  document.getElementById("event_title").innerHTML =
+    "Event: " + event_info.event_name;
+  document.getElementById("track_title").innerHTML =
+    "Track: " + check_terrain[0].track_name;
+  document.getElementById("date").innerHTML =
+    "Date: From " + event_info.startdate + " to " + event_info.enddate;
+  FillTable(check_time, check_terrain);
 }
 
-function FillTable(check_time, check_terrain) {//check_terrain = Checkpoint data, check_time = checkpoint_time data
+function FillTable(check_time, check_terrain) {
+  //check_terrain = Checkpoint data, check_time = checkpoint_time data
   //#############################################################################
-  check_terrain.sort((a,b)=>(a.checkpoint_number > b.checkpoint_number) ? 1 : -1)//sorts the api/Checkpoint objects positions from smallest to largest by checkpoint_number
+  check_terrain.sort((a, b) =>
+    a.checkpoint_number > b.checkpoint_number ? 1 : -1
+  ); //sorts the api/Checkpoint objects positions from smallest to largest by checkpoint_number
 
-  const dict = {} //this dictionary will first be fille up with the Checkpoint data in order as the keys, then the corresponding object in checkpoint_time with the same station_name will have its index used as a value
+  const dict = {}; //this dictionary will first be fille up with the Checkpoint data in order as the keys, then the corresponding object in checkpoint_time with the same station_name will have its index used as a value
 
-  check_terrain.forEach((item)=>{
-    const station_id = item.station_id
-    if(!dict[station_id]){
-      dict[station_id] = []
-    } 
-  })
-
-  check_time.result.forEach((item, index)=>{
-    const station_name = item.station_name
-    if(dict[station_name]){
-      dict[station_name].push(index)
+  check_terrain.forEach((item) => {
+    const station_id = item.station_id;
+    if (!dict[station_id]) {
+      dict[station_id] = [];
     }
-  })
+  });
+
+  check_time.result.forEach((item, index) => {
+    const station_name = item.station_name;
+    if (dict[station_name]) {
+      dict[station_name].push(index);
+    }
+  });
   //#############################################################################
 
   for (let i = 0; i < check_terrain.length; i++) {
-  
     let row = timetable.insertRow(i + 1);
     let cell1 = row.insertCell(0); //station name
     let cell2 = row.insertCell(1); //time in seconds
     let cell3 = row.insertCell(2); //terrain
     let cell4 = row.insertCell(3); //distance
     let cell5 = row.insertCell(4); //average velocity
-    if(check_terrain[i+1]){
-      if(i==0){
-        cell1.innerHTML = check_time.result[dict[check_terrain[i].station_id][0]].station_name + " (Start) to " + check_time.result[dict[check_terrain[i+1].station_id][0]].station_name
-        cell5.innerHTML = AverageVel(parseInt(check_terrain[dict[check_terrain[i].station_id][0]].next_distance), parseInt(check_time.result[dict[check_terrain[i+1].station_id][0]].diff_sec)).toFixed(1) + " (m/s)"
+    if (check_terrain[i + 1]) {
+      if (i == 0) {
+        cell1.innerHTML =
+          check_time.result[dict[check_terrain[i].station_id][0]].station_name +
+          " (Start) to " +
+          check_time.result[dict[check_terrain[i + 1].station_id][0]]
+            .station_name;
+        cell5.innerHTML =
+          AverageVel(
+            parseInt(
+              check_terrain[dict[check_terrain[i].station_id][0]].next_distance
+            ),
+            parseInt(
+              check_time.result[dict[check_terrain[i + 1].station_id][0]]
+                .diff_sec
+            )
+          ).toFixed(1) + " (m/s)";
+      } else if (i == check_terrain.length - 2) {
+        cell1.innerHTML =
+          check_time.result[dict[check_terrain[i].station_id][0]].station_name +
+          " to " +
+          check_time.result[dict[check_terrain[i + 1].station_id][0]]
+            .station_name +
+          " (End)";
+      } else {
+        cell1.innerHTML =
+          check_time.result[dict[check_terrain[i].station_id][0]].station_name +
+          " to " +
+          check_time.result[dict[check_terrain[i + 1].station_id][0]]
+            .station_name;
       }
-      else if(i==check_terrain.length - 2){
-        cell1.innerHTML = check_time.result[dict[check_terrain[i].station_id][0]].station_name + " to " + check_time.result[dict[check_terrain[i+1].station_id][0]].station_name + " (End)"
+      cell2.innerHTML = pretty_print_time(
+        check_time.result[dict[check_terrain[i + 1].station_id][0]].time_stamp
+      );
+      cell3.innerHTML = check_terrain[i].terrain;
+      cell4.innerHTML = check_terrain[i].next_distance + " (m)";
+      if (i != 0) {
+        cell5.innerHTML =
+          AverageVel(
+            parseInt(
+              check_terrain[dict[check_terrain[i].station_id][0]].next_distance
+            ),
+            parseInt(
+              check_time.result[dict[check_terrain[i + 1].station_id][0]]
+                .diff_sec
+            )
+          ).toFixed(1) + " (m/s)";
       }
-      else{
-    cell1.innerHTML = check_time.result[dict[check_terrain[i].station_id][0]].station_name + " to " + check_time.result[dict[check_terrain[i+1].station_id][0]].station_name
-      }
-    cell2.innerHTML = pretty_print_time(check_time.result[dict[check_terrain[i+1].station_id][0]].time_stamp)
-    cell3.innerHTML = check_terrain[i].terrain
-    cell4.innerHTML = check_terrain[i].next_distance + " (m)"
-    if(i!= 0){
-    cell5.innerHTML = AverageVel(parseInt(check_terrain[dict[check_terrain[i].station_id][0]].next_distance), parseInt(check_time.result[dict[check_terrain[i+1].station_id][0]].diff_sec)).toFixed(1) + " (m/s)"
-    }
     }
   }
 }
@@ -398,13 +449,13 @@ function ConvertTime(time_string) {
   return hours + minutes + seconds;
 }
 
-function pretty_print_time(ts){
-  return ts[0]+ts[1]+"h " + ts[3] + ts[4] + "m " + ts[6] + ts[7] + "s"
+function pretty_print_time(ts) {
+  return ts[0] + ts[1] + "h " + ts[3] + ts[4] + "m " + ts[6] + ts[7] + "s";
 }
 
-async function timetable_link_func(){
+async function timetable_link_func() {
   const urlParams = new URLSearchParams(window.location.search);
   event_id = urlParams.get("event_id");
-  result_id = urlParams.get("result_id")
-  GetChecks(result_id, event_id)
+  result_id = urlParams.get("result_id");
+  GetChecks(result_id, event_id);
 }
