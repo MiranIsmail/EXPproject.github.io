@@ -114,8 +114,7 @@ async function generate_user_results() {
 async function generate_user_upcoming() {
   const response = await get_user_details_endpoint(get_cookie("auth_token"))
     const data = await response.json();
-    console.log(data["username"])
-  const response2 = await get_user_upcoming_endpoint("tobbelobbe")
+  const response2 = await get_user_upcoming_endpoint(data["username"])
     const data2 = await response2.json();
       console.log("long: "+data2[0]["event_name"])
 
