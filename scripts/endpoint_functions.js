@@ -72,10 +72,11 @@ async function get_user_details_endpoint(token) {
  * endpoint for getting the token of the user by thier email and password
  * @param {string} email email of the user
  * @param {string} password password of the user
+ * @param {string} table_name the name of the table that the token is for
  * @returns a fetch response with data about the user in json format. The data includes the token of the user. The token is active for 24 hours.
  */
-async function get_token_endpoint(email, password) {
-    return await fetch(BASE_ULR + "Token", {
+async function get_token_endpoint(email, password, table_name = "Users") {
+    return await fetch(BASE_ULR + "Token/" + table_name, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: email, password: password }),
@@ -85,10 +86,11 @@ async function get_token_endpoint(email, password) {
 /**
  * changes the token without returning any data.
  * @param {string} token the token of the user
+ * @param {string} table_name the name of the table that the token is for
  * @returns a fetch response with empty data.
  */
-async function delete_token_endpoint(token) {
-    return await fetch(BASE_ULR + "Token", {
+async function delete_token_endpoint(token, table_name = "Users") {
+    return await fetch(BASE_ULR + "Token/" + table_name, {
         method: "DELETE",
         headers: { Authorization: get_cookie("auth_token") },
     });
