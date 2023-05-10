@@ -246,6 +246,26 @@ async function TrackDropdown() {
   }
 }
 
+async function email_confirmed(event) {
+  event.preventDefault();
+  var responde = document.getElementById("responde");
+  const url = new URL(window.location.href);
+  const response = await fetch(BASE_ULR + "Account", {
+    method: "PATCH",
+    body: JSON.stringify({
+      "url": url
+    }),
+    headers: { "Content-Type": "application/json" },
+  });
+  if (response.status > 300) {
+    responde.innerHTML =
+      "an error occured. Email not verified!";
+  } else {
+    responde.innerHTML =
+      "Email is verified, Feel free to log in!";
+  }
+}
+
 async function email_to_forgot_password(event) {
   event.preventDefault();
   var email = document.getElementById("email").value;
@@ -263,7 +283,7 @@ async function email_to_forgot_password(event) {
       responde.innerHTML = "Email dosn't exict!";
     } else {
       responde.innerHTML =
-        "Email was sent successfully, it may take a couple minute to receive the email!";
+        "Email was sent successfully, it might take couple of minutes to receive the email!";
     }
     console.log(response);
   }
@@ -302,6 +322,8 @@ async function update_user_password(event) {
     }
   }
 }
+
+
 
 async function GetChecks(result_id, event_id) {
   //calls the api and fills the html table with data
