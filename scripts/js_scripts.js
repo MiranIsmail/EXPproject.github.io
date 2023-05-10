@@ -261,6 +261,26 @@ async function TrackDropdown() {
   }
 }
 
+async function email_confirmed(event) {
+  event.preventDefault();
+  var responde = document.getElementById("responde");
+  const url = new URL(window.location.href);
+  const response = await fetch(BASE_ULR + "Account", {
+    method: "PATCH",
+    body: JSON.stringify({
+      "url": url
+    }),
+    headers: { "Content-Type": "application/json" },
+  });
+  if (response.status > 300) {
+    responde.innerHTML =
+      "an error occured. Email not verified!";
+  } else {
+    responde.innerHTML =
+      "Email is verified, Feel free to log in!";
+  }
+}
+
 async function email_to_forgot_password(event) {
   event.preventDefault();
   var email = document.getElementById("email").value;
@@ -278,7 +298,7 @@ async function email_to_forgot_password(event) {
       responde.innerHTML = "Email dosn't exict!";
     } else {
       responde.innerHTML =
-        "Email was sent successfully, it may take a couple minute to receive the email!";
+        "Email was sent successfully, it might take couple of minutes to receive the email!";
     }
     console.log(response);
   }
@@ -318,27 +338,27 @@ async function update_user_password(event) {
   }
 }
 
+
+
 async function GetChecks(result_id, event_id) {
   //calls the api and fills the html table with data
 
-  check_time = await get_result_endpoint(result_id.toString());
-
-  check_time = await check_time.json();
-
-  check_terrain = await get_checkpoints(event_id.toString());
-
-  check_terrain = await check_terrain.json();
+  check_time = await get_result_endpoint(result_id)
+  check_time = await check_time.json()
+  console.log(check_time)
 
   event_info = await get_event_endpoint(event_id.toString());
-  event_info = await event_info.json();
+  event_info = await event_info.json()
+  console.log(event_info)
 
-  document.getElementById("event_title").innerHTML =
-    "Event: " + event_info.event_name;
-  document.getElementById("track_title").innerHTML =
-    "Track: " + check_terrain[0].track_name;
-  document.getElementById("date").innerHTML =
-    "Date: From " + event_info.startdate + " to " + event_info.enddate;
-  FillTable(check_time, check_terrain);
+  check_terrain = await get_track_checkpoints_endpoint(event_info.track_name);
+  check_terrain = await check_terrain.json()
+  console.log(check_terrain)
+  
+  document.getElementById('event_title').innerHTML = "Event: " + event_info.event_name
+  document.getElementById('track_title').innerHTML = "Track: " + check_terrain[0].track_name
+  document.getElementById('date').innerHTML = "Date: From " + event_info.startdate + " to " + event_info.enddate
+  FillTable(check_time, check_terrain)
 }
 
 function FillTable(check_time, check_terrain) {
@@ -420,6 +440,12 @@ function FillTable(check_time, check_terrain) {
             )
           ).toFixed(1) + " (m/s)";
       }
+    cell2.innerHTML = pretty_print_time(check_time.result[dict[check_terrain[i+1].station_id][0]].diff_time_stamp)
+    cell3.innerHTML = check_terrain[i].terrain
+    cell4.innerHTML = check_terrain[i].next_distance + " (m)"
+    if(i!= 0){
+    cell5.innerHTML = AverageVel(parseInt(check_terrain[dict[check_terrain[i].station_id][0]].next_distance), parseInt(check_time.result[dict[check_terrain[i+1].station_id][0]].diff_sec)).toFixed(1) + " (m/s)"
+    }
     }
   }
 }
