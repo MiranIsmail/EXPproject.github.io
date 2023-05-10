@@ -28,7 +28,7 @@ async function create_account_endpoint(email, first_name, last_name, password, u
 /**
  * endpoint for getting the public details of the user by thier username
  * @param {string} username username of the user
- * @returns a fetch response with data about the user in json format. The data includes the public information about the user. * 
+ * @returns a fetch response with data about the user in json format. The data includes the public information about the user. *
  * */
 async function get_account_details_endpoint(username) {
     return await fetch(BASE_ULR + "Account/" + username, {
@@ -38,7 +38,7 @@ async function get_account_details_endpoint(username) {
 }
 
 /**
- * endpoint for editing the details of the user 
+ * endpoint for editing the details of the user
  * @param {object} parameters an object with the parameters that need to be changed. The parameters are: email, first_name, last_name, password, username, birthdate, pimage, chip_id, height and weight.
  * @returns a fetch response with empty data.
  */
@@ -95,7 +95,7 @@ async function delete_token_endpoint(token) {
 }
 
 /**
- * 
+ *
  * @param {string} token the token of the user
  * @returns a fetch response with data about the users results in json format. The data includes all the .
  */
@@ -204,4 +204,16 @@ async function register_event_endpoint(parameters) {
         body: JSON.stringify(parameters),
     });
     return await response
+}
+
+/**
+ * endpoint for getting the results of the user by thier token
+ * @param {string} username username of the user
+ * @returns
+ */
+async function get_user_upcoming_endpoint(username) {
+    return await fetch(BASE_ULR + `Registration/?username=${username}`, {
+        method: "GET",
+    });
+
 }
