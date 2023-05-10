@@ -130,7 +130,7 @@ async function generate_user_upcoming() {
       link_button.innerText = 'Go To Event →'
       link_button.setAttribute("class", "more_info_button");
       link_button.onclick = function() {
-      window.location.href = '../pages/event_display.php?event_id='+data2[i]["event_id"]];
+      window.location.href = '../pages/event_display.php?event_id='+data2[i]["event_id"];
     }
     cell1.setAttribute("class", "no_padding_vert")
     cell2.setAttribute("class", "no_padding_vert")
