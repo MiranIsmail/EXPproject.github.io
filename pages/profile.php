@@ -8,7 +8,8 @@
 
             <div class="col-sm-6">
                 <div id="profile_box">
-                    <img class="img-fluid d-block" alt="profile image" id="profile_image" src="<?= $user_data->pimage ?>">
+
+                    <img class="img-fluid d-block" alt="profile image" id="profile_image" src="<?= ($is_logged_in_user == true) ? $user_data->pimage : $org_data->oimage ?>">
                 </div>
             </div>
             <div class="col-sm-6" style="vertical-align: middle;">
@@ -17,22 +18,24 @@
                 </div>
 
                 <div>
-                    <h1 class="text-shift">
-                        <span id="profileName"><?= $user_data->first_name . " " . $user_data->last_name ?></span>
-                    </h1>
-                    <h3 class="text-shift">Username: <span id="profile_length"></span> <?= $user_data->username ?></h3>
-                    <h3 class="text-shift">Age: <span id="profile_age"></span> <?= date_diff(date_create($user_data->birthdate), date_create('today'))->y; ?> years old</h3>
+                    <?php if ($is_logged_in_user) { ?>
+                        <h1 class="text-shift">
+                            <span id="profileName"><?= $user_data->first_name . " " . $user_data->last_name ?></span>
+                        </h1>
+                        <h3 class="text-shift">Username: <span id="profile_length"></span> <?= $user_data->username ?></h3>
+                        <h3 class="text-shift">Age: <span id="profile_age"></span> <?= date_diff(date_create($user_data->birthdate), date_create('today'))->y; ?> years old</h3>
 
-                    <h3 class="text-shift">Length: <span id="profile_length"></span> <?= $user_data->height ?> cm</h3>
-                    <h3 class="text-shift">Weight: <span id="profile_weight"></span><?= $user_data->weight ?> kg</h3>
-                    <h3 class="text-shift">Private Chip: <span id="profile_chip_id"></span><?= ($user_data->chip_id == null) ? 'dont have' : $user_data->chip_id ?></h3>
-                    <?php if ($is_organization) { ?>
+                        <h3 class="text-shift">Length: <span id="profile_length"></span> <?= $user_data->height ?> cm</h3>
+                        <h3 class="text-shift">Weight: <span id="profile_weight"></span><?= $user_data->weight ?> kg</h3>
+                        <h3 class="text-shift">Private Chip: <span id="profile_chip_id"></span><?= ($user_data->chip_id == null) ? 'dont have' : $user_data->chip_id ?></h3>
+                    <?php }
+                    if ($is_logged_in_org) { ?>
 
-                        <h3 class="text-shift">Organization name: <span id="profile_weight"></span><?= $organization_data->org_name ?> </h3>
-                        <h3 class="text-shift">Organization number: <span id="profile_weight"></span><?= $organization_data->org_number ?> </h3>
-                        <h3 class="text-shift">Organization email: <span id="profile_weight"></span><?= $organization_data->org_email ?> </h3>
-                        <h3 class="text-shift">Address: <span id="profile_weight"></span><?= $organization_data->address ?> </h3>
-                        <h3 class="text-shift">Description: <span id="profile_weight"></span><?= $organization_data->description ?> </h3>
+                        <h3 class="text-shift">Organization name: <span id="profile_weight"></span><?= $org_data->username ?> </h3>
+                        <h3 class="text-shift">Organization number: <span id="profile_weight"></span><?= $org_data->org_number ?> </h3>
+                        <h3 class="text-shift">Organization email: <span id="profile_weight"></span><?= $org_data->email ?> </h3>
+                        <h3 class="text-shift">Address: <span id="profile_weight"></span><?= $org_data->address ?> </h3>
+                        <h3 class="text-shift">Description: <span id="profile_weight"></span><?= $org_data->description ?> </h3>
 
                     <?php } ?>
                     <form action="../assets/organization_request.php" class="orgform" method="GET">
@@ -98,46 +101,98 @@
     <img class="w-100 op30" style="padding-top:2rem;" src="../images/indeximage_thinner.png" id="image_run" alt="Running figures">
 
     <!-- personal profile -->
-    <div id="previousEventes">
-        <h1 class="text-center">Uppcoming events</h1>
-    </div>
-    <div class="events" id="event">
-        <div id="myTableContainerResults"></div>
-        <table class="table table-bordered result_table" id="event_user_upcoming">
-        <thead>
-            <tr>
-            <th scope="col">Event</th>
-            <th scope="col">Date</th>
-            <th scope="col">Details</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-        </table>
+    <?php if ($is_logged_in_user) { ?>
+        <div id="previousEventes">
+            <h1 class="text-center">Uppcoming events</h1>
+        </div>
+        <div class="events" id="event">
+            <div id="myTableContainerResults"></div>
+            <table class="table table-bordered result_table" id="event_user_upcoming">
+                <thead>
+                    <tr>
+                        <th scope="col">Event</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
 
-        <h1 class="text-center">Previous Events</h1>
+            <h1 class="text-center">Previous Events</h1>
 
-        <div id="myTableContainerResults"></div>
-        <h2 class="underline_text">Results</h2>
-        <table class="table table-bordered result_table" id="event_user_results">
-        <thead>
-            <tr>
-            <th scope="col">Event</th>
-            <th scope="col">Date</th>
-            <th scope="col">Time</th>
-            <th scope="col">Details</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-        </table>
-</div>
-<!-- personal profile -->
+            <div id="myTableContainerResults"></div>
+            <h2 class="underline_text">Results</h2>
+            <table class="table table-bordered result_table" id="event_user_results">
+                <thead>
+                    <tr>
+                        <th scope="col">Event</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    <?php } ?>
+    <!-- personal profile -->
 
 
-<!-- Org profile -->
+    <!-- Org profile -->
+    <?php
+    if ($is_logged_in_org) { ?>
+        <div id="previousEventes">
+            <h1 class="text-center">Uppcoming Events</h1>
+        </div>
+        <div class="events" id="event">
+            <div id="myTableContainerResults"></div>
+            <table class="table table-bordered result_table" id="organisation_upcoming_events">
+                <thead>
+                    <tr>
+                        <th scope="col">Event</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Start Time</th>
+                        <th scope="col">Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
 
-<!-- Org profile -->
+            <h1 class="text-center">Past Events</h1>
+            <div id="myTableContainerResults"></div>
+            <table class="table table-bordered result_table" id="organisation_past_events">
+                <thead>
+                    <tr>
+                        <th scope="col">Event</th>
+                        <th scope="col">Start Date</th>
+                        <th scope="col">End Date</th>
+                        <th scope="col">Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+            <h1 class="text-center">Our Tracks</h1>
+            <div id="myTableContainerResults"></div>
+            <table class="table table-bordered result_table" id="organisation_tracks">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Checkpoints</th>
+                        <th scope="col">Distance</th>
+                        <th scope="col">Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    <?php } ?>
+    <!-- Org profile -->
     <!--Edit profile popup-->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRightSetting" aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header">
