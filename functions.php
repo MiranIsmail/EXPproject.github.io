@@ -1,10 +1,10 @@
 <?php
-function is_logged_in(): bool
+function is_logged_in($table_name = "Users"): bool
 {
   if (!isset($_COOKIE["auth_token"])) {
     return false;
   }
-  $url = 'https://rasts.se/api/Token';
+  $url = 'https://rasts.se/api/Token/' . $table_name;
   $curl = curl_init();
 
   curl_setopt_array($curl, array(
@@ -29,7 +29,7 @@ function is_logged_in(): bool
     return false;
   }
 }
-function get_user_info():stdClass
+function get_user_info(): stdClass
 {
   if (!isset($_COOKIE["auth_token"])) {
     return false;
@@ -52,18 +52,27 @@ function get_user_info():stdClass
   return $response;
 }
 
-function get_organization_info(string $organization_name):stdClass
+function get_org_info(): stdClass|bool
 {
-  $url = 'https://rasts.se/api/Organization/'.$organization_name;
+  if (!isset($_COOKIE["auth_token"])) {
+    return false;
+  }
+  $url = 'https://rasts.se/api/Organization';
   $curl = curl_init();
 
   curl_setopt_array($curl, array(
     CURLOPT_URL => $url,
     CURLOPT_CUSTOMREQUEST => "GET",
+    CURLOPT_HTTPHEADER => array(
+      "Authorization: $_COOKIE[auth_token]",
+    ),
     CURLOPT_RETURNTRANSFER => true,
   ));
 
   $response = json_decode(curl_exec($curl));
   curl_close($curl);
+  if (empty($response)) {
+    return false;
+  }
   return $response;
 }

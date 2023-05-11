@@ -1,29 +1,31 @@
 <?php
 include '../functions.php';
 
+$page_name_tile = ["index" => "Rasts", "" => "Rasts", "event_display" => "Rasts - Event", "event" => "Rasts - Events", "profile" => "Profile", "Login" => "Login", "SignUp" => "Register", "eventcreate" => "Create Event", "track" => "Track", "terms_of_service" => "terms of service", "privacy_policy" => "privacy policy"];
+
+$blocked_site_logged_out = ["profile", "eventcreate", "track"];
 $blocked_site_logged_in = ["Login", "SignUp"];
 $blocked_site_logged_in_user = ["track"];
-$blocked_site_logged_out = ["profile", "eventcreate", "track"];
-$page_name_tile = ["index" => "Rasts", "" => "Rasts", "event_display" => "Rasts - Event", "event" => "Rasts - Events", "profile" => "Profile", "Login" => "Login", "SignUp" => "Register", "eventcreate" => "Create Event", "track" => "Track","terms_of_service"=>"terms of service","privacy_policy"=>"privacy policy"];
 $title = $page_name_tile[explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0]];
-$is_organization = false;
 
-
-$is_logged_in = is_logged_in();
-if ($is_logged_in) {
+$is_logged_in_user = is_logged_in();
+$is_logged_in_org = is_logged_in("Organization");
+$is_logged_in = $is_logged_in_user || $is_logged_in_org;
+if ($is_logged_in_user) {
   $user_data = get_user_info();
-  $is_organization = $user_data->org_name != null;
+} 
+if ($is_logged_in_org){
+  $org_data = get_org_info();
 }
 
-if ($is_organization) {
-  $organization_data = get_organization_info($user_data->org_name);
-}
+
+
 if ($is_logged_in) {
 
   if (in_array(explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0], $blocked_site_logged_in)) {
     header("Location: ../pages/index.php");
   }
-  if (!$is_organization) {
+  if (!$is_logged_in_org) {
     if (in_array(explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0], $blocked_site_logged_in_user)) {
       header("Location: ../pages/index.php");
     }
