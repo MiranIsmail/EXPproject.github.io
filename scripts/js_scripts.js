@@ -63,7 +63,7 @@ async function log_in() {
   let fpword = document.getElementById("fetchPword").value;
   const response = await get_token_endpoint(femail, fpword);
   
-  if (response.status < 300) {  
+  if (response.status > 300) {  
     alert("Invalid credentials");
   } else {
     const data = await response.json();
