@@ -142,7 +142,7 @@ async function get_checkpoints(event_id) {
   if (response.status >= 300) {
     alert("Something went wrong. Please try again later");
    }
-
+   
   const data = await response.json();
 
   const start_placement = {

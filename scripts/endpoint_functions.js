@@ -231,8 +231,3 @@ async function get_user_upcoming_endpoint(username) {
     });
 
 }
-
-async function get_oragnization_upcoming_endpoint(result_id) {
-    return await fetch(BASE_ULR + "Organization/" + result_id);
-
-}

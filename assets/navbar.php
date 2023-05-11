@@ -40,7 +40,7 @@
                 <li class="nav-item">
                     <a class="nav-link navtext" href="../pages/event.php">EVENTS</a>
                 </li>
-                <?php if ($is_logged_in_org) { ?>
+                <?php if ($is_organization) { ?>
                     <li class="nav-item">
                         <a class="nav-link navtext" href="../pages/track.php">TRACKS</a>
                     </li>
