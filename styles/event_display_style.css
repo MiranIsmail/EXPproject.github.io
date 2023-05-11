@@ -132,30 +132,31 @@ table.result_table {
   border-collapse: collapse;
   width: 100%;
   font-size: 14px;
-  color: #333333;
+  color: #000000;
 }
 
-th.result_table,
-td.result_table {
+th,
+td {
   padding: 10px;
   text-align: center;
-  border: 2px solid #ddd;
+  border: 4px solid #01141e;
 }
 
-th.result_table {
-  background-color: #d7fbff;
+th {
+  background-color: #03191c;
 }
 
-tr.result_table:nth-child(odd) {
-  background-color: #b7e3ff; /* Change the color code to your desired color */
+tr:nth-child(odd) {
+  background-color: #9be5fc; /* Change the color code to your desired color */
 }
 
-tr.result_table:nth-child(even) {
-  background-color: #7bfaebba;
+tr:nth-child(even) {
+  background-color: #9af3e8;
 }
 
-tr.result_table:hover {
-  filter: saturate(2);
+tr:hover {
+  background-color: #78f8e7;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .more_info_button {
