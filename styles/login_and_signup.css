@@ -38,6 +38,23 @@
     font-size: 4rem;
   }
 }
+.content_container h2 {
+  padding-top: 1rem;
+  padding-left: 1rem;
+  color: #49daaa;
+  font-weight: 500;
+  margin-bottom: 15px;
+  margin-left: 0.5rem;
+}
+
+.content_container h3 {
+  padding-top: 1rem;
+  padding-left: 1rem;
+  color: #b7e3ff;
+  font-weight: 500;
+  margin-bottom: 15px;
+  margin-left: 0.5rem;
+}
 
 .content_container p {
   color: #b7e3ff;
@@ -86,9 +103,9 @@
   cursor: pointer;
   text-align: center;
   margin: 5px;
-  background-color: rgb(14, 71, 114);
+  background-color: rgb(7, 2, 20);
   border: none;
-  color: #b7e3ff;
+  color: #49daaa;
   border-radius: 10px;
 }
 
@@ -104,7 +121,7 @@
 }
 
 .canvas_container {
-  background: linear-gradient(#ffffff4d 0%, #2db7d6 97%, #000000cc 100%);
+  background: linear-gradient(#ffffff4d 0%, #49daaa 97%, #000000cc 100%);
   width: 100%;
   padding-bottom: 4rem;
   min-height: 65vh;
@@ -116,25 +133,9 @@
   font-weight: 400;
   color: #b7e3ff;
 }
-.content_container h2 {
-  padding-top: 1rem;
-  padding-left: 1rem;
-  color: #49daaa;
-  font-weight: 500;
-  margin-bottom: 15px;
-  margin-left: 0.5rem;
-}
 
-.content_container h3 {
-  padding-top: 1rem;
-  padding-left: 1rem;
-  color: #b7e3ff;
-  font-weight: 500;
-  margin-bottom: 15px;
-  margin-left: 0.5rem;
-}
 .canvas_container p {
-  color: #2db7d6;
+  color: #010202;
   font-weight: 500;
   margin-bottom: 2px;
   margin-left: 0.5rem;
