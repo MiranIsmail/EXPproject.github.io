@@ -131,12 +131,59 @@
         <tbody>
         </tbody>
         </table>
-</div>
+    </div>
 <!-- personal profile -->
 
 
 <!-- Org profile -->
+<div id="previousEventes">
+        <h1 class="text-center">Uppcoming Events</h1>
+    </div>
+    <div class="events" id="event">
+        <div id="myTableContainerResults"></div>
+        <table class="table table-bordered result_table" id="organisation_upcoming_events">
+        <thead>
+            <tr>
+            <th scope="col">Event</th>
+            <th scope="col">Date</th>
+            <th scope="col">Start Time</th>
+            <th scope="col">Details</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        </table>
 
+        <h1 class="text-center">Past Events</h1>
+        <div id="myTableContainerResults"></div>
+        <table class="table table-bordered result_table" id="organisation_past_events">
+        <thead>
+            <tr>
+            <th scope="col">Event</th>
+            <th scope="col">Start Date</th>
+            <th scope="col">End Date</th>
+            <th scope="col">Details</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        </table>
+
+        <h1 class="text-center">Our Tracks</h1>
+        <div id="myTableContainerResults"></div>
+        <table class="table table-bordered result_table" id="organisation_tracks">
+        <thead>
+            <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Checkpoints</th>
+            <th scope="col">Distance</th>
+            <th scope="col">Details</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        </table>
+    </div>
 <!-- Org profile -->
     <!--Edit profile popup-->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRightSetting" aria-labelledby="offcanvasRightLabel">

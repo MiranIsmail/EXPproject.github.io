@@ -351,7 +351,7 @@ async function GetChecks(result_id, event_id) {
 
   check_terrain = await get_track_checkpoints_endpoint(event_info.track_name);
   check_terrain = await check_terrain.json()
-  
+
   document.getElementById('event_title').innerHTML = "Event: " + event_info.event_name
   document.getElementById('track_title').innerHTML = "Track: " + check_terrain[0].track_name
   document.getElementById('date').innerHTML = "Date: From " + event_info.startdate + " to " + event_info.enddate
