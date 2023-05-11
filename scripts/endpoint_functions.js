@@ -9,6 +9,7 @@
  * @param {string} username username of the user
  * @returns a fetch response with data about the user in json format. The data includes first_name, last_name, email, username, birthdata, profile image, chip_id, height and weight.
  */
+
 async function create_account_endpoint(email, first_name, last_name, password, username) {
     return await fetch(BASE_ULR + "Account", {
         method: 'POST',
@@ -28,7 +29,7 @@ async function create_account_endpoint(email, first_name, last_name, password, u
 /**
  * endpoint for getting the public details of the user by thier username
  * @param {string} username username of the user
- * @returns a fetch response with data about the user in json format. The data includes the public information about the user. * 
+ * @returns a fetch response with data about the user in json format. The data includes the public information about the user. *
  * */
 async function get_account_details_endpoint(username) {
     return await fetch(BASE_ULR + "Account/" + username, {
@@ -38,7 +39,7 @@ async function get_account_details_endpoint(username) {
 }
 
 /**
- * endpoint for editing the details of the user 
+ * endpoint for editing the details of the user
  * @param {object} parameters an object with the parameters that need to be changed. The parameters are: email, first_name, last_name, password, username, birthdate, pimage, chip_id, height and weight.
  * @returns a fetch response with empty data.
  */
@@ -72,10 +73,11 @@ async function get_user_details_endpoint(token) {
  * endpoint for getting the token of the user by thier email and password
  * @param {string} email email of the user
  * @param {string} password password of the user
+ * @param {string} table_name the name of the table that the token is for
  * @returns a fetch response with data about the user in json format. The data includes the token of the user. The token is active for 24 hours.
  */
-async function get_token_endpoint(email, password) {
-    return await fetch(BASE_ULR + "Token", {
+async function get_token_endpoint(email, password, table_name = "Users") {
+    return await fetch(BASE_ULR + "Token/" + table_name, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: email, password: password }),
@@ -85,17 +87,29 @@ async function get_token_endpoint(email, password) {
 /**
  * changes the token without returning any data.
  * @param {string} token the token of the user
+ * @param {string} table_name the name of the table that the token is for
  * @returns a fetch response with empty data.
  */
-async function delete_token_endpoint(token) {
-    return await fetch(BASE_ULR + "Token", {
-        method: "DELETE",
-        headers: { Authorization: get_cookie("auth_token") },
-    });
+function delete_token_endpoint(token, table_name = "Users") {
+    const xhr = new XMLHttpRequest();
+    const url = BASE_ULR + "Token/" + table_name;
+    xhr.open("DELETE", url, true);
+    xhr.setRequestHeader("Authorization", token);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 201) {
+                console.log("Token successfully deleted");
+            } else {
+                console.log("Error deleting token");
+            }
+        }
+    };
+    xhr.send();
 }
 
+
 /**
- * 
+ *
  * @param {string} token the token of the user
  * @returns a fetch response with data about the users results in json format. The data includes all the .
  */
@@ -133,7 +147,7 @@ async function get_top_event_endpoint() {
 }
 
 async function get_track_checkpoints_endpoint(track_name) {
-    return await fetch(BASE_ULR + "Checkpoints?track_name=" + track_name);
+    return await fetch(BASE_ULR + "Checkpoint?track_name=" + track_name);
 
 }
 
@@ -190,12 +204,12 @@ async function create_event_endpoint(parameters
 
 async function get_all_tracks_endpoint() {
     const response = await fetch(BASE_ULR + "Track");
-    return await response.json();
+    return await response
 }
 
 async function generate_event_results_endpoint(event_id) {
     const response = await fetch(BASE_ULR + "Results?event_id=" + event_id);
-    return await response.json();
+    return await response
 }
 
 async function register_event_endpoint(parameters) {
@@ -203,5 +217,17 @@ async function register_event_endpoint(parameters) {
         method: "POST",
         body: JSON.stringify(parameters),
     });
-    return await response.json();
+    return await response
+}
+
+/**
+ * endpoint for getting the results of the user by thier token
+ * @param {string} username username of the user
+ * @returns
+ */
+async function get_user_upcoming_endpoint(username) {
+    return await fetch(BASE_ULR + `Registration/?username=${username}`, {
+        method: "GET",
+    });
+
 }

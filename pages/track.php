@@ -130,9 +130,17 @@
     const trackname = document.getElementById('InputTrackName')
     const inputs = document.querySelectorAll('input');
     const dropdowns = document.querySelectorAll('dropdown')
+    let TrackName = false;
     let allDisabled = true;
     let allValid = true;
 
+    // check if all inputs are disabled
+
+    if trackname.value == "" {
+      TrackName = false;
+    } else {
+      TrackName = true;
+    }
     inputs.forEach(function(input) {
       if (!input.disabled && input.name == "EndID" || !input.disabled && input.name == "StartID") {
         allDisabled = false;
@@ -176,7 +184,7 @@
     }
   });
 
-    if (allDisabled && allValid) {
+    if (allDisabled && allValid && TrackName) {
       submit();
     }
     else if (!allDisabled && !allValid) {
@@ -187,6 +195,9 @@
     }
     else if (!allValid) {
       alert('Some fields are missing input or have incorrect values');
+    }
+    else if (!TrackName) {
+      alert('Please enter a Track Name');
     }
 
   });

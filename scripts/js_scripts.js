@@ -12,7 +12,13 @@ function createAccount() {
   let xusername = document.getElementById("fuser").value;
 
   if (is_allowed) {
-    const response = create_account_endpoint(xemail, xfirst_name, xlast_name, xpassword, xusername);
+    const response = create_account_endpoint(
+      xemail,
+      xfirst_name,
+      xlast_name,
+      xpassword,
+      xusername
+    );
     if (response.status < 300) {
       location.href = "../pages/confirmation_account.php";
     } else {
@@ -56,13 +62,32 @@ async function log_in() {
   let femail = document.getElementById("fetchEmail").value;
   let fpword = document.getElementById("fetchPword").value;
   const response = await get_token_endpoint(femail, fpword);
-  const data = await response.json();
-  document.cookie = `auth_token=${await data["auth_token"]}`;
-  location.href = "../pages/profile.php";
+
+  if (response.status >= 300) {
+    alert("Invalid credentials");
+  } else {
+    const data = await response.json();
+    document.cookie = `auth_token=${await data["auth_token"]}`;
+    location.href = "../pages/profile.php";
+  }
+}
+
+async function log_in_org() {
+  let femail = document.getElementById("fetchEmailOrg").value;
+  let fpword = document.getElementById("fetchPwordOrg").value;
+  const response = await get_token_endpoint(femail, fpword, "Organization");
+
+  if (response.status >= 300) {
+    alert("Invalid credentials");
+  } else {
+    const data = await response.json();
+    document.cookie = `auth_token=${await data["auth_token"]}`;
+    location.href = "../pages/profile.php";
+  }
 }
 
 async function log_out() {
-  const response = await delete_token_endpoint();
+  const response = await delete_token_endpoint(get_cookie("auth_token"));
   if (response.status < 300) {
     console.log("Logged out");
     location.href = "../pages/";
@@ -107,12 +132,17 @@ async function get_checkpoints(event_id) {
   const event_data = await event_response.json();
   const track_name = await event_data["track_name"];
 
-  const response = await fetch(
+  let response = await fetch(
     BASE_ULR + "Checkpoint?track_name=" + track_name,
     {
       method: "GET",
     }
   );
+
+  if (response.status >= 300) {
+    alert("Something went wrong. Please try again later");
+   }
+   
   const data = await response.json();
 
   const start_placement = {
@@ -187,62 +217,90 @@ function CreateTrack(track_input, start_station, end_station) {
 async function create_event() {
   const response_incoming = await fetch(BASE_ULR + "Account", {
     method: "GET",
-    headers: { Authorization: get_cookie("auth_token") },
+    headers: {Authorization: get_cookie("auth_token") },
   });
-  const data_incoming = await response_incoming.json();
+  if (response_incoming.status >= 300) {
+    response_incoming = await fetch(BASE_ULR + "", { 
+    method: "GET",
+    headers: { Authorization: get_cookie("auth_token") }
+    });
+    if (response_incoming.status >= 300) {
+      alert("You are not logged in");
+    }
+    else {
+      const data_incoming = await response_incoming.json();
 
-  var parameters = {};
-  parameters["event_name"] = document.getElementById("send_event_name").value;
-  parameters["track_name"] = document.getElementById("dropdown_track").value;
-  parameters["username"] = await data_incoming["username"];
-  parameters["startdate"] = document.getElementById("send_start_date").value;
-  parameters["enddate"] = document.getElementById("send_end_date").value;
-  parameters["eimage"] = document.getElementById("send_image").value;
-  parameters["description"] = document.getElementById("send_description").value;
-  parameters["sport"] = document.getElementById("send_sport").value;
+      var parameters = {};
+      parameters["event_name"] = document.getElementById("send_event_name").value;
+      parameters["track_name"] = document.getElementById("dropdown_track").value;
+      parameters["username"] = await data_incoming["username"];
+      parameters["startdate"] = document.getElementById("send_start_date").value;
+      parameters["enddate"] = document.getElementById("send_end_date").value;
+      parameters["eimage"] = document.getElementById("send_image").value;
+      parameters["description"] = document.getElementById("send_description").value;
+      parameters["sport"] = document.getElementById("send_sport").value;
 
-  var entry = document.getElementById("send_open").checked;
-  var view = document.getElementById("send_public").checked;
+      var entry = document.getElementById("send_open").checked;
+      var view = document.getElementById("send_public").checked;
 
-  if (entry == true) {
-    parameters["open_for_entry"] = "1";
-  } else {
-    parameters["open_for_entry"] = "0";
-  }
+      if (entry == true) {
+        parameters["open_for_entry"] = "1";
+      } else {
+        parameters["open_for_entry"] = "0";
+      }
 
-  if (view == true) {
-    parameters["public_view"] = "1";
-  } else {
-    parameters["public_view"] = "0";
-  }
+      if (view == true) {
+        parameters["public_view"] = "1";
+      } else {
+        parameters["public_view"] = "0";
+      }
 
-  if (document.getElementById("send_image").files.length != 0) {
-    parameters["eimage"] = await image_compress_64_large(
-      document.getElementById("send_image")
-    );
-  }
+      if (document.getElementById("send_image").files.length != 0) {
+        parameters["eimage"] = await image_compress_64_large(
+          document.getElementById("send_image")
+        );
+      }
 
-  for (const [key, value] of Object.entries(parameters)) {
-    console.log(key, value);
-    if (!value) {
-      delete parameters[key];
+      for (const [key, value] of Object.entries(parameters)) {
+        console.log(key, value);
+        if (!value) {
+          delete parameters[key];
+        }
+      }
+
+      const response = await create_event_endpoint(parameters);
+      if (response.status < 300) {
+        location.href = "../pages/confirmation_event.php";
+      } else {
+        console.log("Something went wrong in create event");
+      }
     }
   }
-
-  const response = await create_event_endpoint(parameters);
-  if (response.status < 300) {
-    location.href = "../pages/confirmation_event.php";
-  } else {
-    console.log("Something went wrong in create event");
-  }
 }
-
 async function TrackDropdown() {
   const response = await get_all_tracks_endpoint();
   let dropdown = document.getElementById("dropdown_track");
   data = await response.json();
   for (let i = 0; i < data.length; i++) {
     dropdown.add(new Option(data[i].track_name));
+  }
+}
+
+async function email_confirmed(event) {
+  event.preventDefault();
+  var responde = document.getElementById("responde");
+  const url = new URL(window.location.href);
+  const response = await fetch(BASE_ULR + "Account", {
+    method: "PATCH",
+    body: JSON.stringify({
+      url: url,
+    }),
+    headers: { "Content-Type": "application/json" },
+  });
+  if (response.status > 300) {
+    responde.innerHTML = "an error occured. Email not verified!";
+  } else {
+    responde.innerHTML = "Email is verified, Feel free to log in!";
   }
 }
 
@@ -263,7 +321,7 @@ async function email_to_forgot_password(event) {
       responde.innerHTML = "Email dosn't exict!";
     } else {
       responde.innerHTML =
-        "Email was sent successfully, it may take a couple minute to receive the email!";
+        "Email was sent successfully, it might take couple of minutes to receive the email!";
     }
     console.log(response);
   }
@@ -285,8 +343,8 @@ async function update_user_password(event) {
       const response = await fetch(BASE_ULR + "Account", {
         method: "PATCH",
         body: JSON.stringify({
-          "url": url,
-          "password": pass
+          url: url,
+          password: pass,
         }),
         headers: { "Content-Type": "application/json" },
       });
@@ -306,69 +364,133 @@ async function update_user_password(event) {
 async function GetChecks(result_id, event_id) {
   //calls the api and fills the html table with data
 
-  check_time = await get_result_endpoint(result_id.toString());
-
-  check_time = await check_time.json()
-
-  check_terrain = await get_checkpoints(event_id.toString());
-
-  check_terrain = await check_terrain.json()
+  check_time = await get_result_endpoint(result_id);
+  check_time = await check_time.json();
 
   event_info = await get_event_endpoint(event_id.toString());
-  event_info = await event_info.json()
+  event_info = await event_info.json();
 
-  document.getElementById('event_title').innerHTML = "Event: " + event_info.event_name
-  document.getElementById('track_title').innerHTML = "Track: " + check_terrain[0].track_name
-  document.getElementById('date').innerHTML = "Date: From " + event_info.startdate + " to " + event_info.enddate
-  FillTable(check_time, check_terrain)
+  check_terrain = await get_track_checkpoints_endpoint(event_info.track_name);
+  check_terrain = await check_terrain.json();
+
+  document.getElementById("event_title").innerHTML =
+    "Event: " + event_info.event_name;
+  document.getElementById("track_title").innerHTML =
+    "Track: " + check_terrain[0].track_name;
+  document.getElementById("date").innerHTML =
+    "Date: From " + event_info.startdate + " to " + event_info.enddate;
+  FillTable(check_time, check_terrain);
 }
 
-function FillTable(check_time, check_terrain) {//check_terrain = Checkpoint data, check_time = checkpoint_time data
+function FillTable(check_time, check_terrain) {
+  //check_terrain = Checkpoint data, check_time = checkpoint_time data
   //#############################################################################
-  check_terrain.sort((a,b)=>(a.checkpoint_number > b.checkpoint_number) ? 1 : -1)//sorts the api/Checkpoint objects positions from smallest to largest by checkpoint_number
+  check_terrain.sort((a, b) =>
+    a.checkpoint_number > b.checkpoint_number ? 1 : -1
+  ); //sorts the api/Checkpoint objects positions from smallest to largest by checkpoint_number
 
-  const dict = {} //this dictionary will first be fille up with the Checkpoint data in order as the keys, then the corresponding object in checkpoint_time with the same station_name will have its index used as a value
+  const dict = {}; //this dictionary will first be fille up with the Checkpoint data in order as the keys, then the corresponding object in checkpoint_time with the same station_name will have its index used as a value
 
-  check_terrain.forEach((item)=>{
-    const station_id = item.station_id
-    if(!dict[station_id]){
-      dict[station_id] = []
-    } 
-  })
-
-  check_time.result.forEach((item, index)=>{
-    const station_name = item.station_name
-    if(dict[station_name]){
-      dict[station_name].push(index)
+  check_terrain.forEach((item) => {
+    const station_id = item.station_id;
+    if (!dict[station_id]) {
+      dict[station_id] = [];
     }
-  })
+  });
+
+  check_time.result.forEach((item, index) => {
+    const station_name = item.station_name;
+    if (dict[station_name]) {
+      dict[station_name].push(index);
+    }
+  });
   //#############################################################################
 
+  let total_time = 0;
+  let total_dist = 0;
   for (let i = 0; i < check_terrain.length; i++) {
-  
     let row = timetable.insertRow(i + 1);
     let cell1 = row.insertCell(0); //station name
     let cell2 = row.insertCell(1); //time in seconds
     let cell3 = row.insertCell(2); //terrain
     let cell4 = row.insertCell(3); //distance
     let cell5 = row.insertCell(4); //average velocity
-    if(check_terrain[i+1]){
-      if(i==0){
-        cell1.innerHTML = check_time.result[dict[check_terrain[i].station_id][0]].station_name + " (Start) to " + check_time.result[dict[check_terrain[i+1].station_id][0]].station_name
-        cell5.innerHTML = AverageVel(parseInt(check_terrain[dict[check_terrain[i].station_id][0]].next_distance), parseInt(check_time.result[dict[check_terrain[i+1].station_id][0]].diff_sec)).toFixed(1) + " (m/s)"
+    if (check_terrain[i + 1]) {
+      if (i == 0) {
+        cell1.innerHTML =
+          check_time.result[dict[check_terrain[i].station_id][0]].station_name +
+          " (Start) to " +
+          check_time.result[dict[check_terrain[i + 1].station_id][0]]
+            .station_name;
+        cell5.innerHTML =
+          AverageVel(
+            parseInt(
+              check_terrain[dict[check_terrain[i].station_id][0]].next_distance
+            ),
+            parseInt(
+              check_time.result[dict[check_terrain[i + 1].station_id][0]]
+                .diff_sec
+            )
+          ).toFixed(1) + " (m/s)";
+      } else if (i == check_terrain.length - 2) {
+        cell1.innerHTML =
+          check_time.result[dict[check_terrain[i].station_id][0]].station_name +
+          " to " +
+          check_time.result[dict[check_terrain[i + 1].station_id][0]]
+            .station_name +
+          " (End)";
+      } else {
+        cell1.innerHTML =
+          check_time.result[dict[check_terrain[i].station_id][0]].station_name +
+          " to " +
+          check_time.result[dict[check_terrain[i + 1].station_id][0]]
+            .station_name;
       }
-      else if(i==check_terrain.length - 2){
-        cell1.innerHTML = check_time.result[dict[check_terrain[i].station_id][0]].station_name + " to " + check_time.result[dict[check_terrain[i+1].station_id][0]].station_name + " (End)"
+      cell2.innerHTML = pretty_print_time(
+        check_time.result[dict[check_terrain[i + 1].station_id][0]].time_stamp
+      );
+      cell3.innerHTML = check_terrain[i].terrain;
+      cell4.innerHTML = check_terrain[i].next_distance + " (m)";
+      if (i != 0) {
+        cell5.innerHTML =
+          AverageVel(
+            parseInt(
+              check_terrain[dict[check_terrain[i].station_id][0]].next_distance
+            ),
+            parseInt(
+              check_time.result[dict[check_terrain[i + 1].station_id][0]]
+                .diff_sec
+            )
+          ).toFixed(1) + " (m/s)";
       }
-      else{
-    cell1.innerHTML = check_time.result[dict[check_terrain[i].station_id][0]].station_name + " to " + check_time.result[dict[check_terrain[i+1].station_id][0]].station_name
+      cell2.innerHTML = pretty_print_time(
+        check_time.result[dict[check_terrain[i + 1].station_id][0]]
+          .diff_time_stamp
+      );
+      total_time += ConvertTime(
+        check_time.result[dict[check_terrain[i + 1].station_id][0]]
+          .diff_time_stamp
+      );
+      cell3.innerHTML = check_terrain[i].terrain;
+      cell4.innerHTML = check_terrain[i].next_distance + " (m)";
+      total_dist += parseInt(check_terrain[i].next_distance);
+      if (i != 0) {
+        cell5.innerHTML =
+          AverageVel(
+            parseInt(
+              check_terrain[dict[check_terrain[i].station_id][0]].next_distance
+            ),
+            parseInt(
+              check_time.result[dict[check_terrain[i + 1].station_id][0]]
+                .diff_sec
+            )
+          ).toFixed(1) + " (m/s)";
       }
-    cell2.innerHTML = pretty_print_time(check_time.result[dict[check_terrain[i+1].station_id][0]].time_stamp)
-    cell3.innerHTML = check_terrain[i].terrain
-    cell4.innerHTML = check_terrain[i].next_distance + " (m)"
-    if(i!= 0){
-    cell5.innerHTML = AverageVel(parseInt(check_terrain[dict[check_terrain[i].station_id][0]].next_distance), parseInt(check_time.result[dict[check_terrain[i+1].station_id][0]].diff_sec)).toFixed(1) + " (m/s)"
     }
+    if (i == check_terrain.length - 1) {
+      cell1.innerHTML = "Total:";
+      cell2.innerHTML = total_time.toString() + "(s)";
+      cell4.innerHTML = total_dist + "(m)";
     }
   }
 }
@@ -398,13 +520,13 @@ function ConvertTime(time_string) {
   return hours + minutes + seconds;
 }
 
-function pretty_print_time(ts){
-  return ts[0]+ts[1]+"h " + ts[3] + ts[4] + "m " + ts[6] + ts[7] + "s"
+function pretty_print_time(ts) {
+  return ts[0] + ts[1] + "h " + ts[3] + ts[4] + "m " + ts[6] + ts[7] + "s";
 }
 
-async function timetable_link_func(){
+async function timetable_link_func() {
   const urlParams = new URLSearchParams(window.location.search);
   event_id = urlParams.get("event_id");
-  result_id = urlParams.get("result_id")
-  GetChecks(result_id, event_id)
+  result_id = urlParams.get("result_id");
+  GetChecks(result_id, event_id);
 }

@@ -97,31 +97,47 @@
 
     <img class="w-100 op30" style="padding-top:2rem;" src="../images/indeximage_thinner.png" id="image_run" alt="Running figures">
 
+    <!-- personal profile -->
     <div id="previousEventes">
-        <h1 class="text-center">Previous Events</h1>
+        <h1 class="text-center">Uppcoming events</h1>
     </div>
-
     <div class="events" id="event">
+        <div id="myTableContainerResults"></div>
+        <table class="table table-bordered result_table" id="event_user_upcoming">
+        <thead>
+            <tr>
+            <th scope="col">Event</th>
+            <th scope="col">Date</th>
+            <th scope="col">Details</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        </table>
+
+        <h1 class="text-center">Previous Events</h1>
+
         <div id="myTableContainerResults"></div>
         <h2 class="underline_text">Results</h2>
         <table class="table table-bordered result_table" id="event_user_results">
         <thead>
             <tr>
-            <th scope="col">User1</th>
-            <th scope="col">User2</th>
+            <th scope="col">Event</th>
             <th scope="col">Date</th>
             <th scope="col">Time</th>
             <th scope="col">Details</th>
             </tr>
         </thead>
         <tbody>
-            <!-- <script src="../scripts/js_scripts.js">
-                event_display_peeps()
-            </script> -->
         </tbody>
         </table>
-    </div>
+</div>
+<!-- personal profile -->
 
+
+<!-- Org profile -->
+
+<!-- Org profile -->
     <!--Edit profile popup-->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRightSetting" aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header">
@@ -183,6 +199,7 @@
     <?php include '../assets/footer.php'; ?>
     <script>
         generate_user_results();
+        generate_user_upcoming();
     </script>
 </body>
 

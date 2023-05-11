@@ -38,11 +38,11 @@
                     <a class="nav-link navtext" href="../pages/index.php">HOME</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link navtext" href="../pages/event.php">EVENT</a>
+                    <a class="nav-link navtext" href="../pages/event.php">EVENTS</a>
                 </li>
                 <?php if ($is_organization) { ?>
                     <li class="nav-item">
-                        <a class="nav-link navtext" href="../pages/track.php">TRACK</a>
+                        <a class="nav-link navtext" href="../pages/track.php">TRACKS</a>
                     </li>
 
                 <?php
