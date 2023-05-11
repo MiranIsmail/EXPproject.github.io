@@ -24,7 +24,7 @@ include '../assets/head.php';
         </div>
         <div>
             <div class="collapse log_in_user show drop_shadow mx-auto" id="user">
-                <h3>User</h3>
+                <h3>Athletes</h3>
                 <form>
                     <div class="form-group form_group_style mx-auto">
                         <p>Email address</p>

@@ -76,6 +76,7 @@ async function log_in_org() {
   let femail = document.getElementById("fetchEmailOrg").value;
   let fpword = document.getElementById("fetchPwordOrg").value;
   const response = await get_token_endpoint(femail, fpword, "Organization");
+
   if (response.status >= 300) {
     alert("Invalid credentials");
   } else {
@@ -131,12 +132,17 @@ async function get_checkpoints(event_id) {
   const event_data = await event_response.json();
   const track_name = await event_data["track_name"];
 
-  const response = await fetch(
+  let response = await fetch(
     BASE_ULR + "Checkpoint?track_name=" + track_name,
     {
       method: "GET",
     }
   );
+
+  if (response.status >= 300) {
+    alert("Something went wrong. Please try again later");
+   }
+   
   const data = await response.json();
 
   const start_placement = {
