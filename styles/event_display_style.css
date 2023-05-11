@@ -143,8 +143,9 @@
 }
 
 .result_table th {
-  background-color: #03191c5b;
-  border: 1px solid #01141e6b;
+  background-color: #0949535b;
+  border: 1px solid #01141e00;
+  border-bottom: 1px solid #01141e6b;
 }
 
 .result_table tr:nth-child(odd) {
@@ -152,11 +153,11 @@
 }
 
 .result_table tr:nth-child(even) {
-  background-color: #9af3e8;
+  background-color: #88dcd2;
 }
 
-.result_table tr:hover {
-  background-color: #78f8e7;
+.result_table tr:not(:first-child):hover {
+  background-color: #ffffff65;
   transition: background-color 0.2s ease-in-out;
 }
 

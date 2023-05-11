@@ -90,12 +90,23 @@ async function get_token_endpoint(email, password, table_name = "Users") {
  * @param {string} table_name the name of the table that the token is for
  * @returns a fetch response with empty data.
  */
-async function delete_token_endpoint(token, table_name = "Users") {
-    return await fetch(BASE_ULR + "Token/" + table_name, {
-        method: "DELETE",
-        headers: { Authorization: get_cookie("auth_token") },
-    });
+function delete_token_endpoint(token, table_name = "Users") {
+    const xhr = new XMLHttpRequest();
+    const url = BASE_ULR + "Token/" + table_name;
+    xhr.open("DELETE", url, true);
+    xhr.setRequestHeader("Authorization", token);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 201) {
+                console.log("Token successfully deleted");
+            } else {
+                console.log("Error deleting token");
+            }
+        }
+    };
+    xhr.send();
 }
+
 
 /**
  *

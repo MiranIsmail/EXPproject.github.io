@@ -62,22 +62,32 @@ async function log_in() {
   let femail = document.getElementById("fetchEmail").value;
   let fpword = document.getElementById("fetchPword").value;
   const response = await get_token_endpoint(femail, fpword);
-  const data = await response.json();
-  document.cookie = `auth_token=${await data["auth_token"]}`;
-  location.href = "../pages/profile.php";
+
+  if (response.status >= 300) {
+    alert("Invalid credentials");
+  } else {
+    const data = await response.json();
+    document.cookie = `auth_token=${await data["auth_token"]}`;
+    location.href = "../pages/profile.php";
+  }
 }
 
 async function log_in_org() {
   let femail = document.getElementById("fetchEmailOrg").value;
   let fpword = document.getElementById("fetchPwordOrg").value;
   const response = await get_token_endpoint(femail, fpword, "Organization");
-  const data = await response.json();
-  document.cookie = `auth_token=${await data["auth_token"]}`;
-  location.href = "../pages/profile.php";
+
+  if (response.status >= 300) {
+    alert("Invalid credentials");
+  } else {
+    const data = await response.json();
+    document.cookie = `auth_token=${await data["auth_token"]}`;
+    location.href = "../pages/profile.php";
+  }
 }
 
 async function log_out() {
-  const response = await delete_token_endpoint();
+  const response = await delete_token_endpoint(get_cookie("auth_token"));
   if (response.status < 300) {
     console.log("Logged out");
     location.href = "../pages/";
@@ -122,12 +132,17 @@ async function get_checkpoints(event_id) {
   const event_data = await event_response.json();
   const track_name = await event_data["track_name"];
 
-  const response = await fetch(
+  let response = await fetch(
     BASE_ULR + "Checkpoint?track_name=" + track_name,
     {
       method: "GET",
     }
   );
+
+  if (response.status >= 300) {
+    alert("Something went wrong. Please try again later");
+   }
+
   const data = await response.json();
 
   const start_placement = {
@@ -268,16 +283,14 @@ async function email_confirmed(event) {
   const response = await fetch(BASE_ULR + "Account", {
     method: "PATCH",
     body: JSON.stringify({
-      "url": url
+      url: url,
     }),
     headers: { "Content-Type": "application/json" },
   });
   if (response.status > 300) {
-    responde.innerHTML =
-      "an error occured. Email not verified!";
+    responde.innerHTML = "an error occured. Email not verified!";
   } else {
-    responde.innerHTML =
-      "Email is verified, Feel free to log in!";
+    responde.innerHTML = "Email is verified, Feel free to log in!";
   }
 }
 
@@ -338,24 +351,25 @@ async function update_user_password(event) {
   }
 }
 
-
-
 async function GetChecks(result_id, event_id) {
   //calls the api and fills the html table with data
 
-  check_time = await get_result_endpoint(result_id)
-  check_time = await check_time.json()
+  check_time = await get_result_endpoint(result_id);
+  check_time = await check_time.json();
 
   event_info = await get_event_endpoint(event_id.toString());
-  event_info = await event_info.json()
+  event_info = await event_info.json();
 
   check_terrain = await get_track_checkpoints_endpoint(event_info.track_name);
-  check_terrain = await check_terrain.json()
+  check_terrain = await check_terrain.json();
 
-  document.getElementById('event_title').innerHTML = "Event: " + event_info.event_name
-  document.getElementById('track_title').innerHTML = "Track: " + check_terrain[0].track_name
-  document.getElementById('date').innerHTML = "Date: From " + event_info.startdate + " to " + event_info.enddate
-  FillTable(check_time, check_terrain)
+  document.getElementById("event_title").innerHTML =
+    "Event: " + event_info.event_name;
+  document.getElementById("track_title").innerHTML =
+    "Track: " + check_terrain[0].track_name;
+  document.getElementById("date").innerHTML =
+    "Date: From " + event_info.startdate + " to " + event_info.enddate;
+  FillTable(check_time, check_terrain);
 }
 
 function FillTable(check_time, check_terrain) {
@@ -382,8 +396,8 @@ function FillTable(check_time, check_terrain) {
   });
   //#############################################################################
 
-  let total_time = 0
-  let total_dist = 0
+  let total_time = 0;
+  let total_dist = 0;
   for (let i = 0; i < check_terrain.length; i++) {
     let row = timetable.insertRow(i + 1);
     let cell1 = row.insertCell(0); //station name
@@ -439,20 +453,34 @@ function FillTable(check_time, check_terrain) {
             )
           ).toFixed(1) + " (m/s)";
       }
-    cell2.innerHTML = pretty_print_time(check_time.result[dict[check_terrain[i+1].station_id][0]].diff_time_stamp)
-    total_time += ConvertTime(check_time.result[dict[check_terrain[i+1].station_id][0]].diff_time_stamp)
-    cell3.innerHTML = check_terrain[i].terrain
-    cell4.innerHTML = check_terrain[i].next_distance + " (m)"
-    total_dist += parseInt(check_terrain[i].next_distance)
-    if(i!= 0){
-    cell5.innerHTML = AverageVel(parseInt(check_terrain[dict[check_terrain[i].station_id][0]].next_distance), parseInt(check_time.result[dict[check_terrain[i+1].station_id][0]].diff_sec)).toFixed(1) + " (m/s)"
+      cell2.innerHTML = pretty_print_time(
+        check_time.result[dict[check_terrain[i + 1].station_id][0]]
+          .diff_time_stamp
+      );
+      total_time += ConvertTime(
+        check_time.result[dict[check_terrain[i + 1].station_id][0]]
+          .diff_time_stamp
+      );
+      cell3.innerHTML = check_terrain[i].terrain;
+      cell4.innerHTML = check_terrain[i].next_distance + " (m)";
+      total_dist += parseInt(check_terrain[i].next_distance);
+      if (i != 0) {
+        cell5.innerHTML =
+          AverageVel(
+            parseInt(
+              check_terrain[dict[check_terrain[i].station_id][0]].next_distance
+            ),
+            parseInt(
+              check_time.result[dict[check_terrain[i + 1].station_id][0]]
+                .diff_sec
+            )
+          ).toFixed(1) + " (m/s)";
+      }
     }
-    }
-    if(i == check_terrain.length - 1){
-      cell1.innerHTML = "Total:"
-      cell2.innerHTML = total_time.toString() + "(s)"
-      cell4.innerHTML = total_dist + "(m)"
-
+    if (i == check_terrain.length - 1) {
+      cell1.innerHTML = "Total:";
+      cell2.innerHTML = total_time.toString() + "(s)";
+      cell4.innerHTML = total_dist + "(m)";
     }
   }
 }
