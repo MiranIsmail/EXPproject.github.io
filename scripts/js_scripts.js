@@ -62,9 +62,14 @@ async function log_in() {
   let femail = document.getElementById("fetchEmail").value;
   let fpword = document.getElementById("fetchPword").value;
   const response = await get_token_endpoint(femail, fpword);
-  const data = await response.json();
-  document.cookie = `auth_token=${await data["auth_token"]}`;
-  location.href = "../pages/profile.php";
+  
+  if (response.status < 300) {  
+    alert("Invalid credentials");
+  } else {
+    const data = await response.json();
+    document.cookie = `auth_token=${await data["auth_token"]}`;
+    location.href = "../pages/profile.php";
+  }
 }
 
 async function log_in_org() {
