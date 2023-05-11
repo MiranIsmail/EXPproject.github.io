@@ -93,7 +93,7 @@ async function get_token_endpoint(email, password, table_name = "Users") {
 async function delete_token_endpoint(token, table_name = "Users") {
     return await fetch(BASE_ULR + "Token/" + table_name, {
         method: "DELETE",
-        headers: { Authorization: get_cookie("auth_token") },
+        headers: { Authorization: token },
     });
 }
 
