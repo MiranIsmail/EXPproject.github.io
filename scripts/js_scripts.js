@@ -345,15 +345,12 @@ async function GetChecks(result_id, event_id) {
 
   check_time = await get_result_endpoint(result_id)
   check_time = await check_time.json()
-  console.log(check_time)
 
   event_info = await get_event_endpoint(event_id.toString());
   event_info = await event_info.json()
-  console.log(event_info)
 
   check_terrain = await get_track_checkpoints_endpoint(event_info.track_name);
   check_terrain = await check_terrain.json()
-  console.log(check_terrain)
   
   document.getElementById('event_title').innerHTML = "Event: " + event_info.event_name
   document.getElementById('track_title').innerHTML = "Track: " + check_terrain[0].track_name
@@ -385,6 +382,8 @@ function FillTable(check_time, check_terrain) {
   });
   //#############################################################################
 
+  let total_time = 0
+  let total_dist = 0
   for (let i = 0; i < check_terrain.length; i++) {
     let row = timetable.insertRow(i + 1);
     let cell1 = row.insertCell(0); //station name
@@ -441,11 +440,19 @@ function FillTable(check_time, check_terrain) {
           ).toFixed(1) + " (m/s)";
       }
     cell2.innerHTML = pretty_print_time(check_time.result[dict[check_terrain[i+1].station_id][0]].diff_time_stamp)
+    total_time += ConvertTime(check_time.result[dict[check_terrain[i+1].station_id][0]].diff_time_stamp)
     cell3.innerHTML = check_terrain[i].terrain
     cell4.innerHTML = check_terrain[i].next_distance + " (m)"
+    total_dist += parseInt(check_terrain[i].next_distance)
     if(i!= 0){
     cell5.innerHTML = AverageVel(parseInt(check_terrain[dict[check_terrain[i].station_id][0]].next_distance), parseInt(check_time.result[dict[check_terrain[i+1].station_id][0]].diff_sec)).toFixed(1) + " (m/s)"
     }
+    }
+    if(i == check_terrain.length - 1){
+      cell1.innerHTML = "Total:"
+      cell2.innerHTML = total_time.toString() + "(s)"
+      cell4.innerHTML = total_dist + "(m)"
+
     }
   }
 }
