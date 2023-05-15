@@ -361,28 +361,25 @@ async function update_user_password(event) {
   }
 }
 
-async function GetChecks(result_id, event_id) {
+async function GetChecks(result_id, event_id, speed_unit, distance_unit) {
   //calls the api and fills the html table with data
+  console.log(speed_unit)
+  check_time = await get_result_endpoint(result_id)
+  check_time = await check_time.json()
 
-  check_time = await get_result_endpoint(result_id);
-  check_time = await check_time.json();
-
-  event_info = await get_event_endpoint(event_id.toString());
-  event_info = await event_info.json();
+  event_info = await get_event_endpoint(event_id);
+  event_info = await event_info.json()
 
   check_terrain = await get_track_checkpoints_endpoint(event_info.track_name);
-  check_terrain = await check_terrain.json();
-
-  document.getElementById("event_title").innerHTML =
-    "Event: " + event_info.event_name;
-  document.getElementById("track_title").innerHTML =
-    "Track: " + check_terrain[0].track_name;
-  document.getElementById("date").innerHTML =
-    "Date: From " + event_info.startdate + " to " + event_info.enddate;
-  FillTable(check_time, check_terrain);
+  check_terrain = await check_terrain.json()
+  
+  document.getElementById('event_title').innerHTML = "Event: " + event_info.event_name
+  document.getElementById('track_title').innerHTML = "Track: " + check_terrain[0].track_name
+  document.getElementById('date').innerHTML = "Date: From " + event_info.startdate + " to " + event_info.enddate
+  FillTable(check_time, check_terrain, speed_unit, distance_unit)
 }
 
-function FillTable(check_time, check_terrain) {
+function FillTable(check_time, check_terrain, speed_unit, distance_unit) {
   //check_terrain = Checkpoint data, check_time = checkpoint_time data
   //#############################################################################
   check_terrain.sort((a, b) =>
@@ -405,9 +402,10 @@ function FillTable(check_time, check_terrain) {
     }
   });
   //#############################################################################
-
-  let total_time = 0;
-  let total_dist = 0;
+  console.log(speed_unit)
+  console.log(distance_unit)
+  let total_time = 0
+  let total_dist = 0
   for (let i = 0; i < check_terrain.length; i++) {
     let row = timetable.insertRow(i + 1);
     let cell1 = row.insertCell(0); //station name
@@ -422,8 +420,9 @@ function FillTable(check_time, check_terrain) {
           " (Start) to " +
           check_time.result[dict[check_terrain[i + 1].station_id][0]]
             .station_name;
+            if(speed_unit=='kmh'){
         cell5.innerHTML =
-          AverageVel(
+         convert_kmh(AverageVel(
             parseInt(
               check_terrain[dict[check_terrain[i].station_id][0]].next_distance
             ),
@@ -431,7 +430,41 @@ function FillTable(check_time, check_terrain) {
               check_time.result[dict[check_terrain[i + 1].station_id][0]]
                 .diff_sec
             )
-          ).toFixed(1) + " (m/s)";
+          )).toFixed(1) + " km/h";}
+          else if(speed_unit=='mph'){
+            cell5.innerHTML =
+             convert_mph(AverageVel(
+                parseInt(
+                  check_terrain[dict[check_terrain[i].station_id][0]].next_distance
+                ),
+                parseInt(
+                  check_time.result[dict[check_terrain[i + 1].station_id][0]]
+                    .diff_sec
+                )
+              )).toFixed(1) + " mph";}
+              else if(speed_unit=='kn'){
+                cell5.innerHTML =
+                 convert_knots(AverageVel(
+                    parseInt(
+                      check_terrain[dict[check_terrain[i].station_id][0]].next_distance
+                    ),
+                    parseInt(
+                      check_time.result[dict[check_terrain[i + 1].station_id][0]]
+                        .diff_sec
+                    )
+                  )).toFixed(1) + " knots";}
+              else{
+                cell5.innerHTML =
+                 (AverageVel(
+                    parseInt(
+                      check_terrain[dict[check_terrain[i].station_id][0]].next_distance
+                    ),
+                    parseInt(
+                      check_time.result[dict[check_terrain[i + 1].station_id][0]]
+                        .diff_sec
+                    )
+                  )).toFixed(1) + " m/s";
+              } 
       } else if (i == check_terrain.length - 2) {
         cell1.innerHTML =
           check_time.result[dict[check_terrain[i].station_id][0]].station_name +
@@ -450,49 +483,151 @@ function FillTable(check_time, check_terrain) {
         check_time.result[dict[check_terrain[i + 1].station_id][0]].time_stamp
       );
       cell3.innerHTML = check_terrain[i].terrain;
-      cell4.innerHTML = check_terrain[i].next_distance + " (m)";
-      if (i != 0) {
-        cell5.innerHTML =
-          AverageVel(
-            parseInt(
-              check_terrain[dict[check_terrain[i].station_id][0]].next_distance
-            ),
-            parseInt(
-              check_time.result[dict[check_terrain[i + 1].station_id][0]]
-                .diff_sec
-            )
-          ).toFixed(1) + " (m/s)";
+      if(distance_unit == 'km')
+      cell4.innerHTML = convert_kilo(check_terrain[i].next_distance) + " km";
+      else if(distance_unit == 'miles'){
+        cell4.innerHTML = convert_mile(check_terrain[i].next_distance) + " miles";
       }
-      cell2.innerHTML = pretty_print_time(
-        check_time.result[dict[check_terrain[i + 1].station_id][0]]
-          .diff_time_stamp
-      );
-      total_time += ConvertTime(
-        check_time.result[dict[check_terrain[i + 1].station_id][0]]
-          .diff_time_stamp
-      );
-      cell3.innerHTML = check_terrain[i].terrain;
-      cell4.innerHTML = check_terrain[i].next_distance + " (m)";
-      total_dist += parseInt(check_terrain[i].next_distance);
-      if (i != 0) {
-        cell5.innerHTML =
-          AverageVel(
-            parseInt(
-              check_terrain[dict[check_terrain[i].station_id][0]].next_distance
-            ),
-            parseInt(
-              check_time.result[dict[check_terrain[i + 1].station_id][0]]
-                .diff_sec
-            )
-          ).toFixed(1) + " (m/s)";
+      else if(distance_unit == 'naut_miles'){
+        cell4.innerHTML = convert_naut(check_terrain[i].next_distance) + " nm";
       }
+      else{
+        cell4.innerHTML = check_terrain[i].next_distance + " m";
+      }
+      if (i != 0) {
+        if(speed_unit=='kmh'){
+          cell5.innerHTML =
+           convert_kmh(AverageVel(
+              parseInt(
+                check_terrain[dict[check_terrain[i].station_id][0]].next_distance
+              ),
+              parseInt(
+                check_time.result[dict[check_terrain[i + 1].station_id][0]]
+                  .diff_sec
+              )
+            )).toFixed(1) + " km/h";}
+            else if(speed_unit=='mph'){
+              cell5.innerHTML =
+               convert_mph(AverageVel(
+                  parseInt(
+                    check_terrain[dict[check_terrain[i].station_id][0]].next_distance
+                  ),
+                  parseInt(
+                    check_time.result[dict[check_terrain[i + 1].station_id][0]]
+                      .diff_sec
+                  )
+                )).toFixed(1) + " mph";}
+                else if(speed_unit=='kn'){
+                  cell5.innerHTML =
+                   convert_knots(AverageVel(
+                      parseInt(
+                        check_terrain[dict[check_terrain[i].station_id][0]].next_distance
+                      ),
+                      parseInt(
+                        check_time.result[dict[check_terrain[i + 1].station_id][0]]
+                          .diff_sec
+                      )
+                    )).toFixed(1) + " knots";}
+                else{
+                  cell5.innerHTML =
+                   (AverageVel(
+                      parseInt(
+                        check_terrain[dict[check_terrain[i].station_id][0]].next_distance
+                      ),
+                      parseInt(
+                        check_time.result[dict[check_terrain[i + 1].station_id][0]]
+                          .diff_sec
+                      )
+                    )).toFixed(1) + " m/s";
+                }
+      }
+    cell2.innerHTML = pretty_print_time(check_time.result[dict[check_terrain[i+1].station_id][0]].diff_time_stamp)
+    total_time += ConvertTime(check_time.result[dict[check_terrain[i+1].station_id][0]].diff_time_stamp)
+    cell3.innerHTML = check_terrain[i].terrain
+    if(distance_unit == 'km'){
+      cell4.innerHTML = convert_kilo(check_terrain[i].next_distance) + " km";
     }
-    if (i == check_terrain.length - 1) {
-      cell1.innerHTML = "Total:";
-      cell2.innerHTML = total_time.toString() + "(s)";
-      cell4.innerHTML = total_dist + "(m)";
+    else if(distance_unit == 'miles'){
+      cell4.innerHTML = convert_mile(check_terrain[i].next_distance) + " miles";
+    }
+    else if(distance_unit == 'naut_miles'){
+      cell4.innerHTML = convert_naut(check_terrain[i].next_distance) + " nm";
+    }
+    else{
+      cell4.innerHTML = check_terrain[i].next_distance + " m"
+    }
+    total_dist += parseInt(check_terrain[i].next_distance)
+    if(i!= 0){
+      if(speed_unit=='kmh'){
+        cell5.innerHTML =
+         convert_kmh(AverageVel(
+            parseInt(
+              check_terrain[dict[check_terrain[i].station_id][0]].next_distance
+            ),
+            parseInt(
+              check_time.result[dict[check_terrain[i + 1].station_id][0]]
+                .diff_sec
+            )
+          )).toFixed(1) + " km/h";}
+          else if(speed_unit=='mph'){
+            cell5.innerHTML =
+             convert_mph(AverageVel(
+                parseInt(
+                  check_terrain[dict[check_terrain[i].station_id][0]].next_distance
+                ),
+                parseInt(
+                  check_time.result[dict[check_terrain[i + 1].station_id][0]]
+                    .diff_sec
+                )
+              )).toFixed(1) + " mph";}
+              else if(speed_unit=='kn'){
+                cell5.innerHTML =
+                 convert_knots(AverageVel(
+                    parseInt(
+                      check_terrain[dict[check_terrain[i].station_id][0]].next_distance
+                    ),
+                    parseInt(
+                      check_time.result[dict[check_terrain[i + 1].station_id][0]]
+                        .diff_sec
+                    )
+                  )).toFixed(1) + " knots";}
+              else{
+                cell5.innerHTML =
+                 (AverageVel(
+                    parseInt(
+                      check_terrain[dict[check_terrain[i].station_id][0]].next_distance
+                    ),
+                    parseInt(
+                      check_time.result[dict[check_terrain[i + 1].station_id][0]]
+                        .diff_sec
+                    )
+                  )).toFixed(1) + " m/s";
+              }
+    }
+    }
+    if(i == check_terrain.length - 1){
+      cell1.innerHTML = "Total:"
+      cell2.innerHTML = total_time.toString() + "(s)"
+      if(distance_unit == 'km')
+      {
+        cell4.innerHTML = convert_kilo(total_dist) + " km"
+      }
+      else if(distance_unit == 'miles')
+      {
+        cell4.innerHTML = convert_mile(total_dist) + " miles"
+      }
+      else if(distance_unit == 'naut_mile')
+      {
+        cell4.innerHTML = convert_naut(total_dist) + " nm"
+      }
+      else{
+        cell4.innerHTML = total_dist + " m";
+      }
+      
+
     }
   }
+  console.log(convert_knots(10))
 }
 function TimeDiff(time1, time2) {
   //difference between two times in seconds
@@ -528,5 +663,31 @@ async function timetable_link_func() {
   const urlParams = new URLSearchParams(window.location.search);
   event_id = urlParams.get("event_id");
   result_id = urlParams.get("result_id");
-  GetChecks(result_id, event_id);
+  speed_unit = urlParams.get("su");
+  distance_unit = urlParams.get("du");
+  GetChecks(result_id, event_id, speed_unit, distance_unit);
+}
+
+function convert_kmh(ms){
+  return (ms * 3600) / 1000
+}
+
+function convert_mph(ms){
+  return (ms * 3600) / 1609.3
+}
+
+function convert_knots(ms){
+  return (ms * 3600) / 1852
+}
+
+function convert_kilo(m){
+  return (m / 1000).toFixed(2)
+}
+
+function convert_mile(m){
+  return (m / 1609.34).toFixed(2)
+}
+
+function convert_naut(m){
+  return (m / 1852).toFixed(2)
 }
