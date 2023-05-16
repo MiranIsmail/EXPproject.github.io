@@ -683,7 +683,7 @@ async function timetable_link_func(speed_unit, distance_unit) {
   const urlParams = new URLSearchParams(window.location.search);
   event_id = urlParams.get("event_id");
   result_id = urlParams.get("result_id");
-  GetChecks(speed_unit, distance_unit, speed_unit, distance_unit);
+  GetChecks(result_id, event_id, speed_unit, distance_unit);
 }
 
 function convert_kmh(ms){
