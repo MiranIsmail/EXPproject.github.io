@@ -17,6 +17,7 @@ include '../assets/head.php';
                 <div class="col-lg-4" id="info_grid">
                     <div>
                         <h3>Information</h3>
+                        <h5>EventID: <span id="event_id"></span></h5>
                         <h5>Sport: <span id="event_sport"></span></h5>
                         <h5>StartDate: <span id="event_sdate"></span></h5>
                         <h5>EndDate: <span id="event_edate"></span></h5>
