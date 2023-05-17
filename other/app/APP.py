@@ -11,13 +11,15 @@ from tkinter import *
 from PIL import Image, ImageTk
 from win32api import GetSystemMetrics
 import serial.tools.list_ports as stlp
+from tkinter import simpledialog
+from tkinter import messagebox
 
 global_fullscreen = False
 global_event_id = ""
 global_track_name = ""
 global_event_id_result ="0"
 default_checker_event_id = False
-
+global_offline_mode = False
 
 def split_time(time: str):
     time_split = time.split(":")
@@ -151,7 +153,7 @@ def time_format_parse(time_log: str):
 def get_event_id(chip_id):
     # create a new window
     window = tk.Toplevel(f1,)
-    window.iconbitmap(r"logo.ico")
+    window.iconbitmap(r"other\app\logo.ico")
     window.geometry("300x200")
 
     # get the screen width and height
@@ -220,16 +222,27 @@ def formater():
             if response[1] != 80:
                 res:dict=time_format_parse(str(response))
                 chip_id:str = res.get("chip_id")
-                if default_checker_event_id != True:
-                    res["event_id"]=get_event_id(chip_id)
-                else:
+                if global_offline_mode == True:
                     res["event_id"]=global_event_id_result
-                #print(res)
-                #update_options(chip_id)
-                json_string = json.dumps(res)
-                requests.post(url, data= json_string)
-                time.sleep(0.1)
-                runner = False
+                    file_path = "data.json"
+                    with open(file_path, 'a') as file:
+                        json.dump((json.dumps(res)), file)
+                        file.write('\n')
+                        time.sleep(0.1)
+                        runner = False
+                        file.close()
+                        print("Data saved to file")
+                else:
+                    if default_checker_event_id != True:
+                        res["event_id"]=get_event_id(chip_id)
+                    else:
+                        res["event_id"]=global_event_id_result
+                    #print(res)
+                    #update_options(chip_id)
+                    json_string = json.dumps(res)
+                    requests.post(url, data= json_string)
+                    time.sleep(0.1)
+                    runner = False
     return res
 
 
@@ -462,6 +475,32 @@ def button_clicked_f2_4():
         button_f2_4.config(bg='green')
         root.attributes('-fullscreen', True)
 
+def button_clicked_f2_5():
+    """This function is connected to button_f2_5 and toggles the global variable(global_offline)"""
+
+    global global_offline_mode
+    global global_event_id_result
+    if global_offline_mode == True:
+        global_offline_mode = False
+        button_f2_5.config(bg='red')
+    else:
+        global_offline_mode = True
+        global_event_id_result = simpledialog.askstring("IMPORTANT!", "Please enter the event id correctly, otherwise the data will be corrupted:")
+        print(global_event_id_result)
+        button_f2_5.config(bg='green')
+def button_clicked_f2_6():
+    file_path = "data.json"
+    url = 'https://rasts.se/api/Results'
+# Open the JSON file in read mode
+    with open(file_path, 'r') as file:
+        for line in file:
+        # Load each line as a JSON object
+            json_object = json.loads(line)
+            requests.post(url, data= json_object)
+            time.sleep(0.1)
+        file.close()
+        messagebox.showinfo("Info", "Data has been uploaded to the server")
+        button_f2_6.config(bg='green')
     
 ###button named "set track" connected to the function(see command)
 button_f2_2 = tk.Button(f2, text="Set track", command=button_clicked_f2_2,bg='red')
@@ -475,6 +514,13 @@ button_f2_3.place(relx=0.01,rely=0.69,relheight=0.05,relwidth=0.05)
 button_f2_4 = tk.Button(f2, text="Fullscreen mode", command=button_clicked_f2_4,bg='red')
 button_f2_4.place(relx=0.01,rely=0.75,relheight=0.05,relwidth=0.05)
 
+###button named "set event" connected to the function(see command)
+button_f2_5 = tk.Button(f2, text="Offline mode", command=button_clicked_f2_5,bg='red')
+button_f2_5.place(relx=0.01,rely=0.81,relheight=0.05,relwidth=0.05)
+
+###button named "set event" connected to the function(see command)
+button_f2_6 = tk.Button(f2, text="Send saved data", command=button_clicked_f2_6,bg='red')
+button_f2_6.place(relx=0.01,rely=0.87,relheight=0.05,relwidth=0.05)
 
 ##Explanation label for the buttons
 font_size = int(f2.winfo_screenwidth()/90)
