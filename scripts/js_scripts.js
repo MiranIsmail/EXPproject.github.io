@@ -216,67 +216,62 @@ function CreateTrack(track_input, start_station, end_station) {
 
 async function create_event() {
   const response_incoming = await fetch(BASE_ULR + "Account", {
-    method: "GET",
-    headers: {Authorization: get_cookie("auth_token") },
+  method: "GET",
+  headers: {Authorization: get_cookie("auth_token") },
   });
   if (response_incoming.status >= 300) {
-    response_incoming = await fetch(BASE_ULR + "", { 
-    method: "GET",
-    headers: { Authorization: get_cookie("auth_token") }
-    });
-    if (response_incoming.status >= 300) {
-      alert("You are not logged in");
+    alert("You are not logged in");
+  }
+  else {
+    const data_incoming = await response_incoming.json();
+
+    var parameters = {};
+    parameters["event_name"] = document.getElementById("send_event_name").value;
+    parameters["track_name"] = document.getElementById("dropdown_track").value;
+    parameters["username"] = await data_incoming["username"];
+    parameters["startdate"] = document.getElementById("send_start_date").value;
+    parameters["enddate"] = document.getElementById("send_end_date").value;
+    parameters["eimage"] = document.getElementById("send_image").value;
+    parameters["description"] = document.getElementById("send_description").value;
+    parameters["sport"] = document.getElementById("send_sport").value;
+
+    var entry = document.getElementById("send_open").checked;
+    var view = document.getElementById("send_public").checked;
+
+    if (entry == true) {
+      parameters["open_for_entry"] = "1";
+    } else {
+      parameters["open_for_entry"] = "0";
     }
-    else {
-      const data_incoming = await response_incoming.json();
 
-      var parameters = {};
-      parameters["event_name"] = document.getElementById("send_event_name").value;
-      parameters["track_name"] = document.getElementById("dropdown_track").value;
-      parameters["username"] = await data_incoming["username"];
-      parameters["startdate"] = document.getElementById("send_start_date").value;
-      parameters["enddate"] = document.getElementById("send_end_date").value;
-      parameters["eimage"] = document.getElementById("send_image").value;
-      parameters["description"] = document.getElementById("send_description").value;
-      parameters["sport"] = document.getElementById("send_sport").value;
+    if (view == true) {
+      parameters["public_view"] = "1";
+    } else {
+      parameters["public_view"] = "0";
+    }
 
-      var entry = document.getElementById("send_open").checked;
-      var view = document.getElementById("send_public").checked;
+    if (document.getElementById("send_image").files.length != 0) {
+      parameters["eimage"] = await image_compress_64_large(
+        document.getElementById("send_image")
+      );
+    }
 
-      if (entry == true) {
-        parameters["open_for_entry"] = "1";
-      } else {
-        parameters["open_for_entry"] = "0";
+    for (const [key, value] of Object.entries(parameters)) {
+      console.log(key, value);
+      if (!value) {
+        delete parameters[key];
       }
+    }
 
-      if (view == true) {
-        parameters["public_view"] = "1";
-      } else {
-        parameters["public_view"] = "0";
-      }
-
-      if (document.getElementById("send_image").files.length != 0) {
-        parameters["eimage"] = await image_compress_64_large(
-          document.getElementById("send_image")
-        );
-      }
-
-      for (const [key, value] of Object.entries(parameters)) {
-        console.log(key, value);
-        if (!value) {
-          delete parameters[key];
-        }
-      }
-
-      const response = await create_event_endpoint(parameters);
-      if (response.status < 300) {
-        location.href = "../pages/confirmation_event.php";
-      } else {
-        console.log("Something went wrong in create event");
-      }
+    const response = await create_event_endpoint(parameters);
+    if (response.status < 300) {
+      location.href = "../pages/confirmation_event.php";
+    } else {
+      console.log("Something went wrong in create event");
     }
   }
 }
+
 async function TrackDropdown() {
   const response = await get_all_tracks_endpoint();
   let dropdown = document.getElementById("dropdown_track");
