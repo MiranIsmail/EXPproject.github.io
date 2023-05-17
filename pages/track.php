@@ -136,7 +136,7 @@
 
     // check if all inputs are disabled
 
-    if trackname.value == "" {
+    if (trackname.value == "") {
       TrackName = false;
     } else {
       TrackName = true;

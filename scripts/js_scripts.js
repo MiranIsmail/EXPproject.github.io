@@ -216,67 +216,62 @@ function CreateTrack(track_input, start_station, end_station) {
 
 async function create_event() {
   const response_incoming = await fetch(BASE_ULR + "Account", {
-    method: "GET",
-    headers: {Authorization: get_cookie("auth_token") },
+  method: "GET",
+  headers: {Authorization: get_cookie("auth_token") },
   });
   if (response_incoming.status >= 300) {
-    response_incoming = await fetch(BASE_ULR + "", { 
-    method: "GET",
-    headers: { Authorization: get_cookie("auth_token") }
-    });
-    if (response_incoming.status >= 300) {
-      alert("You are not logged in");
+    alert("You are not logged in");
+  }
+  else {
+    const data_incoming = await response_incoming.json();
+
+    var parameters = {};
+    parameters["event_name"] = document.getElementById("send_event_name").value;
+    parameters["track_name"] = document.getElementById("dropdown_track").value;
+    parameters["username"] = await data_incoming["username"];
+    parameters["startdate"] = document.getElementById("send_start_date").value;
+    parameters["enddate"] = document.getElementById("send_end_date").value;
+    parameters["eimage"] = document.getElementById("send_image").value;
+    parameters["description"] = document.getElementById("send_description").value;
+    parameters["sport"] = document.getElementById("send_sport").value;
+
+    var entry = document.getElementById("send_open").checked;
+    var view = document.getElementById("send_public").checked;
+
+    if (entry == true) {
+      parameters["open_for_entry"] = "1";
+    } else {
+      parameters["open_for_entry"] = "0";
     }
-    else {
-      const data_incoming = await response_incoming.json();
 
-      var parameters = {};
-      parameters["event_name"] = document.getElementById("send_event_name").value;
-      parameters["track_name"] = document.getElementById("dropdown_track").value;
-      parameters["username"] = await data_incoming["username"];
-      parameters["startdate"] = document.getElementById("send_start_date").value;
-      parameters["enddate"] = document.getElementById("send_end_date").value;
-      parameters["eimage"] = document.getElementById("send_image").value;
-      parameters["description"] = document.getElementById("send_description").value;
-      parameters["sport"] = document.getElementById("send_sport").value;
+    if (view == true) {
+      parameters["public_view"] = "1";
+    } else {
+      parameters["public_view"] = "0";
+    }
 
-      var entry = document.getElementById("send_open").checked;
-      var view = document.getElementById("send_public").checked;
+    if (document.getElementById("send_image").files.length != 0) {
+      parameters["eimage"] = await image_compress_64_large(
+        document.getElementById("send_image")
+      );
+    }
 
-      if (entry == true) {
-        parameters["open_for_entry"] = "1";
-      } else {
-        parameters["open_for_entry"] = "0";
+    for (const [key, value] of Object.entries(parameters)) {
+      console.log(key, value);
+      if (!value) {
+        delete parameters[key];
       }
+    }
 
-      if (view == true) {
-        parameters["public_view"] = "1";
-      } else {
-        parameters["public_view"] = "0";
-      }
-
-      if (document.getElementById("send_image").files.length != 0) {
-        parameters["eimage"] = await image_compress_64_large(
-          document.getElementById("send_image")
-        );
-      }
-
-      for (const [key, value] of Object.entries(parameters)) {
-        console.log(key, value);
-        if (!value) {
-          delete parameters[key];
-        }
-      }
-
-      const response = await create_event_endpoint(parameters);
-      if (response.status < 300) {
-        location.href = "../pages/confirmation_event.php";
-      } else {
-        console.log("Something went wrong in create event");
-      }
+    const response = await create_event_endpoint(parameters);
+    if (response.status < 300) {
+      location.href = "../pages/confirmation_event.php";
+    } else {
+      console.log("Something went wrong in create event");
     }
   }
 }
+
 async function TrackDropdown() {
   const response = await get_all_tracks_endpoint();
   let dropdown = document.getElementById("dropdown_track");
@@ -363,7 +358,6 @@ async function update_user_password(event) {
 
 async function GetChecks(result_id, event_id, speed_unit, distance_unit) {
   //calls the api and fills the html table with data
-  console.log(speed_unit)
   check_time = await get_result_endpoint(result_id)
   check_time = await check_time.json()
 
@@ -402,8 +396,6 @@ function FillTable(check_time, check_terrain, speed_unit, distance_unit) {
     }
   });
   //#############################################################################
-  console.log(speed_unit)
-  console.log(distance_unit)
   let total_time = 0
   let total_dist = 0
   for (let i = 0; i < check_terrain.length; i++) {
@@ -453,6 +445,18 @@ function FillTable(check_time, check_terrain, speed_unit, distance_unit) {
                         .diff_sec
                     )
                   )).toFixed(1) + " knots";}
+                  else if(speed_unit=='kpm'){
+                    cell5.innerHTML =
+                     convert_kpm(AverageVel(
+                        parseInt(
+                          check_terrain[dict[check_terrain[i].station_id][0]].next_distance
+                        ),
+                        parseInt(
+                          check_time.result[dict[check_terrain[i + 1].station_id][0]]
+                            .diff_sec
+                        )
+                      )).toFixed(1) + " kpm";
+                  }
               else{
                 cell5.innerHTML =
                  (AverageVel(
@@ -591,6 +595,18 @@ function FillTable(check_time, check_terrain, speed_unit, distance_unit) {
                         .diff_sec
                     )
                   )).toFixed(1) + " knots";}
+              else if(speed_unit=='kpm'){
+                cell5.innerHTML =
+                 convert_kpm(AverageVel(
+                    parseInt(
+                      check_terrain[dict[check_terrain[i].station_id][0]].next_distance
+                    ),
+                    parseInt(
+                      check_time.result[dict[check_terrain[i + 1].station_id][0]]
+                        .diff_sec
+                    )
+                  )).toFixed(1) + " kpm";
+              }
               else{
                 cell5.innerHTML =
                  (AverageVel(
@@ -607,7 +623,7 @@ function FillTable(check_time, check_terrain, speed_unit, distance_unit) {
     }
     if(i == check_terrain.length - 1){
       cell1.innerHTML = "Total:"
-      cell2.innerHTML = total_time.toString() + "(s)"
+      cell2.innerHTML = total_time.toString() + "s"
       if(distance_unit == 'km')
       {
         cell4.innerHTML = convert_kilo(total_dist) + " km"
@@ -621,13 +637,12 @@ function FillTable(check_time, check_terrain, speed_unit, distance_unit) {
         cell4.innerHTML = convert_naut(total_dist) + " nm"
       }
       else{
-        cell4.innerHTML = total_dist + " m";
+        cell4.innerHTML = total_dist + "m";
       }
       
 
     }
   }
-  console.log(convert_knots(10))
 }
 function TimeDiff(time1, time2) {
   //difference between two times in seconds
@@ -659,12 +674,10 @@ function pretty_print_time(ts) {
   return ts[0] + ts[1] + "h " + ts[3] + ts[4] + "m " + ts[6] + ts[7] + "s";
 }
 
-async function timetable_link_func() {
+async function timetable_link_func(speed_unit, distance_unit) {
   const urlParams = new URLSearchParams(window.location.search);
   event_id = urlParams.get("event_id");
   result_id = urlParams.get("result_id");
-  speed_unit = urlParams.get("su");
-  distance_unit = urlParams.get("du");
   GetChecks(result_id, event_id, speed_unit, distance_unit);
 }
 
@@ -680,6 +693,10 @@ function convert_knots(ms){
   return (ms * 3600) / 1852
 }
 
+function convert_kpm(ms){
+  return (ms / 16.667)
+}
+
 function convert_kilo(m){
   return (m / 1000).toFixed(2)
 }
@@ -690,4 +707,8 @@ function convert_mile(m){
 
 function convert_naut(m){
   return (m / 1852).toFixed(2)
+}
+
+function convert_feet(m){
+  return (m * 3.28084).toFixed(2)
 }

@@ -17,6 +17,7 @@
       <option value="kmh">km/h</option>
       <option value="mph">mph</option>
       <option value="kn">knots</option>
+      <option value="kpm">kpm</option>
       </select>
 
       <label for="dist">Choose distance measurement unit:</label>
@@ -28,7 +29,6 @@
       </select>
 
       <button onclick=user_prefs_update()>Update</button>
-
     </div>
   <div class="mx-auto">
     <table class="table table-bordered result_table" id="timetable" style="margin-bottom:0px;">
@@ -46,31 +46,15 @@
     </table>
     <script>
       function user_prefs_update(){
-        //if appended without the other things being appended like result_id and event_id the url will not work
-        //because of the lack of a ?name=name
         let s_unit = document.getElementById('s_unit').value
         let d_unit = document.getElementById('d_unit').value
-        var url = window.location.href
-        new_url = url
-        const urlParams = new URLSearchParams(window.location.search);
-        su = urlParams.get("su");
-        du = urlParams.get("du");
-        if(su == null){
-          new_url += '&' + 'su=' + s_unit
+        var table = document.getElementById('timetable')
+        var rows_len = table.rows.length
+        var row_cells = table.rows
+        for(i = rows_len-1; i > 0; i--){
+            table.deleteRow(i)
         }
-        if(su != null && su.value != s_unit)
-        {
-          new_url = new_url.replace('su=' + su, 'su=' + s_unit)
-        }
-        if(du == null){
-        new_url += '&' + 'du=' + d_unit
-        }
-        if(du != null && du.value != d_unit)
-        {
-          new_url = new_url.replace('du=' + du, 'du=' + d_unit)
-        }
-        window.location.href = new_url
-        timetable_link_func()
+        timetable_link_func(s_unit, d_unit)
       }
     </script>
   </div>
