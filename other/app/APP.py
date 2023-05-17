@@ -115,7 +115,6 @@ def time_format_parse(time_log: str):
                     prev_station_timestamp = time_list[-1][1]
                 except IndexError:
                     prev_station_timestamp = None
-                    print("You have not passed the start station")
             elif station_id == 90:
                 station_name = "90"
                 prev_station_timestamp = time_list[-1][1]
@@ -231,7 +230,7 @@ def formater():
                         time.sleep(0.1)
                         runner = False
                         file.close()
-                        print("Data saved to file")
+                        
                 else:
                     if default_checker_event_id != True:
                         res["event_id"]=get_event_id(chip_id)
@@ -477,7 +476,6 @@ def button_clicked_f2_4():
 
 def button_clicked_f2_5():
     """This function is connected to button_f2_5 and toggles the global variable(global_offline)"""
-
     global global_offline_mode
     global global_event_id_result
     if global_offline_mode == True:
@@ -486,7 +484,6 @@ def button_clicked_f2_5():
     else:
         global_offline_mode = True
         global_event_id_result = simpledialog.askstring("IMPORTANT!", "Please enter the event id correctly, otherwise the data will be corrupted:")
-        print(global_event_id_result)
         button_f2_5.config(bg='green')
 def button_clicked_f2_6():
     file_path = "data.json"
@@ -504,23 +501,23 @@ def button_clicked_f2_6():
     
 ###button named "set track" connected to the function(see command)
 button_f2_2 = tk.Button(f2, text="Set track", command=button_clicked_f2_2,bg='red')
-button_f2_2.place(relx=0.01,rely=0.63,relheight=0.05,relwidth=0.05)
+button_f2_2.place(relx=0.01,rely=0.63,relheight=0.05,relwidth=0.09)
 
 ###button named "set event" connected to the function(see command)
 button_f2_3 = tk.Button(f2, text="Set event", command=button_clicked_f2_3,bg='red')
-button_f2_3.place(relx=0.01,rely=0.69,relheight=0.05,relwidth=0.05)
+button_f2_3.place(relx=0.01,rely=0.69,relheight=0.05,relwidth=0.09)
 
 ###button named "set event" connected to the function(see command)
 button_f2_4 = tk.Button(f2, text="Fullscreen mode", command=button_clicked_f2_4,bg='red')
-button_f2_4.place(relx=0.01,rely=0.75,relheight=0.05,relwidth=0.05)
+button_f2_4.place(relx=0.01,rely=0.75,relheight=0.05,relwidth=0.09)
 
 ###button named "set event" connected to the function(see command)
 button_f2_5 = tk.Button(f2, text="Offline mode", command=button_clicked_f2_5,bg='red')
-button_f2_5.place(relx=0.01,rely=0.81,relheight=0.05,relwidth=0.05)
+button_f2_5.place(relx=0.01,rely=0.81,relheight=0.05,relwidth=0.09)
 
 ###button named "set event" connected to the function(see command)
 button_f2_6 = tk.Button(f2, text="Send saved data", command=button_clicked_f2_6,bg='red')
-button_f2_6.place(relx=0.01,rely=0.87,relheight=0.05,relwidth=0.05)
+button_f2_6.place(relx=0.01,rely=0.87,relheight=0.05,relwidth=0.09)
 
 ##Explanation label for the buttons
 font_size = int(f2.winfo_screenwidth()/90)
