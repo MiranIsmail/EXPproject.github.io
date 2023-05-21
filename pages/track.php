@@ -493,6 +493,7 @@
       if (markers_list[i].getLabel() == CheckID) {
         markers_list[i].setMap(null);
         markers_list.splice(i, 1);
+        delete marker_connections_with_rows[CheckID];
         
       }
     }
