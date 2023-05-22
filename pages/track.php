@@ -509,7 +509,7 @@
   }
   function remove_not_saved_markers() {
     for (let i = 0; i < markers_list.length; i++) {
-      if (markers_list[i].getLabel() == checkpoint_id && marker_connections_with_rows[checkpoint_id] == input_field.id) {
+      if (markers_list[i].getLabel() == checkpoint_id && marker_connections_with_rows[checkpoint_id] !== input_field.id) {
         markers_list[i].setMap(null);
         markers_list.splice(i, 1);
       }
