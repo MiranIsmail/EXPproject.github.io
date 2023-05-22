@@ -84,10 +84,13 @@
             <div class="alert alert-danger" role="alert" id="mult_id_alert" style="display:none;">
               You have inputed a Station ID that has already been saved 
             </div>
+            <div class="alert alert-warning" role="alert" id="invalid_id_alert" style="display:none;">
+              You have inputed a invalid Station ID. Please correct it.
+            </div>
               <!-- Modal Header -->
               <div class="modal-header text-center">
                 <h4 class="modal-title w-100">Map</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="remove_not_saved_markers()"></button>
               </div>
 
               <!-- Modal body -->
@@ -99,7 +102,7 @@
               
               <!-- Modal footer -->
               <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="remove_not_saved_markers()">Close</button>
                 <button type="button" class="btn btn-danger" disabled id ="del_btn" onclick="deleteMarkers()">Delete</button>
                 <button type="button" class="btn btn-success" disabled id="save_btn" onclick="send_coords()" data-bs-toggle="modal">Save</button>
               </div>
@@ -420,6 +423,7 @@
   const save_btn = document.getElementById('save_btn');
   const del_btn = document.getElementById('del_btn');
   const pin_alert = document.getElementById("mult_id_alert");
+  const pin_warning = document.getElementById("invalid_id_alert");
 
   function find_pin_id(button, type) { 
     row = button.parentNode.parentNode;
@@ -434,11 +438,16 @@
       console.log("Checkpoint already saved")
       pin_alert.style.display = "block";
     }
+    else if (checkpoint_id=="") {
+      placement_ready = false
+      pin_warning.style.display = "block";
+    }
     else {
       save_btn.disabled = false
       del_btn.disabled = false
       placement_ready = true
       pin_alert.style.display = "none";
+      pin_warning.style.display = "none";
     }
     
   }
@@ -498,6 +507,14 @@
       }
     }
   }
+  function remove_not_saved_markers() {
+    for (let i = 0; i < markers_list.length; i++) {
+      if (markers_list[i].getLabel() == checkpoint_id && marker_connections_with_rows[markers_list[i]] == undefined) {
+        markers_list[i].setMap(null);
+        markers_list.splice(i, 1);
+      }
+    }
+  }
   // Deletes all markers in the array by removing references to them.
   function deleteMarkers() {
     let last_row = document.getElementById("track_input").lastElementChild
@@ -535,8 +552,9 @@
     }
     input_field.disabled = true
     pin_button.style.backgroundColor = success
+    marker.setDraggable(false);
+    marker.setAnimation(google.maps.Animation.BOUNCE);
     marker_connections_with_rows[marker.getLabel()] = input_field.id
-    console.log("connections,", marker_connections_with_rows)
 
   }
   function open_map(event) {
