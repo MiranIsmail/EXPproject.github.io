@@ -553,7 +553,6 @@
     input_field.disabled = true
     pin_button.style.backgroundColor = success
     marker.setDraggable(false);
-    marker.setAnimation(google.maps.Animation.BOUNCE);
     marker_connections_with_rows[marker.getLabel()] = input_field.id
 
   }
