@@ -90,7 +90,7 @@
               <!-- Modal Header -->
               <div class="modal-header text-center">
                 <h4 class="modal-title w-100">Map</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="remove_not_saved_markers()"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="close_map()"></button>
               </div>
 
               <!-- Modal body -->
@@ -102,7 +102,7 @@
               
               <!-- Modal footer -->
               <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="remove_not_saved_markers()">Close</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="close_map()">Close</button>
                 <button type="button" class="btn btn-danger" disabled id ="del_btn" onclick="deleteMarkers()">Delete</button>
                 <button type="button" class="btn btn-success" disabled id="save_btn" onclick="send_coords()" data-bs-toggle="modal">Save</button>
               </div>
@@ -401,7 +401,6 @@
         marker_longitude = current_marker.getPosition().lng()
         marker_latitude = current_marker.getPosition().lat()
 
-        console.log(track_name, end_id, "undef", "0", "undef", marker_longitude, marker_latitude, checkpoint_number)
         create_checkpoint_endpoint(track_name, end_id, "undef", "0", "undef", marker_longitude, marker_latitude, checkpoint_number)
         }
       } 
@@ -430,26 +429,26 @@
     input_field = row.querySelector(`input[name=${type+"ID"}]`)
     checkpoint_id = input_field.value
     pin_button = row.querySelector(`button[name=${type+"pin"}]`)
-    
+    placement_ready = false
+    save_btn.disabled = true
+    del_btn.disabled = true
+
     if (marker_connections_with_rows[checkpoint_id] !== undefined && marker_connections_with_rows[checkpoint_id] !== input_field.id) {
+      // Pin already registered
       save_btn.disabled = true
       del_btn.disabled = true
-      placement_ready = false
-      console.log("Checkpoint already saved")
       pin_alert.style.display = "block";
     }
-    else if (checkpoint_id=="") {
-      placement_ready = false
-      pin_warning.style.display = "block";
-    }
-    else {
+    else if (checkpoint_id === 0 || checkpoint_id === 90 || (checkpoint_id >= 101 && checkpoint_id <= 199)){
+      // Valid pin
       save_btn.disabled = false
       del_btn.disabled = false
       placement_ready = true
-      pin_alert.style.display = "none";
-      pin_warning.style.display = "none";
     }
-    
+    else {
+      // Invalid pin
+      pin_warning.style.display = "block";
+    }
   }
   
   function init_map() {
@@ -468,6 +467,8 @@
     map.addListener("click", (event) => {
       if (placement_ready == true) {
         deleteMarkers();
+        save_btn.disabled = false;
+        del_btn.disabled = false;
         add_marker(event.latLng, checkpoint_id);
       }
     });
@@ -484,8 +485,6 @@
     });
 
     markers_list.push(marker);
-    save_btn.disabled = false;
-    del_btn.disabled = false; 
     
   }
 
@@ -507,7 +506,9 @@
       }
     }
   }
-  function remove_not_saved_markers() {
+  function close_map() {
+    pin_alert.style.display = "none";
+    pin_warning.style.display = "none";
     for (let i = 0; i < markers_list.length; i++) {
       if (markers_list[i].getLabel() == checkpoint_id && marker_connections_with_rows[checkpoint_id] !== input_field.id) {
         markers_list[i].setMap(null);
@@ -554,6 +555,8 @@
     pin_button.style.backgroundColor = success
     marker.setDraggable(false);
     marker_connections_with_rows[marker.getLabel()] = input_field.id
+
+    save_btn.disabled = true;
 
   }
   function open_map(event) {
