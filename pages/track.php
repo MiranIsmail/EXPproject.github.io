@@ -446,6 +446,7 @@
       save_btn.disabled = false
       del_btn.disabled = false
       placement_ready = true
+      checkpoint_id = checkpoint_id.toString()
     }
     else {
       // Invalid pin
