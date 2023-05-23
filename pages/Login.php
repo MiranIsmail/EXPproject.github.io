@@ -37,13 +37,15 @@ include '../assets/head.php';
                     <div class="form-group form_group_style mx-auto">
                         <button type="button" id="button_style" onclick="log_in()">Sign in</button>
                     </div>
-                    <p class="" style="padding-left: 1rem"><a href="../pages/ForgotPassword.php">Forgot your password? </a></p>
-                    <div class="row form-group form_group_style mx-auto" style="margin-top:30px">
+                    <div>
+                        <p class="" style="padding-left: 1rem"><a href="../pages/ForgotPassword.php">Forgot your password? </a></p>
+                    </div>
+                    <div class="row  form_group_style mx-auto" style="margin-top:30px">
                         <div class="col-sm-6">
                             <p class="center_item">Don't have an account?</p>
                         </div>
                         <div class="col-sm-6">
-                            <button type="button" id="button_style" onclick="window.location.href='../pages/SignUp.php'">Sign up </button>
+                            <p class="" style="padding-left: 1rem"><a href="../pages/SignUp.php">Sign up</a></p>
                         </div>
                     </div>
                 </form>
@@ -68,16 +70,16 @@ include '../assets/head.php';
                             <p class="" style="padding-left: 1rem;"><a href="../pages/ForgotPassword.php">Forgot your password? </a></p>
                         </div>
                         <div class="col-sm-6">
-                        <p class="left_item" style="padding-left: 1rem; text-decoration: underline; cursor: pointer" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRightOrg" aria-controls="offcanvasRight">How do I register my organization?</p>
+                            <p class="left_item" style="padding-left: 1rem; text-decoration: underline; cursor: pointer" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRightOrg" aria-controls="offcanvasRight">How do I register my organization?</p>
                         </div>
                     </div>
-                    
+
                 </form>
             </div>
         </div>
     </div>
 
-    
+
     <form action="../assets/organization_request.php" class="" method="GET">
         <div class=" form-group form_group_style mx-auto">
 

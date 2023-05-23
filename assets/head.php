@@ -6,7 +6,8 @@ $page_name_tile = ["index" => "Rasts", "" => "Rasts", "event_display" => "Rasts 
 $blocked_site_logged_out = ["profile", "eventcreate", "track"];
 $blocked_site_logged_in = ["Login", "SignUp"];
 $blocked_site_logged_in_user = ["track"];
-$title = $page_name_tile[explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0]];
+$tmp = explode("?",$_SERVER['REQUEST_URI'])[0];
+$title = $page_name_tile[explode(".", explode("/", $tmp)[2])[0]];
 
 $is_logged_in_user = is_logged_in();
 $is_logged_in_org = is_logged_in("Organization");

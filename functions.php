@@ -29,6 +29,7 @@ function is_logged_in($table_name = "Users"): bool
     return false;
   }
 }
+
 function get_user_info(): stdClass
 {
   if (!isset($_COOKIE["auth_token"])) {
