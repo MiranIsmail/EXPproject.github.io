@@ -6,8 +6,10 @@
     <div id="container-img">
         <div class="row">
 
-            <div class="col-sm-6" id="profile_box">
-                <img class="img-fluid d-block" alt="profile image" id="profile_image" src="<?= $user_data->pimage ?>">
+            <div class="col-sm-6">
+                <div id="profile_box">
+                    <img class="img-fluid d-block" alt="profile image" id="profile_image" src="<?= $user_data->pimage ?>">
+                </div>
             </div>
             <div class="col-sm-6" style="vertical-align: middle;">
                 <div class="accout-piture">
@@ -35,7 +37,6 @@
                     <?php } ?>
                     <form action="../assets/organization_request.php" class="orgform" method="GET">
                         <div class=" form-group form_group_style mx-auto">
-                            <button class="button-modular" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRightOrg" aria-controls="offcanvasRight">Want to register your organisation?</button>
 
                             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRightOrg" aria-labelledby="offcanvasRightLabel">
                                 <div class="offcanvas-header">
@@ -96,14 +97,98 @@
 
     <img class="w-100 op30" style="padding-top:2rem;" src="../images/indeximage_thinner.png" id="image_run" alt="Running figures">
 
+    <!-- personal profile -->
+<?php if($is_logged_in_user){?>
     <div id="previousEventes">
-        <h1 class="text-center">Previous Events</h1>
+        <h1 class="text-center">Uppcoming events</h1>
     </div>
-
     <div class="events" id="event">
         <div id="myTableContainerResults"></div>
-    </div>
+        <table class="table table-bordered result_table" id="event_user_upcoming">
+        <thead>
+            <tr>
+            <th scope="col">Event</th>
+            <th scope="col">Date</th>
+            <th scope="col">Details</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        </table>
 
+        <h1 class="text-center">Previous Events</h1>
+
+        <div id="myTableContainerResults"></div>
+        <h2 class="underline_text">Results</h2>
+        <table class="table table-bordered result_table" id="event_user_results">
+        <thead>
+            <tr>
+            <th scope="col">Event</th>
+            <th scope="col">Date</th>
+            <th scope="col">Time</th>
+            <th scope="col">Details</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        </table>
+    </div>
+    <?php } ?>
+<!-- personal profile -->
+
+
+<!-- Org profile -->
+    <?php if($is_logged_in_org){?>
+<div id="previousEventes">
+        <h1 class="text-center">Uppcoming Events</h1>
+    </div>
+    <div class="events" id="event">
+        <div id="myTableContainerResults"></div>
+        <table class="table table-bordered result_table" id="organisation_upcoming_events">
+        <thead>
+            <tr>
+            <th scope="col">Event</th>
+            <th scope="col">Date</th>
+            <th scope="col">Start Time</th>
+            <th scope="col">Details</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        </table>
+
+        <h1 class="text-center">Past Events</h1>
+        <div id="myTableContainerResults"></div>
+        <table class="table table-bordered result_table" id="organisation_past_events">
+        <thead>
+            <tr>
+            <th scope="col">Event</th>
+            <th scope="col">Start Date</th>
+            <th scope="col">End Date</th>
+            <th scope="col">Details</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        </table>
+
+        <h1 class="text-center">Our Tracks</h1>
+        <div id="myTableContainerResults"></div>
+        <table class="table table-bordered result_table" id="organisation_tracks">
+        <thead>
+            <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Checkpoints</th>
+            <th scope="col">Distance</th>
+            <th scope="col">Details</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        </table>
+    </div>
+    <?php } ?>
+<!-- Org profile -->
     <!--Edit profile popup-->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRightSetting" aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header">
@@ -152,11 +237,6 @@
 
             </div>
 
-            <div id="root">
-                <p>Upload an image and see the result</p>
-                <!-- <input id="img-input" type="file" accept="image/*" style="display:block" /> -->
-                </div>
-
             <div id="success-alert" class="alert alert-success alert-dismissible fade show d-none" role="alert">
                 Form submitted successfully!
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -164,26 +244,14 @@
             <div class="form-group form_group_style mx-auto">
                 <button class="btn btn-primary" button id="submit_org_form" type="submit" onclick="edit_user_info()">Save changes</button>
             </div>
+            <button class="button-modular" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRightOrg" aria-controls="offcanvasRight">Want to register your organisation?</button>
         </div>
     </div>
-
-    <script type="text/javascript" src="../scripts/js_scripts.js"></script>
-    <script>
-
-
-        // Add event listener for form submission
-        get_user_results();
-        document.getElementsByClassName("orgform").addEventListener("submit", function(event) {
-            // Prevent default form submission behavior
-            event.preventDefault();
-            // Show success alert
-            document.getElementById("success-alert").classList.remove("d-none");
-
-            submit_button = document.getElementById("submit_org_form");
-            submit_button.setAttribute('disabled', '')
-        });
-    </script>
     <?php include '../assets/footer.php'; ?>
+    <script>
+        generate_user_results();
+        generate_user_upcoming();
+    </script>
 </body>
 
 </html>
