@@ -1,4 +1,6 @@
 <?php
+
+
 include '../functions.php';
 
 $page_name_tile = ["index" => "Rasts", "" => "Rasts", "event_display" => "Rasts - Event", "event" => "Rasts - Events", "profile" => "Profile", "Login" => "Login", "SignUp" => "Register", "eventcreate" => "Create Event", "track" => "Track", "terms_of_service" => "terms of service", "privacy_policy" => "privacy policy"];
@@ -20,7 +22,6 @@ if ($is_logged_in_org){
 }
 
 
-
 if ($is_logged_in) {
 
   if (in_array(explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0], $blocked_site_logged_in)) {
@@ -40,6 +41,7 @@ if ($is_logged_in) {
     header("Location: ../pages/index.php");
   }
 }
+
 ?>
 
 <!DOCTYPE html>
