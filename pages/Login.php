@@ -107,23 +107,23 @@ include '../assets/head.php';
                     </div>
                     <div class="form-group form_group_style mx-auto">
                         <p>Organization number </p>
-                        <input type="text" name="org_number" class="form-control input_field_style" placeholder="111111-0000" id="org_email" required>
+                        <input type="text" name="org_number" class="form-control input_field_style" placeholder="111111-0000" id="org_number" required>
                     </div>
                     <h2>Contact information</h2>
                     <div class="form-group form_group_style mx-auto">
                         <p>Private Email Address </p>
-                        <input type="text" name="contact_email" class="form-control input_field_style" placeholder="expproject@gmail.com" id="user_email" required>
+                        <input type="text" name="contact_email" class="form-control input_field_style" placeholder="expproject@gmail.com" id="private_email" required>
                     </div>
                     <div class="form-group form_group_style mx-auto">
                         <p>Phone Number </p>
-                        <input type="tel" name=" number" class="form-control input_field_style" placeholder="" id="user_email" required>
+                        <input type="tel" name="number" class="form-control input_field_style" placeholder="" id="phone_number" required>
                     </div>
                     <div id="success-alert" class="alert alert-success alert-dismissible fade show d-none" role="alert">
                         Form submitted successfully!
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     <div class="form-group form_group_style mx-auto">
-                        <button class="btn btn-primary" button id="submit_org_form" type="submit" onclick="fill_org_form()" value="Submit">Submit form</button>
+                        <button class="btn btn-primary" button id="submit_org_form" type="submit" value="Submit">Submit form</button>
                     </div>
                     After submission we will as soon as possible get back to you to give you more information on how to set up your organizational account. We will be in touch!
                 </div>
