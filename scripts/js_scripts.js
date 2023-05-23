@@ -204,6 +204,9 @@ function CreateTrack(track_input, start_station, end_station) {
   var xhr = new XMLHttpRequest();
   xhr.open("POST", BASE_ULR + "Track", false); // false makes the request synchronous
   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  // Add the auth_token header
+  xhr.setRequestHeader("Authorization", get_cookie("auth_token"));
+
   xhr.send(
     JSON.stringify({
       track_name: track_input,
@@ -212,6 +215,7 @@ function CreateTrack(track_input, start_station, end_station) {
     })
   );
   console.log("Track created");
+
 }
 
 async function create_event() {
