@@ -64,7 +64,7 @@ async function log_in() {
   const response = await get_token_endpoint(femail, fpword);
 
   if (response.status >= 300) {
-    alert("Invalid credentials");
+    alert("Invalid credentials\n Make sure your credentials are valid and your email is confirmed!");
   } else {
     const data = await response.json();
     document.cookie = `auth_token=${await data["auth_token"]}`;
