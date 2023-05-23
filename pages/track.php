@@ -427,7 +427,7 @@
   function find_pin_id(button, type) { 
     row = button.parentNode.parentNode;
     input_field = row.querySelector(`input[name=${type+"ID"}]`)
-    checkpoint_id = input_field.value
+    checkpoint_id = parseInt(input_field.value)
     pin_button = row.querySelector(`button[name=${type+"pin"}]`)
     placement_ready = false
     save_btn.disabled = true
@@ -441,6 +441,8 @@
     }
     else if (checkpoint_id == 0 || checkpoint_id == 90 || (checkpoint_id >= 101 && checkpoint_id <= 199)){
       // Valid pin
+      console.log("Valid pin")
+      console.log(checkpoint_id)
       save_btn.disabled = false
       del_btn.disabled = false
       placement_ready = true
