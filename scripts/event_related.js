@@ -109,7 +109,7 @@ function preview_event() {
     let reader = new FileReader(); // create a FileReader object
     reader.onload = function () {
       image = reader.result; // set image to the result of the FileReader
-      generate_card_wide(
+      generate_card_wide_preview(
         event_name,
         "Date: " + start_date + "\n - " + end_date,
         host_name,
