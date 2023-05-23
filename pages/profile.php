@@ -98,6 +98,7 @@
     <img class="w-100 op30" style="padding-top:2rem;" src="../images/indeximage_thinner.png" id="image_run" alt="Running figures">
 
     <!-- personal profile -->
+<?php if($is_logged_in_user){?>
     <div id="previousEventes">
         <h1 class="text-center">Uppcoming events</h1>
     </div>
@@ -131,19 +132,69 @@
         <tbody>
         </tbody>
         </table>
-</div>
+    </div>
+    <?php } ?>
 <!-- personal profile -->
 
 
 <!-- Org profile -->
+    <?php if($is_logged_in_org){?>
+<div id="previousEventes">
+        <h1 class="text-center">Uppcoming Events</h1>
+    </div>
+    <div class="events" id="event">
+        <div id="myTableContainerResults"></div>
+        <table class="table table-bordered result_table" id="organisation_upcoming_events">
+        <thead>
+            <tr>
+            <th scope="col">Event</th>
+            <th scope="col">Date</th>
+            <th scope="col">Start Time</th>
+            <th scope="col">Details</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        </table>
 
+        <h1 class="text-center">Past Events</h1>
+        <div id="myTableContainerResults"></div>
+        <table class="table table-bordered result_table" id="organisation_past_events">
+        <thead>
+            <tr>
+            <th scope="col">Event</th>
+            <th scope="col">Start Date</th>
+            <th scope="col">End Date</th>
+            <th scope="col">Details</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        </table>
+
+        <h1 class="text-center">Our Tracks</h1>
+        <div id="myTableContainerResults"></div>
+        <table class="table table-bordered result_table" id="organisation_tracks">
+        <thead>
+            <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Checkpoints</th>
+            <th scope="col">Distance</th>
+            <th scope="col">Details</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        </table>
+    </div>
+    <?php } ?>
 <!-- Org profile -->
     <!--Edit profile popup-->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRightSetting" aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header">
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="offcanvas-body canvas_container">
+        <div class="offcanvas-body canvas_container" id="profile_canvas_container">
             <h4>Edit your profile</h4>
             <div class="form-group form_group_style mx-auto needs-validation" novalidate>
 
@@ -193,7 +244,6 @@
             <div class="form-group form_group_style mx-auto">
                 <button class="btn btn-primary" button id="submit_org_form" type="submit" onclick="edit_user_info()">Save changes</button>
             </div>
-            <button class="button-modular" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRightOrg" aria-controls="offcanvasRight">Want to register your organisation?</button>
         </div>
     </div>
     <?php include '../assets/footer.php'; ?>

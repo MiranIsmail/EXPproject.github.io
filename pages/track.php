@@ -29,7 +29,7 @@
               <div class="invalid-feedback">
                 Please enter in an ID number between 101 and 199
               </div>
-              <input type="number" class="form-control" id="start0" name="StartID" min="100" max="200" placeholder="Start Station ID">
+              <input type="number" class="form-control" id="start0" name="StartID" min="101" max="199" placeholder="Start Station ID">
               <button type="button" class="btn btn-secondary" name="Startpin" onclick="find_pin_id(this, 'Start')" data-bs-toggle="modal" data-bs-target="#myModal">
                 <i class="fa-solid fa-map-location-dot"></i>
               </button>
@@ -84,10 +84,13 @@
             <div class="alert alert-danger" role="alert" id="mult_id_alert" style="display:none;">
               You have inputed a Station ID that has already been saved 
             </div>
+            <div class="alert alert-warning" role="alert" id="invalid_id_alert" style="display:none;">
+              You have inputed a invalid Station ID. Please correct it.
+            </div>
               <!-- Modal Header -->
               <div class="modal-header text-center">
                 <h4 class="modal-title w-100">Map</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="close_map()"></button>
               </div>
 
               <!-- Modal body -->
@@ -99,7 +102,7 @@
               
               <!-- Modal footer -->
               <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="close_map()">Close</button>
                 <button type="button" class="btn btn-danger" disabled id ="del_btn" onclick="deleteMarkers()">Delete</button>
                 <button type="button" class="btn btn-success" disabled id="save_btn" onclick="send_coords()" data-bs-toggle="modal">Save</button>
               </div>
@@ -398,7 +401,6 @@
         marker_longitude = current_marker.getPosition().lng()
         marker_latitude = current_marker.getPosition().lat()
 
-        console.log(track_name, end_id, "undef", "0", "undef", marker_longitude, marker_latitude, checkpoint_number)
         create_checkpoint_endpoint(track_name, end_id, "undef", "0", "undef", marker_longitude, marker_latitude, checkpoint_number)
         }
       } 
@@ -420,27 +422,36 @@
   const save_btn = document.getElementById('save_btn');
   const del_btn = document.getElementById('del_btn');
   const pin_alert = document.getElementById("mult_id_alert");
+  const pin_warning = document.getElementById("invalid_id_alert");
 
   function find_pin_id(button, type) { 
     row = button.parentNode.parentNode;
     input_field = row.querySelector(`input[name=${type+"ID"}]`)
-    checkpoint_id = input_field.value
+    checkpoint_id = parseInt(input_field.value)
     pin_button = row.querySelector(`button[name=${type+"pin"}]`)
-    
+    placement_ready = false
+    save_btn.disabled = true
+    del_btn.disabled = true
+
     if (marker_connections_with_rows[checkpoint_id] !== undefined && marker_connections_with_rows[checkpoint_id] !== input_field.id) {
+      // Pin already registered
       save_btn.disabled = true
       del_btn.disabled = true
-      placement_ready = false
-      console.log("Checkpoint already saved")
       pin_alert.style.display = "block";
     }
-    else {
+    else if (checkpoint_id == 0 || checkpoint_id == 90 || (checkpoint_id >= 101 && checkpoint_id <= 199)){
+      // Valid pin
+      console.log("Valid pin")
+      console.log(checkpoint_id)
       save_btn.disabled = false
       del_btn.disabled = false
       placement_ready = true
-      pin_alert.style.display = "none";
+      checkpoint_id = checkpoint_id.toString()
     }
-    
+    else {
+      // Invalid pin
+      pin_warning.style.display = "block";
+    }
   }
   
   function init_map() {
@@ -459,6 +470,8 @@
     map.addListener("click", (event) => {
       if (placement_ready == true) {
         deleteMarkers();
+        save_btn.disabled = false;
+        del_btn.disabled = false;
         add_marker(event.latLng, checkpoint_id);
       }
     });
@@ -475,8 +488,6 @@
     });
 
     markers_list.push(marker);
-    save_btn.disabled = false;
-    del_btn.disabled = false; 
     
   }
 
@@ -493,7 +504,18 @@
       if (markers_list[i].getLabel() == CheckID) {
         markers_list[i].setMap(null);
         markers_list.splice(i, 1);
+        delete marker_connections_with_rows[CheckID];
         
+      }
+    }
+  }
+  function close_map() {
+    pin_alert.style.display = "none";
+    pin_warning.style.display = "none";
+    for (let i = 0; i < markers_list.length; i++) {
+      if (markers_list[i].getLabel() == checkpoint_id && marker_connections_with_rows[checkpoint_id] !== input_field.id) {
+        markers_list[i].setMap(null);
+        markers_list.splice(i, 1);
       }
     }
   }
@@ -534,8 +556,8 @@
     }
     input_field.disabled = true
     pin_button.style.backgroundColor = success
+    marker.setDraggable(false);
     marker_connections_with_rows[marker.getLabel()] = input_field.id
-    console.log("connections,", marker_connections_with_rows)
 
   }
   function open_map(event) {
@@ -544,7 +566,7 @@
   }
   
 </script>
-<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkY5KKVjLNfTPCAX17XbClpOpfTQd0cFM&callback=init_map">
+<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCn7CZdJ53sb8yZPORwHrBBIm9qyvE1jGs&callback=init_map">
 </script>
 </body>
 </html>

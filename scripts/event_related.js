@@ -69,7 +69,7 @@ async function get_event_info(event_id) {
   document.getElementById("event_name_colapse").innerHTML = await data[
     "event_name"
   ];
-
+  document.getElementById("event_id").innerHTML = await data["event_id"];
   document.getElementById("event_name").innerHTML = await data["event_name"];
   document.getElementById("event_track").innerHTML = await data["track_name"];
   document.getElementById("event_sport").innerHTML = await data["sport"];

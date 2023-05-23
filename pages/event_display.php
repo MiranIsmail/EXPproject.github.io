@@ -17,6 +17,7 @@ include '../assets/head.php';
                 <div class="col-lg-4" id="info_grid">
                     <div>
                         <h3>Information</h3>
+                        <h5>EventID: <span id="event_id"></span></h5>
                         <h5>Sport: <span id="event_sport"></span></h5>
                         <h5>StartDate: <span id="event_sdate"></span></h5>
                         <h5>EndDate: <span id="event_edate"></span></h5>
@@ -45,7 +46,7 @@ include '../assets/head.php';
 
                         <div class="mx-auto w-100" id="inputfield_padding">
                             <label for="InputMate" class="form-label">Team mate</label>
-                            <input type="text" class="form-control" id="send_team8" placeholder="Input Event Name">
+                            <input type="text" class="form-control" id="send_team8" placeholder="Input User Name">
                         </div>
                         <div class="row">
                             <div class="col-sm-6 padding_bottom_half">
@@ -145,7 +146,7 @@ include '../assets/head.php';
     get_checkpoints(g_event_id);
     get_chip()
 </script>
-<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkY5KKVjLNfTPCAX17XbClpOpfTQd0cFM&callback=init_map">
+<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCn7CZdJ53sb8yZPORwHrBBIm9qyvE1jGs&callback=init_map">
 </script>
 
 </html>
