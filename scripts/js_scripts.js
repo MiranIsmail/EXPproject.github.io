@@ -623,7 +623,7 @@ function FillTable(check_time, check_terrain, speed_unit, distance_unit) {
     }
     if(i == check_terrain.length - 1){
       cell1.innerHTML = "Total:"
-      cell2.innerHTML = total_time.toString() + "s"
+      cell2.innerHTML = format_time(total_time)
       if(distance_unit == 'km')
       {
         cell4.innerHTML = convert_kilo(total_dist) + " km"
@@ -632,7 +632,7 @@ function FillTable(check_time, check_terrain, speed_unit, distance_unit) {
       {
         cell4.innerHTML = convert_mile(total_dist) + " miles"
       }
-      else if(distance_unit == 'naut_mile')
+      else if(distance_unit == 'naut_miles')
       {
         cell4.innerHTML = convert_naut(total_dist) + " nm"
       }
@@ -668,6 +668,18 @@ function ConvertTime(time_string) {
   minutes = parseInt(minutes) * 60;
   hours = parseInt(hours) * 60 * 60;
   return hours + minutes + seconds;
+}
+
+function format_time(s){
+  var hours = Math.floor(s / 3600);
+  var minutes = Math.floor((s % 3600) / 60);
+  var remainingSeconds = s % 60;
+  
+  var formattedTime = hours.toString().padStart(2, '0') + 'h ' +
+  minutes.toString().padStart(2, '0') + 'm ' +
+  remainingSeconds.toString().padStart(2, '0') + 's';
+  
+  return formattedTime;
 }
 
 function pretty_print_time(ts) {
