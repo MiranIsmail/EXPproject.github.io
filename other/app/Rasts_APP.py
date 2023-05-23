@@ -13,7 +13,7 @@ from win32api import GetSystemMetrics
 import serial.tools.list_ports as stlp
 from tkinter import simpledialog
 from tkinter import messagebox
-
+import os
 global_fullscreen = False
 global_event_id = ""
 global_track_name = ""
@@ -152,7 +152,7 @@ def time_format_parse(time_log: str):
 def get_event_id(chip_id):
     # create a new window
     window = tk.Toplevel(f1,)
-    window.iconbitmap(r"other\app\logo.ico")
+    window.iconbitmap("logo.ico")
     window.geometry("300x200")
 
     # get the screen width and height
@@ -302,7 +302,7 @@ def close():
 
 root = tk.Tk()
 root.title("RASTS")
-root.iconbitmap(r"other\app\logo.ico")
+root.iconbitmap("logo.ico")
 root.attributes('-fullscreen',global_fullscreen)
 my_note = ttk.Notebook(root)
 my_note.pack(fill="both",expand=True)
@@ -320,7 +320,7 @@ my_note.add(f2,text="Settings")
 ### This section handles the images that are used in both frame 1 and 2
 label_text = "Hello from RASTS.se"
 label_font = ('helvetica', 62)
-image = Image.open(r"other\app\RASTS.png")
+image = Image.open("RASTS.png")
 w,h=GetSystemMetrics(0),GetSystemMetrics(1)
 resize_image = image.resize((w//3, h//3))
 img = ImageTk.PhotoImage(resize_image)
@@ -496,6 +496,7 @@ def button_clicked_f2_6():
             requests.post(url, data= json_object)
             time.sleep(0.1)
         file.close()
+        os.remove(file_path)
         messagebox.showinfo("Info", "Data has been uploaded to the server")
         button_f2_6.config(bg='green')
     

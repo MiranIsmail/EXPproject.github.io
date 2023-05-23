@@ -1,1 +1,5 @@
 api/
+other/app/build
+other/app/dist
+other/app/APP.spec
+other/app/Rasts_APP.spec
