@@ -1,4 +1,6 @@
 <?php
+
+
 include '../functions.php';
 
 $page_name_tile = ["index" => "Rasts", "" => "Rasts", "event_display" => "Rasts - Event", "event" => "Rasts - Events", "profile" => "Profile", "Login" => "Login", "SignUp" => "Register", "eventcreate" => "Create Event", "track" => "Track", "terms_of_service" => "terms of service", "privacy_policy" => "privacy policy"];
@@ -17,7 +19,6 @@ if ($is_logged_in_user) {
 if ($is_logged_in_org){
   $org_data = get_org_info();
 }
-
 
 
 if ($is_logged_in) {
@@ -39,6 +40,7 @@ if ($is_logged_in) {
     header("Location: ../pages/index.php");
   }
 }
+
 ?>
 
 <!DOCTYPE html>
