@@ -194,7 +194,7 @@
         <div class="offcanvas-header">
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="offcanvas-body canvas_container">
+        <div class="offcanvas-body canvas_container" id="profile_canvas_container">
             <h4>Edit your profile</h4>
             <div class="form-group form_group_style mx-auto needs-validation" novalidate>
 
@@ -244,7 +244,6 @@
             <div class="form-group form_group_style mx-auto">
                 <button class="btn btn-primary" button id="submit_org_form" type="submit" onclick="edit_user_info()">Save changes</button>
             </div>
-            <button class="button-modular" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRightOrg" aria-controls="offcanvasRight">Want to register your organisation?</button>
         </div>
     </div>
     <?php include '../assets/footer.php'; ?>

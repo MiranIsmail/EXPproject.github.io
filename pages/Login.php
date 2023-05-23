@@ -86,7 +86,7 @@ include '../assets/head.php';
                     <h5 id="offcanvasRightLabel">Register your organization</h5>
                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
-                <div class="offcanvas-body canvas_container">
+                <div class="offcanvas-body canvas_container" id="org_canvas_container">
                     To make sure you are an organization, we would like you to fill this form:
                     <div class="form-group form_group_style mx-auto needs-validation" novalidate>
                         <div class="form-group form_group_style mx-auto"></div>
