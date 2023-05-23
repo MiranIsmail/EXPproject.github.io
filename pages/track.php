@@ -29,7 +29,7 @@
               <div class="invalid-feedback">
                 Please enter in an ID number between 101 and 199
               </div>
-              <input type="number" class="form-control" id="start0" name="StartID" min="100" max="200" placeholder="Start Station ID">
+              <input type="number" class="form-control" id="start0" name="StartID" min="101" max="199" placeholder="Start Station ID">
               <button type="button" class="btn btn-secondary" name="Startpin" onclick="find_pin_id(this, 'Start')" data-bs-toggle="modal" data-bs-target="#myModal">
                 <i class="fa-solid fa-map-location-dot"></i>
               </button>
@@ -427,7 +427,7 @@
   function find_pin_id(button, type) { 
     row = button.parentNode.parentNode;
     input_field = row.querySelector(`input[name=${type+"ID"}]`)
-    checkpoint_id = input_field.value
+    checkpoint_id = parseInt(input_field.value)
     pin_button = row.querySelector(`button[name=${type+"pin"}]`)
     placement_ready = false
     save_btn.disabled = true
@@ -439,11 +439,14 @@
       del_btn.disabled = true
       pin_alert.style.display = "block";
     }
-    else if (checkpoint_id === 0 || checkpoint_id === 90 || (checkpoint_id >= 101 && checkpoint_id <= 199)){
+    else if (checkpoint_id == 0 || checkpoint_id == 90 || (checkpoint_id >= 101 && checkpoint_id <= 199)){
       // Valid pin
+      console.log("Valid pin")
+      console.log(checkpoint_id)
       save_btn.disabled = false
       del_btn.disabled = false
       placement_ready = true
+      checkpoint_id = checkpoint_id.toString()
     }
     else {
       // Invalid pin
@@ -555,8 +558,6 @@
     pin_button.style.backgroundColor = success
     marker.setDraggable(false);
     marker_connections_with_rows[marker.getLabel()] = input_field.id
-
-    save_btn.disabled = true;
 
   }
   function open_map(event) {
