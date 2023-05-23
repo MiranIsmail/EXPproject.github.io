@@ -319,6 +319,11 @@ body {
 }
 
 /*----------------------------------------STANDARD PADDING DONT CHANGE---*/
+
+#profile_canvas_container{
+  background: linear-gradient(#ffffff4d 0%, #3c98df 97%, #000000cc 100%);
+}
+
 /*PADDINGS*/
 .padding_top{
   padding-top: 1rem;
