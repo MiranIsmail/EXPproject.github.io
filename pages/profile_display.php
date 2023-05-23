@@ -3,8 +3,9 @@
     <?php include '../assets/navbar.php'; ?>
     <div id="container-img">
         <div class="row">
-            <div class="col-sm-6" id="profile_box">
-            </div>
+            <div class="col-sm-6">
+            <div id="profile_box">
+            </div></div>
             <div class="col-sm-6" style="vertical-align: middle;">
                 <div class="accout-piture">
                     <div class="reslut"></div>

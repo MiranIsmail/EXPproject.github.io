@@ -39,7 +39,7 @@ async function generate_friend_results() {
 async function get_friend_info() {
   const urlParams = new URLSearchParams(window.location.search);
   g_username = urlParams.get("username");
-  const response = await get_account_result_endpoint(g_username)
+  const response = await get_account_details_endpoint(g_username)
   const data = await response.json();
 
   //Just getting the source from the span. It was messy in JS.
@@ -51,9 +51,7 @@ async function get_friend_info() {
   );
   document.getElementById("profile_length").innerHTML = await data["height"];
   document.getElementById("profile_weight").innerHTML = await data["weight"];
-  document.getElementById("profile_username").innerHTML = await data[
-    "username"
-  ];
+  document.getElementById("profile_username").innerHTML = await data["username"];
   load_image(data["pimage"]);
   generate_friend_results()
 }

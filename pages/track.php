@@ -376,8 +376,6 @@
       end_id = idInputEnd.value.toString();
       distance = distanceInput.value;
       terrain = terrainDropdown.textContent;
-      
-      //console.log(i)
 
       var current_marker
       var marker_longitude
@@ -395,6 +393,7 @@
       
     })
     checkpoint_number++
+    //endstation
     for (let i = 0; i < markers_list.length; i++) {
       if (markers_list[i].getLabel() == end_id) {
         current_marker = markers_list[i]
