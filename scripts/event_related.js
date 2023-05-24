@@ -282,7 +282,7 @@ async function delete_event() {
 async function unregister_from_event() {
   const urlParams = new URLSearchParams(window.location.search);
   const event_id = urlParams.get('event_id');
-  const response = await delete_event_endpoint(event_id, get_cookie("auth_token"));
+  const response = await delete_registration_endpoint(event_id, get_cookie("auth_token"));
   if (response.status >= 300) {
     alert("Invalid");
   }
