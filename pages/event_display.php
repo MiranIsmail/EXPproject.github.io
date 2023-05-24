@@ -42,7 +42,7 @@ include '../assets/head.php';
 
                 <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#register_event" aria-expanded="false" aria-controls="collapseExample" id="button_style_create">
                         Register On This Event!
-                    </button><button onclick="unregister_from_event()" type="button" class="btn btn-danger mb-3" id="delete_event_button_display">
+                    </button><button onclick="unregister_from_event()" type="button" class="btn btn-danger mb-3" >
                         Unregister
                     </button>
                     
