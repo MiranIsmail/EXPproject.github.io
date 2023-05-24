@@ -211,8 +211,7 @@ function CreateTrack(track_input, start_station, end_station) {
     JSON.stringify({
       track_name: track_input,
       start_station: start_station,
-      end_station: end_station,
-      org_name: get_cookie("username")
+      end_station: end_station
     })
   );
   console.log("Track created");
