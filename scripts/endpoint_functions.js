@@ -258,3 +258,10 @@ async function delete_event_endpoint(event_id,token) {
     });
 
 }
+async function delete_registration_endpoint(event_id,token) {
+    return await fetch(BASE_ULR + `Event?event_id=${event_id}`, {
+        method: "DELETE",
+        Authorization: token
+    });
+
+}

@@ -82,8 +82,7 @@ async function get_event_info(event_id) {
   document.getElementById("event_track").innerHTML = await data["track_name"];
   console.log(await data["description"]);
   load_image_event(data["eimage"]);
-
-  if (data["username"] == get_cookie("username")) { 
+  if (await data["username"] == get_cookie("username")) { 
     btn = document.getElementById("delete_event_button_display")
     btn.classList.remove("d-none")
   }
@@ -277,5 +276,14 @@ async function delete_event() {
     alert("Invalid");
   } else {
     location.href = "../pages/profile.php";
+  }
+}
+
+async function unregister_from_event() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const event_id = urlParams.get('event_id');
+  const response = await delete_event_endpoint(event_id, get_cookie("auth_token"));
+  if (response.status >= 300) {
+    alert("Invalid");
   }
 }
