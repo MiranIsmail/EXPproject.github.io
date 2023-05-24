@@ -41,11 +41,6 @@ if ($is_logged_in) {
     header("Location: ../pages/index.php");
   }
 }
-if (isset($_COOKIE["username"])){
-  unset($_COOKIE["username"]); 
-  setcookie("username", null, -1, '/');
-}
-setcookie("username", $username, time() + 3600, "/");
 ?>
 
 <!DOCTYPE html>

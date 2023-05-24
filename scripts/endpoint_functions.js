@@ -68,7 +68,26 @@ async function get_user_details_endpoint(token) {
     });
 
 }
+/**
+ * endpoint for getting the results of the user or organization by thier token
+ * @param {string} token the token of the user or organization
+ * @returns a fetch response with data about the user in json format. 
+ */
+async function get_both_details_endpoint(token) {
+    response = await fetch(BASE_ULR + "Account", {
+        method: "GET",
+        headers: { Authorization: token },
+    });
+    if (response.status < 300) {
+        return response;
+    }
+    return await fetch(BASE_ULR + "Organization", {
+        method: "GET",
+        headers: { Authorization: token },
+    });
 
+
+}
 /**
  * endpoint for getting the token of the user by thier email and password
  * @param {string} email email of the user
@@ -95,7 +114,7 @@ function delete_token_endpoint(token, table_name = "Users") {
     const url = BASE_ULR + "Token/" + table_name;
     xhr.open("DELETE", url, true);
     xhr.setRequestHeader("Authorization", token);
-    xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 201) {
                 console.log("Token successfully deleted");
