@@ -3,7 +3,7 @@ window.onload = function () {};
 
 // Utility functions for demo purpose
 
-function createAccount() {
+async function createAccount() {
   let is_allowed = document.getElementById("gdprCheckbox").checked;
   let xemail = document.getElementById("email").value;
   let xfirst_name = document.getElementById("fname").value;
@@ -12,7 +12,7 @@ function createAccount() {
   let xusername = document.getElementById("fuser").value;
 
   if (is_allowed) {
-    const response = create_account_endpoint(
+    const response = await create_account_endpoint(
       xemail,
       xfirst_name,
       xlast_name,
@@ -22,7 +22,7 @@ function createAccount() {
     if (response.status < 300) {
       location.href = "../pages/confirmation_account.php";
     } else {
-      alert("Something went wrong");
+      alert("Something went wrong with our account creation");
     }
   } else {
     alert("Please accept the terms and conditions");
@@ -87,7 +87,7 @@ async function log_in_org() {
 }
 
 async function log_out() {
-  const response = await delete_token_endpoint(get_cookie("auth_token"));
+  const response = await delete_token_endpoint(get_cookie("auth_token"),get_cookie("user_type"));
   if (response.status < 300) {
     console.log("Logged out");
     location.href = "../pages/";
@@ -204,23 +204,24 @@ function CreateTrack(track_input, start_station, end_station) {
   var xhr = new XMLHttpRequest();
   xhr.open("POST", BASE_ULR + "Track", false); // false makes the request synchronous
   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  // Add the auth_token header
+  xhr.setRequestHeader("Authorization", get_cookie("auth_token"));
+
   xhr.send(
     JSON.stringify({
       track_name: track_input,
       start_station: start_station,
-      end_station: end_station,
+      end_station: end_station
     })
   );
   console.log("Track created");
+
 }
 
 async function create_event() {
-  const response_incoming = await fetch(BASE_ULR + "Account", {
-  method: "GET",
-  headers: {Authorization: get_cookie("auth_token") },
-  });
+  const response_incoming = await get_user_details_endpoint(get_cookie("auth_token"));
   if (response_incoming.status >= 300) {
-    alert("You are not logged in");
+    alert("You are not user");
   }
   else {
     const data_incoming = await response_incoming.json();

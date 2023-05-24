@@ -6,18 +6,22 @@ $page_name_tile = ["index" => "Rasts", "" => "Rasts", "event_display" => "Rasts 
 $blocked_site_logged_out = ["profile", "eventcreate", "track"];
 $blocked_site_logged_in = ["Login", "SignUp"];
 $blocked_site_logged_in_user = ["track"];
-$title = $page_name_tile[explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0]];
+$tmp = explode("?", $_SERVER['REQUEST_URI'])[0];
+$title = $page_name_tile[explode(".", explode("/", $tmp)[2])[0]];
 
 $is_logged_in_user = is_logged_in();
 $is_logged_in_org = is_logged_in("Organization");
 $is_logged_in = $is_logged_in_user || $is_logged_in_org;
 if ($is_logged_in_user) {
   $user_data = get_user_info();
-} 
-if ($is_logged_in_org){
-  $org_data = get_org_info();
+  $user_type = "Users";
+  $username = $user_data->username;
 }
-
+if ($is_logged_in_org) {
+  $org_data = get_org_info();
+  $user_type = "Organization";
+  $username = $org_data->username;
+}
 
 
 if ($is_logged_in) {
@@ -38,6 +42,20 @@ if ($is_logged_in) {
   if (in_array(explode(".", explode("/", $_SERVER['REQUEST_URI'])[2])[0], $blocked_site_logged_out)) {
     header("Location: ../pages/index.php");
   }
+}
+if (isset($user_type)) {
+  if (isset($_COOKIE["user_type"])) {
+    unset($_COOKIE["user_type"]);
+    setcookie("user_type", null, -1, '/');
+  }
+  setcookie("user_type", $user_type, time() + 3600, "/");
+}
+if (isset($username)) {
+  if (isset($_COOKIE["username"])) {
+    unset($_COOKIE["username"]);
+    setcookie("username", null, -1, '/');
+  }
+  setcookie("username", $username, time() + 3600, "/");
 }
 ?>
 

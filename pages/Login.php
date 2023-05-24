@@ -5,79 +5,6 @@ include '../assets/head.php';
 <body>
     <?php include '../assets/navbar.php'; ?>
     <!--The swimrun image-->
-    <div class="image_div">
-        <img class="w-100 op30" src="../images/indeximage_thinner.png" id="image_run">
-    </div>
-
-    <div class="section w-100 content_container">
-        <h1> Welcome back!</h1>
-        <div class="mx-auto form_group_style row">
-            <div class="col-sm-6 padding_bottom_half" style="padding: left 10px;">
-                <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off" data-bs-toggle="collapse" data-bs-target="#user" aria-expanded="true" aria-controls="collapseExample" checked>
-                <label class="btn btn-secondary w-100" for="option1">Log in as user</label>
-            </div>
-            <div class="col-sm-6 padding_bottom_half">
-                <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" data-bs-toggle="collapse" data-bs-target="#org" aria-expanded="false" aria-controls="collapseExample">
-                <label class="btn btn-secondary w-100" for="option2">Log in as organization</label>
-            </div>
-
-        </div>
-        <div>
-            <div class="collapse log_in_user show drop_shadow mx-auto" id="user">
-                <h3>Athletes</h3>
-                <form>
-                    <div class="form-group form_group_style mx-auto">
-                        <p>Email address</p>
-                        <input type="email" class="form-control input_field_style" aria-describedby="emailHelp" placeholder="Enter email" id="fetchEmail">
-                    </div>
-                    <div class="form-group form_group_style mx-auto">
-                        <p>Password</p>
-                        <input type="password" class="form-control input_field_style" placeholder="Password" id="fetchPword">
-                    </div>
-                    <div class="form-group form_group_style mx-auto">
-                        <button type="button" id="button_style" onclick="log_in()">Sign in</button>
-                    </div>
-                    <p class="" style="padding-left: 1rem"><a href="../pages/ForgotPassword.php">Forgot your password? </a></p>
-                    <div class="row form-group form_group_style mx-auto" style="margin-top:30px">
-                        <div class="col-sm-6">
-                            <p class="center_item">Don't have an account?</p>
-                        </div>
-                        <div class="col-sm-6">
-                            <button type="button" id="button_style" onclick="window.location.href='../pages/SignUp.php'">Sign up </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-            <div class="collapse log_in_organisation drop_shadow mx-auto" id="org">
-                <h2>Organization</h2>
-                <form>
-                    <div class="form-group form_group_style mx-auto">
-                        <p>Email address</p>
-                        <input type="email" class="form-control input_field_style" aria-describedby="emailHelp" placeholder="Enter email" id="fetchEmailOrg">
-                    </div>
-                    <div class="form-group form_group_style mx-auto">
-                        <p>Password</p>
-                        <input type="password" class="form-control input_field_style" placeholder="Password" id="fetchPwordOrg">
-                    </div>
-                    <div class="form-group form_group_style mx-auto">
-                        <button type="button" id="button_style" onclick="log_in_org()">Sign in</button>
-                    </div>
-                    <div class="row form-group form_group_style mx-auto" style="margin-top:30px">
-                        <div class="col-sm-6">
-                            <p class="" style="padding-left: 1rem;"><a href="../pages/ForgotPassword.php">Forgot your password? </a></p>
-                        </div>
-                        <div class="col-sm-6">
-                        <p class="left_item" style="padding-left: 1rem; text-decoration: underline; cursor: pointer" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRightOrg" aria-controls="offcanvasRight">How do I register my organization?</p>
-                        </div>
-                    </div>
-                    
-                </form>
-            </div>
-        </div>
-    </div>
-
-    
     <form action="../assets/organization_request.php" class="" method="GET">
         <div class=" form-group form_group_style mx-auto">
 
@@ -91,8 +18,6 @@ include '../assets/head.php';
                     <div class="form-group form_group_style mx-auto needs-validation" novalidate>
                         <div class="form-group form_group_style mx-auto"></div>
                         <p>Organization name</p>
-
-                        <input type="hidden" name="user_name" value="<?= $user_data->username ?>">
                         <input type="text" name="org_name" class="form-control input_field_style" placeholder="Name" id="org_name" required>
 
                     </div>
@@ -130,6 +55,80 @@ include '../assets/head.php';
             </div>
         </div>
     </form>
+
+    <div class="image_div">
+        <img class="w-100 op30" src="../images/indeximage_thinner.png" id="image_run">
+    </div>
+
+    
+    <div class="section w-100 content_container">
+        <h1> Welcome back!</h1>
+        <div class="mx-auto form_group_style row">
+            <div class="col-sm-6 padding_bottom_half" style="padding: left 10px;">
+                <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off" data-bs-toggle="collapse" data-bs-target="#user" aria-expanded="true" aria-controls="collapseExample" checked>
+                <label class="btn btn-secondary w-100" for="option1">Log in as user</label>
+            </div>
+            <div class="col-sm-6 padding_bottom_half">
+                <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" data-bs-toggle="collapse" data-bs-target="#org" aria-expanded="false" aria-controls="collapseExample">
+                <label class="btn btn-secondary w-100" for="option2">Log in as organization</label>
+            </div>
+
+        </div>
+        <div>
+            <div class="collapse log_in_user show drop_shadow mx-auto" id="user">
+                <h3>Athletes</h3>
+                <form>
+                    <div class="form-group form_group_style mx-auto">
+                        <p>Email address</p>
+                        <input type="email" class="form-control input_field_style" aria-describedby="emailHelp" placeholder="Enter email" id="fetchEmail">
+                    </div>
+                    <div class="form-group form_group_style mx-auto">
+                        <p>Password</p>
+                        <input type="password" class="form-control input_field_style" placeholder="Password" id="fetchPword">
+                    </div>
+                    <div class="form-group form_group_style mx-auto">
+                        <button type="button" id="button_style" onclick="log_in()">Sign in</button>
+                    </div>
+                    <div class="row form-group form_group_style mx-auto" style="margin-top:30px">
+                        <div class="col-sm-6">
+                            <p class="" style="padding-left: 1rem;"><a href="../pages/ForgotPassword.php">Forgot your password? </a></p>
+                        </div>
+                        <div class="col-sm-6">
+                        <p class="left_item" style="padding-left: 1rem; text-decoration: underline; cursor: pointer" ><a href="../pages/SignUp.php">Don't have an account? Click here </a></p>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="collapse log_in_organisation drop_shadow mx-auto" id="org">
+                <h2>Organization</h2>
+                <form>
+                    <div class="form-group form_group_style mx-auto">
+                        <p>Email address</p>
+                        <input type="email" class="form-control input_field_style" aria-describedby="emailHelp" placeholder="Enter email" id="fetchEmailOrg">
+                    </div>
+                    <div class="form-group form_group_style mx-auto">
+                        <p>Password</p>
+                        <input type="password" class="form-control input_field_style" placeholder="Password" id="fetchPwordOrg">
+                    </div>
+                    <div class="form-group form_group_style mx-auto">
+                        <button type="button" id="button_style" onclick="log_in_org()">Sign in</button>
+                    </div>
+                    <div class="row form-group form_group_style mx-auto" style="margin-top:30px">
+                        <div class="col-sm-6">
+                            <p class="" style="padding-left: 1rem;"><a href="../pages/ForgotPassword.php">Forgot your password? </a></p>
+                        </div>
+                        <div class="col-sm-6">
+                        <p class="left_item" style="padding-left: 1rem; text-decoration: underline; cursor: pointer" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRightOrg" aria-controls="offcanvasRight">How do I register my organization?</p>
+                        </div>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+
     <?php include '../assets/footer.php'; ?>
 
     <script>

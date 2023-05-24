@@ -21,19 +21,23 @@ include '../assets/head.php';
                         <h5>Sport: <span id="event_sport"></span></h5>
                         <h5>StartDate: <span id="event_sdate"></span></h5>
                         <h5>EndDate: <span id="event_edate"></span></h5>
-                        <a id="username_link"><h5>Host Username: <span id="event_org"></span></h5></a>
+                        <a id="username_link">
+                            <h5>Host Username: <span id="event_org"></span></h5>
+                        </a>
                         <h5>Track: <span id="event_track"></span></h5>
                     </div>
                     <div id="padding_border">
                         <h3>Description</h3>
                         <h5 class="mx-auto"><span id="event_desc"></span></h5>
                     </div>
+                    <button onclick="delete_event()" type="button" class="btn btn-danger mb-1 d-none" id="delete_event_button_display">
+                        delete
+                    </button>
                 </div>
                 <div class="col-md-8 map_box" id="map_grid">
                     <div class="map_border" id="map"></div>
                 </div>
             </div>
-
             <div class="mx-auto" id="chip_input_witdh">
 
                 <p><button class="btn w-100" type="button" data-bs-toggle="collapse" data-bs-target="#register_event" aria-expanded="false" aria-controls="collapseExample" id="button_style_create">
@@ -113,22 +117,22 @@ include '../assets/head.php';
 
 
             <h2 class="underline_text blue_text"> Results </h2>
-         <table class="table table-bordered result_table" id="event_user_results">
-      <thead>
-        <tr>
-          <th scope="col">User1</th>
-          <th scope="col">User2</th>
-          <th scope="col">Date</th>
-          <th scope="col">Time</th>
-          <th scope="col">Details</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- <script src="../scripts/js_scripts.js">
+            <table class="table table-bordered result_table" id="event_user_results">
+                <thead>
+                    <tr>
+                        <th scope="col">User1</th>
+                        <th scope="col">User2</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- <script src="../scripts/js_scripts.js">
             event_display_peeps()
         </script> -->
-      </tbody>
-    </table>
+                </tbody>
+            </table>
             <div id="myTableContainer"></div>
         </div>
     </div>
@@ -139,7 +143,6 @@ include '../assets/head.php';
 <script>
     const urlParams = new URLSearchParams(window.location.search);
     const g_event_id = urlParams.get('event_id');
-
     console.log(g_event_id)
     get_event_info(g_event_id);
 
