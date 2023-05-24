@@ -3,7 +3,7 @@ window.onload = function () {};
 
 // Utility functions for demo purpose
 
-function createAccount() {
+async function createAccount() {
   let is_allowed = document.getElementById("gdprCheckbox").checked;
   let xemail = document.getElementById("email").value;
   let xfirst_name = document.getElementById("fname").value;
@@ -12,7 +12,7 @@ function createAccount() {
   let xusername = document.getElementById("fuser").value;
 
   if (is_allowed) {
-    const response = create_account_endpoint(
+    const response = await create_account_endpoint(
       xemail,
       xfirst_name,
       xlast_name,
@@ -22,7 +22,7 @@ function createAccount() {
     if (response.status < 300) {
       location.href = "../pages/confirmation_account.php";
     } else {
-      alert("Something went wrong");
+      alert("Something went wrong with our account creation");
     }
   } else {
     alert("Please accept the terms and conditions");
