@@ -219,9 +219,9 @@ function CreateTrack(track_input, start_station, end_station) {
 }
 
 async function create_event() {
-  const response_incoming = await get_both_details_endpoint(get_cookie("auth_token"));
+  const response_incoming = await get_user_details_endpoint(get_cookie("auth_token"));
   if (response_incoming.status >= 300) {
-    alert("You are not logged in");
+    alert("You are not user");
   }
   else {
     const data_incoming = await response_incoming.json();
