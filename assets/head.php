@@ -1,6 +1,4 @@
 <?php
-
-
 include '../functions.php';
 
 $page_name_tile = ["index" => "Rasts", "" => "Rasts", "event_display" => "Rasts - Event", "event" => "Rasts - Events", "profile" => "Profile", "Login" => "Login", "SignUp" => "Register", "eventcreate" => "Create Event", "track" => "Track", "terms_of_service" => "terms of service", "privacy_policy" => "privacy policy"];
@@ -16,9 +14,11 @@ $is_logged_in_org = is_logged_in("Organization");
 $is_logged_in = $is_logged_in_user || $is_logged_in_org;
 if ($is_logged_in_user) {
   $user_data = get_user_info();
+  $username = $user_data->username;
 } 
 if ($is_logged_in_org){
   $org_data = get_org_info();
+  $username = $org_data->username;
 }
 
 
@@ -41,7 +41,11 @@ if ($is_logged_in) {
     header("Location: ../pages/index.php");
   }
 }
-
+if (isset($_COOKIE["username"])){
+  unset($_COOKIE["username"]); 
+  setcookie("username", null, -1, '/');
+}
+setcookie("username", $username, time() + 3600, "/");
 ?>
 
 <!DOCTYPE html>
