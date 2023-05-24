@@ -110,7 +110,7 @@
     <!-- personal profile -->
     <?php if ($is_logged_in_user) { ?>
         <div id="previousEventes">
-            <h1 class="text-center">Uppcoming events</h1>
+            <h1 class="text-center">Upcoming events</h1>
         </div>
         <div class="events" id="event">
             <div id="myTableContainerResults"></div>
