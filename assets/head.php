@@ -15,12 +15,12 @@ $is_logged_in = $is_logged_in_user || $is_logged_in_org;
 if ($is_logged_in_user) {
   $user_data = get_user_info();
   $user_type = "Users";
-  $username = $user_data->name;
+  $username = $user_data->username;
 }
 if ($is_logged_in_org) {
   $org_data = get_org_info();
   $user_type = "Organization";
-  $username = $org_data->name;
+  $username = $org_data->username;
 }
 
 
