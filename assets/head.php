@@ -14,11 +14,11 @@ $is_logged_in_org = is_logged_in("Organization");
 $is_logged_in = $is_logged_in_user || $is_logged_in_org;
 if ($is_logged_in_user) {
   $user_data = get_user_info();
-  $username = $user_data->username;
+  $user_type="Users";
 } 
 if ($is_logged_in_org){
   $org_data = get_org_info();
-  $username = $org_data->username;
+  $user_type="Organization";
 }
 
 
@@ -41,6 +41,11 @@ if ($is_logged_in) {
     header("Location: ../pages/index.php");
   }
 }
+if (isset($_COOKIE["user_type"])){
+  unset($_COOKIE["user_type"]); 
+  setcookie("user_type", null, -1, '/');
+}
+setcookie("user_type", $user_type, time() + 3600, "/");
 ?>
 
 <!DOCTYPE html>

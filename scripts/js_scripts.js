@@ -87,7 +87,7 @@ async function log_in_org() {
 }
 
 async function log_out() {
-  const response = await delete_token_endpoint(get_cookie("auth_token"));
+  const response = await delete_token_endpoint(get_cookie("auth_token"),get_cookie("user_type"));
   if (response.status < 300) {
     console.log("Logged out");
     location.href = "../pages/";
