@@ -44,7 +44,9 @@
                     <li class="nav-item">
                         <a class="nav-link navtext" href="../pages/track.php">TRACKS</a>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link navtext" href="../pages/resource.php">RESOURCES</a>
+                    </li>
                 <?php
                 }
                 if ($is_logged_in) {

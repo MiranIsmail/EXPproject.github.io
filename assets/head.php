@@ -1,7 +1,7 @@
 <?php
 include '../functions.php';
 
-$page_name_tile = ["index" => "Rasts", "" => "Rasts", "event_display" => "Rasts - Event", "event" => "Rasts - Events", "profile" => "Profile", "Login" => "Login", "SignUp" => "Register", "eventcreate" => "Create Event", "track" => "Track", "terms_of_service" => "terms of service", "privacy_policy" => "privacy policy"];
+$page_name_tile = ["resource" => "Resources", "index" => "Rasts", "" => "Rasts", "event_display" => "Rasts - Event", "event" => "Rasts - Events", "profile" => "Profile", "Login" => "Login", "SignUp" => "Register", "eventcreate" => "Create Event", "track" => "Track", "terms_of_service" => "terms of service", "privacy_policy" => "privacy policy"];
 
 $blocked_site_logged_out = ["profile", "eventcreate", "track"];
 $blocked_site_logged_in = ["Login", "SignUp"];
