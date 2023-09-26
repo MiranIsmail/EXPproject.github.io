@@ -41,12 +41,12 @@ include '../assets/head.php';
             <div class="mx-auto" id="chip_input_witdh">
 
                 <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#register_event" aria-expanded="false" aria-controls="collapseExample" id="button_style_create">
-                        Register On This Event!
-                    </button><button onclick="unregister_from_event()" type="button" class="btn btn-danger mb-3" >
-                        Unregister
-                    </button>
-                    
-                
+                    Register On This Event!
+                </button><button onclick="unregister_from_event()" type="button" class="btn btn-danger mb-3">
+                    Unregister
+                </button>
+
+
                 <div class="collapse" id="register_event">
                     <div class="card card-body" id="register_card">
                         <h3 class="underline_text">Register on <span id="event_name_colapse"><span></h3>
@@ -152,7 +152,7 @@ include '../assets/head.php';
     get_checkpoints(g_event_id);
     get_chip()
 </script>
-<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCn7CZdJ53sb8yZPORwHrBBIm9qyvE1jGs&callback=init_map">
+<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsBStdDh_BYJILh8nLu9sDvIrJ-bB3fi8&callback=init_map">
 </script>
 
 </html>
