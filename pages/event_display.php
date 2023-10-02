@@ -116,10 +116,51 @@ include '../assets/head.php';
                 <input type="text" class="form-control" placeholder="Ex: 312343" aria-label="" aria-describedby="basic-addon1" id="send_chip"> -->
             </div>
 
+            <!--adding the buttons to select gender-->
 
 
 
-            <h2 class="underline_text blue_text"> Results </h2>
+            <div class="container">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="btn-group" role="group" aria-label="Button group">
+                        <button type="button" class="btn table_color btn-custom active" onclick="toggleButton(1)">Everyone</button>
+                        <button type="button" class="btn table_color btn-custom" onclick="toggleButton(2)">Men</button>
+                        <button type="button" class="btn table_color btn-custom" onclick="toggleButton(3)">Women</button>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <h2 class="underline_text blue_text"> Results </h2>
+                    </div>
+                    <div class="col-3">
+                    </div>
+                </div>
+            </div>
+
+
+            <script>
+                let selectedButton = 1; // Set Button 1 as the default selected button
+
+                function toggleButton(buttonNumber) {
+                const buttons = document.querySelectorAll('.btn-custom');
+
+                if (selectedButton === buttonNumber) {
+                    // Button is already selected, deselect it
+                    buttons[buttonNumber - 1].classList.remove('active');
+                    selectedButton = null;
+                } else {
+                    // Deselect the currently selected button
+                    if (selectedButton !== null) {
+                    buttons[selectedButton - 1].classList.remove('active');
+                    }
+
+                    // Select the clicked button
+                    buttons[buttonNumber - 1].classList.add('active');
+                    selectedButton = buttonNumber;
+                }
+                }
+            </script>
+
             <table class="table table-bordered result_table" id="event_user_results">
                 <thead>
                     <tr>

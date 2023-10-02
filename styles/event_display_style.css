@@ -128,6 +128,18 @@
   padding-bottom: 1rem;
 }
 
+/*buttons to select what result is shown*/
+.btn-custom.active {
+  background-color: #3691aa;
+  color: white;
+  }
+
+.table_color{
+  background-color: #67adc0;
+  color: #ffffff;
+}
+/*Result table*/
+
 .result_table table {
   border-collapse: collapse;
   width: 80%;
