@@ -138,30 +138,7 @@ include '../assets/head.php';
             </div>
 
 
-            <script>
-                let selectedButton = 1; // Set Button 1 as the default selected button
-
-                function toggleButton(buttonNumber) {
-                const buttons = document.querySelectorAll('.btn-custom');
-
-                if (selectedButton === buttonNumber) {
-                    // Button is already selected, deselect it
-                    buttons[buttonNumber - 1].classList.remove('active');
-                    selectedButton = null;
-                } else {
-                    // Deselect the currently selected button
-                    if (selectedButton !== null) {
-                    buttons[selectedButton - 1].classList.remove('active');
-                    }
-
-                    // Select the clicked button
-                    buttons[buttonNumber - 1].classList.add('active');
-                    selectedButton = buttonNumber;
-                }
-                }
-            </script>
-
-            <table class="table table-bordered result_table" id="event_user_results">
+            <table class="table table-bordered result_table" id="event_user_results_all">
                 <thead>
                     <tr>
                         <th scope="col">User1</th>
@@ -172,9 +149,34 @@ include '../assets/head.php';
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- <script src="../scripts/js_scripts.js">
-            event_display_peeps()
-        </script> -->
+                </tbody>
+            </table>
+
+            <table class="table table-bordered result_table" id="event_user_results_male">
+                <thead>
+                    <tr>
+                        <th scope="col">User1</th>
+                        <th scope="col">User2</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+            <table class="table table-bordered result_table" id="event_user_results_female">
+                <thead>
+                    <tr>
+                        <th scope="col">User1</th>
+                        <th scope="col">User2</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Details</th>
+                    </tr>
+                </thead>
+                <tbody>
                 </tbody>
             </table>
             <div id="myTableContainer"></div>
@@ -185,6 +187,7 @@ include '../assets/head.php';
 
 </body>
 <script>
+
     const urlParams = new URLSearchParams(window.location.search);
     const g_event_id = urlParams.get('event_id');
     console.log(g_event_id)
@@ -192,6 +195,44 @@ include '../assets/head.php';
 
     get_checkpoints(g_event_id);
     get_chip()
+
+
+    let selectedButton = 1; // Set Button 1 as the default selected button
+
+    function toggleButton(buttonNumber,category) {
+    const buttons = document.querySelectorAll('.btn-custom');
+
+    if (selectedButton === buttonNumber) {
+        // Button is already selected, deselect it
+        buttons[buttonNumber - 1].classList.remove('active');
+        selectedButton = null;
+    } else {
+        // Deselect the currently selected button
+        if (selectedButton !== null) {
+        buttons[selectedButton - 1].classList.remove('active');
+        }
+
+        // Select the clicked button
+        buttons[buttonNumber - 1].classList.add('active');
+        selectedButton = buttonNumber;
+    }
+
+    // Hide all tables
+    document.getElementById('event_user_results_all').style.display = 'none';
+    document.getElementById('event_user_results_male').style.display = 'none';
+    document.getElementById('event_user_results_female').style.display = 'none';
+
+    // Show the relevant table based on the button clicked
+    if (buttonNumber === 1) {
+        document.getElementById('event_user_results_all').style.display = 'table';
+    } else if (buttonNumber === 2) {
+        document.getElementById('event_user_results_male').style.display = 'table';
+    } else if (buttonNumber === 3) {
+        document.getElementById('event_user_results_female').style.display = 'table';
+    }
+    }
+    document.getElementById('event_user_results_male').style.display = 'none';
+    document.getElementById('event_user_results_female').style.display = 'none';
 </script>
 <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsBStdDh_BYJILh8nLu9sDvIrJ-bB3fi8&callback=init_map">
 </script>

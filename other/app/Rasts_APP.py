@@ -57,7 +57,7 @@ def time_formater(start_time: str, end_time: str, off_set: int):
 
     if s_total_seconds > e_total_seconds:
         return "00:00:00.000", "00:00:00.000", e_total_seconds
-    
+
     # With the off_set, make it so all times after the reset behave as if the reset was the start.
     adjusted_time = e_total_seconds - off_set
 
@@ -121,7 +121,7 @@ def time_format_parse(time_log: str):
             else:
                 # If nothing applices, you are not a station, e.g. the USB.
                 station_name = "Undefined"
-                
+
 
             # if the station has had a previous
             if  prev_station_timestamp != None:
@@ -176,27 +176,27 @@ def get_event_id(chip_id):
         new_options_id.append(ev_dict["event_id"])
     selected_option = tk.StringVar(window)
     selected_option.set(new_options[0]) # set default value
-    
+
     # menu['menu'].delete(0, 'end') # delete old options
     # for option in new_options:
     #     menu['menu'].add_command(label=option, command=tk._setit(selected_option, option)) # add new options
     # create a variable to store the selected option
     #selected_option.set(new_options[0]) # set default value
-    
+
     # create the option menu
     option_menu = tk.OptionMenu(window, selected_option, *new_options)
     option_menu.pack()
-    
+
     # add a button to set the result and close the window
     def set_result():
         index = new_options.index(selected_option.get())
-        global global_event_id_result 
+        global global_event_id_result
         global_event_id_result= new_options_id[index]
         window.destroy()
-        
+
     button = tk.Button(window, text="Choose and close!", command=set_result,pady=10,bg="lightgray")
     button.pack(ipady=1,ipadx=1)
-    
+
     # wait for the window to be closed
     window.wait_window()
 
@@ -230,7 +230,7 @@ def formater():
                         time.sleep(0.1)
                         runner = False
                         file.close()
-                        
+
                 else:
                     if default_checker_event_id != True:
                         res["event_id"]=get_event_id(chip_id)
@@ -240,6 +240,8 @@ def formater():
                     #update_options(chip_id)
                     json_string = json.dumps(res)
                     requests.post(url, data= json_string)
+                    print("test")
+                    print(json_string)
                     time.sleep(0.1)
                     runner = False
     return res
@@ -297,7 +299,7 @@ def close():
     root.destroy()
 
 ################################################################
-############### !!! Here begins the graphics !!! ############### 
+############### !!! Here begins the graphics !!! ###############
 ################################################################
 
 root = tk.Tk()
@@ -337,7 +339,7 @@ label_f2.configure(anchor="center")
 
 
 ######################################################################################
-# # This section handles the options in frame 1 
+# # This section handles the options in frame 1
 # options = ['Options', 'Options', 'Options']
 # var = tk.StringVar(f1)
 # var.set(options[0])
@@ -353,7 +355,7 @@ label_f2.configure(anchor="center")
 #     get_result:list = requests.get(url_id_event).json()
 #     for ev_dict in get_result:
 #         new_options.append(ev_dict["event_name"])
-    
+
 #     menu['menu'].delete(0, 'end') # delete old options
 #     for option in new_options:
 #         menu['menu'].add_command(label=option, command=tk._setit(var, option)) # add new options
@@ -405,7 +407,7 @@ def update_options_f2(track_name):
     for ev_dict_2 in get_result_f2:
         new_options_f2.append(ev_dict_2["event_name"])
         new_options_f2_id.append(ev_dict_2["event_id"])
-    
+
     menu_f2['menu'].delete(0, 'end') # delete old options
     for option_f2 in new_options_f2:
         menu_f2['menu'].add_command(label=option_f2, command=tk._setit(var_f2, option_f2)) # add new options
@@ -435,7 +437,7 @@ menu_f2 = tk.OptionMenu(f2, var_f2, *options_f2)
 menu_f2.place(relx=0.11,rely=0.57,relheight=0.05)
 
 def button_clicked_f2_2():
-    """This function is connected to buhtton _f2_2 and sets the global variale(global global_track_name) to what is inside the 
+    """This function is connected to buhtton _f2_2 and sets the global variale(global global_track_name) to what is inside the
     entry field"""
     button_f2_2.config(bg='green')#set the button color to green for visual confirmation
     entry_value:str = entry.get()
@@ -499,7 +501,7 @@ def button_clicked_f2_6():
         os.remove(file_path)
         messagebox.showinfo("Info", "Data has been uploaded to the server")
         button_f2_6.config(bg='green')
-    
+
 ###button named "set track" connected to the function(see command)
 button_f2_2 = tk.Button(f2, text="Set track", command=button_clicked_f2_2,bg='red')
 button_f2_2.place(relx=0.01,rely=0.63,relheight=0.05,relwidth=0.09)

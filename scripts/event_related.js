@@ -5,16 +5,16 @@ async function get_chip() {
   document.getElementById("chip_id_display").value = await data["chip_id"];
 }
 
-async function generate_event_results() {
+
+async function generate_event_results(gender) {
   const urlParams = new URLSearchParams(window.location.search);
   event_id = urlParams.get("event_id");
 
-  const response = await get_event_results_endpoint(event_id);
+  const response = await get_event_results_endpoint(event_id,gender);
   const data = await response.json();
-
   if (data.results) {
     for (let i = 0; i < data.results.results.length; i++) {
-      let row = event_user_results.insertRow(i + 1)
+      let row = window['event_user_results_'+gender].insertRow(i + 1)
       let cell1 = row.insertCell(0) //user1
       let cell2 = row.insertCell(1) //user2
       let cell3 = row.insertCell(2) //date
@@ -82,12 +82,14 @@ async function get_event_info(event_id) {
   document.getElementById("event_track").innerHTML = await data["track_name"];
   console.log(await data["description"]);
   load_image_event(data["eimage"]);
-  if (await data["username"] == get_cookie("username")) { 
+  if (await data["username"] == get_cookie("username")) {
     btn = document.getElementById("delete_event_button_display")
     btn.classList.remove("d-none")
   }
 
-  generate_event_results()
+  generate_event_results("all")
+  generate_event_results("male")
+  generate_event_results("female")
 }
 
 function load_image_event(indata) {

@@ -71,7 +71,7 @@ async function get_user_details_endpoint(token) {
 /**
  * endpoint for getting the results of the user or organization by thier token
  * @param {string} token the token of the user or organization
- * @returns a fetch response with data about the user in json format. 
+ * @returns a fetch response with data about the user in json format.
  */
 async function get_both_details_endpoint(token) {
     response = await fetch(BASE_ULR + "Account", {
@@ -142,8 +142,8 @@ async function get_result_endpoint(result_id) {
 
 }
 
-async function get_event_results_endpoint(event_id) {
-    return await fetch(BASE_ULR + "Results/?event_id=" + event_id);
+async function get_event_results_endpoint(event_id,gender) {
+    return await fetch(BASE_ULR + "Results/?event_id=" + event_id+"&gender="+gender);
 
 }
 
