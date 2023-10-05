@@ -242,7 +242,7 @@
 
                 <div class="mb-3 mx-auto">
                     <label for="newPassword" class="form-label">New Password</label>
-                    <input type="text" class="form-control" placeholder="New password" id="send_password">
+                    <input type="password" class="form-control" placeholder="New password" id="send_password">
                 </div>
 
                 <div class="mb-3 mx-auto">
