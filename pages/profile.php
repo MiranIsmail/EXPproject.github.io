@@ -5,38 +5,38 @@
     <a type="button" style="float:right; padding: 0.5rem;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRightSetting"><img class="op30" src="../images/settings.svg" id="settings" alt="Gear"></a>
     <div id="container-img">
         <div class="row">
-            <?php if($is_logged_in_user){ ?>
-            <div class="col-sm-6">
-                <div id="profile_box">
-                    <img class="img-fluid d-block" alt="profile image" id="profile_image" src="<?= $user_data->pimage ?>">
+            <?php if ($is_logged_in_user) { ?>
+                <div class="col-sm-6">
+                    <div id="profile_box">
+                        <img class="img-fluid d-block" alt="profile image" id="profile_image" src="<?= $user_data->pimage ?>">
+                    </div>
                 </div>
-            </div>
-            <?php } else{ ?>
-            <div class="col-sm-6">
-                <div id="profile_box">
-                    <img class="img-fluid d-block" alt="profile image" id="profile_image" src="<?= $org_data->oimage ?>">
+            <?php } else { ?>
+                <div class="col-sm-6">
+                    <div id="profile_box">
+                        <img class="img-fluid d-block" alt="profile image" id="profile_image" src="<?= $org_data->oimage ?>">
+                    </div>
                 </div>
-            </div>
-                <?php } ?>
+            <?php } ?>
             <div class="col-sm-6" style="vertical-align: middle;">
                 <div class="accout-piture">
                     <div class="reslut"></div>
                 </div>
 
                 <div>
-                    <?php if($is_logged_in_user){ ?>
-                    <h1 class="text-shift">
-                        <span id="profileName"><?= $user_data->first_name . " " . $user_data->last_name ?></span>
-                    </h1>
-                    <h3 class="text-shift">Username: <span id="profile_length"></span> <?= $user_data->username ?></h3>
-                    <h3 class="text-shift">Age: <span id="profile_age"></span> <?= date_diff(date_create($user_data->birthdate), date_create('today'))->y; ?> years old</h3>
+                    <?php if ($is_logged_in_user) { ?>
+                        <h1 class="text-shift">
+                            <span id="profileName"><?= $user_data->first_name . " " . $user_data->last_name ?></span>
+                        </h1>
+                        <h3 class="text-shift">Username: <span id="profile_length"></span> <?= $user_data->username ?></h3>
+                        <h3 class="text-shift">Age: <span id="profile_age"></span> <?= date_diff(date_create($user_data->birthdate), date_create('today'))->y; ?> years old</h3>
 
-                    <h3 class="text-shift">Length: <span id="profile_length"></span> <?= $user_data->height ?> cm</h3>
-                    <h3 class="text-shift">Weight: <span id="profile_weight"></span><?= $user_data->weight ?> kg</h3>
-                    <h3 class="text-shift">Private Chip: <span id="profile_chip_id"></span><?= ($user_data->chip_id == null) ? 'dont have' : $user_data->chip_id ?></h3>
+                        <h3 class="text-shift">Length: <span id="profile_length"></span> <?= $user_data->height ?> cm</h3>
+                        <h3 class="text-shift">Weight: <span id="profile_weight"></span><?= $user_data->weight ?> kg</h3>
+                        <h3 class="text-shift">Private Chip: <span id="profile_chip_id"></span><?= ($user_data->chip_id == null) ? 'dont have' : $user_data->chip_id ?></h3>
 
 
-                    <?php }else { ?>
+                    <?php } else { ?>
 
                         <h3 class="text-shift">Organization name: <span id="profile_weight"></span><?= $org_data->username ?> </h3>
                         <h3 class="text-shift">Organization number: <span id="profile_weight"></span><?= $org_data->org_number ?> </h3>
@@ -238,6 +238,11 @@
                 <div class="mb-3 mx-auto">
                     <label for="InputTrackName" class="form-label">Personal ChipID</label>
                     <input type="number" class="form-control" placeholder="Input Your Personal ChipID" id="send_chip">
+                </div>
+
+                <div class="mb-3 mx-auto">
+                    <label for="newPassword" class="form-label">New Password</label>
+                    <input type="text" class="form-control" placeholder="New password" id="send_password">
                 </div>
 
                 <div class="mb-3 mx-auto">
