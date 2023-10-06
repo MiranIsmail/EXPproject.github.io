@@ -1,5 +1,5 @@
 <?php
-function is_logged_in($table_name = "Users"): bool
+function is_logged_in($table_name = "Users")
 {
   if (!isset($_COOKIE["auth_token"])) {
     return false;
@@ -30,7 +30,7 @@ function is_logged_in($table_name = "Users"): bool
   }
 }
 
-function get_user_info(): stdClass
+function get_user_info()
 {
   if (!isset($_COOKIE["auth_token"])) {
     return false;
@@ -53,7 +53,7 @@ function get_user_info(): stdClass
   return $response;
 }
 
-function get_org_info(): stdClass|bool
+function get_org_info()
 {
   if (!isset($_COOKIE["auth_token"])) {
     return false;
