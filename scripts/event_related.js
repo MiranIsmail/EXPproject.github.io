@@ -20,8 +20,10 @@ async function generate_event_results(gender) {
       let cell3 = row.insertCell(2) //date
       let cell4 = row.insertCell(3) //time
       let cell5 = row.insertCell(4) //button
-      cell1.innerHTML = data.results.results[i].user1
-      cell2.innerHTML = data.results.results[i].user2
+      cell1.innerHTML = i+1
+      cell2.innerHTML = data.results.results[i].user1
+      // cell1.innerHTML = data.results.results[i].user1
+      // cell2.innerHTML = data.results.results[i].user2
       cell3.innerHTML = data.results.results[i].DATE
       cell4.innerHTML = data.results.results[i].Time
 

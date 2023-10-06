@@ -141,8 +141,8 @@ include '../assets/head.php';
             <table class="table table-bordered result_table" id="event_user_results_all">
                 <thead>
                     <tr>
-                        <th scope="col">User1</th>
-                        <th scope="col">User2</th>
+                        <th scope="col">Place</th>
+                        <th scope="col">Runner</th>
                         <th scope="col">Date</th>
                         <th scope="col">Time</th>
                         <th scope="col">Details</th>
@@ -155,8 +155,8 @@ include '../assets/head.php';
             <table class="table table-bordered result_table" id="event_user_results_male">
                 <thead>
                     <tr>
-                        <th scope="col">User1</th>
-                        <th scope="col">User2</th>
+                        <th scope="col">Place</th>
+                        <th scope="col">Runner</th>
                         <th scope="col">Date</th>
                         <th scope="col">Time</th>
                         <th scope="col">Details</th>
@@ -169,8 +169,8 @@ include '../assets/head.php';
             <table class="table table-bordered result_table" id="event_user_results_female">
                 <thead>
                     <tr>
-                        <th scope="col">User1</th>
-                        <th scope="col">User2</th>
+                        <th scope="col">Place</th>
+                        <th scope="col">Runner</th>
                         <th scope="col">Date</th>
                         <th scope="col">Time</th>
                         <th scope="col">Details</th>
